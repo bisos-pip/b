@@ -5,7 +5,7 @@
 
 import typing
 
-icmInfo: typing.Dict[str, typing.Any] = { 'moduleDescription': ["""
+csInfo: typing.Dict[str, typing.Any] = { 'moduleDescription': ["""
 *       [[elisp:(org-show-subtree)][|=]]  [[elisp:(org-cycle)][| *Description:* | ]]
 **  [[elisp:(org-cycle)][| ]]  [Xref]          :: *[Related/Xrefs:]*  <<Xref-Here->>  -- External Documents  [[elisp:(org-cycle)][| ]]
 **  [[elisp:(org-cycle)][| ]]   Model and Terminology                                      :Overview:
@@ -19,19 +19,19 @@ icmInfo: typing.Dict[str, typing.Any] = { 'moduleDescription': ["""
 **      [End-Of-Description]
 """], }
 
-icmInfo['moduleUsage'] = """
+csInfo['moduleUsage'] = """
 *       [[elisp:(org-show-subtree)][|=]]  [[elisp:(org-cycle)][| *Usage:* | ]]
 ** +
 ** These classes are to be sub-classed. There is no explicit direct usage.
 **      [End-Of-Usage]
 """
 
-icmInfo['moduleStatus'] = """
+csInfo['moduleStatus'] = """
 *       [[elisp:(org-show-subtree)][|=]]  [[elisp:(org-cycle)][| *Status:* | ]]
 **  [[elisp:(org-cycle)][| ]]  [Info]          :: *[Current-Info:]* Status/Maintenance -- General TODO List [[elisp:(org-cycle)][| ]]
 ** TODO Revisit implementation of all classes based on existing ICM.
 SCHEDULED: <2021-12-18 Sat>
-** TODO Transition to op.AbstractCommand from icm.Cmnd
+** TODO Transition to op.AbstractCommand from cs.Cmnd
 ** TODO Fully shape up this module to reflect best templates.
 **      [End-Of-Status]
 """
@@ -39,50 +39,50 @@ SCHEDULED: <2021-12-18 Sat>
 """
 *  [[elisp:(org-cycle)][| *ICM-INFO:* |]] :: Author, Copyleft and Version Information
 """
-####+BEGIN: bx:icm:py:name :style "fileName"
-icmInfo['moduleName'] = "pattern"
+####+BEGIN: bx:cs:py:name :style "fileName"
+csInfo['moduleName'] = "op"
 ####+END:
 
-####+BEGIN: bx:icm:py:version-timestamp :style "date"
-icmInfo['version'] = "202110191256"
+####+BEGIN: bx:cs:py:version-timestamp :style "date"
+csInfo['version'] = "202209071822"
 ####+END:
 
-####+BEGIN: bx:icm:py:status :status "Production"
-icmInfo['status']  = "Production"
+####+BEGIN: bx:cs:py:status :status "Production"
+csInfo['status']  = "Production"
 ####+END:
 
-icmInfo['credits'] = ""
+csInfo['credits'] = ""
 
-####+BEGIN: bx:dblock:global:file-insert-cond :cond "./blee.el" :file "/bisos/apps/defaults/update/sw/icm/py/icmInfo-mbNedaGplByStar.py"
-icmInfo['authors'] = "[[http://mohsen.1.banan.byname.net][Mohsen Banan]]"
-icmInfo['copyright'] = "Copyright 2017, [[http://www.neda.com][Neda Communications, Inc.]]"
-icmInfo['licenses'] = "[[https://www.gnu.org/licenses/agpl-3.0.en.html][Affero GPL]]", "Libre-Halaal Services License", "Neda Commercial License"
-icmInfo['maintainers'] = "[[http://mohsen.1.banan.byname.net][Mohsen Banan]]"
-icmInfo['contacts'] = "[[http://mohsen.1.banan.byname.net/contact]]"
-icmInfo['partOf'] = "[[http://www.by-star.net][Libre-Halaal ByStar Digital Ecosystem]]"
+####+BEGIN: bx:dblock:global:file-insert-cond :cond "./blee.el" :file "/bisos/apps/defaults/update/sw/icm/py/csInfo-mbNedaGplByStar.py"
+csInfo['authors'] = "[[http://mohsen.1.banan.byname.net][Mohsen Banan]]"
+csInfo['copyright'] = "Copyright 2017, [[http://www.neda.com][Neda Communications, Inc.]]"
+csInfo['licenses'] = "[[https://www.gnu.org/licenses/agpl-3.0.en.html][Affero GPL]]", "Libre-Halaal Services License", "Neda Commercial License"
+csInfo['maintainers'] = "[[http://mohsen.1.banan.byname.net][Mohsen Banan]]"
+csInfo['contacts'] = "[[http://mohsen.1.banan.byname.net/contact]]"
+csInfo['partOf'] = "[[http://www.by-star.net][Libre-Halaal ByStar Digital Ecosystem]]"
 ####+END:
 
-icmInfo['panel'] = "{}-Panel.org".format(icmInfo['moduleName'])
-icmInfo['groupingType'] = "IcmGroupingType-pkged"
-icmInfo['cmndParts'] = "IcmCmndParts[common] IcmCmndParts[param]"
+csInfo['panel'] = "{}-Panel.org".format(csInfo['moduleName'])
+csInfo['groupingType'] = "IcmGroupingType-pkged"
+csInfo['cmndParts'] = "IcmCmndParts[common] IcmCmndParts[param]"
 
 
-####+BEGIN: bx:icm:python:top-of-file :partof "bystar" :copyleft "halaal+minimal"
-"""
-*  This file:/bisos/git/auth/bxRepos/bisos-pip/basics/py3/bisos/basics/pattern.py :: [[elisp:(org-cycle)][| ]]
+####+BEGIN: bx:cs:python:top-of-file :partof "bystar" :copyleft "halaal+minimal"
+""" #+begin_org
+*  This file:/bisos/git/auth/bxRepos/bisos-pip/b/py3/bisos/b/op.py :: [[elisp:(org-cycle)][| ]]
  is part of The Libre-Halaal ByStar Digital Ecosystem. http://www.by-star.net
  *CopyLeft*  This Software is a Libre-Halaal Poly-Existential. See http://www.freeprotocols.org
  A Python Interactively Command Module (PyICM).
  Best Developed With COMEEGA-Emacs And Best Used With Blee-ICM-Players.
  *WARNING*: All edits wityhin Dynamic Blocks may be lost.
-"""
+#+end_org """
 ####+END:
 
-####+BEGIN: bx:icm:python:topControls :partof "bystar" :copyleft "halaal+minimal"
-"""
+####+BEGIN: bx:cs:python:topControls :partof "bystar" :copyleft "halaal+minimal"
+""" #+begin_org
 *  [[elisp:(org-cycle)][|/Controls/| ]] :: [[elisp:(org-show-subtree)][|=]]  [[elisp:(show-all)][Show-All]]  [[elisp:(org-shifttab)][Overview]]  [[elisp:(progn (org-shifttab) (org-content))][Content]] | [[file:Panel.org][Panel]] | [[elisp:(blee:ppmm:org-mode-toggle)][Nat]] | [[elisp:(bx:org:run-me)][Run]] | [[elisp:(bx:org:run-me-eml)][RunEml]] | [[elisp:(delete-other-windows)][(1)]] | [[elisp:(progn (save-buffer) (kill-buffer))][S&Q]]  [[elisp:(save-buffer)][Save]]  [[elisp:(kill-buffer)][Quit]] [[elisp:(org-cycle)][| ]]
 ** /Version Control/ ::  [[elisp:(call-interactively (quote cvs-update))][cvs-update]]  [[elisp:(vc-update)][vc-update]] | [[elisp:(bx:org:agenda:this-file-otherWin)][Agenda-List]]  [[elisp:(bx:org:todo:this-file-otherWin)][ToDo-List]]
-"""
+#+end_org """
 ####+END:
 ####+BEGIN: bx:dblock:global:file-insert-cond :cond "./blee.el" :file "/bisos/apps/defaults/software/plusOrg/dblock/inserts/pyWorkBench.org"
 """
@@ -90,20 +90,21 @@ icmInfo['cmndParts'] = "IcmCmndParts[common] IcmCmndParts[param]"
 """
 ####+END:
 
-####+BEGIN: bx:icm:python:icmItem :itemType "=Imports=" :itemTitle "*IMPORTS*"
-"""
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  =Imports=  :: *IMPORTS*  [[elisp:(org-cycle)][| ]]
-"""
+####+BEGIN: bx:cs:python:icmItem :itemType "=Imports=" :itemTitle "*IMPORTS*"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  =Imports=  [[elisp:(outline-show-subtree+toggle)][||]] *IMPORTS*  [[elisp:(org-cycle)][| ]]
+#+end_org """
 ####+END:
 
-from unisos import ucf
-from unisos import icm
+from bisos import cs
+from bisos import b
+from bisos import io
 
 from enum import Enum
 
 ####+BEGIN: bx:dblock:python:class :className "OpError" :superClass "Enum" :comment "" :classType "basic"
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Class-basic [[elisp:(outline-show-subtree+toggle)][||]] /OpError/ Enum  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-basic  [[elisp:(outline-show-subtree+toggle)][||]] /OpError/ Enum  [[elisp:(org-cycle)][| ]]
 #+end_org """
 class OpError(Enum):
 ####+END:
@@ -133,9 +134,9 @@ opErrorDesc[OpError.PermissionProblem] = "Command invoked cannot execute"
 
 
 ####+BEGIN: bx:dblock:python:func :funcName "notAsFailure" :funcType "succFail" :retType "bool" :deco "" :argsList "obj"
-"""
-*  [[elisp:(org-cycle)][| ]]  [[elisp:(org-show-subtree)][|=]] [[elisp:(show-children)][|V]] [[elisp:(org-tree-to-indirect-buffer)][|>]] [[elisp:(blee:ppmm:org-mode-toggle)][Nat]] [[elisp:(beginning-of-buffer)][Top]] [[elisp:(delete-other-windows)][(1)]] || Func-succFail  :: /notAsFailure/ retType=bool argsList=(obj)  [[elisp:(org-cycle)][| ]]
-"""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-succFail [[elisp:(outline-show-subtree+toggle)][||]] /notAsFailure/ retType=bool argsList=(obj)  [[elisp:(org-cycle)][| ]]
+#+end_org """
 def notAsFailure(
     obj,
 ):
@@ -240,24 +241,24 @@ opResults = opOutcome.results
 
     def isProblematic(self):
         if self.error:
-            icm.IcmGlobalContext().__class__.lastOutcome = self
+            cs.globalContext.get().__class__.lastOutcome = self
             return True
         else:
             return False
 
 
     def log(self):
-        G = icm.IcmGlobalContext()
-        icm.LOG_here(G.icmMyFullName() + ':' + str(self.invokerName) + ':' + ucf.stackFrameInfoGet(2))
-        if self.stdcmnd: icm.LOG_here("Stdcmnd: " +  self.stdcmnd)
-        if self.stdout: icm.LOG_here("Stdout: " +  self.stdout)
-        if self.stderr: icm.LOG_here("Stderr: " +  self.stderr)
+        G = cs.globalContext.get()
+        io.log.here(G.icmMyFullName() + ':' + str(self.invokerName) + ':' + b.ast.stackFrameInfoGet(2))
+        if self.stdcmnd: io.log.here("Stdcmnd: " +  self.stdcmnd)
+        if self.stdout: io.log.here("Stdout: " +  self.stdout)
+        if self.stderr: io.log.here("Stderr: " +  self.stderr)
         return self
 
 
     def out(self):
-        G = icm.IcmGlobalContext()
-        icm.ANN_here(G.icmMyFullName() + ':' + str(self.invokerName) + ':' + ucf.stackFrameInfoGet(2))
+        G = cs.globalContext.get()
+        icm.ANN_here(G.icmMyFullName() + ':' + str(self.invokerName) + ':' + b.ast.stackFrameInfoGet(2))
         if self.stdcmnd: icm.ANN_write("Stdcmnd: \n" +  self.stdcmnd)
         if self.stdout: icm.ANN_write("Stdout: ")
         if self.stdout: icm.OUT_write(self.stdout)
@@ -276,9 +277,9 @@ def opSuccess():
 
 
 ####+BEGIN: bx:dblock:python:class :className "BasicOp" :classType "basic"
-"""
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Class-basic :: /BasicOp/ object  [[elisp:(org-cycle)][| ]]
-"""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-basic  [[elisp:(outline-show-subtree+toggle)][||]] /BasicOp/ object  [[elisp:(org-cycle)][| ]]
+#+end_org """
 class BasicOp(object):
 ####+END:
     """
@@ -325,9 +326,9 @@ class BasicOp(object):
 
 
 ####+BEGIN: bx:dblock:python:class :className "AbstractWithinOpWrapper" :classType "basic"
-"""
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Class-basic :: /AbstractWithinOpWrapper/ object  [[elisp:(org-cycle)][| ]]
-"""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-basic  [[elisp:(outline-show-subtree+toggle)][||]] /AbstractWithinOpWrapper/ object  [[elisp:(org-cycle)][| ]]
+#+end_org """
 class AbstractWithinOpWrapper(object):
 ####+END:
     """
@@ -378,10 +379,10 @@ class AbstractWithinOpWrapper(object):
 
 
 
-####+BEGIN: bx:icm:python:section :title "End Of Editable Text"
-"""
-*  [[elisp:(beginning-of-buffer)][Top]] ############## [[elisp:(blee:ppmm:org-mode-toggle)][Nat]] [[elisp:(delete-other-windows)][(1)]]    *End Of Editable Text*  [[elisp:(org-cycle)][| ]]  [[elisp:(org-show-subtree)][|=]]
-"""
+####+BEGIN: blee:bxPanel:foldingSection :outLevel 0 :title " ~End Of Editable Text~ "
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*     [[elisp:(outline-show-subtree+toggle)][| _ ~End Of Editable Text~ _: |]]    [[elisp:(org-shifttab)][<)]] E|
+#+end_org """
 ####+END:
 
 ####+BEGIN: bx:dblock:global:file-insert-cond :cond "./blee.el" :file "/bisos/apps/defaults/software/plusOrg/dblock/inserts/endOfFileControls.org"

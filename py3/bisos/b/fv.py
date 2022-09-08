@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """ #+begin_org
-* *[Summary]* :: A =PyLib= for manipulation of File Variables (FV). (bisos.bpf.fv).
+* *[Summary]* :: A =PyLib= for manipulation of File Variables (FV). (bisos.b.fv).
 #+end_org """
 
 ####+BEGIN: b:prog:file/proclamations :outLevel 1
@@ -26,12 +26,12 @@
 * *[[elisp:(org-cycle)][| Particulars-csInfo |]]*
 #+end_org """
 import typing
-icmInfo: typing.Dict[str, typing.Any] = { 'moduleName': ['fv'], }
-icmInfo['version'] = '202208172107'
-icmInfo['status']  = 'inUse'
-icmInfo['panel'] = 'fv-Panel.org'
-icmInfo['groupingType'] = 'IcmGroupingType-pkged'
-icmInfo['cmndParts'] = 'IcmCmndParts[common] IcmCmndParts[param]'
+csInfo: typing.Dict[str, typing.Any] = { 'moduleName': ['fv'], }
+csInfo['version'] = '202209075008'
+csInfo['status']  = 'inUse'
+csInfo['panel'] = 'fv-Panel.org'
+csInfo['groupingType'] = 'IcmGroupingType-pkged'
+csInfo['cmndParts'] = 'IcmCmndParts[common] IcmCmndParts[param]'
 ####+END:
 
 """ #+begin_org
@@ -55,51 +55,28 @@ See panel for description.
 #+end_org """
 ####+END:
 
-####+BEGIN: bx:icm:python:icmItem :itemType "=PyImports= " :itemTitle "*Py Library IMPORTS*"
+####+BEGIN: bx:cs:python:icmItem :itemType "=PyImports= " :itemTitle "*Py Library IMPORTS*"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  =PyImports=  [[elisp:(outline-show-subtree+toggle)][||]] *Py Library IMPORTS*  [[elisp:(org-cycle)][| ]]
 #+end_org """
 ####+END:
 
-####+BEGIN: bx:dblock:global:file-insert-cond :cond "./blee.el" :file "/bisos/apps/defaults/update/sw/icm/py/importUcfIcmBleepG.py"
-from unisos import ucf
-from unisos import icm
-
-icm.unusedSuppressForEval(ucf.__file__)  # in case icm and ucf are not used
-
-G = icm.IcmGlobalContext()
-# G.icmLibsAppend = __file__
-# G.icmCmndsLibsAppend = __file__
-
-from blee.icmPlayer import bleep
-####+END:
-
-# from bisos import bpf
-
-from unisos import icm
-
-import __main__
-
 import os
 
-#import ast
+from bisos import io
 
-#from unisos.ucf import ucf
-from unisos import ucf
-
-
-####+BEGIN: bx:icm:py3:section :title "FV_                :: File Variables (FV_)" :subTitle "File Variables"
+####+BEGIN: bx:cs:py3:section :title "FV_                :: File Variables (FV_)" :subTitle "File Variables"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  /Section/    [[elisp:(outline-show-subtree+toggle)][||]] *FV_                :: File Variables (FV_)*  [[elisp:(org-cycle)][| ]]
 #+end_org """
 ####+END:
 
 
-####+BEGIN: bx:icm:py3:func :funcName "writeToFilePath" :funcType "extTyped" :retType "extTyped" :deco "icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)" :argsList ""
+####+BEGIN: bx:cs:py3:func :funcName "writeToFilePath" :funcType "extTyped" :retType "extTyped" :deco "default" :argsList ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /writeToFilePath/ deco=icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /writeToFilePath/ deco=default  [[elisp:(org-cycle)][| ]]
 #+end_org """
-@icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def writeToFilePath(
 ####+END:
         filePath,
@@ -122,11 +99,11 @@ def writeToFilePath(
     )
 
 
-####+BEGIN: bx:icm:py3:func :funcName "writeToFilePathAndCreate" :funcType "extTyped" :retType "extTyped" :deco "icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)" :argsList ""
+####+BEGIN: bx:cs:py3:func :funcName "writeToFilePathAndCreate" :funcType "extTyped" :retType "extTyped" :deco "default" :argsList ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /writeToFilePathAndCreate/ deco=icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /writeToFilePathAndCreate/ deco=default  [[elisp:(org-cycle)][| ]]
 #+end_org """
-@icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def writeToFilePathAndCreate(
 ####+END:
         filePath,
@@ -146,11 +123,11 @@ def writeToFilePathAndCreate(
         )
     )
 
-####+BEGIN: bx:icm:py3:func :funcName "writeToBaseDirAndCreate" :funcType "extTyped" :retType "extTyped" :deco "icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)" :argsList ""
+####+BEGIN: bx:cs:py3:func :funcName "writeToBaseDirAndCreate" :funcType "extTyped" :retType "extTyped" :deco "default" :argsList ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /writeToBaseDirAndCreate/ deco=icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /writeToBaseDirAndCreate/ deco=default  [[elisp:(org-cycle)][| ]]
 #+end_org """
-@icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def writeToBaseDirAndCreate(
 ####+END:
         baseDir,
@@ -171,11 +148,11 @@ def writeToBaseDirAndCreate(
         )
     )
 
-####+BEGIN: bx:icm:py3:func :funcName "writeToBaseDir" :funcType "extTyped" :retType "extTyped" :deco "icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)" :argsList ""
+####+BEGIN: bx:cs:py3:func :funcName "writeToBaseDir" :funcType "extTyped" :retType "extTyped" :deco "default" :argsList ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /writeToBaseDir/ deco=icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /writeToBaseDir/ deco=default  [[elisp:(org-cycle)][| ]]
 #+end_org """
-@icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def writeToBaseDir(
 ####+END:
         baseDir,
@@ -194,7 +171,7 @@ def writeToBaseDir(
 
     with open(varValueFullPath, "w") as valueFile:
         valueFile.write(str(varValue) +'\n')
-        icm.LOG_here("FILE_Param.writeTo path={path} value={value}".
+        io.log.here("FILE_Param.writeTo path={path} value={value}".
                 format(path=varValueFullPath, value=varValue))
 
 

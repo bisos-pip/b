@@ -26,12 +26,12 @@
 * *[[elisp:(org-cycle)][| Particulars-csInfo |]]*
 #+end_org """
 import typing
-icmInfo: typing.Dict[str, typing.Any] = { 'moduleName': ['fv'], }
-icmInfo['version'] = '202208172107'
-icmInfo['status']  = 'inUse'
-icmInfo['panel'] = 'fv-Panel.org'
-icmInfo['groupingType'] = 'IcmGroupingType-pkged'
-icmInfo['cmndParts'] = 'IcmCmndParts[common] IcmCmndParts[param]'
+csInfo: typing.Dict[str, typing.Any] = { 'moduleName': ['fv'], }
+csInfo['version'] = '202208172107'
+csInfo['status']  = 'inUse'
+csInfo['panel'] = 'fv-Panel.org'
+csInfo['groupingType'] = 'IcmGroupingType-pkged'
+csInfo['cmndParts'] = 'IcmCmndParts[common] IcmCmndParts[param]'
 ####+END:
 
 """ #+begin_org
@@ -55,52 +55,27 @@ See panel for description.
 #+end_org """
 ####+END:
 
-####+BEGIN: bx:icm:python:icmItem :itemType "=PyImports= " :itemTitle "*Py Library IMPORTS*"
+####+BEGIN: bx:cs:python:icmItem :itemType "=PyImports= " :itemTitle "*Py Library IMPORTS*"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  =PyImports=  [[elisp:(outline-show-subtree+toggle)][||]] *Py Library IMPORTS*  [[elisp:(org-cycle)][| ]]
 #+end_org """
 ####+END:
 
-####+BEGIN: bx:dblock:global:file-insert-cond :cond "./blee.el" :file "/bisos/apps/defaults/update/sw/icm/py/importUcfIcmBleepG.py"
-from unisos import ucf
-from unisos import icm
 
-icm.unusedSuppressForEval(ucf.__file__)  # in case icm and ucf are not used
-
-G = icm.IcmGlobalContext()
-# G.icmLibsAppend = __file__
-# G.icmCmndsLibsAppend = __file__
-
-from blee.icmPlayer import bleep
-####+END:
-
-# from bisos import bpf
-
-from unisos import icm
-
-import __main__
-
-import os
+from bisos import b
+from bisos import io
 
 import sys
 
-#from unisos.ucf import ucf
-from unisos import ucf
 
 import inspect
 
-import glob
-
 import ast
-
-import collections
-
-from contextlib import contextmanager
 
 import importlib
 
 
-####+BEGIN: bx:icm:py3:section :title "Stack Frame   :: Frame Marking and Tracking -- stackFrameInfoGet(frameNu)" :subTitle "Stack Frame"
+####+BEGIN: bx:cs:py3:section :title "Stack Frame   :: Frame Marking and Tracking -- stackFrameInfoGet(frameNu)" :subTitle "Stack Frame"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  /Section/    [[elisp:(outline-show-subtree+toggle)][||]] *Stack Frame   :: Frame Marking and Tracking -- stackFrameInfoGet(frameNu)*  [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -121,11 +96,11 @@ def format_arg_value(arg_val):
 
 
 
-####+BEGIN: bx:icm:py3:func :funcName "stackFrameFuncGet" :funcType "extTyped" :retType "extTyped" :deco "icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)" :argsList ""
+####+BEGIN: bx:cs:py3:func :funcName "stackFrameFuncGet" :funcType "extTyped" :retType "extTyped" :deco "icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)" :argsList ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /stackFrameFuncGet/ deco=icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)  [[elisp:(org-cycle)][| ]]
 #+end_org """
-@icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def stackFrameFuncGet(
 ####+END:
         frameNu,
@@ -144,11 +119,11 @@ def stackFrameFuncGet(
     return (info.function)
 
 
-####+BEGIN: bx:icm:py3:func :funcName "stackFrameInfoGet" :funcType "extTyped" :retType "extTyped" :deco "icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)" :argsList ""
+####+BEGIN: bx:cs:py3:func :funcName "stackFrameInfoGet" :funcType "extTyped" :retType "extTyped" :deco "icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)" :argsList ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /stackFrameInfoGet/ deco=icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)  [[elisp:(org-cycle)][| ]]
 #+end_org """
-@icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def stackFrameInfoGet(
 ####+END:
         frameNu,
@@ -170,11 +145,11 @@ def stackFrameInfoGet(
 
     return info.filename + ':' + str(info.lineno) + ':' + info.function + ':'
 
-####+BEGIN: bx:icm:py3:func :funcName "stackFrameDepth" :funcType "extTyped" :retType "extTyped" :deco "icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)" :argsList ""
+####+BEGIN: bx:cs:py3:func :funcName "stackFrameDepth" :funcType "extTyped" :retType "extTyped" :deco "icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)" :argsList ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /stackFrameDepth/ deco=icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)  [[elisp:(org-cycle)][| ]]
 #+end_org """
-@icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def stackFrameDepth(
 ####+END:
         frameNu,
@@ -207,11 +182,11 @@ def stackFrameDepth(
     return level
 
 
-####+BEGIN: bx:icm:py3:func :funcName "stackFrameDocString" :funcType "extTyped" :retType "extTyped" :deco "icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)" :argsList ""
+####+BEGIN: bx:cs:py3:func :funcName "stackFrameDocString" :funcType "extTyped" :retType "extTyped" :deco "icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)" :argsList ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /stackFrameDocString/ deco=icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)  [[elisp:(org-cycle)][| ]]
 #+end_org """
-@icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def stackFrameDocString(
 ####+END:
         frameNu,
@@ -235,11 +210,11 @@ def stackFrameDocString(
     #print( inspect.getdoc(getattr(info.function)) )
     return inspect.getdoc( func )
 
-####+BEGIN: bx:icm:py3:func :funcName "stackFrameArgsGet" :funcType "extTyped" :retType "extTyped" :deco "icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)" :argsList ""
+####+BEGIN: bx:cs:py3:func :funcName "stackFrameArgsGet" :funcType "extTyped" :retType "extTyped" :deco "icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)" :argsList ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /stackFrameArgsGet/ deco=icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)  [[elisp:(org-cycle)][| ]]
 #+end_org """
-@icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def stackFrameArgsGet(
 ####+END:
         frameNu,
@@ -271,7 +246,7 @@ def stackFrameArgsGet(
 
 
 
-####+BEGIN: bx:icm:py3:section :title "AST_ -- Abstract Syntax Tree Analysis" :subTitle "Abstract Syntax"
+####+BEGIN: bx:cs:py3:section :title "AST_ -- Abstract Syntax Tree Analysis" :subTitle "Abstract Syntax"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  /Section/    [[elisp:(outline-show-subtree+toggle)][||]] *AST_ -- Abstract Syntax Tree Analysis*  [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -349,7 +324,7 @@ def ast_topLevelFunctionNamesInFile(filename):
 
 
 
-####+BEGIN: bx:icm:py3:section :title "Function Related Utilities" :subTitle "FUNC_"
+####+BEGIN: bx:cs:py3:section :title "Function Related Utilities" :subTitle "FUNC_"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  /Section/    [[elisp:(outline-show-subtree+toggle)][||]] *Function Related Utilities*  [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -388,7 +363,7 @@ It returns a pointer to the running function.
 Further details of the function can then be obtained by FUNC_currentXxx.
 
 If it is directly called by the running function, then frameNu is x.
-If it is called by an intermediate function such as EH_problem, then frameNu is x+1.
+If it is called by an intermediate function such as io.eh.problem, then frameNu is x+1.
 
     BUG: does not work outside of the main module with PY2. Needs PY3 testing.
     """

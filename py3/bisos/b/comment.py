@@ -26,12 +26,12 @@
 * *[[elisp:(org-cycle)][| Particulars-csInfo |]]*
 #+end_org """
 import typing
-icmInfo: typing.Dict[str, typing.Any] = { 'moduleName': ['comment'], }
-icmInfo['version'] = '202207121106'
-icmInfo['status']  = 'inUse'
-icmInfo['panel'] = 'comment-Panel.org'
-icmInfo['groupingType'] = 'IcmGroupingType-pkged'
-icmInfo['cmndParts'] = 'IcmCmndParts[common] IcmCmndParts[param]'
+csInfo: typing.Dict[str, typing.Any] = { 'moduleName': ['comment'], }
+csInfo['version'] = '202207121106'
+csInfo['status']  = 'inUse'
+csInfo['panel'] = 'comment-Panel.org'
+csInfo['groupingType'] = 'IcmGroupingType-pkged'
+csInfo['cmndParts'] = 'IcmCmndParts[common] IcmCmndParts[param]'
 ####+END:
 
 """ #+begin_org

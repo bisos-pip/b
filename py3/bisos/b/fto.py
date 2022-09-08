@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """ #+begin_org
-* *[Summary]* :: A =PyLib= formanipulation of File Tree Objects (FTO). (bisos.bpf.fto).
+* *[Summary]* :: A =PyLib= formanipulation of File Tree Objects (FTO). (bisos.b.fto).
 #+end_org """
 
 ####+BEGIN: b:prog:file/proclamations :outLevel 1
@@ -26,19 +26,19 @@
 * *[[elisp:(org-cycle)][| Particulars-csInfo |]]*
 #+end_org """
 import typing
-icmInfo: typing.Dict[str, typing.Any] = { 'moduleName': ['niche'], }
-icmInfo['version'] = '202207121913'
-icmInfo['status']  = 'inUse'
-icmInfo['panel'] = 'niche-Panel.org'
-icmInfo['groupingType'] = 'IcmGroupingType-pkged'
-icmInfo['cmndParts'] = 'IcmCmndParts[common] IcmCmndParts[param]'
+csInfo: typing.Dict[str, typing.Any] = { 'moduleName': ['fto'], }
+csInfo['version'] = '202209071611'
+csInfo['status']  = 'inUse'
+csInfo['panel'] = 'fto-Panel.org'
+csInfo['groupingType'] = 'IcmGroupingType-pkged'
+csInfo['cmndParts'] = 'IcmCmndParts[common] IcmCmndParts[param]'
 ####+END:
 
 """ #+begin_org
 * /[[elisp:(org-cycle)][| Description |]]/ :: [[file:/bisos/panels/bisos-model/fileTreeObject-FTO/fullUsagePanel-en.org][BPF File Tree Objcets (fto.) Panel]]
 /FILE_TreeObject/    :: *FILE_TreeObject: A Tree of Nodes and Leaves on Top Of file system*
 Facilitates building Tree hierarchies on the file system.
-Super Class for FILE_Param and ICM_Param
+Super Class for FILE_Param and CmndParam
 
 See panel for overview and details.
 
@@ -61,26 +61,15 @@ See panel for overview and details.
 #+end_org """
 ####+END:
 
-####+BEGIN: bx:icm:python:icmItem :itemType "=PyImports= " :itemTitle "*Py Library IMPORTS*"
+####+BEGIN: bx:cs:python:icmItem :itemType "=PyImports= " :itemTitle "*Py Library IMPORTS*"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  =PyImports=  [[elisp:(outline-show-subtree+toggle)][||]] *Py Library IMPORTS*  [[elisp:(org-cycle)][| ]]
 #+end_org """
 ####+END:
 
-####+BEGIN: bx:dblock:global:file-insert-cond :cond "./blee.el" :file "/bisos/apps/defaults/update/sw/icm/py/importUcfIcmBleepG.py"
-from unisos import ucf
-from unisos import icm
 
-icm.unusedSuppressForEval(ucf.__file__)  # in case icm and ucf are not used
-
-G = icm.IcmGlobalContext()
-# G.icmLibsAppend = __file__
-# G.icmCmndsLibsAppend = __file__
-
-from blee.icmPlayer import bleep
-####+END:
-
-from bisos import bpf
+from bisos import b
+from bisos import io
 
 import os
 import enum
@@ -88,7 +77,7 @@ import enum
 
 ####+BEGIN: bx:dblock:python:class :className "FileTreeItem" :superClass "enum.Enum" :comment "" :classType "basic"
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Class-basic [[elisp:(outline-show-subtree+toggle)][||]] /FileTreeItem/ enum.Enum  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-basic  [[elisp:(outline-show-subtree+toggle)][||]] /FileTreeItem/ enum.Enum  [[elisp:(org-cycle)][| ]]
 #+end_org """
 class FileTreeItem(enum.Enum):
 ####+END:
@@ -100,7 +89,7 @@ class FileTreeItem(enum.Enum):
 
 ####+BEGIN: bx:dblock:python:class :className "FILE_TreeObject" :superClass "" :comment "" :classType "basic"
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Class-basic [[elisp:(outline-show-subtree+toggle)][||]] /FILE_TreeObject/ object  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-basic  [[elisp:(outline-show-subtree+toggle)][||]] /FILE_TreeObject/ object  [[elisp:(org-cycle)][| ]]
 #+end_org """
 class FILE_TreeObject(object):
 ####+END:
@@ -157,7 +146,7 @@ class FILE_TreeObject(object):
     def fileTreeBaseGet(self):
         return self.__fileSysPath
 
-    @icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
     def nodeCreate(self, objectTypes=None, treeProc=None, ignore=None):
         """At the fileSysPath of the FILE_TreeObject, create a node.
         """
@@ -201,7 +190,7 @@ class FILE_TreeObject(object):
         if lineString == 'node':
             return 'InPlace'
         else:
-            icm.EH_critical_usageError(f"lineString= {lineString}")
+            io.eh.critical_usageError(f"lineString= {lineString}")
             return 'BadlyFormed'
 
     def nodePredicate(self, objectTypes=None, treeProc=None, ignore=None):

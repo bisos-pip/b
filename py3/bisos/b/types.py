@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """ #+begin_org
-* *[Summary]* :: A =PyLib= for manipulation of File Variables (FV). (bisos.bpf.fv).
+* *[Summary]* :: A =PyLib= for manipulation of File Variables (FV). (bisos.b.fv).
 #+end_org """
 
 ####+BEGIN: b:prog:file/proclamations :outLevel 1
@@ -26,12 +26,12 @@
 * *[[elisp:(org-cycle)][| Particulars-csInfo |]]*
 #+end_org """
 import typing
-icmInfo: typing.Dict[str, typing.Any] = { 'moduleName': ['fv'], }
-icmInfo['version'] = '202208172107'
-icmInfo['status']  = 'inUse'
-icmInfo['panel'] = 'fv-Panel.org'
-icmInfo['groupingType'] = 'IcmGroupingType-pkged'
-icmInfo['cmndParts'] = 'IcmCmndParts[common] IcmCmndParts[param]'
+csInfo: typing.Dict[str, typing.Any] = { 'moduleName': ['fv'], }
+csInfo['version'] = '202208172107'
+csInfo['status']  = 'inUse'
+csInfo['panel'] = 'fv-Panel.org'
+csInfo['groupingType'] = 'IcmGroupingType-pkged'
+csInfo['cmndParts'] = 'IcmCmndParts[common] IcmCmndParts[param]'
 ####+END:
 
 """ #+begin_org
@@ -55,40 +55,15 @@ See panel for description.
 #+end_org """
 ####+END:
 
-####+BEGIN: bx:icm:python:icmItem :itemType "=PyImports= " :itemTitle "*Py Library IMPORTS*"
+####+BEGIN: bx:cs:python:icmItem :itemType "=PyImports= " :itemTitle "*Py Library IMPORTS*"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  =PyImports=  [[elisp:(outline-show-subtree+toggle)][||]] *Py Library IMPORTS*  [[elisp:(org-cycle)][| ]]
 #+end_org """
 ####+END:
 
-####+BEGIN: bx:dblock:global:file-insert-cond :cond "./blee.el" :file "/bisos/apps/defaults/update/sw/icm/py/importUcfIcmBleepG.py"
-from unisos import ucf
-from unisos import icm
-
-icm.unusedSuppressForEval(ucf.__file__)  # in case icm and ucf are not used
-
-G = icm.IcmGlobalContext()
-# G.icmLibsAppend = __file__
-# G.icmCmndsLibsAppend = __file__
-
-from blee.icmPlayer import bleep
-####+END:
-
-# from bisos import bpf
-
-from unisos import icm
-
-import __main__
-
-import os
-
-#import ast
-
-#from unisos.ucf import ucf
-from unisos import ucf
 
 
-####+BEGIN: bx:icm:py3:section :title "Constants, Variables, ..."
+####+BEGIN: bx:cs:py3:section :title "Constants, Variables, ..."
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  /Section/    [[elisp:(outline-show-subtree+toggle)][||]] *Constants, Variables, ...*  [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -101,7 +76,7 @@ from unisos import ucf
 class Constants(object):
 ####+END:
     """ #+begin_org
-** [[elisp:(org-cycle)][| DocStr| ]]  Example Usage: kpiResolution = iim.Constants(); kpiResolution.Minutes_15 = 1
+** [[elisp:(org-cycle)][| DocStr| ]]  Example Usage: kpiResolution = b.types.Constants(); kpiResolution.Minutes_15 = 1
     #+end_org """
     def __setattr__(self, attr, value):
         if hasattr(self, attr):
@@ -117,7 +92,7 @@ class Constants(object):
 class Variables(object):
 ####+END:
     """ #+begin_org
-** [[elisp:(org-cycle)][| DocStr| ]]  Example Usage: kpiResolution = iim.Variables(); kpiResolution.Minutes_15 = 1
+** [[elisp:(org-cycle)][| DocStr| ]]  Example Usage: kpiResolution = b.types.Variables(); kpiResolution.Minutes_15 = 1
     #+end_org """
     def __setattr__(self, attr, value):
         self.__dict__[attr] = value

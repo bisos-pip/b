@@ -26,12 +26,12 @@
 * *[[elisp:(org-cycle)][| Particulars-csInfo |]]*
 #+end_org """
 import typing
-icmInfo: typing.Dict[str, typing.Any] = { 'moduleName': ['niche'], }
-icmInfo['version'] = '202207121913'
-icmInfo['status']  = 'inUse'
-icmInfo['panel'] = 'niche-Panel.org'
-icmInfo['groupingType'] = 'IcmGroupingType-pkged'
-icmInfo['cmndParts'] = 'IcmCmndParts[common] IcmCmndParts[param]'
+csInfo: typing.Dict[str, typing.Any] = { 'moduleName': ['niche'], }
+csInfo['version'] = '202209071237'
+csInfo['status']  = 'inUse'
+csInfo['panel'] = 'niche-Panel.org'
+csInfo['groupingType'] = 'IcmGroupingType-pkged'
+csInfo['cmndParts'] = 'IcmCmndParts[common] IcmCmndParts[param]'
 ####+END:
 
 """ #+begin_org
@@ -56,28 +56,18 @@ Module description comes here.
 #+end_org """
 ####+END:
 
-####+BEGIN: bx:icm:python:icmItem :itemType "=PyImports= " :itemTitle "*Py Library IMPORTS*"
+####+BEGIN: bx:cs:python:icmItem :itemType "=PyImports= " :itemTitle "*Py Library IMPORTS*"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  =PyImports=  [[elisp:(outline-show-subtree+toggle)][||]] *Py Library IMPORTS*  [[elisp:(org-cycle)][| ]]
 #+end_org """
 ####+END:
 
-####+BEGIN: bx:dblock:global:file-insert-cond :cond "./blee.el" :file "/bisos/apps/defaults/update/sw/icm/py/importUcfIcmBleepG.py"
-from unisos import ucf
-from unisos import icm
+from bisos import cs
+from bisos import b
+from bisos import io
 
-icm.unusedSuppressForEval(ucf.__file__)  # in case icm and ucf are not used
 
-G = icm.IcmGlobalContext()
-# G.icmLibsAppend = __file__
-# G.icmCmndsLibsAppend = __file__
-
-from blee.icmPlayer import bleep
-####+END:
-
-from bisos import bpf
-
-####+BEGIN: bx:icm:python:func :funcName "myNicheNameGet" :funcType "anyOrNone" :retType "bool" :deco "" :argsList ""
+####+BEGIN: bx:cs:python:func :funcName "myNicheNameGet" :funcType "anyOrNone" :retType "bool" :deco "" :argsList ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-anyOrNone [[elisp:(outline-show-subtree+toggle)][||]] /myNicheNameGet/ retType=bool argsList=nil  [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -86,13 +76,13 @@ def myNicheNameGet():
     """ #+begin_org
 ** Return with -niche name for running program. If it already has a -niche we take it out and re-insert it.
     #+end_org """
-    myName = G.icmMyName()
+    myName = cs.G.icmMyName()
     myName = myName.replace('.cs', '')
     myName = myName.replace('-niche', '')
     return (f"{myName}-niche.cs")
 
 
-####+BEGIN: bx:icm:python:func :funcName "myUnNicheNameGet" :funcType "anyOrNone" :retType "bool" :deco "" :argsList ""
+####+BEGIN: bx:cs:python:func :funcName "myUnNicheNameGet" :funcType "anyOrNone" :retType "bool" :deco "" :argsList ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-anyOrNone [[elisp:(outline-show-subtree+toggle)][||]] /myUnNicheNameGet/ retType=bool argsList=nil  [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -101,13 +91,13 @@ def myUnNicheNameGet():
     """ #+begin_org
 **  Return with -niche name for running program.
     #+end_org """
-    myName = G.icmMyName()
+    myName = cs.G.icmMyName()
     myName = myName.replace('.cs', '')
     myName = myName.replace('-niche', '')
     return (f"{myName}.cs")
 
 
-####+BEGIN: bx:icm:python:func :funcName "nicheRun" :funcType "anyOrNone" :retType "bool" :deco "" :argsList "nicheCs nicheAction"
+####+BEGIN: bx:cs:python:func :funcName "nicheRun" :funcType "anyOrNone" :retType "bool" :deco "" :argsList "nicheCs nicheAction"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-anyOrNone [[elisp:(outline-show-subtree+toggle)][||]] /nicheRun/ retType=bool argsList=(nicheCs nicheAction)  [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -122,7 +112,7 @@ def nicheRun(
     if [ -e $(G_icmBaseDirGet)/${nicheIcm} ] ; then
         lpDo $(G_icmBaseDirGet)/${nicheIcm} ${G_commandPrefs} -i "${nicheCommand}"
     else
-        EH_problem "Missing $(G_icmBaseDirGet)/${nicheIcm} -- Execution Skipped"
+        io.eh.problem "Missing $(G_icmBaseDirGet)/${nicheIcm} -- Execution Skipped"
         lpReturn 101
     fi
 
@@ -130,7 +120,7 @@ def nicheRun(
     print(f"""NOTYET, {nicheCs} {nicheAction}""")
 
 
-####+BEGIN: bx:icm:python:func :funcName "unNicheRunExamples" :funcType "anyOrNone" :retType "bool" :deco "" :argsList ""
+####+BEGIN: bx:cs:python:func :funcName "unNicheRunExamples" :funcType "anyOrNone" :retType "bool" :deco "" :argsList ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-anyOrNone [[elisp:(outline-show-subtree+toggle)][||]] /unNicheRunExamples/ retType=bool argsList=nil  [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -143,14 +133,14 @@ $( examplesSeperatorChapter "Run UnNiche ICM" )
 ${G_myUnNicheName}
     #+end_org """
     print(f"""\
-    icm.cmndExampleMenuChapter('*Run UnNiche ICM*')
+    cs.examples.menuChapter('*Run UnNiche ICM*')
     {myUnNicheNameGet()}\
 """)
 
 
 
 
-####+BEGIN: bx:icm:python:func :funcName "examplesNicheRun" :funcType "anyOrNone" :retType "bool" :deco "" :argsList "nicheScope"
+####+BEGIN: bx:cs:python:func :funcName "examplesNicheRun" :funcType "anyOrNone" :retType "bool" :deco "" :argsList "nicheScope"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-anyOrNone [[elisp:(outline-show-subtree+toggle)][||]] /examplesNicheRun/ retType=bool argsList=(nicheScope)  [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -166,39 +156,39 @@ This is based on the bash nich_lib.sh version. See that for details.
     myNicheName = myNicheNameGet()
 
     if nicheScope == "container":
-        outcome =  bpf.subProc.WOpW(invedBy=None, log=0).bash(
+        outcome =  b.subProc.WOpW(invedBy=None, log=0).bash(
             f"""sysCharDeploy.sh -i selectedContainerBxoPath""")
         if outcome.isProblematic():
-            icm.EH_badOutcome(outcome)
-        icm.cmndExampleMenuChapter('*Container Niche Examples*')
+            io.eh.badOutcome(outcome)
+        cs.examples.menuChapter('*Container Niche Examples*')
         print(f"""{outcome.stdoutRstrip}/sys/bin/{myNicheName}""")
 
     elif  nicheScope == "site":
-        outcome =  bpf.subProc.WOpW(invedBy=None, log=0).bash(
+        outcome =  b.subProc.WOpW(invedBy=None, log=0).bash(
             f"""sysCharDeploy.sh -i selectedSiteBxoPath""")
         if outcome.isProblematic():
-            icm.EH_badOutcome(outcome)
-        icm.cmndExampleMenuChapter('*Selected Site Niche Examples*')
+            io.eh.badOutcome(outcome)
+        cs.examples.menuChapter('*Selected Site Niche Examples*')
         print(f"""{outcome.stdoutRstrip}/sys/bin/{myNicheName}""")
 
     elif  nicheScope == "controller":
-        outcome =  bpf.subProc.WOpW(invedBy=None, log=0).bash(
+        outcome =  b.subProc.WOpW(invedBy=None, log=0).bash(
             f"""usgBpos.sh -i usgBpos_controller_bxoPath""")
         if outcome.isProblematic():
-            icm.EH_badOutcome(outcome)
-        icm.cmndExampleMenuChapter('*Selected Controller Niche Examples*')
+            io.eh.badOutcome(outcome)
+        cs.examples.menuChapter('*Selected Controller Niche Examples*')
         print(f"""{outcome.stdoutRstrip}/sys/bin/{myNicheName}""")
 
     elif  nicheScope == "usageEnvs":
-        outcome =  bpf.subProc.WOpW(invedBy=None, log=0).bash(
+        outcome =  b.subProc.WOpW(invedBy=None, log=0).bash(
             f"""usgBpos.sh -i usgBpos_usageEnvs_fullUse_bxoPath""")
         if outcome.isProblematic():
-            icm.EH_badOutcome(outcome)
-        icm.cmndExampleMenuChapter('*Selected Usage Niche Examples*')
+            io.eh.badOutcome(outcome)
+        cs.examples.menuChapter('*Selected Usage Niche Examples*')
         print(f"""{outcome.stdoutRstrip}/sys/bin/{myNicheName}""")
 
     else:
-        icm.EH_problem_usageError(
+        io.eh.problem_usageError(
             f"""Unknown nicheScope={nicheScope}"""
         )
 
