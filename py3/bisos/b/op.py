@@ -96,9 +96,9 @@ csInfo['cmndParts'] = "IcmCmndParts[common] IcmCmndParts[param]"
 #+end_org """
 ####+END:
 
-from bisos import cs
+#from bisos.b import cs
 from bisos import b
-from bisos import io
+#from bisos.b import io
 
 from enum import Enum
 
@@ -241,18 +241,18 @@ opResults = opOutcome.results
 
     def isProblematic(self):
         if self.error:
-            cs.globalContext.get().__class__.lastOutcome = self
+            b.cs.globalContext.get().__class__.lastOutcome = self
             return True
         else:
             return False
 
 
     def log(self):
-        G = cs.globalContext.get()
-        io.log.here(G.icmMyFullName() + ':' + str(self.invokerName) + ':' + b.ast.stackFrameInfoGet(2))
-        if self.stdcmnd: io.log.here("Stdcmnd: " +  self.stdcmnd)
-        if self.stdout: io.log.here("Stdout: " +  self.stdout)
-        if self.stderr: io.log.here("Stderr: " +  self.stderr)
+        G = b.cs.globalContext.get()
+        b.io.log.here(G.icmMyFullName() + ':' + str(self.invokerName) + ':' + b.ast.stackFrameInfoGet(2))
+        if self.stdcmnd: b.io.log.here("Stdcmnd: " +  self.stdcmnd)
+        if self.stdout: b.io.log.here("Stdout: " +  self.stdout)
+        if self.stderr: b.io.log.here("Stderr: " +  self.stderr)
         return self
 
 

@@ -95,7 +95,7 @@ csInfo['cmndParts'] = "IcmCmndParts[common] IcmCmndParts[param]"
 #+end_org """
 ####+END:
 
-from bisos import io
+from bisos.b import io
 
 import sys, marshal, functools, subprocess
 

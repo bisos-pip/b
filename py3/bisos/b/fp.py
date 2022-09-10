@@ -61,12 +61,15 @@ See panel for details.
 #+end_org """
 ####+END:
 
+__all__ = [
+    'FP_readTreeAtBaseDir',
+]
 
 import typing
 
+from bisos.b import cs
+from bisos.b import io
 from bisos import b
-from bisos import cs
-from bisos import io
 
 import os
 import collections
@@ -92,6 +95,7 @@ def commonParamsSpecify(
         parDataType=None,
         parDefault=None,
         parChoices=list(),
+
         parScope=icm.CmndParamScope.TargetParam,  # type: ignore
         argparseShortOpt=None,
         argparseLongOpt='--fpBase',

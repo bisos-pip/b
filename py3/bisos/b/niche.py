@@ -62,9 +62,9 @@ Module description comes here.
 #+end_org """
 ####+END:
 
-from bisos import cs
+from bisos.b import cs
 from bisos import b
-from bisos import io
+from bisos.b import io
 
 
 ####+BEGIN: bx:cs:python:func :funcName "myNicheNameGet" :funcType "anyOrNone" :retType "bool" :deco "" :argsList ""

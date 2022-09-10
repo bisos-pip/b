@@ -88,13 +88,18 @@ csInfo['cmndParts'] = "IcmCmndParts[common] IcmCmndParts[param]"
 #+end_org """
 ####+END:
 
+__all__ = [
+    'Op',
+]
 
-from bisos import io
+from bisos.b import cs
+from bisos.b import io
+from bisos import b
 
 #import shlex
 import subprocess
 
-from bisos import b
+
 
 """
 *  [[elisp:(org-cycle)][| ]]  /subProc/            :: *SubProcess -- Bash or Command Syncronous invokations* [[elisp:(org-cycle)][| ]]
@@ -122,7 +127,7 @@ class Op(b.op.BasicOp):
         self.cd=cd
         self.uid=uid
 
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    #@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
     def bash(
             self,
             cmndStr,
@@ -182,7 +187,7 @@ if b.OpSubProc(outcome=cmndOutcome, cd=someDirBase, log=1).bash(
         return self.outcome
 
 
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    #@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
     def exec(
             self,
             cmndStr,
@@ -227,16 +232,18 @@ if b.OpSubProc(outcome=cmndOutcome, cd=someDirBase, log=1).bash(
 
         self.outcome.error = process.returncode # type: ignore
 
+
         return self.outcome
 
-
-####+BEGIN: bx:dblock:python:class :className "WOpW" :superClass "b.op.BasicOp" :comment "Basic Subprocess Within Operation Wrapper" :classType "basic"
+####+BEGIN: bx:dblock:python:class :className "WOpW" :superClass "b.op.AbstractWithinOpWrapper" :comment "Basic Subprocess Within Operation Wrapper" :classType "basic"
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-basic  [[elisp:(outline-show-subtree+toggle)][||]] /WOpW/ b.op.BasicOp =Basic Subprocess Within Operation Wrapper=  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-basic  [[elisp:(outline-show-subtree+toggle)][||]] /WOpW/ b.op.AbstractWithinOpWrapper =Basic Subprocess Within Operation Wrapper=  [[elisp:(org-cycle)][| ]]
 #+end_org """
-class WOpW(b.op.BasicOp):
+class WOpW(b.op.AbstractWithinOpWrapper):
 ####+END:
     """
+** NOTY BUG, Should be based on b.op.AbstractWithinOpWrapper.
+    Should be called AbstWrappedOp. The class should be  subproc.WOp not WOpW
 ** Basic Subprocess Within Operation Wrapper (bash and exec),  returns an OpOutcome.
 """
     def __init__(
@@ -250,7 +257,7 @@ class WOpW(b.op.BasicOp):
         self.cd=cd
         self.uid=uid
 
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    #@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
     def bash(
             self,
             cmndStr,
@@ -269,7 +276,9 @@ if b.OpSubProc(outcome=cmndOutcome, cd=someDirBase, log=1).bash(
     fa2ensite {ploneBaseDomain}.conf,
 ).isProblematic():  return(io.eh.badOutcome(cmndOutcome))
         """
+        print(self.outcome)
         if not self.outcome:
+            #print("No self.outcome")
             self.outcome = b.op.Outcome()
 
         if not stdin:
@@ -317,7 +326,7 @@ if b.OpSubProc(outcome=cmndOutcome, cd=someDirBase, log=1).bash(
         return self.outcome
 
 
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    #@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
     def exec(
             self,
             cmndStr,

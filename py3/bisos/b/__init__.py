@@ -1,25 +1,52 @@
+# BPF Package (bisos.b) -- BISOS Python Framework
+#
+# Order of inclusion is important. The order reflects laying and design.
+
+#         ============ Layer 1 (BCF) =============
+#
+# BCF layer is:  BPF Common Facilities  (these have no BPF imports and provide common facilities)
+#
+
+from bisos.b import types # expose ./types.py as b.types.
+#from .types  import *
+
+from bisos.b.comment import (orgMode,)
+
+from bisos.b import ast  # expose ./ast.py as b.ast. -- from .ast import *, Does not work
+
+from bisos.b import op
+
+from bisos.b.cs import cs  # This is necessary here to bring over everything else
 
 
-from .dir import (__doc__,)
+#from .op import *
 
-from .ast import (__doc__,)
+from .dir import *
 
-from .exception import (__doc__,)
+from .exception import *
 
-from .op import (__doc__,)
+#         ============ Layer 2 Exposed CmndSvc Facilities (Cmnd) =============
+#
+# ExposedCS Facilities -- cs.Cmnd, @cs.track
+#
+#  b.fv, b.fto, b.fp and b.cs.* and b.io.* are intertwined.
 
-from .subProc import (__doc__,)
+from .fv import  *
 
-from .pyRunAs import (__doc__,)
+from .fto import  *
 
-from .comment  import (__doc__,)
+# from .fp import  *
 
-from .niche import (__doc__,)
+#         ============ Layer 3 CS Common Usage Facilities =============
+#
+# CsCommonUsage Facilities -- subProc, RunAs, niching, BuiltIn Commands
+#
+#  b.fv, b.fto, b.fp and b.cs.* and b.io.* are intertwined.
 
-from .fv import  (__doc__,)
 
-from .fto import  (__doc__,)
+from .subProc import *
 
-from .fp import  (__doc__,)
+from .pyRunAs import *
 
-from .types  import (Constants, Variables,)
+from .niche import *
+

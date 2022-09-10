@@ -69,7 +69,7 @@ See panel for overview and details.
 
 
 from bisos import b
-from bisos import io
+from bisos.b import io
 
 import os
 import enum
