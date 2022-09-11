@@ -16,10 +16,11 @@ from bisos.b import ast  # expose ./ast.py as b.ast. -- from .ast import *, Does
 
 from bisos.b import op
 
-from bisos.b.cs import cs  # This is necessary here to bring over everything else
+#from bisos.b import cs  # This is necessary here to bring over everything else
+#from bisos.b.cs import inCmnd
+from .cs import *
 
-
-#from .op import *
+from .io import *
 
 from .dir import *
 
@@ -35,7 +36,8 @@ from .fv import  *
 
 from .fto import  *
 
-# from .fp import  *
+#from bisos.b import fp
+from .fp import  *
 
 #         ============ Layer 3 CS Common Usage Facilities =============
 #

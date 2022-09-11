@@ -82,11 +82,13 @@ import sys
 
 import enum
 
+from bisos import b
+
 from bisos.b import cs
 
 from bisos.b import io
 
-from bisos import b
+
 
 from datetime import datetime
 import time

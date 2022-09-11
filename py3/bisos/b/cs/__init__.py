@@ -14,16 +14,15 @@
 
 # We control import * with __all__ i corresponding module
 
+#from bisos.b.cs import rtInvoker
 from .rtInvoker import *
 
-
-from .globalContext import *
+from bisos.b.cs import globalContext
+#from .globalContext import *
 
 from .param import *
-# from bisos.cs import param
 
 from .main import *
-#from bisos.cs import main
 
 #from .cs import (G, Cmnd, csuList_importedModules, G_mainWithClass,)
 from .cs import *
@@ -31,9 +30,13 @@ from .cs import *
 from .track import *
 
 from .examples import *
-
-from .inCmnd import *
+#from bisos.b.cs import examples
 
 from .arg import *
 
 from .runArgs import *
+
+#from .rpyc import *
+from bisos.b.cs import rpyc
+
+from .inCmnd import *

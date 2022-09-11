@@ -61,15 +61,16 @@ See panel for details.
 #+end_org """
 ####+END:
 
-__all__ = [
-    'FP_readTreeAtBaseDir',
-]
+# __all__ = [
+#     'FP_readTreeAtBaseDir',
+# ]
 
 import typing
 
+from bisos import b
 from bisos.b import cs
 from bisos.b import io
-from bisos import b
+
 
 import os
 import collections
@@ -170,7 +171,7 @@ class BaseDir(b.fto.FILE_TreeObject):
     """ FP_Base is also a FILE_TreeObject.
     """
 
-####+BEGIN: bx:cs:py3:method :methodName "__init__" :deco "default"
+####+BEGINNOT: bx:cs:py3:method :methodName "__init__" :deco "default"
     """
 **  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /__init__/ deco=default  [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -252,7 +253,7 @@ class BaseDir(b.fto.FILE_TreeObject):
     """
 **  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /fps_namesWithAbsPath/ deco=default  [[elisp:(org-cycle)][| ]]
 #+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    @b.io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
     def fps_namesWithAbsPath(
 ####+END:
             self,
@@ -268,7 +269,7 @@ class BaseDir(b.fto.FILE_TreeObject):
     """
 **  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /fps_readTree/ deco=default  [[elisp:(org-cycle)][| ]]
 #+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    @b.io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
     def fps_readTree(
 ####+END:
             self,
@@ -291,7 +292,7 @@ class BaseDir(b.fto.FILE_TreeObject):
     """
 **  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /fps_setParam/ deco=default  [[elisp:(org-cycle)][| ]]
 #+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    @b.io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
     def fps_setParam(
 ####+END:
             self,
@@ -307,7 +308,7 @@ class BaseDir(b.fto.FILE_TreeObject):
     """
 **  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /fps_getParam/ deco=default  [[elisp:(org-cycle)][| ]]
 #+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    @b.io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
     def fps_getParam(
 ####+END:
             self,
@@ -399,7 +400,7 @@ class FileParam(object):
         """        """
         self.__attrRead = attrRead
 
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    @b.io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
     def readFrom(self, storeBase=None, parName=None):
         """Read into a FILE_param content of parBase/parName.
 
@@ -466,7 +467,7 @@ class FileParam(object):
         return fileParam
 
 
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    @b.io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
     def writeTo(self, storeBase=None, parName=None, parValue=None):
         """Write this FileParam to storeBase.
 
@@ -511,7 +512,7 @@ class FileParam(object):
         return parNameFullPath
 
 
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    @b.io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
     def writeToPath(self, parNameFullPath=None, parValue=None):
         """Write this FileParam to storeBase.
         """
@@ -521,7 +522,7 @@ class FileParam(object):
                             parValue=parValue)
 
 
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    @b.io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
     def writeToFromFile(self, storeBase=None, parName=None, parValueFile=None):
         """Write this FileParam to storeBase.
 
@@ -631,7 +632,7 @@ class FileParamDict(object):
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /FileParamWriteTo/ deco=icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)  [[elisp:(org-cycle)][| ]]
 #+end_org """
-@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@b.io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def FileParamWriteTo(
 ####+END:d
         parRoot=None,
@@ -653,7 +654,7 @@ def FileParamWriteTo(
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /FileParamWriteToPath/ deco=icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)  [[elisp:(org-cycle)][| ]]
 #+end_org """
-@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@b.io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def FileParamWriteToPath(
 ####+END:
         parNameFullPath=None,
@@ -676,7 +677,7 @@ def FileParamWriteToPath(
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /FileParamWriteToFromFile/ deco=icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)  [[elisp:(org-cycle)][| ]]
 #+end_org """
-@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@b.io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def FileParamWriteToFromFile(
 ####+END:
         parRoot=None,
@@ -699,7 +700,7 @@ def FileParamWriteToFromFile(
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /FileParamVerWriteTo/ deco=icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)  [[elisp:(org-cycle)][| ]]
 #+end_org """
-@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@b.io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def FileParamVerWriteTo(
 ####+END:
         parRoot=None,
@@ -736,7 +737,7 @@ def FileParamVerWriteTo(
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /FileParamReadFrom/ deco=icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)  [[elisp:(org-cycle)][| ]]
 #+end_org """
-@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@b.io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def FileParamReadFrom(
 ####+END:
         parRoot=None,
@@ -766,7 +767,7 @@ def FileParamReadFrom(
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /FileParamValueReadFrom/ deco=icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)  [[elisp:(org-cycle)][| ]]
 #+end_org """
-@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@b.io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def FileParamValueReadFrom(
 ####+END:
         parRoot=None,
@@ -796,7 +797,7 @@ def FileParamValueReadFrom(
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /FileParamReadFromPath/ deco=icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)  [[elisp:(org-cycle)][| ]]
 #+end_org """
-@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@b.io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def FileParamReadFromPath(
 ####+END:
         parRoot=None,
@@ -825,7 +826,7 @@ def FileParamReadFromPath(
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /FileParamValueReadFromPath/ deco=icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)  [[elisp:(org-cycle)][| ]]
 #+end_org """
-@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@b.io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def FileParamValueReadFromPath(
 ####+END:
         parRoot=None,
@@ -853,7 +854,7 @@ def FileParamValueReadFromPath(
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /FileParamVerReadFrom/ deco=icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)  [[elisp:(org-cycle)][| ]]
 #+end_org """
-@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@b.io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def FileParamVerReadFrom(
 ####+END:
         parRoot=None,
@@ -894,7 +895,7 @@ def FileParamVerReadFrom(
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /FILE_paramDictRead/ =OLD Style CMND= deco=icm.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)  [[elisp:(org-cycle)][| ]]
 #+end_org """
-@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@b.io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def FILE_paramDictRead(
 ####+END:
         interactive=None, # NOTYET, icm.Interactivity.Both,
@@ -945,11 +946,11 @@ def FILE_paramDictRead(
     return
 
 
-####+BEGIN: b:py3:cs:cmnd/classHead :modPrefix "" :cmndName "FP_readTreeAtBaseDir" :comment "" :parsMand "FPsDir" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
+####+BEGINNOT: b:py3:cs:cmnd/classHead :modPrefix "" :cmndName "FP_readTreeAtBaseDir" :comment "" :parsMand "FPsDir" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc    [[elisp:(outline-show-subtree+toggle)][||]] <<FP_readTreeAtBaseDir>> parsMand=FPsDir parsOpt= argsMin=0 argsMax=0 asFunc= interactive=  [[elisp:(org-cycle)][| ]]
 #+end_org """
-class FP_readTreeAtBaseDir(cs.Cmnd):
+class FP_readTreeAtBaseDir(b.cs.Cmnd):
     cmndParamsMandatory = [ 'FPsDir', ]
     cmndParamsOptional = [ ]
     cmndArgsLen = {'Min': 0, 'Max': 0,}
