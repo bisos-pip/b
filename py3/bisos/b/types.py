@@ -1,7 +1,17 @@
 # -*- coding: utf-8 -*-
 
 """ #+begin_org
-* *[Summary]* :: A =PyLib= for manipulation of File Variables (FV). (bisos.b.fv).
+* ~[Summary]~ :: A =PyLib= for definition of base types.
+#+end_org """
+
+""" #+begin_org
+* [[elisp:(org-cycle)][| /Control Parameters Of This File/ |]] :: dblock controls and classifications
+#+BEGIN_SRC emacs-lisp
+(setq-local b:dblockControls t) ; (setq-local b:dblockControls nil)
+(put 'b:dblockControls 'py3:cs:Classification "pyLibPure") ; Pure Python Library
+#+END_SRC
+#+RESULTS:
+: pyLibPure
 #+end_org """
 
 ####+BEGIN: b:prog:file/proclamations :outLevel 1
@@ -26,16 +36,16 @@
 * *[[elisp:(org-cycle)][| Particulars-csInfo |]]*
 #+end_org """
 import typing
-csInfo: typing.Dict[str, typing.Any] = { 'moduleName': ['fv'], }
-csInfo['version'] = '202208172107'
+csInfo: typing.Dict[str, typing.Any] = { 'moduleName': ['types'], }
+csInfo['version'] = '202209113852'
 csInfo['status']  = 'inUse'
-csInfo['panel'] = 'fv-Panel.org'
+csInfo['panel'] = 'types-Panel.org'
 csInfo['groupingType'] = 'IcmGroupingType-pkged'
 csInfo['cmndParts'] = 'IcmCmndParts[common] IcmCmndParts[param]'
 ####+END:
 
 """ #+begin_org
-* /[[elisp:(org-cycle)][| Description |]]/ :: [[file:/bisos/panels/bisos-model/fileVariables/fullUsagePanel-en.org][BPF File Variables (fv) Panel]]  ---
+* /[[elisp:(org-cycle)][| ~Description~ |]]/ :: [[file:/bisos/panels/bisos-model/fileVariables/fullUsagePanel-en.org][BPF File Variables (fv) Panel]]  ---
 See panel for description.
 ** Status: In use with blee3
 ** /[[elisp:(org-cycle)][| Planned Improvements |]]/ :
@@ -61,7 +71,12 @@ See panel for description.
 #+end_org """
 ####+END:
 
-
+####+BEGIN: b:py3:cs:framework/imports :basedOn "classification"
+""" #+begin_org
+** Imports Based On Classification=pyLibPure
+#+end_org """
+# No CS imports for pyLibPure
+####+END:
 
 ####+BEGIN: bx:cs:py3:section :title "Constants, Variables, ..."
 """ #+begin_org
@@ -97,10 +112,13 @@ class Variables(object):
     def __setattr__(self, attr, value):
         self.__dict__[attr] = value
 
-####+BEGIN: b:prog:file/endOfFile :extraParams nil
+####+BEGIN: b:py3:cs:framework/endOfFile :basedOn "classification"
 """ #+begin_org
-* *[[elisp:(org-cycle)][| END-OF-FILE |]]* :: emacs and org variables and control parameters
+* *[[elisp:(org-cycle)][| ~End-Of-Editable-Text~ |]]* :: emacs and org variables and control parameters
 #+end_org """
+
+#+STARTUP: showall
+
 ### local variables:
 ### no-byte-compile: t
 ### end:

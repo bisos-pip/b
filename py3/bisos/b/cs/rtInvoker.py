@@ -62,6 +62,7 @@ Based on this invoker information, the Cmnd and CS Framework can behave accordin
 #+end_org """
 ####+END:
 
+from bisos import b
 from bisos.b import io
 
 import enum

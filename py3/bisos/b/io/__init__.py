@@ -1,4 +1,6 @@
 
+__import__('pkg_resources').declare_namespace(__name__)
+
 from .io import (pr)
 
 #from .stdin import (read)
