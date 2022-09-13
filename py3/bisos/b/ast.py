@@ -327,8 +327,6 @@ def ast_topLevelFunctionNamesInFile(filename):
     return funcNames
 
 
-
-
 ####+BEGIN: bx:cs:py3:section :title "Function Related Utilities" :subTitle "FUNC_"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  /Section/    [[elisp:(outline-show-subtree+toggle)][||]] *Function Related Utilities*  [[elisp:(org-cycle)][| ]]
@@ -448,8 +446,8 @@ def FUNC_argsLength(fn, *v, **k):
     """
 
     # PY2.7  #NOTYET IMPORTANT
-    #if not fn:
-    #    return
+    if not fn:
+        return
 
 
     # Unpack function's arg count, arg names, arg defaults

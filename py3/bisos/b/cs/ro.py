@@ -1,7 +1,17 @@
 # -*- coding: utf-8 -*-
 
 """ #+begin_org
-* *[Summary]* :: A =CS-Lib= for creating and managing BPO's gpg and encryption/decryption.
+* ~[Summary]~ :: A =CS-Lib= for creating and managing BPO's gpg and encryption/decryption.
+#+end_org """
+
+""" #+begin_org
+* [[elisp:(org-cycle)][| /Control Parameters Of This File/ |]] :: dblock controls and classifications
+#+BEGIN_SRC emacs-lisp
+(setq-local b:dblockControls t) ; (setq-local b:dblockControls nil)
+(put 'b:dblockControls 'py3:cs:Classification "cs-u") ; CS-Unit
+#+END_SRC
+#+RESULTS:
+: cs-u
 #+end_org """
 
 ####+BEGIN: b:prog:file/proclamations :outLevel 1
@@ -62,61 +72,27 @@ Module description comes here.
 #+end_org """
 ####+END:
 
-from bisos.b import cs
+####+BEGIN: b:py3:cs:framework/imports :basedOn "classification"
+""" #+begin_org
+** Imports Based On Classification=cs-u
+#+end_org """
 from bisos import b
+from bisos.b import cs
+from bisos.b import b_io
+
+####+END:
+
 from bisos.b import io
 
 import pathlib
 
 import collections
 
-####+BEGINNOT: bx:dblock:global:file-insert-cond :cond "./blee.el" :file "/bisos/apps/defaults/update/sw/icm/py/importUcfIcmBleepG.py"
-#from unisos import ucf
-#from unisos import icm
-
-#icm.unusedSuppressForEval(ucf.__file__)  # in case icm and ucf are not used
-
-# G = cs.IcmGlobalContext()
-# G.icmLibsAppend = __file__
-# G.icmCmndsLibsAppend = __file__
-
-# from blee.icmPlayer import bleep
-####+END:
-
 import __main__
 
 import os
-#import select
-
-# import pwd
-# import grp
-# import collections
-#
-
-#import traceback
-
-# import collections
-
-# import pathlib
-
-# from bisos.platform import bxPlatformConfig
-# from bisos.platform import bxPlatformThis
-
-# from bisos.basics import pattern
-
-from bisos.b import io
-#from bisos import b
-
-
-#import logging
 
 import abc
-
-#import shutil
-
-# import pykeepass_cache
-# import pykeepass
-#
 
 
 ####+BEGIN: bx:cs:py3:section :title "Service Specification"
@@ -190,14 +166,13 @@ class RosmuAccessPoint(object):
     """
 ** Abstraction of ROSMU Access Point
 """
-
     rosmuBase = "/bisos/var/gitSh/performer"
 
-####+BEGIN: bx:cs:py3:method :methodName "__init__" :deco "default"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /__init__/ deco=default  [[elisp:(org-cycle)][| ]]
-#+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+####+BEGIN: b:py3:cs:method/typing :methodName "__init__" :comment "rosmu params" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /__init__/ deco=default   [[elisp:(org-cycle)][| ]] =rosmu params= deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def __init__(
 ####+END:
             self,
@@ -213,10 +188,10 @@ class RosmuAccessPoint(object):
         self._rosmuState = rosmuState
         self._rosmuFiles = rosmuFiles  # slash root of the file system for this rosmu
 
-####+BEGIN: bx:cs:py3:method :methodName "rosmu" :deco "property"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /rosmu/ deco=property  [[elisp:(org-cycle)][| ]]
-#+end_org """
+####+BEGIN: b:py3:cs:method/typing :methodName "rosmu" :deco "property"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /rosmu/ deco=property   [[elisp:(org-cycle)][| ]] deco=property   [[elisp:(org-cycle)][| ]]
+    #+end_org """
     @property
     def rosmu(
 ####+END:
@@ -224,10 +199,10 @@ class RosmuAccessPoint(object):
     ):
         return self._rosmu
 
-####+BEGIN: bx:cs:py3:method :methodName "rosmuApName" :deco "property"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /rosmuApName/ deco=property  [[elisp:(org-cycle)][| ]]
-#+end_org """
+####+BEGIN: b:py3:cs:method/typing :methodName "rosmuApName" :deco "property"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /rosmuApName/ deco=property   [[elisp:(org-cycle)][| ]] deco=property   [[elisp:(org-cycle)][| ]]
+    #+end_org """
     @property
     def rosmuApName(
 ####+END:
@@ -669,18 +644,15 @@ class GitSh_PerformerOpAP(OperationAccessPoint):
         print(f"{opName}{opParams}")
 
 
-
-
-####+BEGIN: bx:dblock:python:class :className "RPyC_InvokerOpAP" :superClass "OperationAccessPoint" :comment "Operation Access Point" :classType "subed"
+####+BEGIN: b:py3:class/decl :className "RPyC_InvokerOpAP" :superClass "OperationAccessPoint" :comment "Operation Access Point" :classType "subed"
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-subed  [[elisp:(outline-show-subtree+toggle)][||]] /RPyC_InvokerOpAP/ OperationAccessPoint =Operation Access Point=  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-subed  [[elisp:(outline-show-subtree+toggle)][||]] /RPyC_InvokerOpAP/  superClass=object =Operation Access Point=   [[elisp:(org-cycle)][| ]]
 #+end_org """
-class RPyC_InvokerOpAP(OperationAccessPoint):
+class RPyC_InvokerOpAP(object):
 ####+END:
     """
 ** Abstraction of the base ByStar Portable Object
 """
-
 
 ####+BEGIN: bx:cs:py3:method :methodName "__init__" :deco "default"
     """
@@ -851,11 +823,11 @@ class RPyC_PerformerOpAP(OperationAccessPoint):
 ####+END:
 
 
-####+BEGIN: bx:cs:py3:func :funcName "examples_csu" :funcType "eType" :retType "" :deco "default" :argsList ""
+####+BEGIN: b:py3:cs:func/typing :funcName "examples_csu" :funcType "eType" :retType "" :deco "default" :argsList ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-eType    [[elisp:(outline-show-subtree+toggle)][||]] /examples_csu/ deco=default  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-eType  [[elisp:(outline-show-subtree+toggle)][||]] /examples_csu/ deco=default   [[elisp:(org-cycle)][| ]] deco=default   [[elisp:(org-cycle)][| ]]
 #+end_org """
-@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
 def examples_csu(
 ####+END:
         sectionTitle: typing.AnyStr = '',
@@ -870,7 +842,6 @@ def examples_csu(
     if sectionTitle == 'default':
         cs.examples.menuChapter('*Remote Operations Management*')
 
-
     icmWrapper = ""
     cmndName = "ro_sapCreate"
     cps = cpsInit() ; cps['rosmu'] = "myName" ; cps['perfAddr'] = "local" ;
@@ -881,11 +852,10 @@ def examples_csu(
     #cmndName = "pyCmndInvOf_parsArgsStdinCmndResult" ; cps = cpsInit() ; cmndArgs = "" ;
     #menuItem(verbosity='none')
 
-
-####+BEGIN: bx:icm:python:func :funcName "commonParamsSpecify" :comment "Params Spec for: --aipxBase --aipxRoot" :funcType "FmWrk" :retType "Void" :deco "" :argsList "icmParams"
-"""
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Func-FmWrk :: /commonParamsSpecify/ =Params Spec for: --aipxBase --aipxRoot= retType=Void argsList=(icmParams)  [[elisp:(org-cycle)][| ]]
-"""
+####+BEGIN: b:py3:cs:func/args :funcName "commonParamsSpecify" :comment "Params Spec for: --aipxBase --aipxRoot" :funcType "FmWrk" :retType "Void" :deco "" :argsList "icmParams"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-A-FmWrk  [[elisp:(outline-show-subtree+toggle)][||]] /commonParamsSpecify/ deco=   [[elisp:(org-cycle)][| ]] =Params Spec for: --aipxBase --aipxRoot=   [[elisp:(org-cycle)][| ]]
+#+end_org """
 def commonParamsSpecify(
     icmParams,
 ):
@@ -1009,7 +979,6 @@ class ro_sapCreate(cs.Cmnd):
 ***** [[elisp:(org-cycle)][| *CmndDesc:* | ]] Returns a resmuApPath
         """
 
-
         roSapFpBase = pathlib.Path(
             os.path.join(
                 "/bisos/var/cs/ro/sap",
@@ -1018,8 +987,7 @@ class ro_sapCreate(cs.Cmnd):
             )
         )
 
-        #io.log.here(f"fpBaseDir={roSapFpBase}")
-
+        b_io.log.here(f"fpBaseDir={roSapFpBase}")
 
         b.fp.FileParamWriteToPath(
                 parNameFullPath=roSapFpBase,
@@ -1029,22 +997,13 @@ class ro_sapCreate(cs.Cmnd):
         return(cmndOutcome)
 
 
-
-####+BEGIN: blee:bxPanel:foldingSection :outLevel 0 :title " ~End Of Editable Text~ "
-"""
-*  [[elisp:(beginning-of-buffer)][Top]] ############## [[elisp:(blee:ppmm:org-mode-toggle)][Nat]] [[elisp:(delete-other-windows)][(1)]]    *End Of Editable Text*  [[elisp:(org-cycle)][| ]]  [[elisp:(org-show-subtree)][|=]]
-"""
-####+END:
-
-####+BEGIN: bx:dblock:global:file-insert-cond :cond "./blee.el" :file "/bisos/apps/defaults/software/plusOrg/dblock/inserts/endOfFileControls.org"
-#+STARTUP: showall
-####+END:
-
-
-####+BEGIN: b:prog:file/endOfFile :extraParams nil
+####+BEGIN: b:py3:cs:framework/endOfFile :basedOn "classification"
 """ #+begin_org
-* *[[elisp:(org-cycle)][| END-OF-FILE |]]* :: emacs and org variables and control parameters
+* *[[elisp:(org-cycle)][| ~End-Of-Editable-Text~ |]]* :: emacs and org variables and control parameters
 #+end_org """
+
+#+STARTUP: showall
+
 ### local variables:
 ### no-byte-compile: t
 ### end:

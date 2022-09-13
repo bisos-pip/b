@@ -15,14 +15,16 @@ from .types  import * # expose ./types.py as b.types.
 
 from .comment import (orgMode,)
 
+# WHY import * fails here?
 from bisos.b import ast  # expose ./ast.py as b.ast. -- from .ast import *, Does not work
-
 
 #         ============ Layer 2 Exposed CmndSvc Facilities (Cmnd) =============
 #
 # ExposedCS Facilities -- cs.Cmnd, @cs.track
+#
+#  b.fv, b.fto, b.fp and b.cs.* and b.io.* are intertwined.
+#
 
-#from bisos.b import op
 from .op  import *
 
 #from bisos.b import cs  # This is necessary here to bring over everything else
@@ -30,8 +32,8 @@ from .op  import *
 from .cs import *
 
 # B.IO
-from bisos.b import io
-#from .io import *
+#from bisos.b import io
+from .io import *
 #from .b_io import *
 
 from .dir import *
@@ -52,8 +54,6 @@ from .fp import  *
 #
 # CsCommonUsage Facilities -- subProc, RunAs, niching, BuiltIn Commands
 #
-#  b.fv, b.fto, b.fp and b.cs.* and b.io.* are intertwined.
-
 
 from .subProc import *
 
