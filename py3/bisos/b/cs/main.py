@@ -118,7 +118,7 @@ def classedCmndsDict(
         eval(f"importedCmndsFilesList.append({importTag}.__file__)") # expression
         importedTagsList.append(importTag)
 
-    for moduleName in ["bisos.b.cs.inCmnd", "bisos.b.cs.examples"]:
+    for moduleName in ["bisos.b.cs.inCmnd", "bisos.b.cs.examples", "bisos.b.cs.rpyc", "bisos.b.cs.ro"]:
         #print(f"moduleName={moduleName}")
         moduleNameList = moduleName.split(".")
         importTag = moduleNameList.pop()

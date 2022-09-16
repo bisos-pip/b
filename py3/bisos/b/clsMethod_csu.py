@@ -165,7 +165,7 @@ def examples_csu(
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-basic  [[elisp:(outline-show-subtree+toggle)][||]] /ExampleFilePars/  superClass=b.fp.BaseDir =Expected to be subclassed=   [[elisp:(org-cycle)][| ]]
 #+end_org """
-class ExampleFilePars(b.fp.BaseDir):
+class ExampleFilePars(b.fpCls.BaseDir):
 ####+END:
     """ Representation of a FILE_TreeObject when _objectType_ is FILE_ParamBase (a node).
     """

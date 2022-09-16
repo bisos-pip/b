@@ -37,6 +37,9 @@ from .arg import *
 from .runArgs import *
 
 #from .rpyc import *
-from bisos.b.cs import rpyc
+from bisos.b.cs import rpyc   # otherwise cmnds don't work.
+
+#from .ro import *   # Can't be done here as it needs fpCmnds so, it is done later.
+
 
 from .inCmnd import *

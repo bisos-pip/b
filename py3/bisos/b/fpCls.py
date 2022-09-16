@@ -75,6 +75,8 @@ from bisos.transit import pattern
 
 import os
 import collections
+#import pathLib
+
 
 import __main__
 
@@ -200,7 +202,7 @@ class BaseDir(b.fto.FILE_TreeObject):
     ):
         """Returns a dict of FileParam s. Reads in all FPs at self.fps_absBasePath()."""
         cmndOutcome = b.op.Outcome()
-        FP_readTreeAtBaseDir = icm.FP_readTreeAtBaseDir()
+        FP_readTreeAtBaseDir = b.fp.FP_readTreeAtBaseDir()
         FP_readTreeAtBaseDir.cmndOutcome = cmndOutcome
 
         FP_readTreeAtBaseDir.cmnd(
@@ -226,7 +228,7 @@ class BaseDir(b.fto.FILE_TreeObject):
         """Returns a dict of FileParam s. Reads in all FPs at self.fps_absBasePath()."""
         namesWithAbsPath = self.fps_namesWithAbsPath()
         fpBase = namesWithAbsPath[paramName]
-        icm.FileParamWriteTo(fpBase, paramName, paramValue)
+        b.fp.FileParamWriteTo(fpBase, paramName, paramValue)
 
 ####+BEGIN: b:py3:cs:method/typing :methodName "fps_getParam" :deco "default"
     """ #+begin_org
@@ -240,8 +242,10 @@ class BaseDir(b.fto.FILE_TreeObject):
     ):
         """Returns a dict of FileParam s. Reads in all FPs at self.fps_absBasePath()."""
         namesWithAbsPath = self.fps_namesWithAbsPath()
-        fpBase = namesWithAbsPath[paramName]
-        paramValue = icm.FileParamReadFrom(fpBase, paramName,)
+        #print(namesWithAbsPath)
+        fpBase = os.path.abspath(namesWithAbsPath[paramName])
+        #print(fpBase)
+        paramValue = b.fp.FileParamReadFrom(fpBase, paramName,)
         return paramValue
 
 

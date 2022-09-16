@@ -523,6 +523,7 @@ def commonIcmParamsPrep(
         argparseLongOpt='--load',
         )
 
+
     return icmParams
 
 ####+BEGIN: bx:cs:py3:func :funcName "icmParamsToFileParamsUpdate" :funcType "extTyped" :deco ""

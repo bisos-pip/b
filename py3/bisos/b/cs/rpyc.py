@@ -92,12 +92,13 @@ class rpyc_CsService(rpyc.Service):
 @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def csPerform(
 ####+END:
+        portNu,
 ) -> None:
     """ #+begin_org
 ** [[elisp:(org-cycle)][| *DocStr | ]
     #+end_org """
 
-    server = ThreadedServer(rpyc_CsService, port=12345)
+    server = ThreadedServer(rpyc_CsService, port=portNu)
     server.start()
 
 
@@ -122,6 +123,38 @@ def csInvoke(
     outcome = conn.root.svcCmnd(cmndClass().__class__.__name__, **cmndKwArgs)
 
     return outcome
+
+####+BEGIN: bx:cs:py3:section :title "Service Related Commands"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  /Section/    [[elisp:(outline-show-subtree+toggle)][||]] *Service Related Commands*  [[elisp:(org-cycle)][| ]]
+#+end_org """
+####+END:
+
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "rpyc_csPerformer" :comment "" :parsMand "" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<rpyc_csPerformer>>parsMand= parsOpt= argsMin=0 argsMax=0 pyInv=
+#+end_org """
+class rpyc_csPerformer(cs.Cmnd):
+    cmndParamsMandatory = [ ]
+    cmndParamsOptional = [ ]
+    cmndArgsLen = {'Min': 0, 'Max': 0,}
+
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def cmnd(self,
+             rtInv: cs.RtInvoker,
+             cmndOutcome: b.op.Outcome,
+    ) -> b.op.Outcome:
+
+####+END:
+        self.cmndDocStr(f""" #+begin_org
+** [[elisp:(org-cycle)][| *CmndDesc:* | ]]  A starting point command.
+        #+end_org """)
+
+        # Announce that the service is being started
+        cs.rpyc.csPerform()
+
+        return(cmndOutcome)
+
 
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 0 :title " ~End Of Editable Text~ "
 """

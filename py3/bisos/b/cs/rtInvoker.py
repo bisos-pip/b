@@ -112,11 +112,13 @@ class RtInvoker(object):
             invoker = None,
             ins: bool=True,
             outs: bool=True,
+            constraints: list=[],
     ):
         self._mode = mode
         self._invoker = invoker
         self._ins = ins
         self._outs = outs
+        self._constraints = constraints
 
 ####+BEGIN: b:py3t:cs:method :methodName "mode" :deco "property"
     """

@@ -55,9 +55,14 @@ from .fp import  *
 # CsCommonUsage Facilities -- subProc, RunAs, niching, BuiltIn Commands
 #
 
+from .fpCls import  *
+
+from bisos.b.cs import ro
+
 from .subProc import *
 
 from .pyRunAs import *
 
 from .niche import *
 
+from .fpath import *

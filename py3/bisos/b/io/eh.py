@@ -241,7 +241,7 @@ def problem_usageError(
     logger.critical('io.eh.: ' + outString + ' -- ' + b.ast.stackFrameInfoGet(2) )
 
     return (
-        eh_problem_usageError(OpOutcome(), *v, **k)
+        eh_problem_usageError(b.op.Outcome(), *v, **k)
     )
 
     #raise RuntimeError()
@@ -271,7 +271,7 @@ def eh_problem_usageError(
 
     errStr='io.eh.: ' + outString + ' -- ' + b.ast.stackFrameInfoGet(2)
     return(outcome.set(
-        opError=OpError.UsageError,
+        opError=b.op.OpError.UsageError,
         opErrInfo=errStr,
     ))
 

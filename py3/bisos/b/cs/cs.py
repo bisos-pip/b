@@ -800,6 +800,7 @@ def csuList_importedModules(
     #print(csuList)
     return csuList
 
+
 ####+BEGIN: bx:cs:py3:func :funcName "csuList_commonParamsSpecify" :funcType "extTyped" :deco "track"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /csuList_commonParamsSpecify/ deco=track  [[elisp:(org-cycle)][| ]]
@@ -927,9 +928,33 @@ def argsCommonProc(
          dest='perfModel',
          action='store',
          default='None',
-         help="Emit all inputs as FileParams At Specified Base",
+         help="",
          )
 
+     # parser.add_argument(
+     #     '--perfName',
+     #     dest='perfName',
+     #     metavar='ARG',
+     #     action='store',
+     #     default='None',
+     #     help="",
+     #     )
+
+     # parser.add_argument(
+     #     '--roSapPath',
+     #     dest='roSapPath',
+     #     action='store',
+     #     default='None',
+     #     help="Path of FP base. With ordinary commands, it remote invokes at Sap.",
+     #     )
+
+     # parser.add_argument(
+     #     '--ex_roSapPath',
+     #     dest='ex_roSapPath',
+     #     action='store',
+     #     default='None',
+     #     help="",
+     #     )
 
      parser.add_argument(
          '-v',
@@ -1297,6 +1322,9 @@ def invokesProcAllClassed(
     G = cs.globalContext.get()
     icmRunArgs = G.icmRunArgsGet()
 
+    rtInv = cs.RtInvoker.new_cmnd()
+    outcome = b.op.Outcome()
+
     def applyMethodBasedOnContext(
             classedCmnd,
     ):
@@ -1313,11 +1341,13 @@ def invokesProcAllClassed(
             # outcome = classedCmnd().cmnd(**applicableIcmParams)
             #
             cmndKwArgs = classedCmnd().cmndCallTimeKwArgs()
+            #print(f"{cmndKwArgs}")
             rtInv = cs.RtInvoker.new_cmnd()
             cmndKwArgs.update({'rtInv': rtInv})
             cmndKwArgs.update({'cmndOutcome': outcome})
             if classedCmnd().cmndArgsLen['Max'] != 0:  # Cmnd is expecting Arguments
                 cmndKwArgs.update({'argsList': G.icmRunArgsGet().cmndArgs})
+            #print(f"{cmndKwArgs}")
             outcome = classedCmnd().cmnd(**cmndKwArgs)
 
         elif invModel == "rpyc":
@@ -1362,12 +1392,15 @@ def invokesProcAllClassed(
         # Next we try cmndList_libsMethods()
         #
         callDict = dict()
-        for eachCmnd in cs.inCmnd.cmndList_libsMethods().cmnd(interactive=False):
+        for eachCmnd in cs.inCmnd.cmndList_libsMethods().cmnd(
+                rtInv=rtInv,
+                cmndOutcome=outcome,
+        ):
             #print(f"looking at {eachCmnd}")
             try:
                 callDict[eachCmnd] = eval("{eachCmnd}".format(eachCmnd=eachCmnd))
             except NameError:
-                # print(("io.eh.problem -- Skipping-b eval({eachCmnd})".format(eachCmnd=eachCmnd)))
+                print(("io.eh.problem -- Skipping-b eval({eachCmnd})".format(eachCmnd=eachCmnd)))
                 continue
 
         try:

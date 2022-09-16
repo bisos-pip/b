@@ -36,16 +36,16 @@
 * *[[elisp:(org-cycle)][| Particulars-csInfo |]]*
 #+end_org """
 import typing
-csInfo: typing.Dict[str, typing.Any] = { 'moduleName': ['rem'], }
-csInfo['version'] = '202208262617'
+csInfo: typing.Dict[str, typing.Any] = { 'moduleName': ['ro'], }
+csInfo['version'] = '202209130210'
 csInfo['status']  = 'inUse'
-csInfo['panel'] = 'rem-Panel.org'
+csInfo['panel'] = 'ro-Panel.org'
 csInfo['groupingType'] = 'IcmGroupingType-pkged'
 csInfo['cmndParts'] = 'IcmCmndParts[common] IcmCmndParts[param]'
 ####+END:
 
 """ #+begin_org
-* /[[elisp:(org-cycle)][| Description |]]/ :: [[file:/bisos/git/auth/bxRepos/blee-binders/bisos-core/PyFwrk/bisos.crypt/_nodeBase_/fullUsagePanel-en.org][PyFwrk bisos.crypt Panel]]
+* [[elisp:(org-cycle)][| ~Description~ |]] :: [[file:/bisos/git/auth/bxRepos/blee-binders/bisos-core/PyFwrk/bisos-pip/bisos.cs/_nodeBase_/fullUsagePanel-en.org][PyFwrk bisos.b.cs Panel For RO]] ||
 Module description comes here.
 ** Relevant Panels:
 ** Status: In use with blee3
@@ -80,6 +80,7 @@ from bisos import b
 from bisos.b import cs
 from bisos.b import b_io
 
+import collections
 ####+END:
 
 from bisos.b import io
@@ -101,20 +102,20 @@ import abc
 #+end_org """
 ####+END:
 
-####+BEGIN: bx:dblock:python:class :className "ROSMU" :superClass "object" :comment "Remote Operations Service Unit" :classType "basic"
+####+BEGIN: b:py3:class/decl :className "ROSMU" :superClass "object" :comment "Remote Operations Service Unit" :classType "basic"
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-basic  [[elisp:(outline-show-subtree+toggle)][||]] /ROSMU/ object =Remote Operations Service Unit=  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-basic  [[elisp:(outline-show-subtree+toggle)][||]] /ROSMU/  superClass=object =Remote Operations Service Unit=   [[elisp:(org-cycle)][| ]]
 #+end_org """
 class ROSMU(object):
 ####+END:
     """
 ** Abstraction of Remote Operations Service Multi-Unit.
 """
-####+BEGIN: bx:cs:py3:method :methodName "__init__" :deco "default"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /__init__/ deco=default  [[elisp:(org-cycle)][| ]]
-#+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+####+BEGIN: b:py3:cs:method/typing :methodName "__init__" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /__init__/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def __init__(
 ####+END:
             self,
@@ -124,10 +125,10 @@ class ROSMU(object):
         self._rosmuName = rosmuName  # A named reference to rosmuSpec
         self._rosmuSpec = rosmuSpec  # List Of Units, List Of rosmuStates
 
-####+BEGIN: bx:cs:py3:method :methodName "rosmuName" :deco "property"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /rosmuName/ deco=property  [[elisp:(org-cycle)][| ]]
-#+end_org """
+####+BEGIN: b:py3:cs:method/typing :methodName "rosmuName" :deco "property"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /rosmuName/ deco=property  deco=property   [[elisp:(org-cycle)][| ]]
+    #+end_org """
     @property
     def rosmuName(
 ####+END:
@@ -135,10 +136,10 @@ class ROSMU(object):
     ):
         return self._rosmuName
 
-####+BEGIN: bx:cs:py3:method :methodName "rosmuSpec" :deco "property"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /rosmuSpec/ deco=property  [[elisp:(org-cycle)][| ]]
-#+end_org """
+####+BEGIN: b:py3:cs:method/typing :methodName "rosmuSpec" :deco "property"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /rosmuSpec/ deco=property  deco=property   [[elisp:(org-cycle)][| ]]
+    #+end_org """
     @property
     def rosmuSpec(
 ####+END:
@@ -157,9 +158,9 @@ class ROSMU(object):
 ####+END:
 
 
-####+BEGIN: bx:dblock:python:class :className "RosmuAccessPoint" :superClass "object" :comment "ROSMU Access Point" :classType "basic"
+####+BEGIN: b:py3:class/decl :className "RosmuAccessPoint" :superClass "object" :comment "ROSMU Access Point" :classType "basic"
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-basic  [[elisp:(outline-show-subtree+toggle)][||]] /RosmuAccessPoint/ object =ROSMU Access Point=  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-basic  [[elisp:(outline-show-subtree+toggle)][||]] /RosmuAccessPoint/  superClass=object =ROSMU Access Point=   [[elisp:(org-cycle)][| ]]
 #+end_org """
 class RosmuAccessPoint(object):
 ####+END:
@@ -170,7 +171,7 @@ class RosmuAccessPoint(object):
 
 ####+BEGIN: b:py3:cs:method/typing :methodName "__init__" :comment "rosmu params" :deco "default"
     """ #+begin_org
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /__init__/ deco=default   [[elisp:(org-cycle)][| ]] =rosmu params= deco=default   [[elisp:(org-cycle)][| ]]
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /__init__/ deco=default  =rosmu params= deco=default   [[elisp:(org-cycle)][| ]]
     #+end_org """
     @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def __init__(
@@ -190,7 +191,7 @@ class RosmuAccessPoint(object):
 
 ####+BEGIN: b:py3:cs:method/typing :methodName "rosmu" :deco "property"
     """ #+begin_org
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /rosmu/ deco=property   [[elisp:(org-cycle)][| ]] deco=property   [[elisp:(org-cycle)][| ]]
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /rosmu/ deco=property  deco=property   [[elisp:(org-cycle)][| ]]
     #+end_org """
     @property
     def rosmu(
@@ -201,7 +202,7 @@ class RosmuAccessPoint(object):
 
 ####+BEGIN: b:py3:cs:method/typing :methodName "rosmuApName" :deco "property"
     """ #+begin_org
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /rosmuApName/ deco=property   [[elisp:(org-cycle)][| ]] deco=property   [[elisp:(org-cycle)][| ]]
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /rosmuApName/ deco=property  deco=property   [[elisp:(org-cycle)][| ]]
     #+end_org """
     @property
     def rosmuApName(
@@ -210,10 +211,10 @@ class RosmuAccessPoint(object):
     ):
         return self._rosmuApName
 
-####+BEGIN: bx:cs:py3:method :methodName "performerAddr" :deco "property"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /performerAddr/ deco=property  [[elisp:(org-cycle)][| ]]
-#+end_org """
+####+BEGIN: b:py3:cs:method/typing :methodName "performerAddr" :deco "property"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /performerAddr/ deco=property  deco=property   [[elisp:(org-cycle)][| ]]
+    #+end_org """
     @property
     def performerAddr(
 ####+END:
@@ -222,9 +223,9 @@ class RosmuAccessPoint(object):
         return self._performerAddr
 
 
-####+BEGIN: bx:dblock:python:class :className "GitSh_RosmuAccessPoint" :superClass "RosmuAccessPoint" :comment "ROSMU Access Point" :classType "subed"
+####+BEGIN: b:py3:class/decl :className "GitSh_RosmuAccessPoint" :superClass "RosmuAccessPoint" :comment "ROSMU Access Point" :classType "subed"
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-subed  [[elisp:(outline-show-subtree+toggle)][||]] /GitSh_RosmuAccessPoint/ RosmuAccessPoint =ROSMU Access Point=  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-subed  [[elisp:(outline-show-subtree+toggle)][||]] /GitSh_RosmuAccessPoint/  superClass=RosmuAccessPoint =ROSMU Access Point=   [[elisp:(org-cycle)][| ]]
 #+end_org """
 class GitSh_RosmuAccessPoint(RosmuAccessPoint):
 ####+END:
@@ -235,11 +236,11 @@ class GitSh_RosmuAccessPoint(RosmuAccessPoint):
     rosmuPerformerBase = "/bisos/var/gitSh/performer"
     rosmuInvokerBase = "/bisos/var/gitSh/invoker"
 
-####+BEGIN: bx:cs:py3:method :methodName "__init__" :deco "default"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /__init__/ deco=default  [[elisp:(org-cycle)][| ]]
-#+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+####+BEGIN: b:py3:cs:method/typing :methodName "__init__" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /__init__/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def __init__(
 ####+END:
             self,
@@ -249,10 +250,10 @@ class GitSh_RosmuAccessPoint(RosmuAccessPoint):
     ):
         super().__init__(rosmu, rosmuApName, performerAddr, rosmuState="", rosmuFiles="")
 
-####+BEGIN: bx:cs:py3:method :methodName "rosmuAp_invPath" :deco "property"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /rosmuAp_invPath/ deco=property  [[elisp:(org-cycle)][| ]]
-#+end_org """
+####+BEGIN: b:py3:cs:method/typing :methodName "rosmuAp_invPath" :deco "property"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /rosmuAp_invPath/ deco=property  deco=property   [[elisp:(org-cycle)][| ]]
+    #+end_org """
     @property
     def rosmuAp_invPath(
 ####+END:
@@ -263,10 +264,10 @@ class GitSh_RosmuAccessPoint(RosmuAccessPoint):
         )
 
 
-####+BEGIN: bx:cs:py3:method :methodName "rosmuAp_perfPath" :deco "property"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /rosmuAp_perfPath/ deco=property  [[elisp:(org-cycle)][| ]]
-#+end_org """
+####+BEGIN: b:py3:cs:method/typing :methodName "rosmuAp_perfPath" :deco "property"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /rosmuAp_perfPath/ deco=property  deco=property   [[elisp:(org-cycle)][| ]]
+    #+end_org """
     @property
     def rosmuAp_perfPath(
 ####+END:
@@ -276,9 +277,9 @@ class GitSh_RosmuAccessPoint(RosmuAccessPoint):
             os.path.join(__class__.rosmuInvokerBase, self.rosmuApName,)
         )
 
-####+BEGIN: bx:dblock:python:class :className "RPyC_RosmuAccessPoint" :superClass "RosmuAccessPoint" :comment "ROSMU Access Point" :classType "subed"
+####+BEGIN: b:py3:class/decl :className "RPyC_RosmuAccessPoint" :superClass "RosmuAccessPoint" :comment "ROSMU Access Point" :classType "subed"
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-subed  [[elisp:(outline-show-subtree+toggle)][||]] /RPyC_RosmuAccessPoint/ RosmuAccessPoint =ROSMU Access Point=  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-subed  [[elisp:(outline-show-subtree+toggle)][||]] /RPyC_RosmuAccessPoint/  superClass=RosmuAccessPoint =ROSMU Access Point=   [[elisp:(org-cycle)][| ]]
 #+end_org """
 class RPyC_RosmuAccessPoint(RosmuAccessPoint):
 ####+END:
@@ -286,11 +287,11 @@ class RPyC_RosmuAccessPoint(RosmuAccessPoint):
 ** Abstraction of a SAP.
 """
 
-####+BEGIN: bx:cs:py3:method :methodName "__init__" :deco "default"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /__init__/ deco=default  [[elisp:(org-cycle)][| ]]
-#+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+####+BEGIN: b:py3:cs:method/typing :methodName "__init__" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /__init__/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def __init__(
 ####+END:
             self,
@@ -300,10 +301,10 @@ class RPyC_RosmuAccessPoint(RosmuAccessPoint):
     ):
         super().__init__(rosmu, rosmuApName, performerAddr, rosmuState="", rosmuFiles="")
 
-####+BEGIN: bx:cs:py3:method :methodName "rosmuAp_invPath" :deco "property"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /rosmuAp_invPath/ deco=property  [[elisp:(org-cycle)][| ]]
-#+end_org """
+####+BEGIN: b:py3:cs:method/typing :methodName "rosmuAp_invPath" :deco "property"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /rosmuAp_invPath/ deco=property  deco=property   [[elisp:(org-cycle)][| ]]
+    #+end_org """
     @property
     def rosmuAp_invPath(
 ####+END:
@@ -314,10 +315,10 @@ class RPyC_RosmuAccessPoint(RosmuAccessPoint):
         )
 
 
-####+BEGIN: bx:cs:py3:method :methodName "rosmuAp_perfPath" :deco "property"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /rosmuAp_perfPath/ deco=property  [[elisp:(org-cycle)][| ]]
-#+end_org """
+####+BEGIN: b:py3:cs:method/typing :methodName "rosmuAp_perfPath" :deco "property"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /rosmuAp_perfPath/ deco=property  deco=property   [[elisp:(org-cycle)][| ]]
+    #+end_org """
     @property
     def rosmuAp_perfPath(
 ####+END:
@@ -334,9 +335,9 @@ class RPyC_RosmuAccessPoint(RosmuAccessPoint):
 #+end_org """
 ####+END:
 
-####+BEGIN: bx:dblock:python:class :className "OperationAccessPoint" :superClass "abc.ABC" :comment "Operation Access Point" :classType "abs"
+####+BEGIN: b:py3:class/decl :className "OperationAccessPoint" :superClass "abc.ABC" :comment "Operation Access Point" :classType "abs"
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-abs    [[elisp:(outline-show-subtree+toggle)][||]] /OperationAccessPoint/ abc.ABC =Operation Access Point=  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-abs    [[elisp:(outline-show-subtree+toggle)][||]] /OperationAccessPoint/  superClass=abc.ABC =Operation Access Point=   [[elisp:(org-cycle)][| ]]
 #+end_org """
 class OperationAccessPoint(abc.ABC):
 ####+END:
@@ -344,11 +345,11 @@ class OperationAccessPoint(abc.ABC):
 ** Abstraction of An Op AP.
 """
 
-####+BEGIN: bx:cs:py3:method :methodName "__init__" :deco "default"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /__init__/ deco=default  [[elisp:(org-cycle)][| ]]
-#+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+####+BEGIN: b:py3:cs:method/typing :methodName "__init__" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /__init__/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def __init__(
 ####+END:
             self,
@@ -356,10 +357,10 @@ class OperationAccessPoint(abc.ABC):
     ):
         self._rosmuAp = rosmuAp
 
-####+BEGIN: bx:cs:py3:method :methodName "rosmuAp" :deco "property"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /rosmuAp/ deco=property  [[elisp:(org-cycle)][| ]]
-#+end_org """
+####+BEGIN: b:py3:cs:method/typing :methodName "rosmuAp" :deco "property"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /rosmuAp/ deco=property  deco=property   [[elisp:(org-cycle)][| ]]
+    #+end_org """
     @property
     def rosmuAp(
 ####+END:
@@ -367,10 +368,10 @@ class OperationAccessPoint(abc.ABC):
     ):
         return self._rosmuAp
 
-####+BEGIN: bx:cs:py3:method :methodName "invIdCreate" :deco "abstractmethod"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /invIdCreate/ deco=abstractmethod  [[elisp:(org-cycle)][| ]]
-#+end_org """
+####+BEGIN: b:py3:cs:method/typing :methodName "invIdCreate" :deco "abc.abstractmethod"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /invIdCreate/ deco=abc.abstractmethod  deco=abc.abstractmethod   [[elisp:(org-cycle)][| ]]
+    #+end_org """
     @abc.abstractmethod
     def invIdCreate(
 ####+END:
@@ -378,7 +379,7 @@ class OperationAccessPoint(abc.ABC):
     ):
         self._invId = "NOTYET"  # datetag, plus file check
 
-####+BEGINNOT: bx:cs:py3:method :methodName "invId" :deco "property abstractmethod"
+####+BEGINNOT: b:py3:cs:method/typing :methodName "invId" :deco "property abc.abstractmethod"
     """
 **  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Method-    :: /invId/ deco=property abstractmethod  [[elisp:(org-cycle)][| ]]
 """
@@ -390,10 +391,10 @@ class OperationAccessPoint(abc.ABC):
     ):
         return self._invId
 
-####+BEGIN: bx:cs:py3:method :methodName "invoke" :deco "abstractmethod"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /invoke/ deco=abstractmethod  [[elisp:(org-cycle)][| ]]
-#+end_org """
+####+BEGIN: b:py3:cs:method/typing :methodName "invoke" :deco "abc.abstractmethod"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /invoke/ deco=abc.abstractmethod  deco=abc.abstractmethod   [[elisp:(org-cycle)][| ]]
+    #+end_org """
     @abc.abstractmethod
     def invoke(
 ####+END:
@@ -406,10 +407,10 @@ class OperationAccessPoint(abc.ABC):
         """
         print(f"{opName}{opParams}")
 
-####+BEGIN: bx:cs:py3:method :methodName "invokeSubmit" :deco "abstractmethod"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /invokeSubmit/ deco=abstractmethod  [[elisp:(org-cycle)][| ]]
-#+end_org """
+####+BEGIN: b:py3:cs:method/typing :methodName "invokeSubmit" :deco "abc.abstractmethod"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /invokeSubmit/ deco=abc.abstractmethod  deco=abc.abstractmethod   [[elisp:(org-cycle)][| ]]
+    #+end_org """
     @abc.abstractmethod
     def invokeSubmit(
 ####+END:
@@ -422,10 +423,10 @@ class OperationAccessPoint(abc.ABC):
         """
         pass
 
-####+BEGIN: bx:cs:py3:method :methodName "invokeOutcomeRetreive" :deco "abstractmethod"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /invokeOutcomeRetreive/ deco=abstractmethod  [[elisp:(org-cycle)][| ]]
-#+end_org """
+####+BEGIN: b:py3:cs:method/typing :methodName "invokeOutcomeRetreive" :deco "abc.abstractmethod"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /invokeOutcomeRetreive/ deco=abc.abstractmethod  deco=abc.abstractmethod   [[elisp:(org-cycle)][| ]]
+    #+end_org """
     @abc.abstractmethod
     def invokeOutcomeRetreive(
 ####+END:
@@ -439,10 +440,10 @@ class OperationAccessPoint(abc.ABC):
         pass
 
 
-####+BEGIN: bx:cs:py3:method :methodName "perform" :deco "abstractmethod"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /perform/ deco=abstractmethod  [[elisp:(org-cycle)][| ]]
-#+end_org """
+####+BEGIN: b:py3:cs:method/typing :methodName "perform" :deco "abc.abstractmethod"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /perform/ deco=abc.abstractmethod  deco=abc.abstractmethod   [[elisp:(org-cycle)][| ]]
+    #+end_org """
     @abc.abstractmethod
     def perform(
 ####+END:
@@ -455,10 +456,10 @@ class OperationAccessPoint(abc.ABC):
         """
         pass
 
-####+BEGIN: bx:cs:py3:method :methodName "performOutcomeSubmit" :deco "abstractmethod"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /performOutcomeSubmit/ deco=abstractmethod  [[elisp:(org-cycle)][| ]]
-#+end_org """
+####+BEGIN: b:py3:cs:method/typing :methodName "performOutcomeSubmit" :deco "abc.abstractmethod"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /performOutcomeSubmit/ deco=abc.abstractmethod  deco=abc.abstractmethod   [[elisp:(org-cycle)][| ]]
+    #+end_org """
     @abc.abstractmethod
     def performOutcomeSubmit(
 ####+END:
@@ -471,9 +472,9 @@ class OperationAccessPoint(abc.ABC):
         """
         pass
 
-####+BEGIN: bx:dblock:python:class :className "GitSh_InvokerOpAP" :superClass "OperationAccessPoint" :comment "Operation Access Point" :classType "subed"
+####+BEGIN: b:py3:class/decl :className "GitSh_InvokerOpAP" :superClass "OperationAccessPoint" :comment "Operation Access Point" :classType "subed"
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-subed  [[elisp:(outline-show-subtree+toggle)][||]] /GitSh_InvokerOpAP/ OperationAccessPoint =Operation Access Point=  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-subed  [[elisp:(outline-show-subtree+toggle)][||]] /GitSh_InvokerOpAP/  superClass=OperationAccessPoint =Operation Access Point=   [[elisp:(org-cycle)][| ]]
 #+end_org """
 class GitSh_InvokerOpAP(OperationAccessPoint):
 ####+END:
@@ -482,11 +483,11 @@ class GitSh_InvokerOpAP(OperationAccessPoint):
 """
 
 
-####+BEGIN: bx:cs:py3:method :methodName "__init__" :deco "default"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /__init__/ deco=default  [[elisp:(org-cycle)][| ]]
-#+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+####+BEGIN: b:py3:cs:method/typing :methodName "__init__" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /__init__/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def __init__(
 ####+END:
             self,
@@ -495,11 +496,11 @@ class GitSh_InvokerOpAP(OperationAccessPoint):
         self._rosmuAp = rosmuAp
 
 
-####+BEGIN: bx:cs:py3:method :methodName "invokeIdCreate" :deco "default"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /invokeIdCreate/ deco=default  [[elisp:(org-cycle)][| ]]
-#+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+####+BEGIN: b:py3:cs:method/typing :methodName "invokeIdCreate" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /invokeIdCreate/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def invokeIdCreate(
 ####+END:
             self,
@@ -507,22 +508,22 @@ class GitSh_InvokerOpAP(OperationAccessPoint):
         self._invId = "NOTYET"  # datetag, plus file check
         self._invIdPath = "NOTYET"
 
-####+BEGIN: bx:cs:py3:method :methodName "invId" :deco "default"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /invId/ deco=default  [[elisp:(org-cycle)][| ]]
-#+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+####+BEGIN: b:py3:cs:method/typing :methodName "invId" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /invId/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def invId(
 ####+END:
             self,
     ):
         return self._invId
 
-####+BEGIN: bx:cs:py3:method :methodName "invoke" :deco "default"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /invoke/ deco=default  [[elisp:(org-cycle)][| ]]
-#+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+####+BEGIN: b:py3:cs:method/typing :methodName "invoke" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /invoke/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def invoke(
 ####+END:
             self,
@@ -534,11 +535,11 @@ class GitSh_InvokerOpAP(OperationAccessPoint):
         """
         print(f"{opName}{opParams}")
 
-####+BEGIN: bx:cs:py3:method :methodName "invokeSubmit" :deco "default"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /invokeSubmit/ deco=default  [[elisp:(org-cycle)][| ]]
-#+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+####+BEGIN: b:py3:cs:method/typing :methodName "invokeSubmit" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /invokeSubmit/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def invokeSubmit(
 ####+END:
             self,
@@ -550,11 +551,11 @@ class GitSh_InvokerOpAP(OperationAccessPoint):
         """
         print(f"{opName}{opParams}")
 
-####+BEGIN: bx:cs:py3:method :methodName "invokeOutcomeRetreive" :deco "default"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /invokeOutcomeRetreive/ deco=default  [[elisp:(org-cycle)][| ]]
-#+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+####+BEGIN: b:py3:cs:method/typing :methodName "invokeOutcomeRetreive" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /invokeOutcomeRetreive/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def invokeOutcomeRetreive(
 ####+END:
             self,
@@ -566,9 +567,9 @@ class GitSh_InvokerOpAP(OperationAccessPoint):
         """
         print(f"{opName}{opParams}")
 
-####+BEGIN: bx:dblock:python:class :className "GitSh_PerformerOpAP" :superClass "OperationAccessPoint" :comment "Operation Access Point" :classType "subed"
+####+BEGIN: b:py3:class/decl :className "GitSh_PerformerOpAP" :superClass "OperationAccessPoint" :comment "Operation Access Point" :classType "subed"
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-subed  [[elisp:(outline-show-subtree+toggle)][||]] /GitSh_PerformerOpAP/ OperationAccessPoint =Operation Access Point=  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-subed  [[elisp:(outline-show-subtree+toggle)][||]] /GitSh_PerformerOpAP/  superClass=OperationAccessPoint =Operation Access Point=   [[elisp:(org-cycle)][| ]]
 #+end_org """
 class GitSh_PerformerOpAP(OperationAccessPoint):
 ####+END:
@@ -576,11 +577,11 @@ class GitSh_PerformerOpAP(OperationAccessPoint):
 ** Abstraction of the base ByStar Portable Object
 """
 
-####+BEGIN: bx:cs:py3:method :methodName "__init__" :deco "default"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /__init__/ deco=default  [[elisp:(org-cycle)][| ]]
-#+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+####+BEGIN: b:py3:cs:method/typing :methodName "__init__" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /__init__/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def __init__(
 ####+END:
             self,
@@ -588,10 +589,10 @@ class GitSh_PerformerOpAP(OperationAccessPoint):
     ):
         self._rosmuAp = rosmuAp
 
-####+BEGIN: bx:cs:py3:method :methodName "rosmuAp" :deco "property"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /rosmuAp/ deco=property  [[elisp:(org-cycle)][| ]]
-#+end_org """
+####+BEGIN: b:py3:cs:method/typing :methodName "rosmuAp" :deco "property"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /rosmuAp/ deco=property  deco=property   [[elisp:(org-cycle)][| ]]
+    #+end_org """
     @property
     def rosmuAp(
 ####+END:
@@ -600,10 +601,10 @@ class GitSh_PerformerOpAP(OperationAccessPoint):
         return self._rosmuAp
 
 
-####+BEGIN: bx:cs:py3:method :methodName "invId" :deco "property"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /invId/ deco=property  [[elisp:(org-cycle)][| ]]
-#+end_org """
+####+BEGIN: b:py3:cs:method/typing :methodName "invId" :deco "property"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /invId/ deco=property  deco=property   [[elisp:(org-cycle)][| ]]
+    #+end_org """
     @property
     def invId(
 ####+END:
@@ -611,11 +612,11 @@ class GitSh_PerformerOpAP(OperationAccessPoint):
     ):
         return self._invId
 
-####+BEGIN: bx:cs:py3:method :methodName "perform" :deco "default"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /perform/ deco=default  [[elisp:(org-cycle)][| ]]
-#+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+####+BEGIN: b:py3:cs:method/typing :methodName "perform" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /perform/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def perform(
 ####+END:
             self,
@@ -627,11 +628,11 @@ class GitSh_PerformerOpAP(OperationAccessPoint):
         """
         print(f"{opName}{opParams}")
 
-####+BEGIN: bx:cs:py3:method :methodName "performOutcomeSubmit" :deco "default"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /performOutcomeSubmit/ deco=default  [[elisp:(org-cycle)][| ]]
-#+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+####+BEGIN: b:py3:cs:method/typing :methodName "performOutcomeSubmit" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /performOutcomeSubmit/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def performOutcomeSubmit(
 ####+END:
             self,
@@ -646,19 +647,19 @@ class GitSh_PerformerOpAP(OperationAccessPoint):
 
 ####+BEGIN: b:py3:class/decl :className "RPyC_InvokerOpAP" :superClass "OperationAccessPoint" :comment "Operation Access Point" :classType "subed"
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-subed  [[elisp:(outline-show-subtree+toggle)][||]] /RPyC_InvokerOpAP/  superClass=object =Operation Access Point=   [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-subed  [[elisp:(outline-show-subtree+toggle)][||]] /RPyC_InvokerOpAP/  superClass=OperationAccessPoint =Operation Access Point=   [[elisp:(org-cycle)][| ]]
 #+end_org """
-class RPyC_InvokerOpAP(object):
+class RPyC_InvokerOpAP(OperationAccessPoint):
 ####+END:
     """
-** Abstraction of the base ByStar Portable Object
+** Place holder, unused. Abstraction of Invocation at Operation Access Point.
 """
 
-####+BEGIN: bx:cs:py3:method :methodName "__init__" :deco "default"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /__init__/ deco=default  [[elisp:(org-cycle)][| ]]
-#+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+####+BEGIN: b:py3:cs:method/typing :methodName "__init__" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /__init__/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def __init__(
 ####+END:
             self,
@@ -667,11 +668,11 @@ class RPyC_InvokerOpAP(object):
         self._rosmuAp = rosmuAp
 
 
-####+BEGIN: bx:cs:py3:method :methodName "invokeIdCreate" :deco "default"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /invokeIdCreate/ deco=default  [[elisp:(org-cycle)][| ]]
-#+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+####+BEGIN: b:py3:cs:method/typing :methodName "invokeIdCreate" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /invokeIdCreate/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def invokeIdCreate(
 ####+END:
             self,
@@ -679,22 +680,22 @@ class RPyC_InvokerOpAP(object):
         self._invId = "NOTYET"  # datetag, plus file check
         self._invIdPath = "NOTYET"
 
-####+BEGIN: bx:cs:py3:method :methodName "invId" :deco "default"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /invId/ deco=default  [[elisp:(org-cycle)][| ]]
-#+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+####+BEGIN: b:py3:cs:method/typing :methodName "invId" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /invId/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def invId(
 ####+END:
             self,
     ):
         return self._invId
 
-####+BEGIN: bx:cs:py3:method :methodName "invoke" :deco "default"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /invoke/ deco=default  [[elisp:(org-cycle)][| ]]
-#+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+####+BEGIN: b:py3:cs:method/typing :methodName "invoke" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /invoke/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def invoke(
 ####+END:
             self,
@@ -706,11 +707,11 @@ class RPyC_InvokerOpAP(object):
         """
         print(f"{opName}{opParams}")
 
-####+BEGIN: bx:cs:py3:method :methodName "invokeSubmit" :deco "default"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /invokeSubmit/ deco=default  [[elisp:(org-cycle)][| ]]
-#+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+####+BEGIN: b:py3:cs:method/typing :methodName "invokeSubmit" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /invokeSubmit/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def invokeSubmit(
 ####+END:
             self,
@@ -722,11 +723,11 @@ class RPyC_InvokerOpAP(object):
         """
         print(f"{opName}{opParams}")
 
-####+BEGIN: bx:cs:py3:method :methodName "invokeOutcomeRetreive" :deco "default"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /invokeOutcomeRetreive/ deco=default  [[elisp:(org-cycle)][| ]]
-#+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+####+BEGIN: b:py3:cs:method/typing :methodName "invokeOutcomeRetreive" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /invokeOutcomeRetreive/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def invokeOutcomeRetreive(
 ####+END:
             self,
@@ -738,21 +739,21 @@ class RPyC_InvokerOpAP(object):
         """
         print(f"{opName}{opParams}")
 
-####+BEGIN: bx:dblock:python:class :className "RPyC_PerformerOpAP" :superClass "OperationAccessPoint" :comment "Operation Access Point" :classType "subed"
+####+BEGIN: b:py3:class/decl :className "RPyC_PerformerOpAP" :superClass "OperationAccessPoint" :comment "Operation Access Point" :classType "subed"
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-subed  [[elisp:(outline-show-subtree+toggle)][||]] /RPyC_PerformerOpAP/ OperationAccessPoint =Operation Access Point=  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-subed  [[elisp:(outline-show-subtree+toggle)][||]] /RPyC_PerformerOpAP/  superClass=OperationAccessPoint =Operation Access Point=   [[elisp:(org-cycle)][| ]]
 #+end_org """
 class RPyC_PerformerOpAP(OperationAccessPoint):
 ####+END:
     """
-** Abstraction of the base ByStar Portable Object
+** Place holder, unused. Abstraction of Performance at Operation Access Point.
 """
 
-####+BEGIN: bx:cs:py3:method :methodName "__init__" :deco "default"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /__init__/ deco=default  [[elisp:(org-cycle)][| ]]
-#+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+####+BEGIN: b:py3:cs:method/typing :methodName "__init__" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /__init__/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def __init__(
 ####+END:
             self,
@@ -760,10 +761,10 @@ class RPyC_PerformerOpAP(OperationAccessPoint):
     ):
         self._rosmuAp = rosmuAp
 
-####+BEGIN: bx:cs:py3:method :methodName "rosmuAp" :deco "property"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /rosmuAp/ deco=property  [[elisp:(org-cycle)][| ]]
-#+end_org """
+####+BEGIN: b:py3:cs:method/typing :methodName "rosmuAp" :deco "property"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /rosmuAp/ deco=property  deco=property   [[elisp:(org-cycle)][| ]]
+    #+end_org """
     @property
     def rosmuAp(
 ####+END:
@@ -772,10 +773,10 @@ class RPyC_PerformerOpAP(OperationAccessPoint):
         return self._rosmuAp
 
 
-####+BEGIN: bx:cs:py3:method :methodName "invId" :deco "property"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /invId/ deco=property  [[elisp:(org-cycle)][| ]]
-#+end_org """
+####+BEGIN: b:py3:cs:method/typing :methodName "invId" :deco "property"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /invId/ deco=property  deco=property   [[elisp:(org-cycle)][| ]]
+    #+end_org """
     @property
     def invId(
 ####+END:
@@ -783,11 +784,11 @@ class RPyC_PerformerOpAP(OperationAccessPoint):
     ):
         return self._invId
 
-####+BEGIN: bx:cs:py3:method :methodName "perform" :deco "default"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /perform/ deco=default  [[elisp:(org-cycle)][| ]]
-#+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+####+BEGIN: b:py3:cs:method/typing :methodName "perform" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /perform/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def perform(
 ####+END:
             self,
@@ -799,11 +800,11 @@ class RPyC_PerformerOpAP(OperationAccessPoint):
         """
         print(f"{opName}{opParams}")
 
-####+BEGIN: bx:cs:py3:method :methodName "performOutcomeSubmit" :deco "default"
-    """
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-       :: /performOutcomeSubmit/ deco=default  [[elisp:(org-cycle)][| ]]
-#+end_org """
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+####+BEGIN: b:py3:cs:method/typing :methodName "performOutcomeSubmit" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /performOutcomeSubmit/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def performOutcomeSubmit(
 ####+END:
             self,
@@ -825,7 +826,7 @@ class RPyC_PerformerOpAP(OperationAccessPoint):
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "examples_csu" :funcType "eType" :retType "" :deco "default" :argsList ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-eType  [[elisp:(outline-show-subtree+toggle)][||]] /examples_csu/ deco=default   [[elisp:(org-cycle)][| ]] deco=default   [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-eType  [[elisp:(outline-show-subtree+toggle)][||]] /examples_csu/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
 #+end_org """
 @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
 def examples_csu(
@@ -844,7 +845,7 @@ def examples_csu(
 
     icmWrapper = ""
     cmndName = "ro_sapCreate"
-    cps = cpsInit() ; cps['rosmu'] = "myName" ; cps['perfAddr'] = "local" ;
+    cps = cpsInit() ; cps['perfName'] = "localhost" ; cps['rosmu'] = "csB2Examples.cs"
     cmndArgs = "" ;
 
     cs.examples.cmndInsert(cmndName, cps, cmndArgs, verbosity='none', icmWrapper=icmWrapper)
@@ -864,14 +865,24 @@ def commonParamsSpecify(
 ** --rosmu (Remote Operations Service Unit. Name of the ROS)
     """
     icmParams.parDictAdd(
-        parName='perfAddr',
-        parDescription="Performer Address",
+        parName='perfName',
+        parDescription="Performer Name. In Bx, A container name.",
         parDataType=None,
         parDefault=None,
         parChoices=["any"],
         # parScope=icm.ICM_ParamScope.TargetParam,
         argparseShortOpt=None,
-        argparseLongOpt='--perfAddr',
+        argparseLongOpt='--perfName',
+    )
+    icmParams.parDictAdd(
+        parName='roSapPath',
+        parDescription="Path to FPs base.",
+        parDataType=None,
+        parDefault=None,
+        parChoices=["any"],
+        # parScope=icm.ICM_ParamScope.TargetParam,
+        argparseShortOpt=None,
+        argparseLongOpt='--roSapPath',
     )
     icmParams.parDictAdd(
         parName='perfAuSel',
@@ -945,6 +956,199 @@ def commonParamsSpecify(
     )
 
 
+####+BEGIN: bx:dblock:python:class :className "SapBase_FPs" :superClass "b.fpCls.BaseDir" :comment "" :classType "basic"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-basic  [[elisp:(outline-show-subtree+toggle)][||]] /SapBase_FPs/ b.fpCls.BaseDir  [[elisp:(org-cycle)][| ]]
+#+end_org """
+class SapBase_FPs(b.fpCls.BaseDir):
+####+END:
+    """
+** Abstraction of the PalsBase for LiveTargets
+"""
+####+BEGIN: b:py3:cs:method/typing :methodName "__init__" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /__init__/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def __init__(
+####+END:
+            self,
+            rosmu: str="",
+            perfName: str="",
+            perfModel: str="",
+            rosmuSel: str="",
+            roSapPath: str="",
+    ):
+        self.rosmu = rosmu
+        self.perfName = perfName
+        self.perfModel = perfModel
+        self.rosmuSel = rosmuSel
+        self.roSapPath = roSapPath
+
+        if roSapPath:
+            if rosmu or perfModel or perfName or rosmuSel:
+                b_io.eh.eh_problem_usageError("conflict with roSapPath")
+            fileSysPath = roSapPath
+        else:
+            fileSysPath = self.basePath_obtain()
+
+        super().__init__(fileSysPath,)
+
+
+####+BEGIN: b:py3:cs:method/typing :methodName "fps_asIcmParamsAdd" :deco "staticmethod"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /fps_asIcmParamsAdd/ deco=staticmethod  deco=staticmethod   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @staticmethod
+    def fps_asIcmParamsAdd(
+####+END:
+            icmParams,
+    ):
+        """staticmethod: takes in icmParms and augments it with fileParams. returns icmParams."""
+        icmParams.parDictAdd(
+            parName='perfIpAddr',
+            parDescription="",
+            parDataType=None,
+            parDefault=None,
+            parChoices=list(),
+            #parScope=icm.ICM_ParamScope.TargetParam,  # type: ignore
+            argparseShortOpt=None,
+            argparseLongOpt='--perfIpAddr',
+        )
+        icmParams.parDictAdd(
+            parName='perfPortNu',
+            parDescription="",
+            parDataType=None,
+            parDefault=None,
+            parChoices=list(),
+            #parScope=icm.ICM_ParamScope.TargetParam,  # type: ignore
+            argparseShortOpt=None,
+            argparseLongOpt='--perfPortNu',
+        )
+        icmParams.parDictAdd(
+            parName='accessControl',
+            parDescription="",
+            parDataType=None,
+            parDefault=None,
+            parChoices=list(),
+            #parScope=icm.ICM_ParamScope.TargetParam,  # type: ignore
+            argparseShortOpt=None,
+            argparseLongOpt='--accessControl',
+        )
+
+        return icmParams
+
+####+BEGIN: b:py3:cs:method/typing :methodName "perfNameToRoSapPath" :deco "staticmethod"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /perfNameToRoSapPath/ deco=staticmethod  deco=staticmethod   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @staticmethod
+    def perfNameToRoSapPath(
+####+END:
+            perfName,
+    ):
+        """."""
+
+        rosmu = cs.G.icmMyName()
+        rosmuSel = "default"
+        perfModel = "rpyc"
+
+        sapBaseFps = b.pattern.sameInstance(SapBase_FPs, rosmu=rosmu, perfName=perfName, perfModel=perfModel, rosmuSel=rosmuSel)
+
+        roSapPath = sapBaseFps.fps_absBasePath()
+
+        return roSapPath
+
+####+BEGIN: bx:icm:py3:method :methodName "fps_namesWithRelPath" :deco "classmethod"
+    """
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Method-    :: /fps_namesWithRelPath/ deco=classmethod  [[elisp:(org-cycle)][| ]]
+"""
+    @classmethod
+    def fps_namesWithRelPath(
+####+END:
+            cls,
+    ):
+        """classmethod: returns a dict with fp names as key and relBasePath as value.
+        The names refer to icmParams.parDictAdd(parName) of fps_asIcmParamsAdd
+        """
+        relBasePath = "."
+        return (
+            {
+                'perfIpAddr': relBasePath,
+                'perfPortNu': relBasePath,
+                'accessControl': relBasePath,
+                'perfName': relBasePath,
+                'perfModel': relBasePath,
+                'rosmu': relBasePath,
+                'rosmuSel': relBasePath,
+            }
+        )
+
+
+####+BEGIN: b:py3:cs:method/typing :methodName "fps_absBasePath" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /fps_absBasePath/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def fps_absBasePath(
+####+END:
+           self,
+    ):
+        return typing.cast(str, self.basePath_obtain())
+
+
+####+BEGIN: b:py3:cs:method/typing :methodName "basePath_obtain" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /basePath_obtain/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def basePath_obtain(
+####+END:
+           self,
+    ) -> pathlib.Path:
+        return (
+            pathlib.Path(
+                os.path.join(
+                    "/bisos/var/cs/ro/sap",
+                    self.rosmu,
+                    self.perfName,
+                    self.perfModel,
+                    self.rosmuSel,
+                )
+            )
+        )
+
+
+####+BEGIN: b:py3:cs:method/typing :methodName "basePath_update" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /basePath_update/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def basePath_update(
+####+END:
+           self,
+    ) -> pathlib.Path:
+        basePath = self.basePath_obtain()
+        basePath.mkdir(parents=True, exist_ok=True)
+        return basePath
+
+
+####+BEGIN: b:py3:cs:method/typing :methodName "fps_baseMake" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /fps_baseMake/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def fps_baseMake(
+####+END:
+            self,
+    ):
+        #palsControlPath = self.basePath_obtain()
+        #fpsPath = self.basePath_obtain()
+        #self.fpsBaseInst = repoLiveParams.PalsRepo_LiveParams_FPs(
+        #    fpsPath,
+        #)
+        #return self.fpsBaseInst
+        pass
 
 
 ####+BEGIN: bx:cs:py3:section :title "CS ro_sap Cmnds"
@@ -953,48 +1157,117 @@ def commonParamsSpecify(
 #+end_org """
 ####+END:
 
-
-####+BEGINNOT: b:py3:cs:cmnd/classHead :cmndName "ro_sapCreate"  :comment "" :parsMand "perfAddr rosmu" :parsOpt "" :argsMin 0 :argsMax 0
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "ro_sapCreate"  :comment "" :parsMand "perfName rosmu" :parsOpt "perfModel rosmuSel" :argsMin 0 :argsMax 0
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<ro_sapCreate>>parsMand=perfAddr rosmu parsOpt= argsMin=0 argsMax=0 pyInv=
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<ro_sapCreate>>parsMand=perfName rosmu parsOpt=perfModel rosmuSel argsMin=0 argsMax=0 pyInv=
 #+end_org """
 class ro_sapCreate(cs.Cmnd):
-    cmndParamsMandatory = [ 'perfAddr', 'rosmu', ]
-    cmndParamsOptional = [ ]
+    cmndParamsMandatory = [ 'perfName', 'rosmu', ]
+    cmndParamsOptional = [ 'perfModel', 'rosmuSel', ]
     cmndArgsLen = {'Min': 0, 'Max': 0,}
 
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def cmnd(self,
              rtInv: cs.RtInvoker,
              cmndOutcome: b.op.Outcome,
-             perfAddr: typing.Optional[str]=None,  # Cs Mandatory Param
+             perfName: typing.Optional[str]=None,  # Cs Mandatory Param
              rosmu: typing.Optional[str]=None,  # Cs Mandatory Param
+             perfModel: typing.Optional[str]=None,  # Cs Optional Param
+             rosmuSel: typing.Optional[str]=None,  # Cs Optional Param
     ) -> b.op.Outcome:
 
-        callParamsDict = {'perfAddr': perfAddr, 'rosmu': rosmu, }
-        if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, None).isProblematic():
-            return io.eh.badOutcome(cmndOutcome)
 ####+END:
         """\
-***** [[elisp:(org-cycle)][| *CmndDesc:* | ]] Returns a resmuApPath
+***** [[elisp:(org-cycle)][| *CmndDesc:* | ]] Creates path for ro_sap and updates FPs
         """
 
-        roSapFpBase = pathlib.Path(
-            os.path.join(
-                "/bisos/var/cs/ro/sap",
-                f"{rosmu}",
-                "localhost",
-            )
-        )
+        # if not (perfName is None or roSapPath is None):
+        #     return b_io.eh.eh_problem_usageError("Either perfName or roSapPath should be specified")
 
-        b_io.log.here(f"fpBaseDir={roSapFpBase}")
+        # if perfName and roSapPath:
+        #     return b_io.eh.eh_problem_usageError("Both perfName and roSapPath should be specified")
 
-        b.fp.FileParamWriteToPath(
-                parNameFullPath=roSapFpBase,
-                parValue=rosmu,
-        )
+        if not rosmuSel:
+            rosmuSel = "default"
+
+        if not perfModel:
+            perfModel = "rpyc"
+
+        #cmndArgs = list(self.cmndArgsGet("0&1", cmndArgsSpecDict, effectiveArgsList)) # type: ignore
+
+        sapBaseFps = b.pattern.sameInstance(SapBase_FPs, rosmu=rosmu, perfName=perfName, perfModel=perfModel, rosmuSel=rosmuSel)
+
+        sapBaseFps.fps_setParam('perfIpAddr', "127.0.0.1")
+        sapBaseFps.fps_setParam('perfPortNu', "123456")
+        sapBaseFps.fps_setParam('accessControl', "placeholder")
+        sapBaseFps.fps_setParam('perfName', perfName)
+        sapBaseFps.fps_setParam('perfModel', perfModel)
+        sapBaseFps.fps_setParam('rosmu', rosmu)
+        sapBaseFps.fps_setParam('rosmuSel', rosmuSel)
 
         return(cmndOutcome)
+
+####+BEGIN: bx:cs:py3:section :title "CS Performer"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  /Section/    [[elisp:(outline-show-subtree+toggle)][||]] *CS Performer*  [[elisp:(org-cycle)][| ]]
+#+end_org """
+####+END:
+
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "csPerformer" :comment "" :parsMand "" :parsOpt "roSapPath perfName" :argsMin 0 :argsMax 0 :pyInv ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<csPerformer>>parsMand= parsOpt=roSapPath perfName argsMin=0 argsMax=0 pyInv=
+#+end_org """
+class csPerformer(cs.Cmnd):
+    cmndParamsMandatory = [ ]
+    cmndParamsOptional = [ 'roSapPath', 'perfName', ]
+    cmndArgsLen = {'Min': 0, 'Max': 0,}
+
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def cmnd(self,
+             rtInv: cs.RtInvoker,
+             cmndOutcome: b.op.Outcome,
+             roSapPath: typing.Optional[str]=None,  # Cs Optional Param
+             perfName: typing.Optional[str]=None,  # Cs Optional Param
+    ) -> b.op.Outcome:
+
+####+END:
+        self.cmndDocStr(f""" #+begin_org
+** [[elisp:(org-cycle)][| *CmndDesc:* | ]]  A starting point command.
+        #+end_org """)
+
+        #print("JJ")
+        #b_io.pr(perfName)
+        #b_io.pr(roSapPath)
+
+        if not (roSapPath or perfName):
+            # both are None
+            return b_io.eh.eh_problem_usageError(f"either perfName or roSapPath must be specified.")
+
+        if roSapPath and perfName:
+            # neither are None
+            return (
+                b_io.eh.eh_problem_usageError(f"both perfName and roSapPath can not be specified.")
+            )
+
+        #b_io.pr(perfName)
+
+        if perfName:
+            roSapPath = SapBase_FPs.perfNameToRoSapPath(perfName)
+
+        #b_io.pr(roSapPath)
+
+        # read file params, based on perfModel, invoke appropriate performer.
+        sapBaseFps = b.pattern.sameInstance(SapBase_FPs, roSapPath=roSapPath)
+
+        #sapBaseFps.fps_setParam('perfIpAddr', "127.0.0.1")
+        portNu = sapBaseFps.fps_getParam('perfPortNu')
+        #sapBaseFps.fps_setParam('accessControl', "placeholder")
+
+        cs.rpyc.csPerform(portNu.parValueGet())
+
+        return(cmndOutcome)
+
+
 
 
 ####+BEGIN: b:py3:cs:framework/endOfFile :basedOn "classification"

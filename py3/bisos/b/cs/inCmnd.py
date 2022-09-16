@@ -76,17 +76,20 @@ from bisos.b import cs
 #+end_org """
 ####+END:
 
+
 ####+BEGIN: bx:cs:py3:section :title "Service Related Commands"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  /Section/    [[elisp:(outline-show-subtree+toggle)][||]] *Service Related Commands*  [[elisp:(org-cycle)][| ]]
 #+end_org """
 ####+END:
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "rpyc_csPerformer" :comment "" :parsMand "" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
+#rpyc_csPerformer = cs.rpyc_csPerformer
+
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "rpyc_csPerformer2" :comment "" :parsMand "" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<rpyc_csPerformer>>parsMand= parsOpt= argsMin=0 argsMax=0 pyInv=
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<rpyc_csPerformer2>>parsMand= parsOpt= argsMin=0 argsMax=0 pyInv=
 #+end_org """
-class rpyc_csPerformer(cs.Cmnd):
+class rpyc_csPerformer2(cs.Cmnd):
     cmndParamsMandatory = [ ]
     cmndParamsOptional = [ ]
     cmndArgsLen = {'Min': 0, 'Max': 0,}
@@ -108,13 +111,14 @@ class rpyc_csPerformer(cs.Cmnd):
         return(cmndOutcome)
 
 
+
 ####+BEGIN: bx:cs:py3:section :title "/Player Support/      :: *Framework cmnds That are expected by the ICM-Player*"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  /Section/    [[elisp:(outline-show-subtree+toggle)][||]] */Player Support/      :: *Framework cmnds That are expected by the ICM-Player**  [[elisp:(org-cycle)][| ]]
 #+end_org """
 ####+END:
 
-
+#rpyc_csPerformer = cs.rpyc.rpyc_csPerformer
 
 ####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "icmLanguage" :comment "" :parsMand "" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
@@ -736,8 +740,10 @@ class cmndList_libsMethods(cs.Cmnd):
         #libsClassedCmnds = set(allClassedCmndNames) - set(mainClasses)
         libsClassedCmnds = set(allClassedCmndNames) - set(mainsClassedCmndsGlobal)
 
-        if interactive:
-            ucf.listPrintItems(libsClassedCmnds)
+        #if interactive:
+        if True:
+            #b.ast.listPrintItems(libsClassedCmnds)
+            print(libsClassedCmnds)
 
         return libsClassedCmnds
 
