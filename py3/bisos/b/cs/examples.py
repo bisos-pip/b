@@ -152,8 +152,12 @@ def commonBrief(
     print(( G_myName + " -i examples" + " |" + " icmToEmlVisit"))
     print(( G_myName + " -i visit"))
     print(( """emlVisit -v -n showRun -i gotoPanel """ + G_myFullName))
-    print(f"{G_myName} -i rpyc_csPerformer  & # in background Start rpyc CS Service")
-    print(f"""{G_myName} --ex_invModel="rpyc" -i examples""")
+
+    menuChapter('/Remote Operations -- Performer And Invoker/')
+
+    print(f"""csRo-manage.cs --perfName="localhost" --rosmu="{G_myName}"  -i ro_sapCreate""")
+    print(f"""{G_myName} --perfName="localhost" -i csPerformer  & # in background Start rpyc CS Service""")
+    print(f"""{G_myName}  --perfName="localhost" -i examples""")
 
     menuChapter('*ICM Blee Player Invokations*')
     io.ann.ANN_write("icmPlayer.sh -h -v -n showRun -i grouped {G_myName}".format(G_myName=G_myName))
@@ -484,16 +488,23 @@ def cmndInsert(
     For services, it looks at invModel and roSap.
     #+end_org """
 
-    rpycEnable = ""
+    #rpycEnable = ""
 
-    if cs.G.icmRunArgsGet().ex_invModel == "rpyc":
-        rpycEnable = " --invModel=rpyc"
+    #if cs.G.icmRunArgsGet().ex_invModel == "rpyc":
+    #    rpycEnable = " --invModel=rpyc"
+
+    roEnable = ""
+
+    perfName = cs.G.icmRunArgsGet().perfName
+    if perfName is not None:
+        roEnable = f" --perfName={perfName}"
+
 
     cmndParsStr = ""
     for key in cmndPars:
         cmndParsStr += """--{parName}="{parValue}" """.format(parName=key, parValue=cmndPars[key])
 
-    cmndLine = f"""{cmndParsStr}{rpycEnable} -i {cmndName} {cmndArgs}"""
+    cmndLine = f"""{cmndParsStr}{roEnable} -i {cmndName} {cmndArgs}"""
 
     menuItemInsert(
         commandLine=cmndLine,

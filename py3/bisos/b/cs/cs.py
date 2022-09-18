@@ -127,6 +127,8 @@ class Cmnd(object):
     cmndGroups = []           # bystar
     cmndImpact = []           # read, modify
 
+    rtInvConstraints = None
+
     def __init__(self,
                  cmndLineInputOverRide=None,
                  cmndOutcome = None,
@@ -1310,7 +1312,7 @@ def G_mainWithClass(
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /invokesProcAllClassed/ deco=track  [[elisp:(org-cycle)][| ]]
 #+end_org """
 #@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
-def invokesProcAllClassed(
+def invokesProcAllClassedInvModel(
 ####+END:
         classedCmndsDict,
         icmRunArgs,
@@ -1443,6 +1445,151 @@ def invokesProcAllClassed(
 
     # Check for perfModel and capture outcome
     return(outcome)
+
+
+####+BEGINNOT: bx:cs:py3:func :funcName "invokesProcAllClassed" :funcType "extTyped" :deco "track"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /invokesProcAllClassed/ deco=track  [[elisp:(org-cycle)][| ]]
+#+end_org """
+#@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+def invokesProcAllClassed(
+####+END:
+        classedCmndsDict,
+        icmRunArgs,
+):
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ] Process all invokations applicable to all (classed+funced of mains+libs) CMNDs.
+    #+end_org """
+
+    G = cs.globalContext.get()
+    icmRunArgs = G.icmRunArgsGet()
+
+    rtInv = cs.RtInvoker.new_cmnd()
+    outcome = b.op.Outcome()
+
+    def applyMethodBasedOnContext(
+            classedCmnd,
+    ):
+        """ Chooses the method to apply Cmnd() to.
+        """
+        perfName = icmRunArgs.perfName  # This can be a "None" string but not None
+        csBase = icmRunArgs.csBase
+
+        outcome = b.op.Outcome()
+
+        if classedCmnd().rtInvConstraints is not None:
+            perfName = "None"
+
+        if perfName == None or perfName == "None":
+            #
+            # applicableIcmParams = classedCmnd().absorbApplicableIcmParam()
+            # outcome = classedCmnd().cmnd(**applicableIcmParams)
+            #
+            cmndKwArgs = classedCmnd().cmndCallTimeKwArgs()
+            #print(f"{cmndKwArgs}")
+            rtInv = cs.RtInvoker.new_cmnd()
+            cmndKwArgs.update({'rtInv': rtInv})
+            cmndKwArgs.update({'cmndOutcome': outcome})
+            if classedCmnd().cmndArgsLen['Max'] != 0:  # Cmnd is expecting Arguments
+                cmndKwArgs.update({'argsList': G.icmRunArgsGet().cmndArgs})
+            #print(f"{cmndKwArgs}")
+            outcome = classedCmnd().cmnd(**cmndKwArgs)
+
+        else:
+            print("in Remote Operation")
+
+            roSapPath = cs.ro.SapBase_FPs.perfNameToRoSapPath(perfName)
+            sapBaseFps = b.pattern.sameInstance(cs.ro.SapBase_FPs, roSapPath=roSapPath)
+
+            portNu = sapBaseFps.fps_getParam('perfPortNu')
+
+            cmndKwArgs = classedCmnd().cmndCallTimeKwArgs()
+            rtInv = cs.RtInvoker.new_cmnd()
+            cmndKwArgs.update({'rtInv': rtInv})
+            cmndKwArgs.update({'cmndOutcome': outcome})
+            if classedCmnd().cmndArgsLen['Max'] != 0:  # Cmnd is expecting Arguments
+                cmndKwArgs.update({'argsList': G.icmRunArgsGet().cmndArgs})
+
+            outcome = cs.rpyc.csInvoke(
+                portNu.parValueGet(),
+                classedCmnd,
+                **cmndKwArgs,
+            )
+
+        return outcome
+
+    for invoke in icmRunArgs.invokes:
+        #print(f"Looking for {invoke}")
+        #
+        # First we try cmndList_mainsMethods()
+        #
+        try:
+            classedCmnd = classedCmndsDict[invoke]
+        except  KeyError:
+            #print("TM_ Key Error")
+            pass
+        else:
+            #print(f"Found {classedCmnd}")
+            outcome = applyMethodBasedOnContext(classedCmnd)
+            continue
+
+        #
+        # Next we try cmndList_libsMethods()
+        #
+        callDict = dict()
+        for eachCmnd in cs.inCmnd.cmndList_libsMethods().cmnd(
+                rtInv=rtInv,
+                cmndOutcome=outcome,
+        ):
+            #print(f"looking at {eachCmnd}")
+            try:
+                callDict[eachCmnd] = eval("{eachCmnd}".format(eachCmnd=eachCmnd))
+            except NameError:
+                print(("io.eh.problem -- Skipping-b eval({eachCmnd})".format(eachCmnd=eachCmnd)))
+                continue
+
+        try:
+            classedCmnd = callDict[invoke]
+        except  KeyError:
+            pass
+        else:
+            outcome = applyMethodBasedOnContext(classedCmnd)
+            continue
+
+        #
+        # We tried everything and could not find any
+        #
+
+        # BUG, NOTYET, io.eh.problem goes to -v 20
+        io.eh.io.eh.problem_info("Invalid Action: {invoke}"
+                        .format(invoke=invoke))
+
+        print(("Invalid Action: {invoke}"
+                        .format(invoke=invoke)))
+
+        outcome = b.op.Outcome()
+        outcome.error = b.op.OpError.CmndLineUsageError
+        outcome.errInfo = "Invalid Action: {invoke}".format(invoke=invoke)
+
+    perfModel = icmRunArgs.perfModel  # This can be a "None" string but not a None
+
+    #     if insAsFP_baseDir != "None":
+    if perfModel != "None":
+        print("Capturing outcome")
+        csBase = icmRunArgs.csBase
+        if csBase == "None":
+            print(f"Missing csBase")
+        else:
+            b.fp.FileParamWriteToPath(
+                parNameFullPath=pathlib.Path(csBase).joinpath('result'),
+                parValue=outcome.results
+            )
+
+
+    # Check for perfModel and capture outcome
+    return(outcome)
+
+
 
 ####+BEGIN: bx:cs:py3:func :funcName "cmndNameToClass" :funcType "extTyped" :deco "track"
 """ #+begin_org

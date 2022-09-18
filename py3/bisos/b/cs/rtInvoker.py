@@ -212,6 +212,19 @@ class RtInvoker(object):
         made = cls(Mode.RoPerf, ins=False, outs=False)
         return made
 
+####+BEGIN: b:py3:cs:method/typing :methodName "new_noRo" :deco "classmethod"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /new_noRo/ deco=classmethod  deco=classmethod   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @classmethod
+    def new_noRo(
+####+END:
+            cls: typing.Type[_RtInvoker],
+    ) -> typing.Type[_RtInvoker]:
+        constraints = [Mode.RoPerf, Mode.RoInv]
+        made = cls(Mode.Cli, ins=False, outs=False, constraints=constraints)
+        return made
+
 
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 0 :title " ~End Of Editable Text~ "
 """ #+begin_org

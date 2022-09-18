@@ -108,6 +108,7 @@ def csPerform(
 #+end_org """
 @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def csInvoke(
+        portNu,
         cmndClass: cs.Cmnd,
         **cmndKwArgs,
 ####+END:
@@ -116,10 +117,7 @@ def csInvoke(
 ** [[elisp:(org-cycle)][| *DocStr | ] NOTYET look into this. rpyc.core.protocol.DEFAULT_CONFIG
     #+end_org """
 
-
-    port=12345
-
-    conn = rpyc.connect("localhost", port=port, config={'allow_public_attrs': True})
+    conn = rpyc.connect("localhost", port=portNu, config={'allow_public_attrs': True})
     outcome = conn.root.svcCmnd(cmndClass().__class__.__name__, **cmndKwArgs)
 
     return outcome

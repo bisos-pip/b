@@ -853,6 +853,20 @@ def examples_csu(
     #cmndName = "pyCmndInvOf_parsArgsStdinCmndResult" ; cps = cpsInit() ; cmndArgs = "" ;
     #menuItem(verbosity='none')
 
+    cs.examples.menuChapter('FileParams Access And Management*')
+
+    icmWrapper = ""
+    cmndName = "ro_fps"
+    cps = cpsInit() ; cps['perfName'] = "localhost" ; cps['rosmu'] = "csB2Examples.cs"
+    cmndArgs = "fpParamsLis" ;
+    cs.examples.cmndInsert(cmndName, cps, cmndArgs, verbosity='none', icmWrapper=icmWrapper)
+
+    icmWrapper = ""
+    cmndName = "ro_fps"
+    cps = cpsInit() ; cps['perfName'] = "localhost" ; cps['rosmu'] = "csB2Examples.cs"
+    cmndArgs = "fpMenu" ;
+    cs.examples.cmndInsert(cmndName, cps, cmndArgs, verbosity='none', icmWrapper=icmWrapper)
+
 ####+BEGIN: b:py3:cs:func/args :funcName "commonParamsSpecify" :comment "Params Spec for: --aipxBase --aipxRoot" :funcType "FmWrk" :retType "Void" :deco "" :argsList "icmParams"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-A-FmWrk  [[elisp:(outline-show-subtree+toggle)][||]] /commonParamsSpecify/ deco=   [[elisp:(org-cycle)][| ]] =Params Spec for: --aipxBase --aipxRoot=   [[elisp:(org-cycle)][| ]]
@@ -1213,7 +1227,7 @@ class ro_sapCreate(cs.Cmnd):
 #+end_org """
 ####+END:
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "csPerformer" :comment "" :parsMand "" :parsOpt "roSapPath perfName" :argsMin 0 :argsMax 0 :pyInv ""
+####+BEGINNOT: b:py3:cs:cmnd/classHead :cmndName "csPerformer" :comment "" :parsMand "" :parsOpt "roSapPath perfName" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<csPerformer>>parsMand= parsOpt=roSapPath perfName argsMin=0 argsMax=0 pyInv=
 #+end_org """
@@ -1221,6 +1235,7 @@ class csPerformer(cs.Cmnd):
     cmndParamsMandatory = [ ]
     cmndParamsOptional = [ 'roSapPath', 'perfName', ]
     cmndArgsLen = {'Min': 0, 'Max': 0,}
+    rtInvConstraints = cs.rtInvoker.RtInvoker.new_noRo()
 
     @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def cmnd(self,
@@ -1268,6 +1283,49 @@ class csPerformer(cs.Cmnd):
         return(cmndOutcome)
 
 
+####+BEGINNOT: b:py3:cs:cmnd/classHead :cmndName "ro_fps" :comment "" :parsMand "" :parsOpt "roSapPath perfName" :argsMin 1 :argsMax 9999 :pyInv ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<ro_fps>>parsMand= parsOpt=roSapPath perfName argsMin=1 argsMax=9999 pyInv=
+#+end_org """
+class ro_fps(cs.Cmnd):
+    cmndParamsMandatory = [ ]
+    cmndParamsOptional = [ 'roSapPath', 'perfName', ]
+    cmndArgsLen = {'Min': 1, 'Max': 9999,}
+    rtInvConstraints = cs.rtInvoker.RtInvoker.new_noRo()
+
+
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def cmnd(self,
+             rtInv: cs.RtInvoker,
+             cmndOutcome: b.op.Outcome,
+             roSapPath: typing.Optional[str]=None,  # Cs Optional Param
+             perfName: typing.Optional[str]=None,  # Cs Optional Param
+             argsList: typing.Optional[list[str]]=None,  # CsArgs
+    ) -> b.op.Outcome:
+
+####+END:
+        self.cmndDocStr(f""" #+begin_org
+** [[elisp:(org-cycle)][| *CmndDesc:* | ]]  A starting point command.
+        #+end_org """)
+
+        if not (roSapPath or perfName):
+            # both are None
+            return b_io.eh.eh_problem_usageError(f"either perfName or roSapPath must be specified.")
+
+        if roSapPath and perfName:
+            # neither are None
+            return (
+                b_io.eh.eh_problem_usageError(f"both perfName and roSapPath can not be specified.")
+            )
+
+        if perfName:
+            roSapPath = SapBase_FPs.perfNameToRoSapPath(perfName)
+
+        sapBaseFps = b.pattern.sameInstance(SapBase_FPs, roSapPath=roSapPath)
+
+        print(f"With fpBase={roSapPath} and cls={SapBase_FPs} pass args as  fpParamsList etc. with a pyInv of fpCls commands.")
+
+        return(cmndOutcome)
 
 
 ####+BEGIN: b:py3:cs:framework/endOfFile :basedOn "classification"
