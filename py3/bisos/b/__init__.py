@@ -33,8 +33,8 @@ from .cs import *
 
 # B.IO
 #from bisos.b import io
-from .io import *
-#from .b_io import *
+#from .io import *
+from .b_io import *
 
 from .dir import *
 

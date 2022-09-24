@@ -69,7 +69,8 @@ See panel for overview and details.
 
 
 from bisos import b
-from bisos.b import io
+from bisos.b import b_io
+from bisos.b import cs
 
 import os
 import enum
@@ -147,7 +148,7 @@ class FILE_TreeObject(object):
     def fileTreeBaseGet(self):
         return self.__fileSysPath
 
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def nodeCreate(self, objectTypes=None, treeProc=None, ignore=None):
         """At the fileSysPath of the FILE_TreeObject, create a node.
         """

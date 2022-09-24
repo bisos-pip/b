@@ -66,7 +66,7 @@ import os
 import sys
 import enum
 
-from bisos.b import io
+from bisos.b import b_io
 
 from bisos import b
 
@@ -190,7 +190,7 @@ class CsGlobalContext(object):
              pass
              #self.__class__.icmParamDict = CmndParamDict()
 
-         logger = logging.getLogger(io.log.LOGGER)
+         logger = logging.getLogger(b_io.log.LOGGER)
          self.__class__.logger = logger
 
          self.__class__.astModuleFunctionsList = b.ast.ast_topLevelFunctionsInFile(

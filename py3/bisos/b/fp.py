@@ -69,7 +69,7 @@ import typing
 
 from bisos import b
 from bisos.b import cs
-from bisos.b import io
+from bisos.b import b_io
 
 from bisos.transit import pattern
 
@@ -163,7 +163,7 @@ class FileParam(object):
         """        """
         self.__attrRead = attrRead
 
-    @b.io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def readFrom(self, storeBase=None, parName=None):
         """Read into a FILE_param content of parBase/parName.
 
@@ -232,7 +232,7 @@ class FileParam(object):
         return fileParam
 
 
-    @b.io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def writeTo(self, storeBase=None, parName=None, parValue=None):
         """Write this FileParam to storeBase.
 
@@ -277,7 +277,7 @@ class FileParam(object):
         return parNameFullPath
 
 
-    @b.io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def writeToPath(self, parNameFullPath=None, parValue=None):
         """Write this FileParam to storeBase.
         """
@@ -287,7 +287,7 @@ class FileParam(object):
                             parValue=parValue)
 
 
-    @b.io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def writeToFromFile(self, storeBase=None, parName=None, parValueFile=None):
         """Write this FileParam to storeBase.
 
@@ -720,7 +720,7 @@ class FP_readTreeAtBaseDir(b.cs.Cmnd):
     cmndParamsOptional = [ ]
     cmndArgsLen = {'Min': 0, 'Max': 0,}
 
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    #@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
     def cmnd(self,
         interactive=False,        # Can also be called non-interactively
         FPsDir=None,         # or Cmnd-Input

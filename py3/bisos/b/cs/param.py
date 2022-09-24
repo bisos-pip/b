@@ -77,7 +77,7 @@ import enum
 
 # from bisos.basics import pattern
 
-from bisos.b import io
+from bisos.b import b_io
 from bisos import b
 
 
@@ -540,7 +540,7 @@ def icmParamsToFileParamsUpdate(
 ** [[elisp:(org-cycle)][| *DocStr | ] Convert icmParams to parser
     #+end_org """
 
-    io.log.here("Updating icmParams at: {parRoot}".format(parRoot=parRoot))
+    b_io.log.here("Updating icmParams at: {parRoot}".format(parRoot=parRoot))
 
     for key, icmParam in icmParams.parDictGet().items():
         if ( icmParam.argsparseShortOptGet() == None )  and ( icmParam.argsparseLongOptGet() == None ):

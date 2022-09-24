@@ -64,7 +64,7 @@ Module description comes here.
 
 
 from bisos.b import cs
-from bisos.b import io
+from bisos.b import b_io
 # from bisos import b
 
 

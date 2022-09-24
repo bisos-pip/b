@@ -63,7 +63,7 @@ Module description comes here.
 ####+END:
 
 from bisos.b import cs
-from bisos.b import io
+from bisos.b import b_io
 from bisos import b
 
 import rpyc
@@ -85,11 +85,11 @@ class rpyc_CsService(rpyc.Service):
         cmndClass = cs.cmndNameToClass(cmndClassName)
         cmndClass().cmnd(*v, **k)
 
-####+BEGIN: bx:cs:py3:func :funcName "csPerform" :funcType "extTyped" :retType "extTyped" :deco "default" :argsList ""
+####+BEGIN: b:py3:cs:func/typing :funcName "csPerform" :funcType "extTyped" :retType "extTyped" :deco "default" :argsList ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /csPerform/ deco=default  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /csPerform/  deco=default  [[elisp:(org-cycle)][| ]]
 #+end_org """
-@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
 def csPerform(
 ####+END:
         portNu,
@@ -102,16 +102,16 @@ def csPerform(
     server.start()
 
 
-####+BEGIN: bx:cs:py3:func :funcName "csInvoke" :funcType "extTyped" :retType "extTyped" :deco "default" :argsList ""
+####+BEGIN: b:py3:cs:func/typing :funcName "csInvoke" :funcType "extTyped" :retType "extTyped" :deco "default" :argsList ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /csInvoke/ deco=default  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /csInvoke/  deco=default  [[elisp:(org-cycle)][| ]]
 #+end_org """
-@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
 def csInvoke(
+####+END:
         portNu,
         cmndClass: cs.Cmnd,
         **cmndKwArgs,
-####+END:
 ) -> b.op.Outcome:
     """ #+begin_org
 ** [[elisp:(org-cycle)][| *DocStr | ] NOTYET look into this. rpyc.core.protocol.DEFAULT_CONFIG
