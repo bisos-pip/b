@@ -112,6 +112,19 @@ class Variables(object):
     def __setattr__(self, attr, value):
         self.__dict__[attr] = value
 
+####+BEGIN: b:py3:cs:func/typing :funcName "ignore" :funcType "eType" :deco ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-eType  [[elisp:(outline-show-subtree+toggle)][||]] /ignore/ deco=    [[elisp:(org-cycle)][| ]]
+#+end_org """
+def ignore(
+####+END:
+        *args: typing.Any,
+) -> None:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ] Used to quiet down mypy when # type ignore is no good.
+    #+end_org """
+    pass
+
 ####+BEGIN: b:py3:cs:framework/endOfFile :basedOn "classification"
 """ #+begin_org
 * *[[elisp:(org-cycle)][| ~End-Of-Editable-Text~ |]]* :: emacs and org variables and control parameters

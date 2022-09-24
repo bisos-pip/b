@@ -818,8 +818,8 @@ def csuList_commonParamsSpecify(
     #+end_org """
 
     for each in csuList:
-        lastPart = each.split(".")[-1]
-        #print(lastPart)
+        # lastPart = each.split(".")[-1]
+        # print(lastPart)
         module = sys.modules[each]
         if hasattr(module, "commonParamsSpecify"):
             parsSpecFunc = getattr(module, "commonParamsSpecify")
@@ -925,13 +925,13 @@ def argsCommonProc(
          help="TBD",
          )
 
-     parser.add_argument(
-         '--perfModel',
-         dest='perfModel',
-         action='store',
-         default='None',
-         help="",
-         )
+     # parser.add_argument(
+     #     '--perfModel',
+     #     dest='perfModel',
+     #     action='store',
+     #     default='None',
+     #     help="",
+     #     )
 
      # parser.add_argument(
      #     '--perfName',
@@ -1123,7 +1123,7 @@ def libUserInit(
     argsCommonProc(parser)
 
     args = parser.parse_args(icmLineOpts)
-    logControler = io.log.Control()
+    logControler = io.log.controller
     logControler.loggerSet(args)
 
 
@@ -1158,7 +1158,7 @@ def G_main(
     #
     icmRunArgs, icmArgsParser = G_argsProc(inArgv, extraArgs)
 
-    logControler = Control()
+    logControler = controller
     logControler.loggerSet(icmRunArgs)
 
     logger = logControler.loggerGet()
@@ -1208,7 +1208,7 @@ def G_mainWithClass(
 
     icmRunArgs, icmArgsParser = G_argsProc(inArgv, extraArgs)
 
-    logControler = io.log.Control()
+    logControler = io.log.controller
     logControler.loggerSet(icmRunArgs)
 
     logger = logControler.loggerGet()
@@ -1307,7 +1307,7 @@ def G_mainWithClass(
 
     return 0
 
-####+BEGINNOT: bx:cs:py3:func :funcName "invokesProcAllClassed" :funcType "extTyped" :deco "track"
+####+BEGINNOT: bx:cs:py3:func :funcName "invokesProcAllClassedInvModel" :funcType "extTyped" :deco "track"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /invokesProcAllClassed/ deco=track  [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -1432,10 +1432,11 @@ def invokesProcAllClassedInvModel(
 
     #     if insAsFP_baseDir != "None":
     if perfModel != "None":
-        print("Capturing outcome")
+        # print("Capturing outcome")
         csBase = icmRunArgs.csBase
         if csBase == "None":
-            print(f"Missing csBase")
+            pass
+            # print(f"Missing csBase")
         else:
             b.fp.FileParamWriteToPath(
                 parNameFullPath=pathlib.Path(csBase).joinpath('result'),
@@ -1575,10 +1576,11 @@ def invokesProcAllClassed(
 
     #     if insAsFP_baseDir != "None":
     if perfModel != "None":
-        print("Capturing outcome")
+        #print("Capturing outcome")
         csBase = icmRunArgs.csBase
         if csBase == "None":
-            print(f"Missing csBase")
+            pass
+            # print(f"Missing csBase")
         else:
             b.fp.FileParamWriteToPath(
                 parNameFullPath=pathlib.Path(csBase).joinpath('result'),

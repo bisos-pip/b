@@ -157,6 +157,7 @@ def commonBrief(
 
     print(f"""csRo-manage.cs --perfName="localhost" --rosmu="{G_myName}"  -i ro_sapCreate""")
     print(f"""{G_myName} --perfName="localhost" -i csPerformer  & # in background Start rpyc CS Service""")
+    print(f"""csRo-manage.cs --perfName="localhost" --rosmu="{G_myName}"  -i ro_fps list""")
     print(f"""{G_myName}  --perfName="localhost" -i examples""")
 
     menuChapter('*ICM Blee Player Invokations*')

@@ -91,7 +91,7 @@ def note(
 ** [[elisp:(org-cycle)][| *DocStr | ]
     #+end_org """
 
-    logControler = io.log.Control()
+    logControler = io.log.controller
     logger = logControler.loggerGet()
 
     logger.debug('TM_: ' + format(*v, **k))
@@ -121,10 +121,29 @@ def here(
     """ #+begin_org
 ** [[elisp:(org-cycle)][| *DocStr | ] Mark file and line -- do the equivalent of a print statement.
     #+end_org """
-    logControler = io.log.Control()
+
+    import inspect
+    import traceback
+    import logging
+
+
+    logControler = io.log.controller
     logger = logControler.loggerGet()
 
-    logger.debug('TM_: ' + format(*v, **k))
+     # https://stackoverflow.com/questions/45010539/python-logging-pathname-in-decorator
+
+    #frame = inspect.currentframe()
+    #stack_trace = traceback.format_stack(frame)
+    #logging.debug(stack_trace[:-1])
+    #logger.debug(stack_trace[:-1])
+    # logger.error('TMMM_: ' + format(*v, **k),
+    #              extra={'pathname': "ZZ",  # path to source file
+    #                                  'lineno': "LL",         # line number from trace
+    #                                  'funcName': "FF"}
+    #              )
+
+    outString = format(*v, **k)
+    logger.debug('TM_: ' + outString)
 
     return
 

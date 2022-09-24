@@ -1,33 +1,45 @@
 # -*- coding: utf-8 -*-
 
 """ #+begin_org
-* *[Summary]* :: A =CS-Lib= for creating and managing BPO's gpg and encryption/decryption.
+* ~[Summary]~ :: A =BPF-Lib= bProviding logging capabilities based on Python's log library.
 #+end_org """
+
+####+BEGIN: b:py3:cs:file/dblockControls :classification "bpf-lib"
+""" #+begin_org
+* [[elisp:(org-cycle)][| /Control Parameters Of This File/ |]] :: dblk ctrls classifications=bpf-lib
+#+BEGIN_SRC emacs-lisp
+(setq-local b:dblockControls t) ; (setq-local b:dblockControls nil)
+(put 'b:dblockControls 'py3:cs:Classification "bpf-lib") ; one of cs-mu, cs-u, cs-lib, bpf-lib, pyLibPure
+#+END_SRC
+#+RESULTS:
+: bpf-lib
+#+end_org """
+####+END:
 
 ####+BEGIN: b:prog:file/proclamations :outLevel 1
 """ #+begin_org
-* *[[elisp:(org-cycle)][| Proclamations |]]* :: Libre-Halaal Software --- Part Of Blee ---  Poly-COMEEGA Format.
-** This is Libre-Halaal Software. © Libre-Halaal Foundation. Subject to AGPL.
-** It is not part of Emacs. It is part of Blee.
-** Best read and edited  with Poly-COMEEGA (Polymode Colaborative Org-Mode Enhance Emacs Generalized Authorship)
+* *[[elisp:(org-cycle)][| Proclamations |]]* :: Libre-Halaal Software --- Part Of BISOS ---  Poly-COMEEGA Format.
+** This is Libre-Halaal Software. © Neda Communications, Inc. Subject to AGPL.
+** It is part of BISOS (ByStar Internet Services OS)
+** Best read and edited  with Blee in Poly-COMEEGA (Polymode Colaborative Org-Mode Enhance Emacs Generalized Authorship)
 #+end_org """
 ####+END:
 
 ####+BEGIN: b:prog:file/particulars :authors ("./inserts/authors-mb.org")
 """ #+begin_org
 * *[[elisp:(org-cycle)][| Particulars |]]* :: Authors, version
-** This File: NOTYET
+** This File: /bisos/git/auth/bxRepos/bisos-pip/b/py3/bisos/b/io/log.py
 ** Authors: Mohsen BANAN, http://mohsen.banan.1.byname.net/contact
 #+end_org """
 ####+END:
 
-####+BEGIN: b:python:file/particulars-csInfo :status "inUse"
+####+BEGIN: b:py3:file/particulars-csInfo :status "inUse"
 """ #+begin_org
 * *[[elisp:(org-cycle)][| Particulars-csInfo |]]*
 #+end_org """
 import typing
 csInfo: typing.Dict[str, typing.Any] = { 'moduleName': ['log'], }
-csInfo['version'] = '202209083410'
+csInfo['version'] = '202209233423'
 csInfo['status']  = 'inUse'
 csInfo['panel'] = 'log-Panel.org'
 csInfo['groupingType'] = 'IcmGroupingType-pkged'
@@ -35,10 +47,11 @@ csInfo['cmndParts'] = 'IcmCmndParts[common] IcmCmndParts[param]'
 ####+END:
 
 """ #+begin_org
-* /[[elisp:(org-cycle)][| Description |]]/ :: [[file:/bisos/git/auth/bxRepos/blee-binders/bisos-core/PyFwrk/bisos.crypt/_nodeBase_/fullUsagePanel-en.org][PyFwrk bisos.crypt Panel]]
-Module description comes here.
+* ~[[elisp:(org-cycle)][| Description |]]~ :: [[file:/bisos/git/auth/bxRepos/blee-binders/bisos-core/PyFwrk/bisos.crypt/_nodeBase_/fullUsagePanel-en.org][PyFwrk bisos.crypt Panel]]
+Sets up LOG for log, eh, tm,
+Functions and methods in this module are not to be decorated. The conflict with cs.track. Further, these are meant to be dependable.
 ** Relevant Panels:
-** Status: In use with blee3
+** Status: In use with BISOS
 ** /[[elisp:(org-cycle)][| Planned Improvements |]]/ :
 *** TODO complete fileName in particulars.
 #+end_org """
@@ -56,29 +69,40 @@ Module description comes here.
 #+end_org """
 ####+END:
 
-####+BEGIN: bx:cs:python:icmItem :itemType "=PyImports= " :itemTitle "*Py Library IMPORTS*"
+####+BEGIN: b:py3:cs:orgItem/basic :type "=PyImports= " :title "*Py Library IMPORTS*" :comment "-- with classification based framework/imports"
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  =PyImports=  [[elisp:(outline-show-subtree+toggle)][||]] *Py Library IMPORTS*  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  =PyImports=  [[elisp:(outline-show-subtree+toggle)][||]] *Py Library IMPORTS* -- with classification based framework/imports  [[elisp:(org-cycle)][| ]]
 #+end_org """
 ####+END:
 
-####+BEGINNOT: bx:dblock:global:file-insert-cond :cond "./blee.el" :file "/bisos/apps/defaults/update/sw/icm/py/importUcfIcmBleepG.py"
-from bisos.b import cs
-from bisos.b import io
+####+BEGIN: b:py3:cs:framework/imports :basedOn "classification"
+""" #+begin_org
+** Imports Based On Classification=bpf-lib
+#+end_org """
 from bisos import b
+from bisos.b import cs
+from bisos.b import b_io
+
 ####+END:
+
+
 
 import logging
 import getpass
+import sys
 
-logger = logging.getLogger('root')
+from bisos.transit import pattern
 
-handler = logging.StreamHandler()
+logger = logging.getLogger('root') # We are using 'root' for all of bpf
+
+#handler = logging.StreamHandler()
+handler = logging.StreamHandler(sys.stderr)
 handler.setLevel(0)
 handler.setFormatter(
-    logging.Formatter("%(asctime)s - %(levelname)s -\t%(pathname)s[%(lineno)d]:%(funcName)s():\t%(msg)s")
+    #logging.Formatter("%(asctime)s - %(levelname)s -\t%(pathname)s[%(lineno)d]:%(funcName)s():\t%(msg)s")
+    logging.Formatter("* %(msg)s \n%(asctime)s - %(levelname)s -\t%(pathname)s[%(lineno)d]:%(funcName)s():")
     )
-logger.addHandler(handler)
+#logger.addHandler(handler)
 
 #logger.info('connecting')
 
@@ -93,15 +117,14 @@ logger.addHandler(handler)
 LOGGER = 'Icm'
 CONSL_LEVEL_RANGE = list(range(0, 51))
 #FORMAT_STR = '%(asctime)s %(levelname)s %(message)s'
-FORMAT_STR = '%(levelname)s %(message)s -- %(asctime)s'
+#FORMAT_STR = '%(levelname)s %(message)s -- %(asctime)s'
+FORMAT_STR = "* %(msg)s \n%(asctime)s - %(levelname)s -\t%(pathname)s[%(lineno)d]:%(funcName)s():"
 
 
-
-####+BEGIN: bx:cs:py3:func :funcName "logFileName" :funcType "extTyped" :deco "track"
+####+BEGIN: b:py3:cs:func/typing :funcName "logFileName" :funcType "extTyped" :deco ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /logFileName/ deco=track  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /logFileName/   [[elisp:(org-cycle)][| ]]
 #+end_org """
-@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def logFileName(
 ####+END:
 ):
@@ -112,11 +135,10 @@ def logFileName(
     )
 
 
-####+BEGIN: bx:cs:py3:func :funcName "getConsoleLevel" :funcType "extTyped" :deco "track"
+####+BEGIN: b:py3:cs:func/typing :funcName "getConsoleLevel" :funcType "extTyped" :deco ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /getConsoleLevel/ deco=track  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /getConsoleLevel/   [[elisp:(org-cycle)][| ]]
 #+end_org """
-@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def getConsoleLevel(
 ####+END:
         args,
@@ -131,11 +153,15 @@ def getConsoleLevel(
         return
     return level
 
-####+BEGIN: bx:dblock:python:class :className "Control" :superClass "" :comment "" :classType "basic"
+
+
+
+
+####+BEGIN: b:py3:class/decl :className "_Control" :superClass "" :comment "" :classType "basic"
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-basic  [[elisp:(outline-show-subtree+toggle)][||]] /Control/ object  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-basic  [[elisp:(outline-show-subtree+toggle)][||]] /_Control/  superClass=object  [[elisp:(org-cycle)][| ]]
 #+end_org """
-class Control(object):
+class _Control(object):
 ####+END:
     """ #+begin_org
 ** [[elisp:(org-cycle)][| DocStr| ]]  ICM Logging on top of basic Logging.
@@ -157,9 +183,12 @@ class Control(object):
 
         self.__class__.args = args
 
-        logger = logging.getLogger(LOGGER)
+        #logger = logging.getLogger(LOGGER)
+        logger = logging.getLogger('root')
 
         self.__class__.logger = logger
+        print("AAA")
+        print(self.__class__.logger)
 
         logger.setLevel(logging.DEBUG)
         formatter = logging.Formatter(FORMAT_STR)
@@ -243,8 +272,12 @@ class Control(object):
         fh.formatter = formatter
 
     def loggerGet(self) -> logging.Logger:
+        print("BBB")
+        print(self.__class__.logger)
         return self.__class__.logger
 
+
+controller = pattern.singleton(_Control)
 
 ####+BEGIN: bx:cs:py3:section :title "LOG_: Significant Event Which Is Not An Error"
 """ #+begin_org
@@ -252,11 +285,10 @@ class Control(object):
 #+end_org """
 ####+END:
 
-####+BEGIN: bx:cs:py3:func :funcName "note" :funcType "extTyped" :deco "track"
+####+BEGIN: b:py3:cs:func/typing :funcName "note" :funcType "extTyped" :deco ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /note/ deco=track  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /note/   [[elisp:(org-cycle)][| ]]
 #+end_org """
-@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def note(
 ####+END:
         *v,
@@ -280,11 +312,10 @@ def note(
 
     logger.info( 'LOG_: ' + outString )
 
-####+BEGIN: bx:cs:py3:func :funcName "here" :funcType "extTyped" :deco "track"
+####+BEGIN: b:py3:cs:func/typing :funcName "here" :funcType "extTyped" :deco ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /here/ deco=track  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /here/   [[elisp:(org-cycle)][| ]]
 #+end_org """
-@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
 def here(
 ####+END:
         *v,
@@ -313,9 +344,9 @@ def here(
 #+end_org """
 ####+END:
 
-####+BEGIN: bx:cs:py3:func :funcName "debug" :funcType "extTyped" :deco ""
+####+BEGIN: b:py3:cs:func/typing :funcName "debug" :funcType "extTyped" :deco ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /debug/  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /debug/   [[elisp:(org-cycle)][| ]]
 #+end_org """
 def debug(
 ####+END:
@@ -332,9 +363,9 @@ def debug(
         logger.debug(format(*v, **k))
     )
 
-####+BEGIN: bx:cs:py3:func :funcName "info" :funcType "extTyped" :deco ""
+####+BEGIN: b:py3:cs:func/typing :funcName "info" :funcType "extTyped" :deco ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /info/  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /info/   [[elisp:(org-cycle)][| ]]
 #+end_org """
 def info(
 ####+END:
@@ -351,9 +382,9 @@ def info(
         logger.info(format(*v, **k))
     )
 
-####+BEGIN: bx:cs:py3:func :funcName "warning" :funcType "extTyped" :deco ""
+####+BEGIN: b:py3:cs:func/typing :funcName "warning" :funcType "extTyped" :deco ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /warning/  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /warning/   [[elisp:(org-cycle)][| ]]
 #+end_org """
 def warning(
 ####+END:
@@ -370,9 +401,9 @@ def warning(
         logger.info(format(*v, **k))
     )
 
-####+BEGIN: bx:cs:py3:func :funcName "error" :funcType "extTyped" :deco ""
+####+BEGIN: b:py3:cs:func/typing :funcName "error" :funcType "extTyped" :deco ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /error/  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /error/   [[elisp:(org-cycle)][| ]]
 #+end_org """
 def error(
 ####+END:
@@ -389,9 +420,9 @@ def error(
         logger.error(format(*v, **k))
     )
 
-####+BEGIN: bx:cs:py3:func :funcName "critical" :funcType "extTyped" :deco ""
+####+BEGIN: b:py3:cs:func/typing :funcName "critical" :funcType "extTyped" :deco ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /critical/  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /critical/   [[elisp:(org-cycle)][| ]]
 #+end_org """
 def critical(
 ####+END:
@@ -409,22 +440,13 @@ def critical(
     )
 
 
-
-####+BEGIN: blee:bxPanel:foldingSection :outLevel 0 :title " ~End Of Editable Text~ "
+####+BEGIN: b:py3:cs:framework/endOfFile :basedOn "classification"
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*     [[elisp:(outline-show-subtree+toggle)][| _ ~End Of Editable Text~ _: |]]    [[elisp:(org-shifttab)][<)]] E|
+* [[elisp:(org-cycle)][| *End-Of-Editable-Text* |]] :: emacs and org variables and control parameters
 #+end_org """
-####+END:
 
-####+BEGIN: bx:dblock:global:file-insert-cond :cond "./blee.el" :file "/bisos/apps/defaults/software/plusOrg/dblock/inserts/endOfFileControls.org"
 #+STARTUP: showall
-####+END:
 
-
-####+BEGIN: b:prog:file/endOfFile :extraParams nil
-""" #+begin_org
-* *[[elisp:(org-cycle)][| END-OF-FILE |]]* :: emacs and org variables and control parameters
-#+end_org """
 ### local variables:
 ### no-byte-compile: t
 ### end:

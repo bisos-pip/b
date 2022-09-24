@@ -72,6 +72,7 @@ from bisos import b
 
 import logging
 
+from bisos.transit import pattern
 
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 0 :title "CsGlobalContext Singleton Usage, provides global context"
 """ #+begin_org
@@ -258,9 +259,10 @@ class CsGlobalContext(object):
      def cmndFuncsDict(self):
          return self.__class__._cmndFuncsDict
 
-G = CsGlobalContext()
-#G.icmLibsAppend = __file__
-#G.icmCmndsLibsAppend = __file__
+G = pattern.singleton(CsGlobalContext)
+
+# Instead of "G = CsGlobalContext()" -- to make it clear that G is a singltone.
+# Only exposed as G and not CsGlobalContext. So, CsGlobalContext is not visible any how.
 
 ####+BEGIN: bx:cs:py3:func :funcName "get" :funcType "extTyped" :deco ""
 """ #+begin_org

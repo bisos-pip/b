@@ -127,6 +127,7 @@ class FILE_TreeObject(object):
                  fileSysPath,
                  ):
         '''Constructor'''
+
         self.__fileSysPath = fileSysPath
 
     # MB-2021: parValueGet() is not defined below.

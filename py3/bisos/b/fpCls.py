@@ -80,6 +80,8 @@ import collections
 
 import __main__
 
+import abc
+
 
 ####+BEGIN: bx:cs:py3:section :title "*Class Based Interface*"
 """ #+begin_org
@@ -88,14 +90,16 @@ import __main__
 ####+END:
 
 
-####+BEGIN: b:py3:class/decl :className "BaseDir" :superClass "b.fto.FILE_TreeObject" :comment "Expected to be subclassed" :classType "basic"
+####+BEGIN: b:py3:class/decl :className "FpCmndParam" :superClass "" :comment "Expected to be subclassed" :classType "basic"
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-basic  [[elisp:(outline-show-subtree+toggle)][||]] /BaseDir/  superClass=b.fto.FILE_TreeObject =Expected to be subclassed=   [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-basic  [[elisp:(outline-show-subtree+toggle)][||]] /FpCmndParam/  superClass=object =Expected to be subclassed=   [[elisp:(org-cycle)][| ]]
 #+end_org """
-class BaseDir(b.fto.FILE_TreeObject):
+class FpCmndParam(object):
 ####+END:
-    """ FP_Base is also a FILE_TreeObject.
-    """
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr:* | ]] FpCmndParam combines a CmndParam with a FileParam
+    #+end_org """
+
 
 ####+BEGIN: b:py3:cs:method/typing :methodName "__init__" :deco "default"
     """ #+begin_org
@@ -105,10 +109,54 @@ class BaseDir(b.fto.FILE_TreeObject):
     def __init__(
 ####+END:
             self,
-            fileSysPath,
+            cmndParam: cs.CmndParam=None,
+            fileParam: b.fp.FileParam=None
+    ):
+        self.cmndParam = cmndParam
+        self.fileParam = fileParam
+
+
+
+####+BEGIN: b:py3:class/decl :className "BaseDir" :superClass "abc.ABC, b.fto.FILE_TreeObject" :comment "Expected to be subclassed" :classType "basic"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-basic  [[elisp:(outline-show-subtree+toggle)][||]] /BaseDir/  superClass=abc.ABC, b.fto.FILE_TreeObject =Expected to be subclassed=   [[elisp:(org-cycle)][| ]]
+#+end_org """
+class BaseDir(abc.ABC, b.fto.FILE_TreeObject):
+####+END:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr:* | ]] b.fpCls.BaseDir is an abstract class for combining a set of csParams with an fps base.
+FP_Base is also a FILE_TreeObject.
+    This class merges:
+    1) A dictionary of b.cs.param.CsParams, name of the CsParam is key
+    3) A set of FPs b.fp.FileParam  -- Each FP maps to a CsParam
+    3) A baseDir of FPs
+
+    In this context each b.cs.param.CsParam can have two values.
+       A CsValue in the Cmnd context.
+       A FpValue in the FileParms context
+
+    fps_ indicate that we are dealing with CsParms as FPs
+
+    get involves reading from fpBase and returning a CsParam with fpValue set
+    set involves writing of CsParam to fpBase
+    fetch involves getting value of fpValue
+
+    #+end_org """
+
+####+BEGIN: b:py3:cs:method/typing :methodName "__init__" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /__init__/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def __init__(
+####+END:
+            self,
+            fpBase,
+            ftpNode="branch", # or "leaf"
     ):
         """Representation of a FILE_TreeObject when _objectType_ is FileParamBase (a node)."""
-        super().__init__(fileSysPath,)
+        super().__init__(fpBase,)
+        self.fps_obtainedParams = {}
 
 ####+BEGIN: b:py3:cs:method/typing :methodName "baseCreate" :deco ""
     """ #+begin_org
@@ -118,7 +166,7 @@ class BaseDir(b.fto.FILE_TreeObject):
 ####+END:
             self,
     ):
-        """  """
+        """ And captures fpsBaseName based on fpsBasePath """
         return self.nodeCreate()
 
 ####+BEGIN: b:py3:cs:method/typing :methodName "baseValidityPredicate" :deco "default"
@@ -133,16 +181,17 @@ class BaseDir(b.fto.FILE_TreeObject):
         """  """
         pass
 
-####+BEGIN: b:py3:cs:method/typing :methodName "fps_asIcmParamsAdd" :deco "staticmethod"
+####+BEGINNOT: b:py3:cs:method/typing :methodName "fps_asIcmParamsAdd" :deco "abc.abstractmethod staticmethod"
     """ #+begin_org
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /fps_asIcmParamsAdd/ deco=staticmethod  deco=staticmethod   [[elisp:(org-cycle)][| ]]
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /fps_asIcmParamsAdd/ deco=abc.abstractmethod staticmethod  deco=abc.abstractmethod staticmethod   [[elisp:(org-cycle)][| ]]
     #+end_org """
     @staticmethod
+    @abc.abstractmethod
     def fps_asIcmParamsAdd(
 ####+END:
             icmParams,
     ):
-        """staticmethod: takes in icmParms and augments it with fileParams. returns icmParams."""
+        """Order of decorators is important -- staticmethod: takes in icmParms and augments it with fileParams. returns icmParams."""
         icmParams.parDictAdd(
             parName='exampleFp',
             parDescription="Name of Bpo of the live AALS Platform",
@@ -156,16 +205,60 @@ class BaseDir(b.fto.FILE_TreeObject):
 
         return icmParams
 
-####+BEGIN: b:py3:cs:method/typing :methodName "fps_namesWithRelPath" :deco "classmethod"
+
+####+BEGIN: b:py3:cs:method/typing :methodName "fps_manifestDictBuild" :deco "abc.abstractmethod"
     """ #+begin_org
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /fps_namesWithRelPath/ deco=classmethod  deco=classmethod   [[elisp:(org-cycle)][| ]]
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /fps_manifestDictBuild/ deco=abc.abstractmethod  deco=abc.abstractmethod   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @abc.abstractmethod
+    def fps_manifestDictBuild(
+####+END:
+            self,
+    ):
+        """
+        """
+        csParams = cs.G.icmParamDictGet()
+        self._manifestDict = {}
+        paramsList = [
+            'exampleFp',
+        ]
+        for eachParam in paramsList:
+            thisCsParam = csParams.parNameFind(eachParam)   # type: ignore
+            thisFpCmndParam = b.fpCls.FpCmndParam(
+                cmndParam=thisCsParam,
+                fileParam=None,
+            )
+            self._manifestDict[eachParam] = thisFpCmndParam
+        #
+        # Assign subBases -- Nested Params -- Not Implemented
+        #
+        #self._manifestDict[eachParam] = FpCsParamsBase_name
+
+        return self._manifestDict
+
+
+####+BEGIN: b:py3:cs:method/typing :methodName "fps_manifestGet" :deco ""
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /fps_manifestGet/ deco=    [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    def fps_manifestGet(
+####+END:
+            self,
+    ):
+        """ """
+        return self._manifestDict
+
+
+####+BEGIN: b:py3:cs:method/typing :methodName "fps_namesWithRelPath_NOT" :deco "classmethod"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /fps_namesWithRelPath_NOT/ deco=classmethod  deco=classmethod   [[elisp:(org-cycle)][| ]]
     #+end_org """
     @classmethod
-    def fps_namesWithRelPath(
+    def fps_namesWithRelPath_NOT(
 ####+END:
             cls,
     ):
-        """classmethod: returns a dict with fp names as key and relBasePath as value.
+        """OBSOLETED by fps_manifestDict -- classmethod: returns a dict with fp names as key and relBasePath as value.
         The names refer to icmParams.parDictAdd(parName) of fps_asIcmParamsAdd
         """
         relBasePath = "."
@@ -175,12 +268,14 @@ class BaseDir(b.fto.FILE_TreeObject):
             }
         )
 
-####+BEGIN: b:py3:cs:method/typing :methodName "fps_namesWithAbsPath" :deco "default"
+
+
+####+BEGIN: b:py3:cs:method/typing :methodName "fps_namesWithAbsPath_NOT" :deco "default"
     """ #+begin_org
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /fps_namesWithAbsPath/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /fps_namesWithAbsPath_NOT/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
     #+end_org """
     @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
-    def fps_namesWithAbsPath(
+    def fps_namesWithAbsPath_NOT(
 ####+END:
             self,
     ):
@@ -226,8 +321,9 @@ class BaseDir(b.fto.FILE_TreeObject):
             paramValue,
     ):
         """Returns a dict of FileParam s. Reads in all FPs at self.fps_absBasePath()."""
-        namesWithAbsPath = self.fps_namesWithAbsPath()
-        fpBase = namesWithAbsPath[paramName]
+        namesWithAbsPath = self.fps_manifestDictBuild() # fps_namesWithAbsPath()
+        #fpBase = namesWithAbsPath[paramName]
+        fpBase = self.fileTreeBaseGet()
         b.fp.FileParamWriteTo(fpBase, paramName, paramValue)
 
 ####+BEGIN: b:py3:cs:method/typing :methodName "fps_getParam" :deco "default"
@@ -241,12 +337,66 @@ class BaseDir(b.fto.FILE_TreeObject):
             paramName,
     ):
         """Returns a dict of FileParam s. Reads in all FPs at self.fps_absBasePath()."""
+        # namesWithAbsPath = self.fps_namesWithAbsPath()
+        namesWithAbsPath = self.fps_manifestDictBuild()
+        #print(namesWithAbsPath)
+        #fpBase = os.path.abspath(namesWithAbsPath[paramName])
+        fpBase = self.fileTreeBaseGet()
+        #print(fpBase)
+        paramValue = b.fp.FileParamReadFrom(fpBase, paramName,)
+        return paramValue
+
+####+BEGIN: b:py3:cs:method/typing :methodName "fps_fetchParam" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /fps_fetchParam/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def fps_fetchParam(
+####+END:
+            self,
+            paramName,
+    ):
+        """Fetch tries class's FPs first. Then does a getParamsDict and repeats the fetch."""
         namesWithAbsPath = self.fps_namesWithAbsPath()
         #print(namesWithAbsPath)
         fpBase = os.path.abspath(namesWithAbsPath[paramName])
         #print(fpBase)
         paramValue = b.fp.FileParamReadFrom(fpBase, paramName,)
         return paramValue
+
+
+####+BEGIN: b:py3:cs:method/typing :methodName "fps_getParamsDict" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /fps_getParamsDict/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def fps_getParamsDict(
+####+END:
+            self,
+            paramName,
+    ):
+        """Returns a dict of FileParam s. Reads in all FPs at self.fps_absBasePath()."""
+        namesWithAbsPath = self.fps_manifestDictBuild()
+
+        #print(namesWithAbsPath)
+        #fpBase = os.path.abspath(namesWithAbsPath[paramName])
+        fpBase = self.fileTreeBaseGet()
+        #print(fpBase)
+        paramValue = b.fp.FileParamReadFrom(fpBase, paramName,)
+        return paramValue
+
+
+
+####+BEGIN: b:py3:cs:method/typing :methodName "fps_absBasePath" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /fps_absBasePath/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def fps_absBasePath(
+####+END:
+           self,
+    ):
+        return self.fileTreeBaseGet()
 
 
 
@@ -330,11 +480,11 @@ def examples_fpBase(
 #+end_org """
 ####+END:
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpParamsList" :extent "verify" :parsMand "fpBase cls" :parsOpt "" :argsMin 0 :argsMax 3 :pyInv ""
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpParamsReveal" :extent "verify" :parsMand "fpBase cls" :parsOpt "" :argsMin 0 :argsMax 3 :pyInv ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<fpParamsList>>parsMand=fpBase cls parsOpt= argsMin=0 argsMax=3 pyInv=
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<fpParamsReveal>>parsMand=fpBase cls parsOpt= argsMin=0 argsMax=3 ro=cli pyInv=
 #+end_org """
-class fpParamsList(cs.Cmnd):
+class fpParamsReveal(cs.Cmnd):
     cmndParamsMandatory = [ 'fpBase', 'cls', ]
     cmndParamsOptional = [ ]
     cmndArgsLen = {'Min': 0, 'Max': 3,}
@@ -352,24 +502,19 @@ class fpParamsList(cs.Cmnd):
         if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, argsList).isProblematic():
             return b_io.eh.badOutcome(cmndOutcome)
 ####+END:
-        # global fpBaseInst; fpBaseInst = typing.cast(getattr(__main__, cls), None)
-        # exec(
-        #     "fpBaseInst = __main__.{cls}('{fpBase}',)".format(cls=cls, fpBase=fpBase,),
-        #     globals(),
-        # )
-        # fps_namesWithAbsPath = fpBaseInst.fps_namesWithAbsPath()
 
-        #from bisos.examples import fp_csu
 
-        fpBaseInst = b.pattern.sameInstance(getattr(__main__, cls), fpBase)
-        #fpBaseInst = b.pattern.sameInstance(getattr(fp_csu, cls), fpBase)
-        fps_namesWithAbsPath = fpBaseInst.fps_namesWithAbsPath()
+        fpBaseInst = b.pattern.sameInstance(getattr(__main__, cls), fpBase=fpBase)
+        #fps_namesWithAbsPath = fpBaseInst.fps_namesWithAbsPath()
+        fps_namesWithAbsPath = fpBaseInst.fps_manifestDictBuild()
+
+        # print(f"AAA {fpBase} {cls} {fps_namesWithAbsPath}")
 
         cmndArgsSpecDict = self.cmndArgsSpec()
 
         #if interactive:
         if True:
-            formatTypes = self.cmndArgsGet("0&2", cmndArgsSpecDict, argsList)
+            formatTypes = self.cmndArgsGet("0&3", cmndArgsSpecDict, argsList)
         else:
             formatTypes = argsList
 
@@ -381,12 +526,13 @@ class fpParamsList(cs.Cmnd):
                     formatTypes = argChoices
 
         for each in formatTypes:    # type: ignore
-            if each == 'basic':
+            if each == 'values':
                 FP_listIcmParams(fps_namesWithAbsPath,)
             elif each == 'getExamples':
-                print("Get Examples Come Here")
+                menu_getExamples(fpBaseInst,)
             elif each == 'setExamples':
                 print("Set Examples Come Here")
+                menu_setExamples(fpBaseInst,)
             else:
                 io.eh.problem_usageError(f"Unknown {each}")
 
@@ -407,11 +553,115 @@ class fpParamsList(cs.Cmnd):
             argPosition="0&2",
             argName="formatTypes",
             argDefault="all",
-            argChoices=['all', 'basic', 'setExamples', 'getExamples'],
+            argChoices=['all', 'values', 'setExamples', 'getExamples'],
             argDescription="Action to be specified by rest"
         )
 
         return cmndArgsSpecDict
+
+
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpParamsInfoDict" :parsMand "fpBase cls" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<fpParamsInfoDict>>parsMand=fpBase cls parsOpt= argsMin=0 argsMax=0 ro=cli pyInv=
+#+end_org """
+class fpParamsInfoDict(cs.Cmnd):
+    cmndParamsMandatory = [ 'fpBase', 'cls', ]
+    cmndParamsOptional = [ ]
+    cmndArgsLen = {'Min': 0, 'Max': 0,}
+
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def cmnd(self,
+             rtInv: cs.RtInvoker,
+             cmndOutcome: b.op.Outcome,
+             fpBase: typing.Optional[str]=None,  # Cs Mandatory Param
+             cls: typing.Optional[str]=None,  # Cs Mandatory Param
+    ) -> b.op.Outcome:
+
+####+END:
+        self.cmndDocStr(f""" #+begin_org
+** [[elisp:(org-cycle)][| *CmndDesc:* | ]] Return a dict of parName:parValue as results
+        #+end_org """)
+
+        fpBaseInst = pattern.sameInstance(getattr(__main__, cls), fpBase)
+        fps_namesWithAbsPath = fpBaseInst.fps_namesWithAbsPath()  # type: ignore
+
+        csParams = cs.G.icmParamDictGet()
+        fps_namesWithAbsPath = fpBaseInst.fps_namesWithAbsPath()
+
+        result = {}
+
+        for eachParam, eachDest  in fps_namesWithAbsPath.items():
+            thisCsParam = csParams.parNameFind(eachParam)   # type: ignore
+
+            if b.fpCls.fpParamGetWithName(cmndOutcome=cmndOutcome).cmnd(
+                    rtInv=rtInv,
+                    cmndOutcome=cmndOutcome,
+                    fpBase=fpBaseInst.fileTreeBaseGet(),
+                    cls=fpBaseInst.__class__.__name__,
+                    argsList=[thisCsParam.parNameGet()],
+            ).isProblematic(): return(b_io.eh.badOutcome(cmndOutcome))
+
+            eachParamValue = cmndOutcome.results
+
+            result[eachParam] = eachParamValue
+
+        cmndOutcome.results = result
+
+        print(cmndOutcome.results)
+
+        return cmndOutcome
+
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpParamsValueDict" :parsMand "fpBase cls" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<fpParamsValueDict>>parsMand=fpBase cls parsOpt= argsMin=0 argsMax=0 ro=cli pyInv=
+#+end_org """
+class fpParamsValueDict(cs.Cmnd):
+    cmndParamsMandatory = [ 'fpBase', 'cls', ]
+    cmndParamsOptional = [ ]
+    cmndArgsLen = {'Min': 0, 'Max': 0,}
+
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def cmnd(self,
+             rtInv: cs.RtInvoker,
+             cmndOutcome: b.op.Outcome,
+             fpBase: typing.Optional[str]=None,  # Cs Mandatory Param
+             cls: typing.Optional[str]=None,  # Cs Mandatory Param
+    ) -> b.op.Outcome:
+
+####+END:
+        self.cmndDocStr(f""" #+begin_org
+** [[elisp:(org-cycle)][| *CmndDesc:* | ]] Return a dict of parName:parValue as results
+        #+end_org """)
+
+        fpBaseInst = pattern.sameInstance(getattr(__main__, cls), fpBase)
+        fps_namesWithAbsPath = fpBaseInst.fps_namesWithAbsPath()  # type: ignore
+
+        csParams = cs.G.icmParamDictGet()
+        fps_namesWithAbsPath = fpBaseInst.fps_namesWithAbsPath()
+
+        result = {}
+
+        for eachParam, eachDest  in fps_namesWithAbsPath.items():
+            thisCsParam = csParams.parNameFind(eachParam)   # type: ignore
+
+            if b.fpCls.fpParamGetWithName(cmndOutcome=cmndOutcome).cmnd(
+                    rtInv=rtInv,
+                    cmndOutcome=cmndOutcome,
+                    fpBase=fpBaseInst.fileTreeBaseGet(),
+                    cls=fpBaseInst.__class__.__name__,
+                    argsList=[thisCsParam.parNameGet()],
+            ).isProblematic(): return(b_io.eh.badOutcome(cmndOutcome))
+
+            eachParamValue = cmndOutcome.results.parValueGet()
+
+            result[eachParam] = eachParamValue
+
+        cmndOutcome.results = result
+
+        print(cmndOutcome.results)
+
+        return cmndOutcome
+
 
 
 ####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpParamsSet" :parsMand "fpBase cls" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
@@ -463,24 +713,25 @@ class fpParamSetWithNameValue(cs.Cmnd):
     ) -> b.op.Outcome:
 
 ####+END:
-        paramName = self.cmndArgsGet("0", cmndArgsSpecDict, effectiveArgsList)
-        paramValue = self.cmndArgsGet("1", cmndArgsSpecDict, effectiveArgsList)
+        cmndArgsSpecDict = self.cmndArgsSpec()
+        paramName = self.cmndArgsGet("0", cmndArgsSpecDict, argsList)
+        paramValue = self.cmndArgsGet("1", cmndArgsSpecDict, argsList)
 
-        print(f"{paramName} {paramValue}")
+        #print(f"{paramName} {paramValue}")
 
-        fpBaseInst = pattern.sameInstance(getattr(__main__, cls), fpBase)
+        fpBaseInst = pattern.sameInstance(getattr(__main__, cls), fpBase=fpBase)
 
         fpBaseInst.fps_setParam(paramName, paramValue)
 
         return cmndOutcome
 
 
-####+BEGIN: b:py3:cs:method/args :methodName "cmndArgsSpec" :methodType "anyOrNone" :retType "bool" :deco "default" :argsList ""
+####+BEGIN: b:py3:cs:method/args :methodName "cmndArgsSpec" :methodType "anyOrNone" :retType "bool" :deco "default" :argsList "self"
     """ #+begin_org
 **  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-anyOrNone [[elisp:(outline-show-subtree+toggle)][||]] /cmndArgsSpec/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
     #+end_org """
     @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
-    def cmndArgsSpec():
+    def cmndArgsSpec(self, ):
 ####+END:
         """
 ***** Cmnd Args Specification
@@ -522,23 +773,27 @@ class fpParamGetWithName(cs.Cmnd):
     ) -> b.op.Outcome:
 
 ####+END:
-        paramName = self.cmndArgsGet("0", cmndArgsSpecDict, effectiveArgsList)
 
-        fpBaseInst = pattern.sameInstance(getattr(__main__, cls), fpBase)
+        cmndArgsSpecDict = self.cmndArgsSpec()
+        paramName = self.cmndArgsGet("0", cmndArgsSpecDict, argsList)
 
-        paramValue = fpBaseInst.fps_getParam(paramName,)
+        fpBaseInst = pattern.sameInstance(getattr(__main__, cls), fpBase=fpBase)
 
-        print(f"{paramValue.parValueGet()}")
+        paramInfo = fpBaseInst.fps_getParam(paramName,)
+
+        print(f"{paramInfo.parValueGet()}")
+
+        cmndOutcome.results = paramInfo
 
         return cmndOutcome
 
 
-####+BEGIN: b:py3:cs:method/args :methodName "cmndArgsSpec" :methodType "anyOrNone" :retType "bool" :deco "default" :argsList ""
+####+BEGIN: b:py3:cs:method/args :methodName "cmndArgsSpec" :methodType "anyOrNone" :retType "bool" :deco "default" :argsList "self"
     """ #+begin_org
 **  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-anyOrNone [[elisp:(outline-show-subtree+toggle)][||]] /cmndArgsSpec/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
     #+end_org """
     @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
-    def cmndArgsSpec():
+    def cmndArgsSpec(self, ):
 ####+END:
         """
 ***** Cmnd Args Specification
@@ -775,6 +1030,87 @@ def FP_listIcmParams(
         print(eachDest)
 
 
+
+
+
+####+BEGIN: b:py3:cs:func/typing :funcName "csParamValuesPlus" :deco ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-       [[elisp:(outline-show-subtree+toggle)][||]] /csParamValuesPlus/ deco=    [[elisp:(org-cycle)][| ]]
+#+end_org """
+def csParamValuesPlus(
+####+END:
+        fpBaseInst,
+):
+    G = cs.globalContext.get()
+    csParams = G.icmParamDictGet()
+    fps_namesWithAbsPath = fpBaseInst.fps_namesWithAbsPath()
+
+    csMainName = G.icmMyName()
+
+    cmndFrontStr = f"""{csMainName} --fpBase="{fpBaseInst.fileTreeBaseGet()}" --cls="{fpBaseInst.__class__.__name__}" -i fpParamSetWithNameValue """
+
+    for eachParam, eachDest  in fps_namesWithAbsPath.items():
+        thisCsParam = csParams.parNameFind(eachParam)   # type: ignore
+
+        if b.fpCls.fpParamsList(cmndOutcome=cmndOutcome).cmnd(
+                rtInv=rtInv,
+                cmndOutcome=cmndOutcome,
+                fpBase=fpBaseInst.fileTreeBaseGet(),
+                cls=fpBaseInst.__class__.__name__,
+                argsList=[thisCsParam.parNameGet()],
+        ).isProblematic(): return(b_io.eh.badOutcome(cmndOutcome))
+
+        eachParamValue = cmndOutcome.results
+        print(thisCsParam)
+        print(eachDest)
+        print(eachParamValue)
+
+    return
+
+
+
+
+
+####+BEGIN: b:py3:cs:func/typing :funcName "menu_setExamples" :deco ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-       [[elisp:(outline-show-subtree+toggle)][||]] /menu_setExamples/ deco=    [[elisp:(org-cycle)][| ]]
+#+end_org """
+def menu_setExamples(
+####+END:
+        fpBaseInst,
+):
+    G = cs.globalContext.get()
+    csParams = G.icmParamDictGet()
+    fps_namesWithAbsPath = fpBaseInst.fps_namesWithAbsPath()
+
+    csMainName = G.icmMyName()
+
+    cmndFrontStr = f"""{csMainName} --fpBase="{fpBaseInst.fileTreeBaseGet()}" --cls="{fpBaseInst.__class__.__name__}" -i fpParamSetWithNameValue """
+
+    for eachParam, eachDest  in fps_namesWithAbsPath.items():
+        thisCsParam = csParams.parNameFind(eachParam)   # type: ignore
+        print(f"{cmndFrontStr} {thisCsParam.parNameGet()} __VOID__")
+
+####+BEGIN: b:py3:cs:func/typing :funcName "menu_getExamples" :deco ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-       [[elisp:(outline-show-subtree+toggle)][||]] /menu_getExamples/ deco=    [[elisp:(org-cycle)][| ]]
+#+end_org """
+def menu_getExamples(
+####+END:
+        fpBaseInst,
+):
+    G = cs.globalContext.get()
+    csParams = G.icmParamDictGet()
+    #fps_namesWithAbsPath = fpBaseInst.fps_namesWithAbsPath()
+    fps_namesWithAbsPath = fpBaseInst.fps_manifestDictBuild()
+
+    csMainName = G.icmMyName()
+
+    cmndFrontStr = f"""{csMainName} --fpBase="{fpBaseInst.fileTreeBaseGet()}" --cls="{fpBaseInst.__class__.__name__}" -i fpParamGetWithName """
+
+    for eachParam, eachDest  in fps_namesWithAbsPath.items():
+        thisCsParam = csParams.parNameFind(eachParam)   # type: ignore
+        print(f"{cmndFrontStr} {thisCsParam.parNameGet()}")
 
 
 ####+BEGIN: b:prog:file/endOfFile :extraParams nil

@@ -169,9 +169,9 @@ description: {description}""".
          """        """
          return self.__parValue
 
-     def parValueSet(self, value):
+     def parFpValueSet(self, value):
          """        """
-         self.__parValue = value
+         self.__parFpValue = value
 
      def parDescriptionGet(self):
          """        """
@@ -497,6 +497,7 @@ def commonIcmParamsPrep(
         )
 
     # icmParams.parDictAdd(
+    #
     #     parAction='store',
     #     parName='cmndArgs',
     #     parDescription='Docstring',
