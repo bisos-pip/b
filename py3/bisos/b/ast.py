@@ -127,6 +127,35 @@ def stackFrameFuncGet(
     return (info.function)
 
 
+####+BEGIN: b:py3:cs:func/typing :funcName "stackFrameInfoGetValues" :funcType "extTyped" :deco ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /stackFrameInfoGetValues/   [[elisp:(org-cycle)][| ]]
+#+end_org """
+def stackFrameInfoGetValues(
+####+END:
+        frameNu: int,
+):
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ] Returns A String --
+    #+end_org """
+
+    try: frameNu = int(frameNu)
+    except: pass
+
+    callerframerecord = inspect.stack()[frameNu]      # 0 represents this line (current frame)
+    # 1 represents line at caller
+    frame = callerframerecord[0]
+    info = inspect.getframeinfo(frame)
+    # print info.filename                       # __FILE__     -> Test.py
+    # print info.function                       # __FUNCTION__ -> Main
+    # print info.lineno                         # __LINE__     -> 13
+
+    return (
+        info.filename,
+        info.lineno,
+        info.function,
+        )
+
 ####+BEGIN: bx:cs:py3:func :funcName "stackFrameInfoGet" :funcType "extTyped" :retType "extTyped" :deco "" :argsList ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /stackFrameInfoGet/  [[elisp:(org-cycle)][| ]]

@@ -1,22 +1,34 @@
 # -*- coding: utf-8 -*-
 
 """ #+begin_org
-* *[Summary]* :: A =CS-Lib= for creating and managing BPO's gpg and encryption/decryption.
+* ~[Summary]~ :: A =BPF-Lib= for log based error processing.
 #+end_org """
+
+####+BEGIN: b:py3:cs:file/dblockControls :classification "bpf-lib"
+""" #+begin_org
+* [[elisp:(org-cycle)][| /Control Parameters Of This File/ |]] :: dblk ctrls classifications=bpf-lib
+#+BEGIN_SRC emacs-lisp
+(setq-local b:dblockControls t) ; (setq-local b:dblockControls nil)
+(put 'b:dblockControls 'py3:cs:Classification "bpf-lib") ; one of cs-mu, cs-u, cs-lib, bpf-lib, pyLibPure
+#+END_SRC
+#+RESULTS:
+: bpf-lib
+#+end_org """
+####+END:
 
 ####+BEGIN: b:prog:file/proclamations :outLevel 1
 """ #+begin_org
-* *[[elisp:(org-cycle)][| Proclamations |]]* :: Libre-Halaal Software --- Part Of Blee ---  Poly-COMEEGA Format.
-** This is Libre-Halaal Software. © Libre-Halaal Foundation. Subject to AGPL.
-** It is not part of Emacs. It is part of Blee.
-** Best read and edited  with Poly-COMEEGA (Polymode Colaborative Org-Mode Enhance Emacs Generalized Authorship)
+* *[[elisp:(org-cycle)][| Proclamations |]]* :: Libre-Halaal Software --- Part Of BISOS ---  Poly-COMEEGA Format.
+** This is Libre-Halaal Software. © Neda Communications, Inc. Subject to AGPL.
+** It is part of BISOS (ByStar Internet Services OS)
+** Best read and edited  with Blee in Poly-COMEEGA (Polymode Colaborative Org-Mode Enhance Emacs Generalized Authorship)
 #+end_org """
 ####+END:
 
 ####+BEGIN: b:prog:file/particulars :authors ("./inserts/authors-mb.org")
 """ #+begin_org
 * *[[elisp:(org-cycle)][| Particulars |]]* :: Authors, version
-** This File: NOTYET
+** This File: /bisos/git/auth/bxRepos/bisos-pip/b/py3/bisos/b/b_io/eh.py
 ** Authors: Mohsen BANAN, http://mohsen.banan.1.byname.net/contact
 #+end_org """
 ####+END:
@@ -27,7 +39,7 @@
 #+end_org """
 import typing
 csInfo: typing.Dict[str, typing.Any] = { 'moduleName': ['eh'], }
-csInfo['version'] = '202209082757'
+csInfo['version'] = '202209252745'
 csInfo['status']  = 'inUse'
 csInfo['panel'] = 'eh-Panel.org'
 csInfo['groupingType'] = 'IcmGroupingType-pkged'
@@ -35,10 +47,10 @@ csInfo['cmndParts'] = 'IcmCmndParts[common] IcmCmndParts[param]'
 ####+END:
 
 """ #+begin_org
-* /[[elisp:(org-cycle)][| Description |]]/ :: [[file:/bisos/git/auth/bxRepos/blee-binders/bisos-core/PyFwrk/bisos.crypt/_nodeBase_/fullUsagePanel-en.org][PyFwrk bisos.crypt Panel]]
+* [[elisp:(org-cycle)][| ~Description~ |]] :: [[file:/bisos/git/auth/bxRepos/blee-binders/bisos-core/PyFwrk/bisos.crypt/_nodeBase_/fullUsagePanel-en.org][PyFwrk bisos.crypt Panel]]
 Module description comes here.
 ** Relevant Panels:
-** Status: In use with blee3
+** Status: In use with BISOS
 ** /[[elisp:(org-cycle)][| Planned Improvements |]]/ :
 *** TODO complete fileName in particulars.
 #+end_org """
@@ -56,17 +68,23 @@ Module description comes here.
 #+end_org """
 ####+END:
 
-####+BEGIN: bx:cs:python:icmItem :itemType "=PyImports= " :itemTitle "*Py Library IMPORTS*"
+####+BEGIN: b:py3:cs:orgItem/basic :type "=PyImports= " :title "*Py Library IMPORTS*" :comment "-- with classification based framework/imports"
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  =PyImports=  [[elisp:(outline-show-subtree+toggle)][||]] *Py Library IMPORTS*  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  =PyImports=  [[elisp:(outline-show-subtree+toggle)][||]] *Py Library IMPORTS* -- with classification based framework/imports  [[elisp:(org-cycle)][| ]]
 #+end_org """
 ####+END:
 
-import sys
-
+####+BEGIN: b:py3:cs:framework/imports :basedOn "classification"
+""" #+begin_org
+** Imports Based On Classification=bpf-lib
+#+end_org """
 from bisos import b
+from bisos.b import cs
 from bisos.b import b_io
 
+####+END:
+
+import sys
 import logging
 
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 0 :sep nil :title "EH: ICM Error Handling On Top Of Python Exceptions" :anchor "" :extraInfo " (io.eh. Module)"
@@ -75,9 +93,9 @@ import logging
 #+end_org """
 ####+END
 
-####+BEGIN: bx:cs:py3:func :funcName "critical_cmndArgsPositional" :funcType "extTyped" :deco ""
+####+BEGIN: b:py3:cs:func/typing :funcName "critical_cmndArgsPositional" :funcType "extTyped" :deco ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /critical_cmndArgsPositional/  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /critical_cmndArgsPositional/   [[elisp:(org-cycle)][| ]]
 #+end_org """
 def critical_cmndArgsPositional(
 ####+END:
@@ -85,26 +103,33 @@ def critical_cmndArgsPositional(
         **k,
 ) -> None:
     """ #+begin_org
-** [[elisp:(org-cycle)][| *DocStr | ]
+** [[elisp:(org-cycle)][| *DocStr | ] Used to report problems with expected positional arguments.
     #+end_org """
 
-    logControler = b_io.log.Control()
-    logger = logControler.loggerGet()
+    logger = b_io.log.controller.loggerGet()
 
-    fn = b.ast.FUNC_currentGet()
-    argsLength =  b.ast.FUNC_argsLength(fn, v, k)
+    b_io.log.controller.formatterExtra()
 
-    if argsLength == 2:   # empty '()'
-        outString = ''
-    else:
-        outString = format(*v, **k)
+    pathname, lineno, funcName = b.ast.stackFrameInfoGetValues(2)
 
-    logger.critical('io.eh.: ' + outString + ' -- ' + b.ast.stackFrameInfoGet(2) )
+    outString = format(*v, **k)
+    logger.critical(
+        f"EH_Critical_cmndArgsPositional: {outString}",
+        extra={
+            'extraPathname': pathname,
+            'extraLineno': lineno,
+            'extraFuncName': funcName,
+        }
+    )
+
+    b_io.log.controller.formatterBasic()
+
+    return
     #raise RuntimeError()
 
-####+BEGIN: bx:cs:py3:func :funcName "critical_cmndArgsOptional" :funcType "extTyped" :deco ""
+####+BEGIN: b:py3:cs:func/typing :funcName "critical_cmndArgsOptional" :funcType "extTyped" :deco ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /critical_cmndArgsOptional/  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /critical_cmndArgsOptional/   [[elisp:(org-cycle)][| ]]
 #+end_org """
 def critical_cmndArgsOptional(
 ####+END:
@@ -115,23 +140,32 @@ def critical_cmndArgsOptional(
 ** [[elisp:(org-cycle)][| *DocStr | ]
     #+end_org """
 
-    logControler = b_io.log.Control()
-    logger = logControler.loggerGet()
+    logger = b_io.log.controller.loggerGet()
 
-    fn = b.ast.FUNC_currentGet()
-    argsLength =  b.ast.FUNC_argsLength(fn, v, k)
+    b_io.log.controller.formatterExtra()
 
-    if argsLength == 2:   # empty '()'
-        outString = ''
-    else:
-        outString = format(*v, **k)
+    pathname, lineno, funcName = b.ast.stackFrameInfoGetValues(2)
 
-    logger.critical('io.eh.: ' + outString + ' -- ' + b.ast.stackFrameInfoGet(2) )
+    outString = format(*v, **k)
+    logger.critical(
+        f"EH_Critical_cmndArgsOptional: {outString}",
+        extra={
+            'extraPathname': pathname,
+            'extraLineno': lineno,
+            'extraFuncName': funcName,
+        }
+    )
+
+    b_io.log.controller.formatterBasic()
+
+    return
+
+
     #raise RuntimeError()
 
-####+BEGIN: bx:cs:py3:func :funcName "critical_usageError" :funcType "extTyped" :deco ""
+####+BEGIN: b:py3:cs:func/typing :funcName "critical_usageError" :funcType "extTyped" :deco ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /critical_usageError/  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /critical_usageError/   [[elisp:(org-cycle)][| ]]
 #+end_org """
 def critical_usageError(
 ####+END:
@@ -142,24 +176,30 @@ def critical_usageError(
 ** [[elisp:(org-cycle)][| *DocStr | ]
     #+end_org """
 
-    logControler = b_io.log.Control()
-    logger = logControler.loggerGet()
+    logger = b_io.log.controller.loggerGet()
 
-    fn = b.ast.FUNC_currentGet()
-    argsLength =  b.ast.FUNC_argsLength(fn, v, k)
+    b_io.log.controller.formatterExtra()
 
-    if argsLength == 2:   # empty '()'
-        outString = ''
-    else:
-        outString = format(*v, **k)
+    pathname, lineno, funcName = b.ast.stackFrameInfoGetValues(2)
 
-    logger.critical('io.eh.usageError: ' + outString + ' -- ' + b.ast.stackFrameInfoGet(2) )
-    return(ReturnCode.UsageError)
+    outString = format(*v, **k)
+    logger.critical(
+        f"EH_Critical_UsageError: {outString}",
+        extra={
+            'extraPathname': pathname,
+            'extraLineno': lineno,
+            'extraFuncName': funcName,
+        }
+    )
+
+    b_io.log.controller.formatterBasic()
+
+    # return(b.op.ReturnCode.UsageError)
     #raise RuntimeError()
 
-####+BEGIN: bx:cs:py3:func :funcName "problem_notyet" :funcType "extTyped" :deco ""
+####+BEGIN: b:py3:cs:func/typing :funcName "problem_notyet" :funcType "extTyped" :deco ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /problem_notyet/  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /problem_notyet/   [[elisp:(org-cycle)][| ]]
 #+end_org """
 def problem_notyet(
 ####+END:
@@ -170,23 +210,29 @@ def problem_notyet(
 ** [[elisp:(org-cycle)][| *DocStr | ]
     #+end_org """
 
-    logControler = b_io.log.Control()
-    logger = logControler.loggerGet()
+    logger = b_io.log.controller.loggerGet()
 
-    fn = b.ast.FUNC_currentGet()
-    argsLength =  b.ast.FUNC_argsLength(fn, v, k)
+    b_io.log.controller.formatterExtra()
 
-    if argsLength == 2:   # empty '()'
-        outString = ''
-    else:
-        outString = format(*v, **k)
+    pathname, lineno, funcName = b.ast.stackFrameInfoGetValues(2)
 
-    logger.critical('io.eh.NotYet: ' + outString + ' -- ' + b.ast.stackFrameInfoGet(2) )
+    outString = format(*v, **k)
+    logger.critical(
+        f"EH_Problem_NOTYET: {outString}",
+        extra={
+            'extraPathname': pathname,
+            'extraLineno': lineno,
+            'extraFuncName': funcName,
+        }
+    )
+
+    b_io.log.controller.formatterBasic()
+
     #raise RuntimeError()
 
-####+BEGIN: bx:cs:py3:func :funcName "problem_info" :funcType "extTyped" :deco ""
+####+BEGIN: b:py3:cs:func/typing :funcName "problem_info" :funcType "extTyped" :deco ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /problem_info/  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /problem_info/   [[elisp:(org-cycle)][| ]]
 #+end_org """
 def problem_info(
 ####+END:
@@ -197,26 +243,31 @@ def problem_info(
 ** [[elisp:(org-cycle)][| *DocStr | ]
     #+end_org """
 
-    logControler = b_io.log.Control()
-    logger = logControler.loggerGet()
+    logger = b_io.log.controller.loggerGet()
 
-    logger.critical('io.eh.Info: ' + format(*v, **k) + ' -- ' + b.ast.stackFrameInfoGet(2) )
+    b_io.log.controller.formatterExtra()
+
+    pathname, lineno, funcName = b.ast.stackFrameInfoGetValues(2)
+
+    outString = format(*v, **k)
+    logger.critical(
+        f"EH_Problem_INFO: {outString}",
+        extra={
+            'extraPathname': pathname,
+            'extraLineno': lineno,
+            'extraFuncName': funcName,
+        }
+    )
+
+    b_io.log.controller.formatterBasic()
 
     return
 
-    fn = b.ast.FUNC_currentGet()
-    argsLength =  b.ast.FUNC_argsLength(fn, v, k)
 
-    if argsLength == 2:   # empty '()'
-        outString = ''
-    else:
-        outString = format(*v, **k)
 
-    logger.critical('io.eh.Info: ' + outString + ' -- ' + b.ast.stackFrameInfoGet(2) )
-
-####+BEGIN: bx:cs:py3:func :funcName "problem_usageError" :funcType "extTyped" :deco ""
+####+BEGIN: b:py3:cs:func/typing :funcName "problem_usageError" :funcType "extTyped" :deco ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /problem_usageError/  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /problem_usageError/   [[elisp:(org-cycle)][| ]]
 #+end_org """
 def problem_usageError(
 ####+END:
@@ -227,31 +278,34 @@ def problem_usageError(
 ** [[elisp:(org-cycle)][| *DocStr | ]
     #+end_org """
 
-    logControler = b_io.log.Control()
-    logger = logControler.loggerGet()
+    logger = b_io.log.controller.loggerGet()
 
-    fn = b.ast.FUNC_currentGet()
-    argsLength =  b.ast.FUNC_argsLength(fn, v, k)
+    b_io.log.controller.formatterExtra()
 
-    if argsLength == 2:   # empty '()'
-        outString = ''
-    else:
-        outString = format(*v, **k)
+    pathname, lineno, funcName = b.ast.stackFrameInfoGetValues(2)
 
-    logger.critical('io.eh.: ' + outString + ' -- ' + b.ast.stackFrameInfoGet(2) )
-
-    return (
-        eh_problem_usageError(b.op.Outcome(), *v, **k)
+    outString = format(*v, **k)
+    logger.critical(
+        f"EH_Problem_UsageError: {outString}",
+        extra={
+            'extraPathname': pathname,
+            'extraLineno': lineno,
+            'extraFuncName': funcName,
+        }
     )
 
-    #raise RuntimeError()
+    b_io.log.controller.formatterBasic()
+
+    return
 
 
-####+BEGIN: bx:cs:py3:func :funcName "eh_problem_usageError" :funcType "extTyped" :deco ""
+
+
+####+BEGIN: b:py3:cs:func/typing :funcName "problem_usageError_wOp" :funcType "extTyped" :deco ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /eh_problem_usageError/  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /problem_usageError_wOp/   [[elisp:(org-cycle)][| ]]
 #+end_org """
-def eh_problem_usageError(
+def problem_usageError_wOp(
 ####+END:
         outcome,
         *v,
@@ -261,13 +315,23 @@ def eh_problem_usageError(
 ** [[elisp:(org-cycle)][| *DocStr | ]
     #+end_org """
 
-    fn = b.ast.FUNC_currentGet()
-    argsLength =  b.ast.FUNC_argsLength(fn, v, k)
+    logger = b_io.log.controller.loggerGet()
 
-    if argsLength == 2:   # empty '()'
-        outString = ''
-    else:
-        outString = format(*v, **k)
+    b_io.log.controller.formatterExtra()
+
+    pathname, lineno, funcName = b.ast.stackFrameInfoGetValues(2)
+
+    outString = format(*v, **k)
+    logger.critical(
+        f"EH_Problem_UsageError: {outString}",
+        extra={
+            'extraPathname': pathname,
+            'extraLineno': lineno,
+            'extraFuncName': funcName,
+        }
+    )
+
+    b_io.log.controller.formatterBasic()
 
     errStr='io.eh.: ' + outString + ' -- ' + b.ast.stackFrameInfoGet(2)
     return(outcome.set(
@@ -276,9 +340,9 @@ def eh_problem_usageError(
     ))
 
 
-####+BEGIN: bx:cs:py3:func :funcName "critical_unassigedError" :funcType "extTyped" :deco ""
+####+BEGIN: b:py3:cs:func/typing :funcName "critical_unassigedError" :funcType "extTyped" :deco ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /critical_unassigedError/  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /critical_unassigedError/   [[elisp:(org-cycle)][| ]]
 #+end_org """
 def critical_unassigedError(
 ####+END:
@@ -289,23 +353,29 @@ def critical_unassigedError(
 ** [[elisp:(org-cycle)][| *DocStr | ]
     #+end_org """
 
-    logControler = b_io.log.Control()
-    logger = logControler.loggerGet()
+    logger = b_io.log.controller.loggerGet()
 
-    fn = b.ast.FUNC_currentGet()
-    argsLength =  b.ast.FUNC_argsLength(fn, v, k)
+    b_io.log.controller.formatterExtra()
 
-    if argsLength == 2:   # empty '()'
-        outString = ''
-    else:
-        outString = format(*v, **k)
+    pathname, lineno, funcName = b.ast.stackFrameInfoGetValues(2)
 
-    logger.critical('io.eh.: ' + outString + ' -- ' + b.ast.stackFrameInfoGet(2) )
+    outString = format(*v, **k)
+    logger.critical(
+        f"EH_Critical_UnassigedError: {outString}",
+        extra={
+            'extraPathname': pathname,
+            'extraLineno': lineno,
+            'extraFuncName': funcName,
+        }
+    )
+
+    b_io.log.controller.formatterBasic()
+    return
     #raise RuntimeError()
 
-####+BEGIN: bx:cs:py3:func :funcName "critical_oops" :funcType "extTyped" :deco ""
+####+BEGIN: b:py3:cs:func/typing :funcName "critical_oops" :funcType "extTyped" :deco ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /critical_oops/  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /critical_oops/   [[elisp:(org-cycle)][| ]]
 #+end_org """
 def critical_oops(
 ####+END:
@@ -316,28 +386,31 @@ def critical_oops(
 ** [[elisp:(org-cycle)][| *DocStr | ]
     #+end_org """
 
-    logControler = b_io.log.Control()
-    logger = logControler.loggerGet()
+    logger = b_io.log.controller.loggerGet()
 
-    fn = b.ast.FUNC_currentGet()
-    argsLength =  b.ast.FUNC_argsLength(fn, v, k)
+    b_io.log.controller.formatterExtra()
 
-    if argsLength == 2:   # empty '()'
-        outString = ''
-    else:
-        outString = format(*v, **k)
+    pathname, lineno, funcName = b.ast.stackFrameInfoGetValues(2)
 
-    print(('io.eh.: ' + outString + ' -- ' + b.ast.stackFrameInfoGet(2) ))
-    logger.critical('io.eh.: ' + outString + ' -- ' + b.ast.stackFrameInfoGet(2) )
+    outString = format(*v, **k)
+    logger.critical(
+        f"EH_Critical_Oops: {outString}",
+        extra={
+            'extraPathname': pathname,
+            'extraLineno': lineno,
+            'extraFuncName': funcName,
+        }
+    )
 
-    traceback.print_stack()
+    b_io.log.controller.formatterBasic()
+    return
 
-
+    # traceback.print_stack()
     #raise RuntimeError()
 
-####+BEGIN: bx:cs:py3:func :funcName "critical_exception" :funcType "extTyped" :deco ""
+####+BEGIN: b:py3:cs:func/typing :funcName "critical_exception" :funcType "extTyped" :deco ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /critical_exception/  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /critical_exception/   [[elisp:(org-cycle)][| ]]
 #+end_org """
 def critical_exception(
 ####+END:
@@ -375,9 +448,9 @@ def critical_exception(
     #logger.error("io.eh.critical_exception", exc_info=True)
     #print(traceback.format_exc())
 
-####+BEGIN: bx:cs:py3:func :funcName "badOutcome" :funcType "extTyped" :deco ""
+####+BEGIN: b:py3:cs:func/typing :funcName "badOutcome" :funcType "extTyped" :deco ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /badOutcome/  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /badOutcome/   [[elisp:(org-cycle)][| ]]
 #+end_org """
 def badOutcome(
 ####+END:
@@ -398,9 +471,9 @@ def badOutcome(
 
     return outcome
 
-####+BEGIN: bx:cs:py3:func :funcName "badLastOutcome" :funcType "extTyped" :deco ""
+####+BEGIN: b:py3:cs:func/typing :funcName "badLastOutcome" :funcType "extTyped" :deco ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /badLastOutcome/  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /badLastOutcome/   [[elisp:(org-cycle)][| ]]
 #+end_org """
 def badLastOutcome(
 ####+END:
@@ -413,9 +486,9 @@ def badLastOutcome(
             cs.G.lastOpOutcome
         ))
 
-####+BEGIN: bx:cs:py3:func :funcName "eh_badLastOutcome" :funcType "extTyped" :deco ""
+####+BEGIN: b:py3:cs:func/typing :funcName "eh_badLastOutcome" :funcType "extTyped" :deco ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /eh_badLastOutcome/  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /eh_badLastOutcome/   [[elisp:(org-cycle)][| ]]
 #+end_org """
 def eh_badLastOutcome(
 ####+END:
@@ -429,9 +502,9 @@ def eh_badLastOutcome(
     )
 
 
-####+BEGIN: bx:cs:py3:func :funcName "runTime" :funcType "extTyped" :deco ""
+####+BEGIN: b:py3:cs:func/typing :funcName "runTime" :funcType "extTyped" :deco ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /runTime/  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /runTime/   [[elisp:(org-cycle)][| ]]
 #+end_org """
 def runTime(
 ####+END:
@@ -456,23 +529,13 @@ def runTime(
     logger.error('io.eh.: ' + outString + ' -- ' + b.ast.stackFrameInfoGet(2) )
     raise RuntimeError()
 
-
-
-####+BEGIN: blee:bxPanel:foldingSection :outLevel 0 :title " ~End Of Editable Text~ "
+####+BEGIN: b:py3:cs:framework/endOfFile :basedOn "classification"
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*     [[elisp:(outline-show-subtree+toggle)][| _ ~End Of Editable Text~ _: |]]    [[elisp:(org-shifttab)][<)]] E|
+* [[elisp:(org-cycle)][| *End-Of-Editable-Text* |]] :: emacs and org variables and control parameters
 #+end_org """
-####+END:
 
-####+BEGIN: bx:dblock:global:file-insert-cond :cond "./blee.el" :file "/bisos/apps/defaults/software/plusOrg/dblock/inserts/endOfFileControls.org"
 #+STARTUP: showall
-####+END:
 
-
-####+BEGIN: b:prog:file/endOfFile :extraParams nil
-""" #+begin_org
-* *[[elisp:(org-cycle)][| END-OF-FILE |]]* :: emacs and org variables and control parameters
-#+end_org """
 ### local variables:
 ### no-byte-compile: t
 ### end:

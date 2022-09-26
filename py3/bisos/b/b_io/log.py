@@ -118,7 +118,8 @@ LOGGER = 'Icm'
 CONSL_LEVEL_RANGE = list(range(0, 51))
 #FORMAT_STR = '%(asctime)s %(levelname)s %(message)s'
 #FORMAT_STR = '%(levelname)s %(message)s -- %(asctime)s'
-FORMAT_STR = "* %(msg)s \n%(asctime)s - %(levelname)s -\t%(pathname)s[%(lineno)d]:%(funcName)s():"
+FORMAT_STR = "* %(msg)s \n%(asctime)s - %(levelname)s -\t%(pathname)s::[%(lineno)d] %(funcName)s():"
+FORMAT_EXTRA_STR = "* %(msg)s \n%(asctime)s - %(levelname)s -\t%(extraPathname)s::[%(extraLineno)d] %(extraFuncName)s():"
 
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "logFileName" :funcType "extTyped" :deco ""
@@ -154,9 +155,6 @@ def getConsoleLevel(
     return level
 
 
-
-
-
 ####+BEGIN: b:py3:class/decl :className "_Control" :superClass "" :comment "" :classType "basic"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-basic  [[elisp:(outline-show-subtree+toggle)][||]] /_Control/  superClass=object  [[elisp:(org-cycle)][| ]]
@@ -165,11 +163,16 @@ class _Control(object):
 ####+END:
     """ #+begin_org
 ** [[elisp:(org-cycle)][| DocStr| ]]  ICM Logging on top of basic Logging.
+Handle indentation in context filter.
+ https://stackoverflow.com/questions/40619855/dynamically-adjust-logging-format
+https://docs.python.org/3/howto/logging-cookbook.html#adding-contextual-information-to-your-logging-output
+    https://docs.python.org/3/howto/logging.html#logging-basic-tutorial
     #+end_org """
 
     args = None
     logger = None
     fh = None
+    ch = None
     level = None
 
     def __init__(self):
@@ -214,7 +217,28 @@ class _Control(object):
             ch.formatter = formatter
             logger.addHandler(ch)
             #print( stackFrameInfoGet(1) )  # TEMP
+            self.__class__.ch = ch
         return logger
+
+    def formatterBasic(self):
+        formatter = logging.Formatter(FORMAT_STR)
+        fh = self.__class__.fh
+        #fh.formatter = formatter
+        fh.setFormatter(formatter)
+        ch = self.__class__.ch
+        #ch.formatter = formatter
+        ch.setFormatter(formatter)
+
+
+    def formatterExtra(self):
+        formatter = logging.Formatter(FORMAT_EXTRA_STR)
+        fh = self.__class__.fh
+        #fh.formatter = formatter
+        fh.setFormatter(formatter)
+        ch = self.__class__.ch
+        #ch.formatter = formatter
+        ch.setFormatter(formatter)
+
 
     def loggerSetLevel(self, level):
         """

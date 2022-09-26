@@ -67,7 +67,7 @@ Module description comes here.
 #from bisos.b import cs
 #from bisos.cs import runArgs
 
-#from bisos.b import io
+from bisos.b import b_io
 
 from bisos import b
 
@@ -164,7 +164,91 @@ def track(fnLoc=True, fnEntry=True, fnExit=True):
             keyword = list(map(b.ast.format_arg_value, list(k.items())))
             args = positional + defaulted + nameless + keyword
 
-            logControler = b.io.log.Control()
+            logControler = b_io.log.controller
+            logger = logControler.loggerGet()
+
+            depth = b.ast.stackFrameDepth(2)
+            indentation = STR_indentMultiples(multiple=depth)
+
+            # if fnLoc:
+            #     logger.debug(format('%s Monitoring(M-Call-%s): ' % (indentation, depth)) + b.ast.stackFrameInfoGet(2))
+
+            if fnEntry:
+                b_io.log.controller.formatterExtra()
+                pathname, lineno, funcName = b.ast.stackFrameInfoGetValues(2)
+                logger.debug(
+                    "%s M-Enter-%s: %s(%s) AT %s" % (indentation, depth, fn.__name__, ", ".join(args), b.ast.stackFrameInfoGet(2)),
+                    extra={
+                        'extraPathname': pathname,
+                        'extraLineno': lineno,
+                        'extraFuncName': funcName,
+                    },
+                )
+                b_io.log.controller.formatterBasic()
+
+            retVal = fn(*v, **k)
+
+            if fnExit:
+                b_io.log.controller.formatterExtra()
+                pathname, lineno, funcName = b.ast.stackFrameInfoGetValues(2)
+                logger.debug(
+                    "%s M-Return-%s(%s):  %s AT %s" % (indentation, depth, fn.__name__, retVal, b.ast.stackFrameInfoGet(2)),
+                    extra={
+                        'extraPathname': pathname,
+                        'extraLineno': lineno,
+                        'extraFuncName': funcName,
+                    },
+                )
+                b_io.log.controller.formatterBasic()
+
+            return retVal
+        return wrapped
+    return subSubjectToTracking
+
+
+def trackWorks(fnLoc=True, fnEntry=True, fnExit=True):
+    """[DECORATOR-WITH-ARGS:]  Passes parameters to subSubjectToTracking. See subSubjectToTracking.
+    """
+
+    def subSubjectToTracking(fn):
+        """[DECORATOR:] tracks calls to a function.
+
+        Returns a decorated version of the input function which "tracks" calls
+        made to it by writing out the function's name and the arguments it was
+        called with.
+        Do so subject to icmRunArgs_isCallTrackingMonitorOn and
+        fnLoc, fnEntry, fnExit parameters.
+        """
+
+        import functools
+        # Unpack function's arg count, arg names, arg defaults
+        code = fn.__code__
+        argcount = code.co_argcount
+        argnames = code.co_varnames[:argcount]
+        fn_defaults = fn.__defaults__ or list()
+        argdefs = dict(list(zip(argnames[-len(fn_defaults):], fn_defaults)))
+
+        @functools.wraps(fn)
+        def wrapped(*v, **k):
+            if (fnLoc == False) and (fnEntry == False) and (fnExit == False):
+                return fn(*v, **k)
+
+            #if icmRunArgs_isCallTrackingMonitorOff():   # normally on, turns-off with monitor-
+                #return fn(*v, **k)
+
+            if not b.cs.runArgs.isCallTrackingMonitorOn(): # normally off, turns-on with monitor+
+                return fn(*v, **k)
+
+            # Collect function arguments by chaining together positional,
+            # defaulted, extra positional and keyword arguments.
+            positional = list(map(b.ast.format_arg_value, list(zip(argnames, v))))
+            defaulted = [b.ast.format_arg_value((a, argdefs[a]))
+                         for a in argnames[len(v):] if a not in k]
+            nameless = list(map(repr, v[argcount:]))
+            keyword = list(map(b.ast.format_arg_value, list(k.items())))
+            args = positional + defaulted + nameless + keyword
+
+            logControler = b_io.log.controller
             logger = logControler.loggerGet()
 
             depth = b.ast.stackFrameDepth(2)
@@ -184,6 +268,7 @@ def track(fnLoc=True, fnEntry=True, fnExit=True):
             return retVal
         return wrapped
     return subSubjectToTracking
+
 
 
 def subjectToTrackingNull(fnLoc=True, fnEntry=True, fnExit=True):
@@ -235,7 +320,9 @@ def do(fn, *v, **k):
     do(thisFunc, thatArg)
     """
 
-    if icmRunArgs_isCallTrackingInvokeOff():
+    return
+
+    if cs.icmRunArgs_isCallTrackingInvokeOff():
         return fn(*v, **k)
 
     #

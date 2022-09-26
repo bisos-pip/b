@@ -65,7 +65,7 @@ Module description comes here.
 
 #from bisos import cs
 from bisos.b import b_io
-#from bisos import b
+from bisos import b
 
 
 #import logging
@@ -87,25 +87,30 @@ def note(
         **k,
 ) -> None:
     """ #+begin_org
-** [[elisp:(org-cycle)][| *DocStr | ]
+** [[elisp:(org-cycle)][| *DocStr | ] Used to leave a permanent note. Effective pathname/lineno/func are those the caller.
     #+end_org """
 
-    logControler = b_io.log.controller
-    logger = logControler.loggerGet()
+    logger = b_io.log.controller.loggerGet()
 
-    logger.debug('TM_: ' + format(*v, **k))
+    b_io.log.controller.formatterExtra()
+
+    pathname, lineno, funcName = b.ast.stackFrameInfoGetValues(2)
+
+    outString = format(*v, **k)
+    logger.debug(
+        f"TM_note: {outString}",
+        extra={
+            'extraPathname': pathname,
+            'extraLineno': lineno,
+            'extraFuncName': funcName,
+        }
+    )
+
+    b_io.log.controller.formatterBasic()
 
     return
 
-    fn = b.ast.FUNC_currentGet()
-    argsLength =  b.ast.FUNC_argsLength(fn, v, k)
 
-    if argsLength == 2:   # empty '()'
-        outString = ''
-    else:
-        outString = format(*v, **k)
-
-    logger.debug( 'TM_: ' + outString )
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "here" :funcType "extTyped" :deco ""
 """ #+begin_org
@@ -117,45 +122,28 @@ def here(
         **k,
 ) -> None:
     """ #+begin_org
-** [[elisp:(org-cycle)][| *DocStr | ] Mark file and line -- do the equivalent of a print statement.
+** [[elisp:(org-cycle)][| *DocStr | ] Used to leave a temprary foot print. Effective pathname/lineno/func are those the caller.
     #+end_org """
 
-    import inspect
-    import traceback
-    import logging
+    logger = b_io.log.controller.loggerGet()
 
+    b_io.log.controller.formatterExtra()
 
-    logControler = b_io.log.controller
-    logger = logControler.loggerGet()
-
-     # https://stackoverflow.com/questions/45010539/python-logging-pathname-in-decorator
-
-    #frame = inspect.currentframe()
-    #stack_trace = traceback.format_stack(frame)
-    #logging.debug(stack_trace[:-1])
-    #logger.debug(stack_trace[:-1])
-    # logger.error('TMMM_: ' + format(*v, **k),
-    #              extra={'pathname': "ZZ",  # path to source file
-    #                                  'lineno': "LL",         # line number from trace
-    #                                  'funcName': "FF"}
-    #              )
+    pathname, lineno, funcName = b.ast.stackFrameInfoGetValues(2)
 
     outString = format(*v, **k)
-    logger.debug('TM_: ' + outString)
+    logger.debug(
+        f"TM_here: {outString}",
+        extra={
+            'extraPathname': pathname,
+            'extraLineno': lineno,
+            'extraFuncName': funcName,
+        }
+    )
+
+    b_io.log.controller.formatterBasic()
 
     return
-
-    fn = b.ast.FUNC_currentGet()
-    argsLength =  b.ast.FUNC_argsLength(fn, v, k)
-
-    if argsLength == 2:   # empty '()'
-        outString = ''
-    else:
-        outString = format(*v, **k)
-
-    logger.debug('TM_: ' + outString + ' -- ' + b.ast.stackFrameInfoGet(2) )
-
-
 
 
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 0 :title " ~End Of Editable Text~ "
