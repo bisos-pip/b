@@ -57,9 +57,9 @@ Module description comes here.
 ####+END:
 
 
-####+BEGIN: bx:cs:py3:func :funcName "orgMode" :funcType "" :retType "" :deco "" :argsList "commentStr" :comment "Include orgMode in code as comments."
+####+BEGIN: b:py3:cs:func/typing :funcName "orgMode" :funcType "" :deco "" :comment "Include orgMode in code as comments."
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-         [[elisp:(outline-show-subtree+toggle)][||]] /orgMode/ =Include orgMode in code as comments.=  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-       [[elisp:(outline-show-subtree+toggle)][||]] /orgMode/  Include orgMode in code as comments.  [[elisp:(org-cycle)][| ]]
 #+end_org """
 def orgMode(
 ####+END:
@@ -69,6 +69,20 @@ def orgMode(
 ** Include orgMode comments in code.
     """
     pass
+
+####+BEGIN: b:py3:cs:func/typing :funcName "orgModeRun" :funcType "" :deco "" :comment "Include orgModeRun in code as comments."
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-       [[elisp:(outline-show-subtree+toggle)][||]] /orgModeRun/  Include orgModeRun in code as comments.  [[elisp:(org-cycle)][| ]]
+#+end_org """
+def orgModeRun(
+####+END:
+        commentsStr,
+    ):
+    """
+** Include orgModeRun comments in code. commentsStr typically has code that can be executed.
+    """
+    pass
+
 
 ####+BEGIN: b:prog:file/endOfFile :extraParams nil
 """ #+begin_org

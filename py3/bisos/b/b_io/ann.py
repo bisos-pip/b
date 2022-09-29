@@ -92,8 +92,8 @@ def read(
 *  [[elisp:(org-cycle)][| ]]  [[elisp:(blee:ppmm:org-mode-toggle)][Nat]] [[elisp:(beginning-of-buffer)][Top]] [[elisp:(delete-other-windows)][(1)]] || Func             ::  ANN_write  -- Same As print to stderr [[elisp:(org-cycle)][| ]]
 """
 
-def ANN_write(*v, **k):
-    """
+def write(*v, **k):
+    """ This should go to stdout.
     """
     print( format(*v, **k) )
 
@@ -114,37 +114,19 @@ def ANN_write(*v, **k):
 *  [[elisp:(org-cycle)][| ]]  [[elisp:(blee:ppmm:org-mode-toggle)][Nat]] [[elisp:(beginning-of-buffer)][Top]] [[elisp:(delete-other-windows)][(1)]] || Func             ::  ANN_note -- Prepends ANN_:     [[elisp:(org-cycle)][| ]]
 """
 
-def ANN_note(*v, **k):
+def note(*v, **k):
     """
     """
-    fn = b.ast.FUNC_currentGet()
-    argsLength =  b.ast.FUNC_argsLength(fn, v, k)
-
-    if argsLength == 2:   # empty '()'
-        outString = ''
-    else:
-        outString = format(*v, **k)
-
-    print(( 'ANN_: ' + outString ))
+    print( format(*v, **k) )
 
 """
 *  [[elisp:(org-cycle)][| ]]  [[elisp:(blee:ppmm:org-mode-toggle)][Nat]] [[elisp:(beginning-of-buffer)][Top]] [[elisp:(delete-other-windows)][(1)]] || Func             ::  ANN_here -- Prepends ANN_ and adds stackFrameInfoGet(2)   [[elisp:(org-cycle)][| ]]
 """
 
-def ANN_here(*v, **k):
+def here(*v, **k):
     """Mark file and line -- do the equivalent of a print statement.
     """
-    fn = b.ast.FUNC_currentGet()
-    argsLength =  b.ast.FUNC_argsLength(fn, v, k)
-
-    if argsLength == 2:   # empty '()'
-        outString = ''
-    else:
-        outString = format(*v, **k)
-
-    print(('ANN_: ' + outString + ' -- ' + b.ast.stackFrameInfoGet(2) ))
-
-
+    print( format(*v, **k) )
 
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 0 :title " ~End Of Editable Text~ "
 """ #+begin_org

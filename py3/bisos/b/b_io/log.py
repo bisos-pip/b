@@ -164,6 +164,7 @@ class _Control(object):
     """ #+begin_org
 ** [[elisp:(org-cycle)][| DocStr| ]]  ICM Logging on top of basic Logging.
 Handle indentation in context filter.
+    https://stackoverflow.com/questions/45010539/python-logging-pathname-in-decorator
  https://stackoverflow.com/questions/40619855/dynamically-adjust-logging-format
 https://docs.python.org/3/howto/logging-cookbook.html#adding-contextual-information-to-your-logging-output
     https://docs.python.org/3/howto/logging.html#logging-basic-tutorial
@@ -227,7 +228,8 @@ https://docs.python.org/3/howto/logging-cookbook.html#adding-contextual-informat
         fh.setFormatter(formatter)
         ch = self.__class__.ch
         #ch.formatter = formatter
-        ch.setFormatter(formatter)
+        if ch:
+            ch.setFormatter(formatter)
 
 
     def formatterExtra(self):
@@ -237,7 +239,8 @@ https://docs.python.org/3/howto/logging-cookbook.html#adding-contextual-informat
         fh.setFormatter(formatter)
         ch = self.__class__.ch
         #ch.formatter = formatter
-        ch.setFormatter(formatter)
+        if ch:
+            ch.setFormatter(formatter)
 
 
     def loggerSetLevel(self, level):

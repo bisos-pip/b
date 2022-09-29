@@ -64,7 +64,7 @@ Module description comes here.
 
 from bisos.b import cs
 from bisos import b
-from bisos.b import io
+from bisos.b import b_io
 
 
 ####+BEGIN: bx:cs:python:func :funcName "myNicheNameGet" :funcType "anyOrNone" :retType "bool" :deco "" :argsList ""
@@ -159,7 +159,7 @@ This is based on the bash nich_lib.sh version. See that for details.
         outcome =  b.subProc.WOpW(invedBy=None, log=0).bash(
             f"""sysCharDeploy.sh -i selectedContainerBxoPath""")
         if outcome.isProblematic():
-            io.eh.badOutcome(outcome)
+            b_io.eh.badOutcome(outcome)
         cs.examples.menuChapter('*Container Niche Examples*')
         print(f"""{outcome.stdoutRstrip}/sys/bin/{myNicheName}""")
 
@@ -167,7 +167,7 @@ This is based on the bash nich_lib.sh version. See that for details.
         outcome =  b.subProc.WOpW(invedBy=None, log=0).bash(
             f"""sysCharDeploy.sh -i selectedSiteBxoPath""")
         if outcome.isProblematic():
-            io.eh.badOutcome(outcome)
+            b_io.eh.badOutcome(outcome)
         cs.examples.menuChapter('*Selected Site Niche Examples*')
         print(f"""{outcome.stdoutRstrip}/sys/bin/{myNicheName}""")
 
@@ -175,7 +175,7 @@ This is based on the bash nich_lib.sh version. See that for details.
         outcome =  b.subProc.WOpW(invedBy=None, log=0).bash(
             f"""usgBpos.sh -i usgBpos_controller_bxoPath""")
         if outcome.isProblematic():
-            io.eh.badOutcome(outcome)
+            b_io.eh.badOutcome(outcome)
         cs.examples.menuChapter('*Selected Controller Niche Examples*')
         print(f"""{outcome.stdoutRstrip}/sys/bin/{myNicheName}""")
 
@@ -183,12 +183,12 @@ This is based on the bash nich_lib.sh version. See that for details.
         outcome =  b.subProc.WOpW(invedBy=None, log=0).bash(
             f"""usgBpos.sh -i usgBpos_usageEnvs_fullUse_bxoPath""")
         if outcome.isProblematic():
-            io.eh.badOutcome(outcome)
+            b_io.eh.badOutcome(outcome)
         cs.examples.menuChapter('*Selected Usage Niche Examples*')
         print(f"""{outcome.stdoutRstrip}/sys/bin/{myNicheName}""")
 
     else:
-        io.eh.problem_usageError(
+        b_io.eh.problem_usageError(
             f"""Unknown nicheScope={nicheScope}"""
         )
 

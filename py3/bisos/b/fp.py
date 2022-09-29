@@ -170,10 +170,10 @@ class FileParam(object):
         Returns a FILE_param which was contailed in parBase/parName.
         """
         if self.__storeBase == None and storeBase == None:
-            return io.eh.problem_usageError("storeBase")
+            return b_io.eh.problem_usageError("storeBase")
 
         if self.__parName == None and parName == None:
-            return io.eh.problem_usageError("parName")
+            return b_io.eh.problem_usageError("parName")
 
         if storeBase:
             self.__storeBase = storeBase
@@ -198,7 +198,7 @@ class FileParam(object):
         """
 
         if not os.path.isdir(parNameFullPath):
-            #return io.eh.problem_usageError("parName: " + parNameFullPath)
+            #return b_io.eh.problem_usageError("parName: " + parNameFullPath)
             return None
 
         fileParam = self
@@ -209,7 +209,7 @@ class FileParam(object):
         # Now we will fill fileParam based on the directory content
         #
         #if os.path.exists(parNameFullPath):
-            #return io.eh.problem_usageError(f"Missing Path: {parNameFullPath}")
+            #return b_io.eh.problem_usageError(f"Missing Path: {parNameFullPath}")
 
         for item in os.listdir(parNameFullPath):
             if item == "CVS":
@@ -238,13 +238,13 @@ class FileParam(object):
 
         """
         if self.__storeBase == None and storeBase == None:
-            return io.eh.problem_usageError("storeBase")
+            return b_io.eh.problem_usageError("storeBase")
 
         if self.__parName == None and parName == None:
-            return io.eh.problem_usageError("parName")
+            return b_io.eh.problem_usageError("parName")
 
         if self.__parValue == None and parValue == None:
-            return io.eh.problem_usageError("parValue")
+            return b_io.eh.problem_usageError("parValue")
 
         if storeBase:
             self.__storeBase = storeBase
@@ -293,13 +293,13 @@ class FileParam(object):
 
         """
         if self.__storeBase == None and storeBase == None:
-            return io.eh.problem_usageError("storeBase")
+            return b_io.eh.problem_usageError("storeBase")
 
         if self.__parName == None and parName == None:
-            return io.eh.problem_usageError("parName")
+            return b_io.eh.problem_usageError("parName")
 
         if parValueFile == None:
-             return io.eh.problem_usageError("parValueFile")
+             return b_io.eh.problem_usageError("parValueFile")
 
         if storeBase:
             self.__storeBase = storeBase
@@ -411,7 +411,7 @@ def FileParamWriteTo(
     thisFileParam = FileParam(parName=parName, parValue=parValue,)
 
     if thisFileParam == None:
-        return io.eh.critical_usageError('')
+        return b_io.eh.critical_usageError('')
 
     return thisFileParam.writeTo(storeBase=parRoot)
 
@@ -432,7 +432,7 @@ def FileParamWriteToPath(
     thisFileParam = FileParam()
 
     if thisFileParam == None:
-        return io.eh.critical_usageError('')
+        return b_io.eh.critical_usageError('')
 
     return thisFileParam.writeToPath(parNameFullPath=parNameFullPath,
                                      parValue=parValue)
@@ -456,7 +456,7 @@ def FileParamWriteToFromFile(
     thisFileParam = FileParam(parName=parName)
 
     if thisFileParam == None:
-        return io.eh.critical_usageError('')
+        return b_io.eh.critical_usageError('')
 
     return thisFileParam.writeToFromFile(storeBase=parRoot, parValueFile=parValueFile)
 
@@ -486,7 +486,7 @@ def FileParamVerWriteTo(
                                     )
 
     if thisFileParam == None:
-        return io.eh.critical_usageError('')
+        return b_io.eh.critical_usageError('')
 
     return thisFileParam.writeTo(storeBase=parFullPath)
 
@@ -516,14 +516,14 @@ def FileParamReadFrom(
     blank = FileParam()
 
     if blank == None:
-        return io.eh.critical_usageError('blank')
+        return b_io.eh.critical_usageError('blank')
 
     filePar = blank.readFrom(storeBase=parRoot, parName=parName)
 
     if filePar == None:
         print('Missing: ' + parRoot + parName)
         raise IOError
-        #return io.eh.critical_usageError('blank')
+        #return b_io.eh.critical_usageError('blank')
         return None
 
     return filePar
@@ -546,14 +546,14 @@ def FileParamValueReadFrom(
     blank = FileParam()
 
     if blank == None:
-        return io.eh.critical_usageError('blank')
+        return b_io.eh.critical_usageError('blank')
 
     filePar = blank.readFrom(storeBase=parRoot, parName=parName)
 
     if filePar == None:
         print(('Missing: ' + parRoot + parName))
         #raise IOError
-        #return io.eh.critical_usageError('blank')
+        #return b_io.eh.critical_usageError('blank')
         return None
 
     return(filePar.parValueGet())
@@ -575,14 +575,14 @@ def FileParamReadFromPath(
     blank = FileParam()
 
     if blank == None:
-        return io.eh.critical_usageError('blank')
+        return b_io.eh.critical_usageError('blank')
 
     filePar = blank.readFromPath(parRoot)
 
     if filePar == None:
         #print('Missing: ' + parRoot + parName)
         raise IOError
-        #return io.eh.critical_usageError('blank')
+        #return b_io.eh.critical_usageError('blank')
 
     return filePar
 
@@ -604,13 +604,13 @@ def FileParamValueReadFromPath(
     blank = FileParam()
 
     if blank == None:
-        return io.eh.critical_usageError('blank')
+        return b_io.eh.critical_usageError('blank')
 
     filePar = blank.readFromPath(parRoot)
 
     if filePar == None:
         print(('Missing: ' + parRoot))
-        return io.eh.critical_usageError('blank')
+        return b_io.eh.critical_usageError('blank')
 
     return(filePar.parValueGet())
 
@@ -633,7 +633,7 @@ def FileParamVerReadFrom(
     blank = FileParam()
 
     if blank == None:
-        try:  io.eh.critical_usageError('blank')
+        try:  b_io.eh.critical_usageError('blank')
         except RuntimeError:  return
 
     parFullPath = os.path.join(parRoot, parName)
@@ -645,7 +645,7 @@ def FileParamVerReadFrom(
 
     if filePar == None:
         #print('Missing: ' + parRoot + parName)
-        return io.eh.critical_usageError('blank')
+        return b_io.eh.critical_usageError('blank')
 
     #print(filePar.parValueGet())
     return filePar
@@ -686,7 +686,7 @@ def FILE_paramDictRead(
             inPathList.append(thisPath)
     else:
         if inPathList == None:
-            return io.eh.critical_usageError('inPathList is None and is Non-Interactive')
+            return b_io.eh.critical_usageError('inPathList is None and is Non-Interactive')
 
     for thisPath in inPathList:
         blankDict = FileParamDict()
@@ -746,7 +746,7 @@ class FP_readTreeAtBaseDir(b.cs.Cmnd):
 
         blankParDictObj  = FileParamDict()
         thisParamDict = blankParDictObj.readFrom(path=FPsDir)
-        icm.TM_here(f"path={FPsDir}")
+        b_io.tm.here(f"path={FPsDir}")
 
         if thisParamDict == None:
             return icm.eh_problem_usageError(
@@ -755,7 +755,7 @@ class FP_readTreeAtBaseDir(b.cs.Cmnd):
             )
 
         if interactive:
-            icm.ANN_write(FPsDir)
+            b_io.ann.write(FPsDir)
             FILE_paramDictPrint(thisParamDict)
 
         return cmndOutcome.set(
@@ -875,7 +875,7 @@ def FILE_paramDictReadDeep(
             inPathList.append(thisPath)
     else:
         if inPathList == None:
-            return io.eh.critical_usageError('inPathList is None and is Non-Interactive')
+            return b_io.eh.critical_usageError('inPathList is None and is Non-Interactive')
 
     fileParamsDict = {}
 
@@ -883,7 +883,7 @@ def FILE_paramDictReadDeep(
         #absolutePath = os.path.abspath(thisPath)
 
         if not os.path.isdir(thisPath):
-            return io.eh.critical_usageError('Missing Directory: {thisPath}'.format(thisPath=thisPath))
+            return b_io.eh.critical_usageError('Missing Directory: {thisPath}'.format(thisPath=thisPath))
 
         for root, dirs, files in os.walk(thisPath):
             #print("root={root}".format(root=root))
@@ -895,7 +895,7 @@ def FILE_paramDictReadDeep(
                 try:
                     fileParam = FileParamReadFromPath(parRoot=root)
                 except IOError:
-                    io.eh.problem_info("Missing " + root)
+                    b_io.eh.problem_info("Missing " + root)
                     continue
 
                 fileParamsDict.update({root:fileParam.parValueGet()})
@@ -924,19 +924,19 @@ def readTreeAtBaseDir_wOp(
 
     blankParDictObj  = FileParamDict()
     thisParamDict = blankParDictObj.readFrom(path=fpsDir)
-    icm.TM_here(f"path={fpsDir}")
+    b_io.tm.here(f"path={fpsDir}")
 
     if thisParamDict == None:
-        return icm.eh_problem_usageError(
+        return b_io.eh.problem_usageError_wOp(
             outcome,
             "thisParamDict == None",
         )
 
-    # icm.ANN_write(fpsDir)
+    # b_io.ann.write(fpsDir)
     # FILE_paramDictPrint(thisParamDict)
 
     return outcome.set(
-        opError=cs.OpError.Success,
+        opError=b.OpError.Success,
         opResults=thisParamDict,
     )
 

@@ -149,6 +149,14 @@ class Cmnd(object):
         else:
             self.cmnd.__func__.__doc__ = inStr
 
+    def captureRunStr(self, inStr):
+        "In org-mode, with src_sh provide examples of running the cmnd. Can function as unit test as well."
+        self.cmndRunStr = inStr
+
+    def justCaptureP(self,):
+        "NOTYET, Predicate. CS Players can set this to True. based on runArgs, return True or False."
+        return False
+
     def docStrClassSet(self, docStr):
         """attribute '__doc__' of 'method' objects is not writable, so we use class."""
         self.__class__.__doc__ = docStr
@@ -657,7 +665,7 @@ Are args values as expected?
             self,
             rtInv: cs.RtInvoker,
             outcome: b.op.Outcome,
-            callParamDict: typing.Optional[typing.Dict[str, str]],
+            callParamDict: typing.Optional[typing.Dict[str, typing.Optional[str]]],
             argsList: typing.Optional[list[str]],
     )  -> b.op.Outcome:
         """ #+begin_org
@@ -1561,7 +1569,7 @@ def invokesProcAllClassed(
         #
 
         # BUG, NOTYET, io.eh.problem goes to -v 20
-        io.eh.io.eh.problem_info("Invalid Action: {invoke}"
+        b_io.eh.problem_info("Invalid Action: {invoke}"
                         .format(invoke=invoke))
 
         print(("Invalid Action: {invoke}"

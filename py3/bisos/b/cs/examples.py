@@ -154,7 +154,7 @@ def commonBrief(
     print(f"""{G_myName}  --perfName="localhost" -i examples""")
 
     menuChapter('*ICM Blee Player Invokations*')
-    b_io.ann.ANN_write("icmPlayer.sh -h -v -n showRun -i grouped {G_myName}".format(G_myName=G_myName))
+    b_io.ann.write("icmPlayer.sh -h -v -n showRun -i grouped {G_myName}".format(G_myName=G_myName))
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "devExamples" :funcType "extTyped" :deco "track"
 """ #+begin_org
@@ -387,7 +387,7 @@ def csCmndLine(
 
     dashV = icmVerbosityTagToDashV(verbosity)
 
-    cmndLine = f"""{icmName} {dashV} {cmndParsStr} -i {cmndName} {cmndArgs}"""
+    cmndLine = f"""{icmWrapper} {icmName} {dashV} {cmndParsStr} -i {cmndName} {cmndArgs} {comment}"""
 
     return cmndLine
 
