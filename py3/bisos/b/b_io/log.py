@@ -236,7 +236,8 @@ https://docs.python.org/3/howto/logging-cookbook.html#adding-contextual-informat
         formatter = logging.Formatter(FORMAT_EXTRA_STR)
         fh = self.__class__.fh
         #fh.formatter = formatter
-        fh.setFormatter(formatter)
+        if fh:
+            fh.setFormatter(formatter)
         ch = self.__class__.ch
         #ch.formatter = formatter
         if ch:

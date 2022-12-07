@@ -88,6 +88,7 @@ icmInfo['cmndParts'] = "IcmCmndParts[common] IcmCmndParts[param]"
 """
 ####+END:
 
+from bisos import b
 from bisos.b import cs
 
 # import os
@@ -100,19 +101,9 @@ from bisos.b import cs
 
 #from deprecated import deprecated
 
+import types
 import pathlib
-
-####+BEGIN: bx:dblock:global:file-insert-cond :cond "./blee.el" :file "/bisos/apps/defaults/update/sw/icm/py/importUcfIcmG.py"
-from unisos import ucf
-from unisos import icm
-
-icm.unusedSuppressForEval(ucf.__file__)  # in case icm and ucf are not used
-
-G = icm.IcmGlobalContext()
-# G.icmLibsAppend = __file__
-# G.icmCmndsLibsAppend = __file__
-####+END:
-
+import shutil
 
 ####+BEGIN: bx:dblock:python:section :title "Basic Functions"
 """
@@ -142,6 +133,31 @@ def symlinkUpdate(
         targetPath.unlink()
     targetPath.symlink_to(srcPath)
     return targetPath
+
+
+####+BEGIN: b:py3:cs:func/typing :funcName "importCsFileAs" :comment "~Based on importFileAs~" :funcType "eType" :deco "" :argsList ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-eType  [[elisp:(outline-show-subtree+toggle)][||]] /importCsFileAs/  ~Based on importFileAs~  [[elisp:(org-cycle)][| ]]
+#+end_org """
+def importCsFileAs(
+####+END:
+        csFileName: typing.Union[str,  pathlib.Path],
+) -> types.ModuleType:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr* |]] Import ~csFile~, return imported *module* through =importFileAs=
+
+Usage:
+ aasMarmeeManage = importCsFileAs('aasMarmeeManage.cs')
+    #+end_org """
+
+    importedFilePath = shutil.which(csFileName)
+
+    if importedFilePath is None:
+        raise ImportError(f"Missing csFileName={csFileName}")
+
+    modName = pathlib.Path(csFileName).stem
+
+    return b.importFileAs(modName, importedFilePath)
 
 
 ####+BEGIN: bx:icm:python:section :title "End Of Editable Text"

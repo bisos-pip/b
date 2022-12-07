@@ -9,11 +9,14 @@
 
 # __import__('pkg_resources').declare_namespace(__name__)
 
+# This has to come late or before .types  because types collides with b.types
+from .importFile import *
 
 #from bisos.b import types # expose ./types.py as b.types.
 from .types  import * # expose ./types.py as b.types.
 
 from .comment import (orgMode,)
+
 
 # WHY import * fails here?
 from bisos.b import ast  # expose ./ast.py as b.ast. -- from .ast import *, Does not work
@@ -24,6 +27,8 @@ from bisos.b import ast  # expose ./ast.py as b.ast. -- from .ast import *, Does
 #
 #  b.fv, b.fto, b.fp and b.cs.* and b.io.* are intertwined.
 #
+
+
 
 from .op  import *
 
@@ -66,3 +71,4 @@ from .pyRunAs import *
 from .niche import *
 
 from .fpath import *
+

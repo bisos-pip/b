@@ -321,9 +321,14 @@ class Cmnd(object):
         return self.cmndMyName()
 
     @abc.abstractmethod
-    def cmnd(self, interactive=False):
+    def cmnd(
+            self,
+            rtInv,
+            cmndOutcome,
+    ) -> b.op.Outcome:
         print("This is default Cmnd Class Definition -- It is expected to be overwritten. You should never see this.")
-
+        outcome = b.op.Outcome()
+        return outcome
 
     def cmndArgsSpec(self):
         # This is default Cmnd Class Definition -- It is expected to be overwritten. You should never see this."
@@ -682,11 +687,46 @@ From within cmnd method -- or later from within a decorator,
 
         # Validate that rtInv is valid.
 
+        self.rtInv = rtInv
+        self.cmndOutcome = outcome
+        return outcome
+
         if callParamDict is not None:
             self.invocationValidateParams(rtInv, outcome, callParamDict)
 
         if argsList is not None:
             self.invocationValidateArgs(rtInv, outcome, argsList)
+
+        return outcome
+
+
+####+BEGIN: b:py3:cs:method/typing :methodName "pyCmnd" :methodType "eType"  :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-eType [[elisp:(outline-show-subtree+toggle)][||]] /pyCmnd/ deco=default  deco=default  [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def pyCmnd(
+####+END:
+            self,
+            rtInv=None,
+            cmndOutcome=None,
+            **kwArgs,
+    )  -> b.op.Outcome:
+        """ #+begin_org
+** [[elisp:(org-cycle)][| DocStr| ]]  Calls Cmnd, Returns Outcome
+pyCmnd invokactions are non-interactive
+        #+end_org """
+
+        if rtInv is None:
+            rtInv = cs.RtInvoker.new_py()
+        if cmndOutcome is None:
+            cmndOutcome = b.op.Outcome()
+
+        outcome = self.cmnd(
+            rtInv=rtInv,
+            cmndOutcome=cmndOutcome,
+            **kwArgs,
+        )
 
         return outcome
 
@@ -826,8 +866,8 @@ def csuList_commonParamsSpecify(
     #+end_org """
 
     for each in csuList:
-        # lastPart = each.split(".")[-1]
-        # print(lastPart)
+        # Use of tm assumes that logging has been properly set.
+        b_io.tm.note(each.split(".")[-1])  # last-part
         module = sys.modules[each]
         if hasattr(module, "commonParamsSpecify"):
             parsSpecFunc = getattr(module, "commonParamsSpecify")
@@ -1202,7 +1242,7 @@ def G_mainWithClass(
 ####+END:
         inArgv,
         G_examples,
-        extraArgs,
+        extraArgs,  # this is really extraParamsHook
         classedCmndsDict,
         #funcedCmndsDict,
         mainEntry=None,
@@ -1211,12 +1251,29 @@ def G_mainWithClass(
 ):
     """ #+begin_org
 ** [[elisp:(org-cycle)][| *DocStr | ] This is the main entry point for Python.Icm.Icm (InteractiveInvokationModules)
+
+Missing Feature. We want to use the logger inside of extraParamsHook.
+    But, loggerSet needs runArgs.
+
     #+end_org """
 
-    icmRunArgs, icmArgsParser = G_argsProc(inArgv, extraArgs)
-
     logControler = b_io.log.controller
-    logControler.loggerSet(icmRunArgs)
+
+    logArgv = ['-v', '30']
+    if '-v' in inArgv:
+        index = inArgv.index('-v')
+        level = inArgv[index+1]
+        logArgv = ['-v', level]
+
+    # With logArgv, we set the logger, before extraParamsHook is run
+    # G_argsProc runs args parse without the extraArgs
+    #
+    icmRunArgs, icmArgsParser = G_argsProc(logArgv, None)
+    logControler.loggerSet(icmRunArgs)  # First loggerSet
+
+    icmRunArgs, icmArgsParser = G_argsProc(inArgv, extraArgs)   # runs extraArgs with logArgv
+
+    logControler.loggerSet(icmRunArgs)  # second loggerSet, with extraArgs
 
     logger = logControler.loggerGet()
 
@@ -1300,18 +1357,27 @@ def G_mainWithClass(
                        cmndName=thisCmndName,
                        status=outcome.error
             ))
-        return outcome.error
+        if outcome.error == b.op.OpError.Success:
+            return 0
+        else:
+           return outcome.error
     else:
         if mainEntry:
             import types
             if type(mainEntry) is types.FunctionType:
                 mainEntry()
             else:
+                rtInv = cs.RtInvoker.new_cmnd()
+                outcome = b.op.Outcome()
                 cmndKwArgs = mainEntry().cmndCallTimeKwArgs()
-                cmndKwArgs.update({'interactive': True})
+                cmndKwArgs.update({'rtInv': rtInv})
+                cmndKwArgs.update({'cmndOutcome': outcome})
+                if mainEntry().cmndArgsLen['Max'] != 0:  # Cmnd is expecting Arguments
+                    cmndKwArgs.update({'argsList': G.icmRunArgsGet().cmndArgs})
                 outcome = mainEntry().cmnd(**cmndKwArgs)
                 return outcome.error
 
+    print("DDD")
     return 0
 
 ####+BEGINNOT: b:py3:cs:func/typing :funcName "invokesProcAllClassedInvModel" :funcType "extTyped" :deco "track"
@@ -1498,9 +1564,13 @@ def invokesProcAllClassed(
             rtInv = cs.RtInvoker.new_cmnd()
             cmndKwArgs.update({'rtInv': rtInv})
             cmndKwArgs.update({'cmndOutcome': outcome})
-            if classedCmnd().cmndArgsLen['Max'] != 0:  # Cmnd is expecting Arguments
+            if classedCmnd().cmndArgsLen['Max'] == 0:  # Cmnd is expecting Arguments
+                cmndKwArgs.pop('argsList', None)
+            else:
+                if G.icmRunArgsGet().cmndArgs:
+                    if G.icmRunArgsGet().cmndArgs[0] == "--":
+                        G.icmRunArgsGet().cmndArgs.pop(0)
                 cmndKwArgs.update({'argsList': G.icmRunArgsGet().cmndArgs})
-            #print(f"{cmndKwArgs}")
             outcome = classedCmnd().cmnd(**cmndKwArgs)
 
         else:

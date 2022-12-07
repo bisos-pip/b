@@ -221,6 +221,11 @@ class FileParam(object):
                     self.parValueSet(lineString)
                     continue
 
+                if item == 'value.gpg':
+                    lineString = open(fileFullPath, 'r').read().strip()    # Making sure we get rid of \n on read()
+                    self.parValueSet(lineString)
+                    continue
+
                 # Rest of the files are expected to be attributes
 
                 #lineString = open(fileFullPath, 'r').read()
@@ -230,6 +235,52 @@ class FileParam(object):
                 #io.eh.problem_usageError("Unexpected Non-File: " + fileFullPath)
 
         return fileParam
+
+
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def writeAsEncrypted(self, storeBase=None, parName=None, parValue=None):
+        """Write this FileParam to storeBase.
+
+        """
+        if self.__storeBase == None and storeBase == None:
+            return b_io.eh.problem_usageError("storeBase")
+
+        if self.__parName == None and parName == None:
+            return b_io.eh.problem_usageError("parName")
+
+        if self.__parValue == None and parValue == None:
+            return b_io.eh.problem_usageError("parValue")
+
+        if storeBase:
+            self.__storeBase = storeBase
+
+        if parName:
+            self.__parName = parName
+        else:
+            parName = self.__parName
+
+        if parValue:
+            self.__parValue = parValue
+        else:
+            parValue = self.__parValue
+
+        parNameFullPath = os.path.join(self.__storeBase, parName)
+        try: os.makedirs( parNameFullPath, 0o777 )
+        except OSError: pass
+
+        fileTreeObject = b.fto.FILE_TreeObject(parNameFullPath)
+
+        fileTreeObject.leafCreate()
+
+        parValueFullPath = os.path.join(parNameFullPath, 'value.gpg')
+        with open(parValueFullPath, 'wb') as valueFile:
+             valueFile.write(parValue)
+             # NOTYET, this should be a pr
+             b_io.pr("FileParam.writeTo path={path} value={value}".
+                      format(path=parValueFullPath, value=parValue))
+
+        return parNameFullPath
+
 
 
     @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
@@ -271,7 +322,7 @@ class FileParam(object):
         with open(parValueFullPath, "w") as valueFile:
              valueFile.write(str(parValue) +'\n')
              # NOTYET, this should be a pr
-             io.pr("FileParam.writeTo path={path} value={value}".
+             b_io.pr("FileParam.writeTo path={path} value={value}".
                       format(path=parValueFullPath, value=parValue))
 
         return parNameFullPath
@@ -521,7 +572,7 @@ def FileParamReadFrom(
     filePar = blank.readFrom(storeBase=parRoot, parName=parName)
 
     if filePar == None:
-        print('Missing: ' + parRoot + parName)
+        print('in b.fp.FileParamReadFrom Missing: ' + parRoot + parName)
         raise IOError
         #return b_io.eh.critical_usageError('blank')
         return None
@@ -551,7 +602,8 @@ def FileParamValueReadFrom(
     filePar = blank.readFrom(storeBase=parRoot, parName=parName)
 
     if filePar == None:
-        print(('Missing: ' + parRoot + parName))
+        fileFullPath = os.path.join(parRoot, parName)
+        b_io.tm.note(f"In FileParamValueReadFrom Missing: {fileFullPath}")
         #raise IOError
         #return b_io.eh.critical_usageError('blank')
         return None
@@ -981,10 +1033,52 @@ def parsGetAsDictValue_wOp(
             #print(f"{eachFpName} {eachFpValue}")
 
     return outcome.set(
-        opError=cs.OpError.Success,
+        opError=b.OpError.Success,
         opResults=opResults,
     )
 
+####+BEGIN: b:py3:cs:func/typing :funcName "parsGetAsDictValue" :funcType "wOp" :retType "OpOutcome" :deco "default" :argsList "typed"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-wOp    [[elisp:(outline-show-subtree+toggle)][||]] /parsGetAsDictValue/  deco=default  [[elisp:(org-cycle)][| ]]
+#+end_org """
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+def parsGetAsDictValue(
+####+END:
+        parNamesList: typing.Optional[list],
+        fpsDir: typing.AnyStr,
+) -> typing.Dict[str, typing.Any]:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ] A Wrapped Operation with results being a dictionary of values.
+    if not ~parNamesList~, get all the values.
+*** TODO --- NOTYET This needs to be moved to
+    #+end_org """
+
+    blankParDictObj  = FileParamDict()
+    thisParamDict = blankParDictObj.readFrom(path=fpsDir)
+    b_io.tm.here(f"path={fpsDir}")
+
+    results = thisParamDict
+
+    opResults = dict()
+    #opErrors = ""
+
+    if parNamesList:
+        for each in parNamesList:
+            # NOTYET, If no results[each], we need to record it in opErrors
+            if each in results.keys():
+                opResults[each] = results[each].parValueGet()
+            else:
+                opResults[each] = "UnFound"
+
+
+            #print(f"{each} {eachFpValue}")
+
+    else:
+        for eachFpName in results:
+            opResults[eachFpName] = results[eachFpName].parValueGet()
+            #print(f"{eachFpName} {eachFpValue}")
+
+    return opResults
 
 
 ####+BEGIN: b:prog:file/endOfFile :extraParams nil

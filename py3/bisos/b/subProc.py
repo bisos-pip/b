@@ -276,7 +276,7 @@ if b.OpSubProc(outcome=cmndOutcome, cd=someDirBase, log=1).bash(
     fa2ensite {ploneBaseDomain}.conf,
 ).isProblematic():  return(io.eh.badOutcome(cmndOutcome))
         """
-        print(self.outcome)
+        #print(self.outcome)
         if not self.outcome:
             #print("No self.outcome")
             self.outcome = b.op.Outcome()

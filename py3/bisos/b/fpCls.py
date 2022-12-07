@@ -181,18 +181,18 @@ FP_Base is also a FILE_TreeObject.
         """  """
         pass
 
-####+BEGINNOT: b:py3:cs:method/typing :methodName "fps_asIcmParamsAdd" :deco "abc.abstractmethod staticmethod"
+####+BEGINNOT: b:py3:cs:method/typing :methodName "fps_asCsParamsAdd" :deco "abc.abstractmethod staticmethod"
     """ #+begin_org
 **  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /fps_asIcmParamsAdd/ deco=abc.abstractmethod staticmethod  deco=abc.abstractmethod staticmethod   [[elisp:(org-cycle)][| ]]
     #+end_org """
     @staticmethod
     @abc.abstractmethod
-    def fps_asIcmParamsAdd(
+    def fps_asCsParamsAdd(
 ####+END:
-            icmParams,
+            csParams,
     ):
         """Order of decorators is important -- staticmethod: takes in icmParms and augments it with fileParams. returns icmParams."""
-        icmParams.parDictAdd(
+        csParams.parDictAdd(
             parName='exampleFp',
             parDescription="Name of Bpo of the live AALS Platform",
             parDataType=None,
@@ -203,7 +203,7 @@ FP_Base is also a FILE_TreeObject.
             argparseLongOpt='--exampleFp',
         )
 
-        return icmParams
+        return csParams
 
 
 ####+BEGIN: b:py3:cs:method/typing :methodName "fps_manifestDictBuild" :deco "abc.abstractmethod"

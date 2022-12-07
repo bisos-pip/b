@@ -136,16 +136,20 @@ class User(object):
         self.__user = None
 
         if user is None:
-            io.eh.problem_usageError("User Can't be None")
+            #io.eh.problem_usageError("User Can't be None")
+            print("User Can't be None")
             return
         elif not isinstance(user, str):
-            io.eh.problem_usageError("Expected A String")
+            #io.eh.problem_usageError("Expected A String")
+            print("Expected A String")
             return
 
         user = user.strip()
 
         if len(user) == 0:
-            io.eh.problem_usageError("Expected A Non-Blank String")
+            #io.eh.problem_usageError("Expected A Non-Blank String")
+            print("Expected A Non-Blank String")
+            #
             return
 
         if user == 'root':
@@ -163,7 +167,8 @@ class User(object):
         @functools.wraps(func)
         def inner(*args, **kwargs):
             if not self.user:
-                io.eh.problem_info("Bad None user.")
+                #io.eh.problem_info("Bad None user.")
+                print("Bad None user.")
                 return None
             proc_args = [
                 "sudo",
@@ -173,6 +178,7 @@ class User(object):
                 "-c",
                 child_script
             ]
+            #print(f"{proc_args}")
             proc = subprocess.Popen(
                 proc_args,
                 stdin=subprocess.PIPE,
@@ -202,7 +208,6 @@ class User(object):
 
         return inner
 
-
 ####+BEGIN: b:py3:cs:func/typing :funcName "as_root_writeToFile" :funcType "" :retType "" :deco "default" :argsList ""  :comment "_ALERT_"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-       [[elisp:(outline-show-subtree+toggle)][||]] /as_root_writeToFile/  _ALERT_ deco=default  [[elisp:(org-cycle)][| ]]
@@ -213,8 +218,9 @@ def as_root_writeToFile(
         destFilePath,
         inBytes,
 ):
-    """A warpper to allow for logging, etc."""
-    writeToFileAs_root(destFilePath, inBytes,)
+    """A warpper to allow for logging, etc. And also to enforce typing."""
+
+    writeToFileAs_root(str(destFilePath), inBytes,)
 
 
 
@@ -225,12 +231,42 @@ def as_root_writeToFile(
 @User("root")
 def writeToFileAs_root(
 ####+END:
-        destFilePath,
+        destFilePath: str,
         inBytes,
 ):
     """Common usage would be @b.pyRunAs.User("root")"""
     with open(destFilePath, "w") as thisFile:
         thisFile.write(inBytes + '\n')
+
+####+BEGIN: b:py3:cs:func/typing :funcName "as_root_osSystem" :funcType "" :retType "" :deco "default" :argsList ""  :comment "_ALERT_"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-       [[elisp:(outline-show-subtree+toggle)][||]] /as_root_osSystem/  _ALERT_ deco=default  [[elisp:(org-cycle)][| ]]
+#+end_org """
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+def as_root_osSystem(
+####+END:
+        sysCmnd: str,
+):
+    """A warpper to allow for logging, etc. And also to enforce typing."""
+    return (
+        osSystemAs_root(sysCmnd)
+    )
+
+
+####+BEGIN: bx:cs:py3:func :funcName "osSystemAs_root" :funcType "" :retType "" :deco "User(\"root\")" :argsList ""  :comment "_ALERT_"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-         [[elisp:(outline-show-subtree+toggle)][||]] /osSystemAs_root/ =_ALERT_= deco=User("root")  [[elisp:(org-cycle)][| ]]
+#+end_org """
+@User("root")
+def osSystemAs_root(
+####+END:
+        sysCmnd: str,
+):
+    """Common usage would be @b.pyRunAs.User("root")"""
+    import os
+    return os.system(sysCmnd)
+
+
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "as_gitSh_writeToFile" :funcType "" :retType "" :deco "default" :argsList ""  :comment "_ALERT_"
 """ #+begin_org
@@ -261,6 +297,35 @@ def writeToFileAs_gitSh(
         thisFile.write(inBytes + '\n')
 
 
+####+BEGIN: b:py3:cs:func/typing :funcName "as_root_readFromFile" :funcType "" :retType "" :deco "default" :argsList ""  :comment "_ALERT_"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-       [[elisp:(outline-show-subtree+toggle)][||]] /as_root_readFromFile/  _ALERT_ deco=default  [[elisp:(org-cycle)][| ]]
+#+end_org """
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+def as_root_readFromFile(
+####+END:
+        srcFilePath,
+):
+    """A warpper to allow for logging, etc."""
+    return (
+        readFromFileAs_root(str(srcFilePath))
+    )
+
+
+####+BEGIN: bx:cs:py3:func :funcName "readFromFileAs_root" :funcType "" :retType "" :deco "User(\"root\")" :argsList ""  :comment "_ALERT_"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-         [[elisp:(outline-show-subtree+toggle)][||]] /readFromFileAs_root/ =_ALERT_= deco=User("root")  [[elisp:(org-cycle)][| ]]
+#+end_org """
+@User("root")
+def readFromFileAs_root(
+####+END:
+        srcFilePath,
+):
+    """This is a lower layer function. Consider using b.pyRunAs.s_root_readFromFile.
+    Common usage would be b.pyRunAs.readFromFileAs_root("fileName")"""
+    with open(srcFilePath, "r") as thisFile:
+        data = thisFile.read()
+    return data
 
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 0 :title " ~End Of Editable Text~ "
 """ #+begin_org
