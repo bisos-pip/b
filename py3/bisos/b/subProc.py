@@ -82,30 +82,31 @@ csInfo['cmndParts'] = "IcmCmndParts[common] IcmCmndParts[param]"
 """
 ####+END:
 
-####+BEGIN: bx:cs:python:icmItem :itemType "=Imports=" :itemTitle "*IMPORTS*"
+####+BEGIN: b:py3:cs:orgItem/basic :type "=PyImports= " :title "*Py Library IMPORTS*" :comment "-- with classification based framework/imports"
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  =Imports=  [[elisp:(outline-show-subtree+toggle)][||]] *IMPORTS*  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  =PyImports=  [[elisp:(outline-show-subtree+toggle)][||]] *Py Library IMPORTS* -- with classification based framework/imports  [[elisp:(org-cycle)][| ]]
 #+end_org """
 ####+END:
 
-__all__ = [
-    'Op',
-]
-
-from bisos.b import cs
-from bisos.b import io
+####+BEGIN: b:py3:cs:framework/imports :basedOn "classification"
+""" #+begin_org
+** Imports Based On Classification=cs-u
+#+end_org """
 from bisos import b
+from bisos.b import cs
+from bisos.b import b_io
+
+import collections
+####+END:
 
 #import shlex
 import subprocess
-
-
+import io
+import sys
 
 """
 *  [[elisp:(org-cycle)][| ]]  /subProc/            :: *SubProcess -- Bash or Command Syncronous invokations* [[elisp:(org-cycle)][| ]]
 """
-
-
 
 ####+BEGIN: bx:dblock:python:class :className "Op" :superClass "b.op.BasicOp" :comment "" :classType "basic"
 """ #+begin_org
@@ -127,14 +128,84 @@ class Op(b.op.BasicOp):
         self.cd=cd
         self.uid=uid
 
-    #@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+####+BEGIN: b:py3:cs:method/typing :methodName "bash" :methodType "eType" :deco "default" :comment "calles process.wait()"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-eType [[elisp:(outline-show-subtree+toggle)][||]] /bash/ deco=default  =calles process.wait()= deco=default  [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def bash(
+####+END:
+            self,
+            cmndStr,
+            stdin="",
+    ):
+        """ #+begin_org
+*** [[elisp:(org-cycle)][| DocStr| ]]   subprocess.Popen() -- shell=True, runs cmndStr in bash.
+        #+end_org """
+
+        if not self.outcome: self.outcome = b.op.Outcome()
+
+        if not stdin:  stdin = ""
+
+        fullCmndStr = cmndStr
+        if self.cd: fullCmndStr = f"""pushd {self.cd}; {cmndStr}; popd;"""
+        if self.uid: fullCmndStr = f"""sudo -u {self.uid} -- bash -c '{fullCmndStr}'"""
+
+        self.outcome.stdcmnd = fullCmndStr
+        try:
+            process = subprocess.Popen(
+                fullCmndStr,
+                shell=True,
+                encoding='utf8',
+                executable="/bin/bash",
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            )
+        except OSError:
+            self.outcome.error = OSError
+        else:
+            process.stdin.write(stdin)
+            process.stdin.close() # type: ignore
+
+        stdoutStrFile = io.StringIO("")
+        stderrStrFile = io.StringIO("")
+
+        while process.poll() is None:
+            for c in iter(lambda: process.stdout.read(1), b""):
+                stdoutStrFile.write(c)
+                if self.log == 1:
+                    sys.stdout.write(c)
+            for c in iter(lambda: process.stderr.read(1), b""):
+                stderrStrFile.write(c)
+                if self.log == 1:
+                    sys.stderr.write(c)
+
+        self.outcome.stdout = stdoutStrFile.getvalue()
+        self.outcome.stderr = stderrStrFile.getvalue()
+        self.outcome.error = process.returncode # type: ignore
+
+        if self.log == 1:
+            print(self.outcome.stdout)
+
+        return self.outcome
+
+
+
+
+####+BEGIN: b:py3:cs:method/typing :methodName "bashWait" :methodType "eType" :deco "default" :comment "calles process.wait()"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-eType [[elisp:(outline-show-subtree+toggle)][||]] /bashWait/ deco=default  =calles process.wait()= deco=default  [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def bashWait(
+####+END:
             self,
             cmndStr,
             stdin=None,
     ):
-        """
-    subprocess.Popen() -- shell=True, runs cmndStr in bash.
+        """ #+begin_org
+*** [[elisp:(org-cycle)][| DocStr| ]]      subprocess.Popen() -- shell=True, runs cmndStr in bash.
 ** TODO This should be renamed to subProc_bashOutcome and subProc_bashOut should become subProc_bash.
 
 ** TODO BISOS Py Framework -- OpedSubProc -- Desired Usages:
@@ -145,7 +216,8 @@ if not (resStr := b.OpSubProc(outcome=cmndOutcome, log=1).sudoBash(
 if b.OpSubProc(outcome=cmndOutcome, cd=someDirBase, log=1).bash(
     fa2ensite {ploneBaseDomain}.conf,
 ).isProblematic():  return(io.eh.badOutcome(cmndOutcome))
-        """
+        #+end_org """
+
         if not self.outcome:
             self.outcome = b.op.Outcome()
 
@@ -174,7 +246,9 @@ if b.OpSubProc(outcome=cmndOutcome, cd=someDirBase, log=1).bash(
         except OSError:
             self.outcome.error = OSError
         else:
-            self.outcome.stdout, self.outcome.stderr = process.communicate(input=format(stdin.encode()))
+            #self.outcome.stdout, self.outcome.stderr = process.communicate(input=format(stdin.encode()))
+            #self.outcome.stdout, self.outcome.stderr = process.communicate(input=stdin)
+            process.stdin.write(stdin)
             process.stdin.close() # type: ignore
 
         process.wait() # type: ignore
@@ -257,8 +331,107 @@ class WOpW(b.op.AbstractWithinOpWrapper):
         self.cd=cd
         self.uid=uid
 
-    #@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+
+####+BEGIN: b:py3:cs:method/typing :methodName "bash" :methodType "eType" :deco "default" :comment "calles process.wait()"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-eType [[elisp:(outline-show-subtree+toggle)][||]] /bash/ deco=default  =calles process.wait()= deco=default  [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def bash(
+####+END:
+            self,
+            cmndStr,
+            stdin="",
+    ):
+        """ #+begin_org
+*** [[elisp:(org-cycle)][| DocStr| ]]   subprocess.Popen() -- shell=True, runs cmndStr in bash.
+        #+end_org """
+
+        import select
+
+        if not self.outcome: self.outcome = b.op.Outcome()
+
+        if not stdin:  stdin = ""
+
+        fullCmndStr = cmndStr
+        if self.cd: fullCmndStr = f"""pushd {self.cd}; {cmndStr}; popd;"""
+        if self.uid: fullCmndStr = f"""sudo -u {self.uid} -- bash -c '{fullCmndStr}'"""
+
+        #self.log = 1
+
+        if self.log == 1:
+            print(f"** cmnd= {fullCmndStr}")
+
+        try:
+            process = subprocess.Popen(
+                fullCmndStr,
+                shell=True,
+                encoding='utf8',
+                executable="/bin/bash",
+                stdin=subprocess.PIPE,
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+            )
+        except OSError:
+            self.outcome.error = OSError
+        else:
+            process.stdin.write(stdin)
+            process.stdin.close() # type: ignore
+
+        stdoutStrFile = io.StringIO("")
+        stderrStrFile = io.StringIO("")
+
+        pollStdout = select.poll()
+        pollStderr = select.poll()
+
+        pollStdout.register(process.stdout, select.POLLIN)
+        pollStderr.register(process.stderr, select.POLLIN)
+
+        stdoutEOF = False
+        stderrEOF = False
+
+        while True:
+            stdoutActivity = pollStdout.poll(0)
+            if stdoutActivity:
+                c= process.stdout.read(1)
+                if c:
+                    stdoutStrFile.write(c)
+                    if self.log == 1:
+                        sys.stdout.write(c)
+                else:
+                   stdoutEOF = True
+
+            stderrActivity = pollStderr.poll(0)
+            if stderrActivity:
+                c= process.stderr.read(1)
+                if c:
+                    stderrStrFile.write(c)
+                    if self.log == 1:
+                        sys.stderr.write(c)
+                else:
+                   stderrEOF = True
+            if stdoutEOF and stderrEOF:
+                break
+
+        if self.log == 1:
+            print(f"** cmnd={fullCmndStr}")
+
+        process.wait() # type: ignore
+
+        self.outcome.stdcmnd = fullCmndStr
+        self.outcome.stdout = stdoutStrFile.getvalue()
+        self.outcome.stderr = stderrStrFile.getvalue()
+        self.outcome.error = process.returncode # type: ignore
+
+        if self.log == 1:
+            if self.outcome.error:
+                print(f"*** exit= {self.outcome.error}")
+
+        return self.outcome
+
+
+    #@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    def bashWait (
             self,
             cmndStr,
             stdin=None,

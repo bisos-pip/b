@@ -572,7 +572,7 @@ def FileParamReadFrom(
     filePar = blank.readFrom(storeBase=parRoot, parName=parName)
 
     if filePar == None:
-        print('in b.fp.FileParamReadFrom Missing: ' + parRoot + parName)
+        print('in b.fp.FileParamReadFrom Missing: ' + str(parRoot) + parName)
         raise IOError
         #return b_io.eh.critical_usageError('blank')
         return None
