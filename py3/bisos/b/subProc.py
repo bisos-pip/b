@@ -104,6 +104,8 @@ import subprocess
 import io
 import sys
 
+import select
+
 """
 *  [[elisp:(org-cycle)][| ]]  /subProc/            :: *SubProcess -- Bash or Command Syncronous invokations* [[elisp:(org-cycle)][| ]]
 """
@@ -151,7 +153,9 @@ class Op(b.op.BasicOp):
         if self.cd: fullCmndStr = f"""pushd {self.cd}; {cmndStr}; popd;"""
         if self.uid: fullCmndStr = f"""sudo -u {self.uid} -- bash -c '{fullCmndStr}'"""
 
-        self.outcome.stdcmnd = fullCmndStr
+        if self.log == 1:
+            print(f"** cmnd= {fullCmndStr}")
+
         try:
             process = subprocess.Popen(
                 fullCmndStr,
@@ -171,27 +175,50 @@ class Op(b.op.BasicOp):
         stdoutStrFile = io.StringIO("")
         stderrStrFile = io.StringIO("")
 
-        while process.poll() is None:
-            for c in iter(lambda: process.stdout.read(1), b""):
-                stdoutStrFile.write(c)
-                if self.log == 1:
-                    sys.stdout.write(c)
-            for c in iter(lambda: process.stderr.read(1), b""):
-                stderrStrFile.write(c)
-                if self.log == 1:
-                    sys.stderr.write(c)
+        pollStdout = select.poll()
+        pollStderr = select.poll()
 
+        pollStdout.register(process.stdout, select.POLLIN)
+        pollStderr.register(process.stderr, select.POLLIN)
+
+        stdoutEOF = False
+        stderrEOF = False
+
+        while True:
+            stdoutActivity = pollStdout.poll(0)
+            if stdoutActivity:
+                c= process.stdout.read(1)
+                if c:
+                    stdoutStrFile.write(c)
+                    if self.log == 1:
+                        sys.stdout.write(c)
+                else:
+                   stdoutEOF = True
+
+            stderrActivity = pollStderr.poll(0)
+            if stderrActivity:
+                c= process.stderr.read(1)
+                if c:
+                    stderrStrFile.write(c)
+                    if self.log == 1:
+                        sys.stderr.write(c)
+                else:
+                   stderrEOF = True
+            if stdoutEOF and stderrEOF:
+                break
+
+        process.wait() # type: ignore
+
+        self.outcome.stdcmnd = fullCmndStr
         self.outcome.stdout = stdoutStrFile.getvalue()
         self.outcome.stderr = stderrStrFile.getvalue()
         self.outcome.error = process.returncode # type: ignore
 
         if self.log == 1:
-            print(self.outcome.stdout)
+            if self.outcome.error:
+                print(f"*** exit= {self.outcome.error}")
 
         return self.outcome
-
-
-
 
 ####+BEGIN: b:py3:cs:method/typing :methodName "bashWait" :methodType "eType" :deco "default" :comment "calles process.wait()"
     """ #+begin_org
@@ -347,8 +374,6 @@ class WOpW(b.op.AbstractWithinOpWrapper):
 *** [[elisp:(org-cycle)][| DocStr| ]]   subprocess.Popen() -- shell=True, runs cmndStr in bash.
         #+end_org """
 
-        import select
-
         if not self.outcome: self.outcome = b.op.Outcome()
 
         if not stdin:  stdin = ""
@@ -356,8 +381,6 @@ class WOpW(b.op.AbstractWithinOpWrapper):
         fullCmndStr = cmndStr
         if self.cd: fullCmndStr = f"""pushd {self.cd}; {cmndStr}; popd;"""
         if self.uid: fullCmndStr = f"""sudo -u {self.uid} -- bash -c '{fullCmndStr}'"""
-
-        #self.log = 1
 
         if self.log == 1:
             print(f"** cmnd= {fullCmndStr}")
@@ -412,9 +435,6 @@ class WOpW(b.op.AbstractWithinOpWrapper):
                    stderrEOF = True
             if stdoutEOF and stderrEOF:
                 break
-
-        if self.log == 1:
-            print(f"** cmnd={fullCmndStr}")
 
         process.wait() # type: ignore
 
