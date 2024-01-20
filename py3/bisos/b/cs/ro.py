@@ -1021,6 +1021,50 @@ class SapBase_FPs(b.fpCls.BaseDir):
         super().__init__(fileSysPath,)
 
 
+####+BEGIN: b:py3:cs:method/typing :methodName "fps_asCsParamsAdd" :deco "staticmethod"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /fps_asCsParamsAdd/  deco=staticmethod  [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @staticmethod
+    def fps_asCsParamsAdd(
+####+END:
+            icmParams,
+    ):
+        """staticmethod: takes in icmParms and augments it with fileParams. returns icmParams."""
+        icmParams.parDictAdd(
+            parName='perfIpAddr',
+            parDescription="",
+            parDataType=None,
+            parDefault=None,
+            parChoices=list(),
+            #parScope=icm.ICM_ParamScope.TargetParam,  # type: ignore
+            argparseShortOpt=None,
+            argparseLongOpt='--perfIpAddr',
+        )
+        icmParams.parDictAdd(
+            parName='perfPortNu',
+            parDescription="",
+            parDataType=None,
+            parDefault=None,
+            parChoices=list(),
+            #parScope=icm.ICM_ParamScope.TargetParam,  # type: ignore
+            argparseShortOpt=None,
+            argparseLongOpt='--perfPortNu',
+        )
+        icmParams.parDictAdd(
+            parName='accessControl',
+            parDescription="",
+            parDataType=None,
+            parDefault=None,
+            parChoices=list(),
+            #parScope=icm.ICM_ParamScope.TargetParam,  # type: ignore
+            argparseShortOpt=None,
+            argparseLongOpt='--accessControl',
+        )
+
+        return icmParams
+
+
 ####+BEGIN: b:py3:cs:method/typing :methodName "fps_asIcmParamsAdd" :deco "staticmethod"
     """ #+begin_org
 **  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /fps_asIcmParamsAdd/ deco=staticmethod  deco=staticmethod   [[elisp:(org-cycle)][| ]]

@@ -206,6 +206,7 @@ opResults = opOutcome.results
         self.errInfo  = opErrInfo
         self.results = opResults
         self.stdout = opStdout
+        self.stdoutRstrip = opStdout
         self.stderr = opStderr
         self.stdcmnd = opStdcmnd
         if self.stdout:

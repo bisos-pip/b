@@ -148,6 +148,7 @@ class Cmnd(object):
             self.cmnd.__func__.__doc__ = f"""{self.cmnd.__doc__}\n{inStr}"""
         else:
             self.cmnd.__func__.__doc__ = inStr
+        return self.obtainDocStr
 
     def captureRunStr(self, inStr):
         "In org-mode, with src_sh provide examples of running the cmnd. Can function as unit test as well."
@@ -339,7 +340,7 @@ class Cmnd(object):
             argPosition,
             cmndArgsSpecDict,
             effectiveArgsList,
-    ) -> typing.Optional[list]:
+    ) -> list[str]:
 
         def argDefaultGet(
                 cmndArgsSpecDict,
@@ -1305,6 +1306,7 @@ Missing Feature. We want to use the logger inside of extraParamsHook.
             classedCmndsDict,
             icmRunArgs
         )
+        reportInvokerOutcome(outcome)
 
         if g_icmPostCmnds:
             g_icmPostCmnds()
@@ -1379,6 +1381,22 @@ Missing Feature. We want to use the logger inside of extraParamsHook.
 
     print("DDD")
     return 0
+
+####+BEGIN: b:py3:cs:func/typing :funcName "reportInvokerOutcome" :funcType "extTyped" :deco ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /reportInvokerOutcome/   [[elisp:(org-cycle)][| ]]
+#+end_org """
+def reportInvokerOutcome(
+####+END:
+        cmndOutcome: b.op.Outcome,
+) -> None:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ]
+    #+end_org """
+    if cmndOutcome.results:
+        sys.stdout.write(f"{cmndOutcome.results}\n")
+    else:
+        sys.stderr.write("Rpyc -- No Results")
 
 ####+BEGINNOT: b:py3:cs:func/typing :funcName "invokesProcAllClassedInvModel" :funcType "extTyped" :deco "track"
 """ #+begin_org
@@ -1574,7 +1592,7 @@ def invokesProcAllClassed(
             outcome = classedCmnd().cmnd(**cmndKwArgs)
 
         else:
-            print("in Remote Operation")
+            # print("in Remote Operation")
 
             roSapPath = cs.ro.SapBase_FPs.perfNameToRoSapPath(perfName)
             sapBaseFps = b.pattern.sameInstance(cs.ro.SapBase_FPs, roSapPath=roSapPath)
@@ -1588,11 +1606,16 @@ def invokesProcAllClassed(
             if classedCmnd().cmndArgsLen['Max'] != 0:  # Cmnd is expecting Arguments
                 cmndKwArgs.update({'argsList': G.icmRunArgsGet().cmndArgs})
 
-            outcome = cs.rpyc.csInvoke(
+            rpycInvResult = cs.rpyc.csInvoke(
                 portNu.parValueGet(),
                 classedCmnd,
                 **cmndKwArgs,
             )
+            if rpycInvResult:
+                print("rpycInvResult, Not working as expected. Outcome is used instead.")
+
+            # print(outcome)
+            # print(f"ZZZZ {outcome.results}")
 
         return outcome
 

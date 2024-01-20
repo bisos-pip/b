@@ -81,7 +81,7 @@ class rpyc_CsService(rpyc.Service):
     #+end_org """
 
     def exposed_svcCmnd(self, cmndClassName, *v, **k):
-        print(f"svcCmnd")
+        print(f"Performing: {cmndClassName} {v} {k}")
         cmndClass = cs.cmndNameToClass(cmndClassName)
         cmndClass().cmnd(*v, **k)
 
@@ -115,12 +115,19 @@ def csInvoke(
 ) -> b.op.Outcome:
     """ #+begin_org
 ** [[elisp:(org-cycle)][| *DocStr | ] NOTYET look into this. rpyc.core.protocol.DEFAULT_CONFIG
+Return value of conn.root.svcCmnd is always Null. NOTYET, Look into this.
     #+end_org """
 
-    conn = rpyc.connect("localhost", port=portNu, config={'allow_public_attrs': True})
-    outcome = conn.root.svcCmnd(cmndClass().__class__.__name__, **cmndKwArgs)
+    # print(f"csInvoke  with {cmndKwArgs}")
 
-    return outcome
+    conn = rpyc.connect("localhost", port=portNu, config={'allow_public_attrs': True})
+    rpycInvResult = conn.root.svcCmnd(cmndClass().__class__.__name__, **cmndKwArgs)
+
+    # print(outcome)
+    # print(f"YYY {cmndClass().__class__.__name__}")
+    # print(f"YYY {outcome.results}")
+
+    return rpycInvResult
 
 ####+BEGIN: bx:cs:py3:section :title "Service Related Commands"
 """ #+begin_org

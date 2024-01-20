@@ -150,7 +150,7 @@ class Op(b.op.BasicOp):
         if not stdin:  stdin = ""
 
         fullCmndStr = cmndStr
-        if self.cd: fullCmndStr = f"""pushd {self.cd}; {cmndStr}; popd;"""
+        if self.cd: fullCmndStr = f"""pushd {self.cd} > /dev/null; {cmndStr}; popd > /dev/null;"""
         if self.uid: fullCmndStr = f"""sudo -u {self.uid} -- bash -c '{fullCmndStr}'"""
 
         if self.log == 1:
@@ -379,7 +379,7 @@ class WOpW(b.op.AbstractWithinOpWrapper):
         if not stdin:  stdin = ""
 
         fullCmndStr = cmndStr
-        if self.cd: fullCmndStr = f"""pushd {self.cd}; {cmndStr}; popd;"""
+        if self.cd: fullCmndStr = f"""pushd {self.cd} > /dev/null; {cmndStr}; popd > /dev/null;"""
         if self.uid: fullCmndStr = f"""sudo -u {self.uid} -- bash -c '{fullCmndStr}'"""
 
         if self.log == 1:
@@ -440,6 +440,7 @@ class WOpW(b.op.AbstractWithinOpWrapper):
 
         self.outcome.stdcmnd = fullCmndStr
         self.outcome.stdout = stdoutStrFile.getvalue()
+        self.outcome.stdoutRstrip = self.outcome.stdout.rstrip('\n')
         self.outcome.stderr = stderrStrFile.getvalue()
         self.outcome.error = process.returncode # type: ignore
 
