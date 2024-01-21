@@ -1306,7 +1306,6 @@ Missing Feature. We want to use the logger inside of extraParamsHook.
             classedCmndsDict,
             icmRunArgs
         )
-        reportInvokerOutcome(outcome)
 
         if g_icmPostCmnds:
             g_icmPostCmnds()
@@ -1614,8 +1613,7 @@ def invokesProcAllClassed(
             if rpycInvResult:
                 print("rpycInvResult, Not working as expected. Outcome is used instead.")
 
-            # print(outcome)
-            # print(f"ZZZZ {outcome.results}")
+            reportInvokerOutcome(outcome)
 
         return outcome
 
