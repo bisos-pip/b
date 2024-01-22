@@ -1,9 +1,9 @@
 * B|
 ####+BEGIN: bxPanel:common/title-plus
-#+title: panels/evolution
+#+title: pyCsFwrk-evol/b-evol
 #+roam_tags: branch
-#+roam_key: py3/panels/evolution
-[[roam:py3/panels]]
+#+roam_key: bisos-evolution/pyCsFwrk-evol/b-evol
+[[roam:bisos-evolution/pyCsFwrk-evol]]
 ####+END
 ####+BEGIN: blee:bxPanel:topPanelControls
 *  [[elisp:(org-cycle)][|#Control|]] :: [[elisp:(blee:bnsm:menu-back)][Back]] [[elisp:(toggle-read-only)][read/wr]] | [[elisp:(show-all)][Show-All]]  [[elisp:(org-shifttab)][Overview]]  [[elisp:(progn (org-shifttab) (org-content))][Content]] | [[elisp:(delete-other-windows)][(1)]] | [[elisp:(progn (save-buffer) (kill-buffer))][S&Q]] [[elisp:(save-buffer)][Save]] [[elisp:(kill-buffer)][Quit]] [[elisp:(bury-buffer)][Bury]]  [[elisp:(magit)][Magit]]  [[elisp:(org-cycle)][| ]]
@@ -19,7 +19,7 @@
 ####+END
 ####+BEGIN: blee:bxPanel:title :panelType "=bxPanel=" :title "auto"
 * [[elisp:(show-all)][(>]] ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-*   [[img-link:file:/bisos/blee/env/images/fpfByStarElipseTop-50.png][http://www.freeprotocols.org]]_ _   ~Node:: py3/panels -- evolution~   [[img-link:file:/bisos/blee/env/images/fpfByStarElipseBottom-50.png][http://www.by-star.net]]
+*   [[img-link:file:/bisos/blee/env/images/fpfByStarElipseTop-50.png][http://www.freeprotocols.org]]_ _   ~Node:: bisos-evolution/pyCsFwrk-evol -- b-evol~   [[img-link:file:/bisos/blee/env/images/fpfByStarElipseBottom-50.png][http://www.by-star.net]]
 * ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━  [[elisp:(org-shifttab)][<)]] E|
 ####+END:
 ####+BEGIN: blee:bxPanel:terseTreeNavigator :panelsList "bxPanel"
@@ -92,7 +92,7 @@
 #+STARTUP: inlineimages
 #+SEQ_TODO: TODO WAITING DELEGATED | DONE DEFERRED CANCELLED
 #+TAGS: @desk(d) @home(h) @work(w) @withInternet(i) @road(r) call(c) errand(e)
-#+CATEGORY: N:evolution
+#+CATEGORY: N:b-evol
 
 ####+END
 ####+BEGIN: blee:bxPanel:footerEmacsParams :primMode "org-mode"

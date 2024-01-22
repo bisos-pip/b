@@ -1381,21 +1381,100 @@ Missing Feature. We want to use the logger inside of extraParamsHook.
     print("DDD")
     return 0
 
-####+BEGIN: b:py3:cs:func/typing :funcName "reportInvokerOutcome" :funcType "extTyped" :deco ""
+####+BEGIN: b:py3:cs:func/typing :funcName "invOutcomeReportControl" :funcType "extTyped" :deco ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /reportInvokerOutcome/   [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /invOutcomeReportControl/   [[elisp:(org-cycle)][| ]]
 #+end_org """
-def reportInvokerOutcome(
+def invOutcomeReportControl(
 ####+END:
-        cmndOutcome: b.op.Outcome,
+        cmnd: bool = False,
+        ro: bool = False,
 ) -> None:
     """ #+begin_org
 ** [[elisp:(org-cycle)][| *DocStr | ]
     #+end_org """
-    if cmndOutcome.results:
+
+    G.__class__._outcomeReportCmnd = cmnd
+    G.__class__._outcomeReportRo = ro
+
+####+BEGIN: b:py3:cs:func/typing :funcName "invOutcomeReportCmnd" :funcType "extTyped" :deco ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /invOutcomeReportCmnd/   [[elisp:(org-cycle)][| ]]
+#+end_org """
+def invOutcomeReportCmnd(
+####+END:
+        cmndOutcome: b.op.Outcome,
+) -> None:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ] When Cli, put stdout or results and stderr of cmndOutcome on stdout and stderr.
+    #+end_org """
+
+    # print(G.__class__._outcomeReportCmnd)
+
+    if G.__class__._outcomeReportCmnd == False:
+        return
+
+    if cmndOutcome.results is not  None:
         sys.stdout.write(f"{cmndOutcome.results}\n")
     else:
-        sys.stderr.write("Rpyc -- No Results")
+        sys.stderr.write("Cmnd -- No Results\n")
+
+
+####+BEGIN: b:py3:cs:func/typing :funcName "invOutcomeReportRo" :funcType "extTyped" :deco ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /invOutcomeReportRo/   [[elisp:(org-cycle)][| ]]
+#+end_org """
+def invOutcomeReportRo(
+####+END:
+        cmndOutcome: b.op.Outcome,
+) -> None:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ] When CliRo, put stdout or results and stderr of cmndOutcome on stdout and stderr.
+    #+end_org """
+
+    if G.__class__._outcomeReportRo == False:
+        return
+
+    if cmndOutcome.results is not None:
+        sys.stdout.write(f"{cmndOutcome.results}\n")
+    else:
+        sys.stderr.write("Rpyc Invoker -- No Results\n")
+
+####+BEGIN: b:py3:cs:func/typing :funcName "perfOutcomeReportRo" :funcType "extTyped" :deco ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /perfOutcomeReportRo/   [[elisp:(org-cycle)][| ]]
+#+end_org """
+def perfOutcomeReportRo(
+####+END:
+        cmndOutcome: b.op.Outcome,
+) -> None:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ] When CliRo, put stdout or results and stderr of cmndOutcome on stdout and stderr.
+    #+end_org """
+
+    if G.__class__._outcomeReportRo == False:
+        return
+
+    if cmndOutcome.results is not None:
+        sys.stdout.write(f"Performer Outcome:: {cmndOutcome.results}\n")
+    else:
+        sys.stderr.write("Rpyc Performer -- No Results\n")
+
+####+BEGIN: b:py3:cs:func/typing :funcName "reportOp_roPerfParams" :funcType "extTyped" :deco ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /reportOp_roPerfParams/   [[elisp:(org-cycle)][| ]]
+#+end_org """
+def reportOp_roPerfParams(
+####+END:
+        cmndClassName,
+        args,
+        kwArgs,
+) -> None:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ] When CliRo, put stdout or results and stderr of cmndOutcome on stdout and stderr.
+    #+end_org """
+
+    print(f"Performing: {cmndClassName} {args} {kwArgs}")
 
 ####+BEGINNOT: b:py3:cs:func/typing :funcName "invokesProcAllClassedInvModel" :funcType "extTyped" :deco "track"
 """ #+begin_org
@@ -1590,6 +1669,8 @@ def invokesProcAllClassed(
                 cmndKwArgs.update({'argsList': G.icmRunArgsGet().cmndArgs})
             outcome = classedCmnd().cmnd(**cmndKwArgs)
 
+            invOutcomeReportCmnd(outcome)
+
         else:
             # print("in Remote Operation")
 
@@ -1613,7 +1694,7 @@ def invokesProcAllClassed(
             if rpycInvResult:
                 print("rpycInvResult, Not working as expected. Outcome is used instead.")
 
-            reportInvokerOutcome(outcome)
+            invOutcomeReportRo(outcome)
 
         return outcome
 

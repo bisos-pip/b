@@ -173,8 +173,14 @@ class CsGlobalContext(object):
 
      lastOpOutcome = None
 
+     _outcomeReportCmnd = False
+     _outcomeReportRo = True
+
+
      def __init__(self):
-         pass
+        # self.__class__.invOutcomeReportCmnd = False
+        # self.__class__.invOutcomeReportRo = True
+        pass
 
      def globalContextSet(self,
                           icmRunArgs=None,

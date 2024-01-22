@@ -222,20 +222,20 @@ opResults = opOutcome.results
             opStderr=None,
             opStdcmnd=None,
     ):
-        if invokerName != None:
+        if invokerName is not None:
             self.name = invokerName
-        if opError != None:
+        if opError is not None:
             self.error = opError
-        if opErrInfo != None:
+        if opErrInfo is not  None:
             self.errInfo = opErrInfo
-        if opResults != None:
+        if opResults is not  None:
             self.results = opResults
-        if opStdout != None:
+        if opStdout is not None:
             self.stdout = opStdout
             self.stdoutRstrip = opStdout.rstrip('\n')
-        if opStderr != None:
+        if opStderr is not None:
             self.stderr = opStderr
-        if opStdcmnd != None:
+        if opStdcmnd is not None:
             self.stdcmnd = opStdcmnd
 
         return self

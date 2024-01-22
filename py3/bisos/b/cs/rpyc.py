@@ -81,9 +81,11 @@ class rpyc_CsService(rpyc.Service):
     #+end_org """
 
     def exposed_svcCmnd(self, cmndClassName, *v, **k):
-        print(f"Performing: {cmndClassName} {v} {k}")
+        cs.reportOp_roPerfParams(cmndClassName, v, k)
+        cmndOutcome = k['cmndOutcome']
         cmndClass = cs.cmndNameToClass(cmndClassName)
         cmndClass().cmnd(*v, **k)
+        cs.perfOutcomeReportRo(cmndOutcome)
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "csPerform" :funcType "extTyped" :retType "extTyped" :deco "default" :argsList ""
 """ #+begin_org
