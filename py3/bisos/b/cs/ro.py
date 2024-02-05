@@ -1116,12 +1116,20 @@ class SapBase_FPs(b.fpCls.BaseDir):
     def perfNameToRoSapPath(
 ####+END:
             perfName,
+            rosmu=None,
+            rosmuSel=None,
+            perfModel=None,
     ):
         """."""
 
-        rosmu = cs.G.icmMyName()
-        rosmuSel = "default"
-        perfModel = "rpyc"
+        if rosmu == None:
+            rosmu=cs.G.icmMyName()
+
+        if rosmuSel == None:
+            rosmuSel="default"
+
+        if perfModel == None:
+            perfModel="rpyc"
 
         sapBaseFps = b.pattern.sameInstance(SapBase_FPs, rosmu=rosmu, perfName=perfName, perfModel=perfModel, rosmuSel=rosmuSel)
 
@@ -1265,7 +1273,7 @@ class SapBase_FPs(b.fpCls.BaseDir):
 #+end_org """
 ####+END:
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "ro_sapCreate" :ro "noCli" :comment "" :parsMand "perfName rosmu" :parsOpt "perfModel rosmuSel" :argsMin 0 :argsMax 0
+####+BEGINNOT: b:py3:cs:cmnd/classHead :cmndName "ro_sapCreate" :ro "noCli" :comment "" :parsMand "perfName rosmu" :parsOpt "perfModel rosmuSel" :argsMin 0 :argsMax 0
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<ro_sapCreate>>parsMand=perfName rosmu parsOpt=perfModel rosmuSel argsMin=0 argsMax=0 ro=noCli pyInv=
 #+end_org """
@@ -1373,18 +1381,20 @@ class csPerformer(cs.Cmnd):
         portNu = sapBaseFps.fps_getParam('perfPortNu')
         #sapBaseFps.fps_setParam('accessControl', "placeholder")
 
+        b_io.pr(f"Performer at::  portNu=${portNu} -- roSapPath={roSapPath}")
+
         cs.rpyc.csPerform(portNu.parValueGet())
 
         return(cmndOutcome)
 
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "ro_fps" :comment "" :extent "verify" :ro "noCli" :parsMand "" :parsOpt "roSapPath perfName" :argsMin 1 :argsMax 9999 :pyInv ""
+####+BEGINNOT: b:py3:cs:cmnd/classHead :cmndName "ro_fps" :comment ""  :extent "noVerify" :ro "noCli" :parsMand "" :parsOpt "roSapPath perfName rosmu rosmuSel perfModel" :argsMin 1 :argsMax 9999 :pyInv ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<ro_fps>>parsMand= parsOpt=roSapPath perfName argsMin=1 argsMax=9999 ro=noCli pyInv=
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<ro_fps>>  =verify= parsOpt=roSapPath perfName rosmu rosmuSel perfModel argsMin=1 argsMax=9999 ro=noCli   [[elisp:(org-cycle)][| ]]
 #+end_org """
 class ro_fps(cs.Cmnd):
     cmndParamsMandatory = [ ]
-    cmndParamsOptional = [ 'roSapPath', 'perfName', ]
+    cmndParamsOptional = [ 'roSapPath', 'perfName', 'rosmu', 'rosmuSel', 'perfModel', ]
     cmndArgsLen = {'Min': 1, 'Max': 9999,}
     rtInvConstraints = cs.rtInvoker.RtInvoker.new_noRo() # NO RO From CLI
 
@@ -1394,12 +1404,11 @@ class ro_fps(cs.Cmnd):
              cmndOutcome: b.op.Outcome,
              roSapPath: typing.Optional[str]=None,  # Cs Optional Param
              perfName: typing.Optional[str]=None,  # Cs Optional Param
+             rosmu: typing.Optional[str]=None,  # Cs Optional Param
+             rosmuSel: typing.Optional[str]=None,  # Cs Optional Param
+             perfModel: typing.Optional[str]=None,  # Cs Optional Param
              argsList: typing.Optional[list[str]]=None,  # CsArgs
     ) -> b.op.Outcome:
-
-        callParamsDict = {'roSapPath': roSapPath, 'perfName': perfName, }
-        if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, argsList).isProblematic():
-            return b_io.eh.badOutcome(cmndOutcome)
 ####+END:
         self.cmndDocStr(f""" #+begin_org
 ** [[elisp:(org-cycle)][| *CmndDesc:* | ]]  A starting point command.
@@ -1432,7 +1441,7 @@ After that, we print the results and then provide a result in =cmndOutcome=.
         #+end_org """)
 
         if perfName:
-            roSapPath = SapBase_FPs.perfNameToRoSapPath(perfName)
+            roSapPath = SapBase_FPs.perfNameToRoSapPath(perfName, rosmu=rosmu, rosmuSel=rosmuSel, perfModel=perfModel)
 
         sapBaseFps = b.pattern.sameInstance(SapBase_FPs, roSapPath=roSapPath)
 
@@ -1479,6 +1488,39 @@ After that, we print the results and then provide a result in =cmndOutcome=.
         )
 
         return cmndArgsSpecDict
+
+
+####+BEGIN: b:py3:cs:func/typing :funcName "roInvokeCmndAtSap" :comment "~Name of Box File Params~"  :funcType "eType" :deco "track"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-eType  [[elisp:(outline-show-subtree+toggle)][||]] /roInvokeCmndAtSap/  ~Name of Box File Params~ deco=track  [[elisp:(org-cycle)][| ]]
+#+end_org """
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+def roInvokeCmndAtSap(
+####+END:
+        roSapPath: typing.Optional[str],  # RO pyInv Sap Path
+        rtInv,
+        cmndOutcome,
+        cmndClass,
+        ** cmndKwArgs,
+) -> b.op.Outcome:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ]
+    #+end_org """
+
+    sapBaseFps = b.pattern.sameInstance(cs.ro.SapBase_FPs, roSapPath=roSapPath)
+    portNu = sapBaseFps.fps_getParam('perfPortNu')
+    ipAddr = sapBaseFps.fps_getParam('perfIpAddr')
+    cmndKwArgs.update({'rtInv': rtInv})
+    cmndKwArgs.update({'cmndOutcome': cmndOutcome})
+    print(f"roInvokeCmndAtSap at {roSapPath} with {cmndKwArgs}")
+    rpycInvResult = cs.rpyc.csInvoke(
+        ipAddr.parValueGet(),
+        portNu.parValueGet(),
+        cmndClass,
+        **cmndKwArgs,
+    )
+    return rpycInvResult
+
 
 
 

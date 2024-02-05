@@ -1674,10 +1674,11 @@ def invokesProcAllClassed(
         else:
             # print("in Remote Operation")
 
-            roSapPath = cs.ro.SapBase_FPs.perfNameToRoSapPath(perfName)
+            roSapPath = cs.ro.SapBase_FPs.perfNameToRoSapPath(perfName)  # static method
             sapBaseFps = b.pattern.sameInstance(cs.ro.SapBase_FPs, roSapPath=roSapPath)
 
             portNu = sapBaseFps.fps_getParam('perfPortNu')
+            ipAddr = sapBaseFps.fps_getParam('perfIpAddr')
 
             cmndKwArgs = classedCmnd().cmndCallTimeKwArgs()
             rtInv = cs.RtInvoker.new_cmnd()
@@ -1687,6 +1688,7 @@ def invokesProcAllClassed(
                 cmndKwArgs.update({'argsList': G.icmRunArgsGet().cmndArgs})
 
             rpycInvResult = cs.rpyc.csInvoke(
+                ipAddr.parValueGet(),
                 portNu.parValueGet(),
                 classedCmnd,
                 **cmndKwArgs,

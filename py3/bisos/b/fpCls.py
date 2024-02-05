@@ -35,7 +35,7 @@ csInfo['cmndParts'] = 'IcmCmndParts[common] IcmCmndParts[param]'
 ####+END:
 
 """ #+begin_org
-* /[[elisp:(org-cycle)][| Description |]]/ :: [[file:/bisos/panels/bisos-model/fileParameters/fullUsagePanel-en.org][File Parameters --- BISOS.B.FP Panel]]
+* /[[elisp:(org-cycle)][| Description |]]/ ::  [[file:/bisos/panels/bisos-core/PyCsFwrk/bisos.b/fileParameters/fullUsagePanel-en.org][File Parameters --- BISOS.B.FP Panel]]
 See panel for details.
 ** Status: In use with blee3
 ** /[[elisp:(org-cycle)][| Planned Improvements |]]/ :
@@ -141,6 +141,25 @@ FP_Base is also a FILE_TreeObject.
     set involves writing of CsParam to fpBase
     fetch involves getting value of fpValue
 
+    There are two different types of use cases:
+
+    1) FPs provide persistence for CsParams
+    2) CsParams provide generic Cls based access to FPs
+
+    (1) Use Cases FP names are same as CsParam names,
+         CsParams are dumped in dir  as FPs
+         CsParams are read in as FPs and then used in Cmnds
+         Blee Player is an example of such use.
+
+
+    (2) FPs are assigned CsParam names and then generic cmnds allow manipulation of FPs.
+        Configuration Management. FPs are auto subjected to CRUD.
+         Registrars on top of FPs. RegFps  builds on this class.
+
+    Both combine FPs and CsPrams.
+
+    Implementation is still dirty and parts that were taken from ICM has not been cleaned.
+
     #+end_org """
 
 ####+BEGIN: b:py3:cs:method/typing :methodName "__init__" :deco "default"
@@ -215,27 +234,22 @@ FP_Base is also a FILE_TreeObject.
 ####+END:
             self,
     ):
-        """
+        """ Example: Abstract to become ConcreteMethod based on abstract pattern
         """
         csParams = cs.G.icmParamDictGet()
         self._manifestDict = {}
-        paramsList = [
-            'exampleFp',
-        ]
-        for eachParam in paramsList:
-            thisCsParam = csParams.parNameFind(eachParam)   # type: ignore
+        paramsDict = {
+            'fp_container_model': 'model',
+        }
+        for key, value in paramsDict.items():
+            thisCsParam = csParams.parNameFind(key)   # type: ignore
             thisFpCmndParam = b.fpCls.FpCmndParam(
                 cmndParam=thisCsParam,
                 fileParam=None,
             )
-            self._manifestDict[eachParam] = thisFpCmndParam
-        #
-        # Assign subBases -- Nested Params -- Not Implemented
-        #
-        #self._manifestDict[eachParam] = FpCsParamsBase_name
+            self._manifestDict[value] = thisFpCmndParam
 
         return self._manifestDict
-
 
 ####+BEGIN: b:py3:cs:method/typing :methodName "fps_manifestGet" :deco ""
     """ #+begin_org
@@ -385,6 +399,22 @@ FP_Base is also a FILE_TreeObject.
         paramValue = b.fp.FileParamReadFrom(fpBase, paramName,)
         return paramValue
 
+####+BEGIN: b:py3:cs:method/typing :methodName "fps_getParamsAsDictValue" :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /fps_getParamsAsDictValue/  deco=default  [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def fps_getParamsAsDictValue(
+####+END:
+            self,
+            paramNamesList,
+            fpsBase=None,
+    ):
+        """When paramNamesList == [] get all."""
+        if fpsBase == None:
+            fpsBase = self.fileTreeBaseGet()
+        fpsDictValue =  b.fp.parsGetAsDictValue(paramNamesList, fpsBase)
+        return fpsDictValue
 
 
 ####+BEGIN: b:py3:cs:method/typing :methodName "fps_absBasePath" :deco "default"
@@ -1068,9 +1098,6 @@ def csParamValuesPlus(
     return
 
 
-
-
-
 ####+BEGIN: b:py3:cs:func/typing :funcName "menu_setExamples" :deco ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-       [[elisp:(outline-show-subtree+toggle)][||]] /menu_setExamples/ deco=    [[elisp:(org-cycle)][| ]]
@@ -1081,7 +1108,9 @@ def menu_setExamples(
 ):
     G = cs.globalContext.get()
     csParams = G.icmParamDictGet()
-    fps_namesWithAbsPath = fpBaseInst.fps_namesWithAbsPath()
+    # fps_namesWithAbsPath = fpBaseInst.fps_namesWithAbsPath()
+    fps_namesWithAbsPath = fpBaseInst.fps_manifestDictBuild()
+
 
     csMainName = G.icmMyName()
 

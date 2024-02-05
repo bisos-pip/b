@@ -2,6 +2,9 @@
 #
 # Order of inclusion is important. The order reflects laying and design.
 
+Void = type('Void', (), dict(__repr__=lambda self: 'Void'))()
+Vague = type('Vague', (), dict(__repr__=lambda self: 'Vague'))()
+
 #         ============ Layer 1 (BCF) =============
 #
 # BCF layer is:  BPF Common Facilities  (these have no BPF imports and provide common facilities)

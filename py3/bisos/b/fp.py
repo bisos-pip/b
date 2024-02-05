@@ -811,7 +811,7 @@ class FP_readTreeAtBaseDir(b.cs.Cmnd):
             FILE_paramDictPrint(thisParamDict)
 
         return cmndOutcome.set(
-            opError=cs.OpError.Success,
+            # opError=cs.OpError.Success,
             opResults=thisParamDict,
         )
 

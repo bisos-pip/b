@@ -161,7 +161,7 @@ There are also qmail errors starting at 100.
     # NOTYET, catch exceptions
     return opErrorDesc[opError]
 
-
+# Default = type('Default', (), dict(__repr__=lambda self: 'Default'))()
 
 """
 *  [[elisp:(org-cycle)][| ]]  [[elisp:(blee:ppmm:org-mode-toggle)][Nat]] [[elisp:(beginning-of-buffer)][Top]] [[elisp:(delete-other-windows)][(1)]] || Class-Basic        ::  Outcome -- .log() .isProblematic()   [[elisp:(org-cycle)][| ]]
@@ -217,8 +217,8 @@ opResults = opOutcome.results
             invokerName=None,
             opError=None,
             opErrInfo=None,
-            opResults=None,
-            opStdout=None,
+            opResults=b.Void,
+            opStdout=b.Void,
             opStderr=None,
             opStdcmnd=None,
     ):
@@ -228,9 +228,9 @@ opResults = opOutcome.results
             self.error = opError
         if opErrInfo is not  None:
             self.errInfo = opErrInfo
-        if opResults is not  None:
+        if opResults is not b.Void:
             self.results = opResults
-        if opStdout is not None:
+        if opStdout is not b.Void:
             self.stdout = opStdout
             self.stdoutRstrip = opStdout.rstrip('\n')
         if opStderr is not None:

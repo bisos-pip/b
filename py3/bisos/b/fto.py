@@ -112,7 +112,7 @@ class FILE_TreeObject(object):
        4) _objectType_
 
     _tree_  in bash  typeset -A treeItemEnum=(
-    [node]=node                   # this dir is a node
+    [node]=node                   # this dir is a branch (node)
     [leaf]=leaf                   # this dir is a leaf
     [ignore]=ignore               # ignore this and everything below it
     [ignoreLeaf]=ignoreLeaf       # ignore this leaf
@@ -145,8 +145,12 @@ class FILE_TreeObject(object):
     #     #     'read: ' + str(self.attrReadGet())
     #     #     )
 
+    def fileTreeBaseSet(self, fileSysPath):
+        self.__fileSysPath = fileSysPath
+
     def fileTreeBaseGet(self):
         return self.__fileSysPath
+
 
     @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def nodeCreate(self, objectTypes=None, treeProc=None, ignore=None):

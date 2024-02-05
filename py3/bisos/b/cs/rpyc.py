@@ -111,6 +111,7 @@ def csPerform(
 @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
 def csInvoke(
 ####+END:
+        ipAddr,
         portNu,
         cmndClass: cs.Cmnd,
         **cmndKwArgs,
@@ -122,7 +123,8 @@ Return value of conn.root.svcCmnd is always Null. NOTYET, Look into this.
 
     # print(f"csInvoke  with {cmndKwArgs}")
 
-    conn = rpyc.connect("localhost", port=portNu, config={'allow_public_attrs': True})
+    # conn = rpyc.connect("localhost", port=portNu, config={'allow_public_attrs': True})
+    conn = rpyc.connect(ipAddr, port=portNu, config={'allow_public_attrs': True})
     rpycInvResult = conn.root.svcCmnd(cmndClass().__class__.__name__, **cmndKwArgs)
 
     # print(outcome)

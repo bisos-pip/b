@@ -72,6 +72,7 @@ from bisos import b
 
 from bisos.b import cs
 
+import collections
 
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 0 :sep nil :title "G_examples" :anchor "" :extraInfo "*G_commonExamples -- Common features included in G_examples() + devExamples(), etc*"
 """ #+begin_org
@@ -454,6 +455,75 @@ def ex_gExtCmndMenuItem(
         icmWrapper=icmWrapper,
         icmName=icmName,
     )
+
+####+BEGIN: b:py3:cs:func/typing :funcName "perfNameParsInsert" :funcType "extTyped" :deco "track"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /perfNameParsInsert/  deco=track  [[elisp:(org-cycle)][| ]]
+#+end_org """
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+def perfNameParsInsert(
+####+END:
+        pars: collections.OrderedDict,
+        perfName: str,
+) -> collections.OrderedDict:
+    result = pars.copy()
+    result.update({'perfName': perfName})
+    result.move_to_end('perfName', last=False)
+    return result
+
+####+BEGIN: b:py3:cs:func/typing :funcName "cmndEnter" :funcType "extTyped" :deco "track"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /cmndEnter/  deco=track  [[elisp:(org-cycle)][| ]]
+#+end_org """
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+def cmndEnter(
+####+END:
+        name: str,
+        pars: collections.OrderedDict[str, str]=collections.OrderedDict(),
+        args: str="",
+        verb: list[str]=[],
+        comment: str='none',
+        csWrapper: str='',
+        csName: str='',
+) -> None:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ] Constructs cmndLine based on positional args and specific other args. Calls ~menuItemInsert~.
+    For services, it looks at invModel and roSap.
+    #+end_org """
+
+    #rpycEnable = ""
+
+    #if cs.G.icmRunArgsGet().ex_invModel == "rpyc":
+    #    rpycEnable = " --invModel=rpyc"
+
+    roEnable = ""
+
+    perfName = cs.G.icmRunArgsGet().perfName
+    if perfName is not None:
+        roEnable = f" --perfName={perfName}"
+
+    cmndParsStr = ""
+    for key in pars:
+        cmndParsStr += f"""--{key}="{pars[key]}" """
+
+    cmndLine = f"""{cmndParsStr}{roEnable} -i {name} {args}"""
+
+    #print(cmndLine)
+
+    if not verb:
+        verb = ['none']
+
+    for eachVerbosity in verb:
+        menuItemInsert(
+            commandLine=cmndLine,
+            verbosity=eachVerbosity,
+            comment=comment,
+            icmWrapper=csWrapper,
+            icmName=csName,
+        )
+
+
+
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "cmndInsert" :funcType "extTyped" :deco "track"
 """ #+begin_org
