@@ -731,6 +731,33 @@ pyCmnd invokactions are non-interactive
 
         return outcome
 
+####+BEGIN: b:py3:cs:method/typing :methodName "pyWCmnd" :methodType "eType"  :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-eType [[elisp:(outline-show-subtree+toggle)][||]] /pyWCmnd/  deco=default  [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def pyWCmnd(
+####+END:
+            self,
+            cmndOutcome,
+            **kwArgs,
+    )  -> b.op.Outcome:
+        """ #+begin_org
+** [[elisp:(org-cycle)][| DocStr| ]]  A Wrapped Cmnd, Calls Cmnd, Returns Outcome
+pyCmnd invokactions are non-interactive
+        #+end_org """
+
+        rtInv = cs.RtInvoker.new_py()
+
+        outcome = self.cmnd(
+            rtInv=rtInv,
+            cmndOutcome=cmndOutcome,
+            **kwArgs,
+        )
+
+        return outcome
+
+
 
 
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 0 :sep nil :title "CS Output" :anchor ""  :extraInfo "Perhaps It Belongs In The IO Package"

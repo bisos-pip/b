@@ -88,6 +88,7 @@ import collections
 import pathlib
 import __main__
 import os
+import sys
 import abc
 
 
@@ -1512,7 +1513,7 @@ def roInvokeCmndAtSap(
     ipAddr = sapBaseFps.fps_getParam('perfIpAddr')
     cmndKwArgs.update({'rtInv': rtInv})
     cmndKwArgs.update({'cmndOutcome': cmndOutcome})
-    print(f"roInvokeCmndAtSap at {roSapPath} with {cmndKwArgs}")
+    print(f"roInvokeCmndAtSap at {roSapPath} of {cmndClass.__name__} with {cmndKwArgs}", file=sys.stderr)
     rpycInvResult = cs.rpyc.csInvoke(
         ipAddr.parValueGet(),
         portNu.parValueGet(),
