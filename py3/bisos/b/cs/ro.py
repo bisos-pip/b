@@ -878,9 +878,18 @@ def commonParamsSpecify(
     SapBase_FPs.fps_asIcmParamsAdd(icmParams,)
 
     icmParams.parDictAdd(
-        parName='perfName',
-        parDescription="Performer Name. In Bx, A container name.",
+        parName='svcName',
+        parDescription="Maps to a protocol. Appears in SapPath. Same namespace as perfName of bisos-pip.banna.",
         parDataType=None,
+        parDefault=None,
+        parChoices=["any"],
+        # parScope=icm.ICM_ParamScope.TargetParam,
+        argparseShortOpt=None,
+        argparseLongOpt='--svcName',
+    )
+    icmParams.parDictAdd(
+        parName='perfName',
+        parDescription="Same namespace as svcName of bisos-pip.banna. Maps to perfPortNu. Can be a supper set of svcName in a SAP",
         parDefault=None,
         parChoices=["any"],
         # parScope=icm.ICM_ParamScope.TargetParam,
@@ -997,6 +1006,7 @@ class SapBase_FPs(b.fpCls.BaseDir):
 ####+END:
             self,
             rosmu: str="",
+            svcName: str="",
             perfName: str="",
             perfModel: str="",
             rosmuSel: str="",
@@ -1005,6 +1015,7 @@ class SapBase_FPs(b.fpCls.BaseDir):
     ):
         self.rosmu = rosmu
         self.perfName = perfName
+        self.svcName = svcName
         self.perfModel = perfModel
         self.rosmuSel = rosmuSel
         self.roSapPath = roSapPath
@@ -1013,7 +1024,7 @@ class SapBase_FPs(b.fpCls.BaseDir):
             self.roSapPath = fpBase
             fileSysPath = fpBase
         elif roSapPath:
-            if rosmu or perfModel or perfName or rosmuSel:
+            if rosmu or perfModel or svcName or perfName or rosmuSel:
                 b_io.eh.eh_problem_usageError("conflict with roSapPath")
             fileSysPath = roSapPath
         else:
@@ -1109,14 +1120,14 @@ class SapBase_FPs(b.fpCls.BaseDir):
 
         return icmParams
 
-####+BEGIN: b:py3:cs:method/typing :methodName "perfNameToRoSapPath" :deco "staticmethod"
+####+BEGIN: b:py3:cs:method/typing :methodName "svcNameToRoSapPath" :deco "staticmethod"
     """ #+begin_org
-**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /perfNameToRoSapPath/ deco=staticmethod  deco=staticmethod   [[elisp:(org-cycle)][| ]]
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /svcNameToRoSapPath/  deco=staticmethod  [[elisp:(org-cycle)][| ]]
     #+end_org """
     @staticmethod
-    def perfNameToRoSapPath(
+    def svcNameToRoSapPath(
 ####+END:
-            perfName,
+            svcName,
             rosmu=None,
             rosmuSel=None,
             perfModel=None,
@@ -1132,7 +1143,9 @@ class SapBase_FPs(b.fpCls.BaseDir):
         if perfModel == None:
             perfModel="rpyc"
 
-        sapBaseFps = b.pattern.sameInstance(SapBase_FPs, rosmu=rosmu, perfName=perfName, perfModel=perfModel, rosmuSel=rosmuSel)
+        perfName = svcName
+
+        sapBaseFps = b.pattern.sameInstance(SapBase_FPs, rosmu=rosmu, svcName=svcName, perfName=perfName, perfModel=perfModel, rosmuSel=rosmuSel)
 
         roSapPath = sapBaseFps.fps_absBasePath()
 
@@ -1153,6 +1166,7 @@ class SapBase_FPs(b.fpCls.BaseDir):
         paramsList = [
                 'perfIpAddr',
                 'perfPortNu',
+                'svcName',
                 'accessControl',
                 'perfName',
                 'perfModel',
@@ -1228,7 +1242,7 @@ class SapBase_FPs(b.fpCls.BaseDir):
                 os.path.join(
                     "/bisos/var/cs/ro/sap",
                     self.rosmu,
-                    self.perfName,
+                    self.svcName,
                     self.perfModel,
                     self.rosmuSel,
                 )
@@ -1311,9 +1325,11 @@ class ro_sapCreate(cs.Cmnd):
         if not perfModel:
             perfModel = "rpyc"
 
+        svcName = perfName
+
         #cmndArgs = list(self.cmndArgsGet("0&1", cmndArgsSpecDict, effectiveArgsList)) # type: ignore
 
-        sapBaseFps = b.pattern.sameInstance(SapBase_FPs, rosmu=rosmu, perfName=perfName, perfModel=perfModel, rosmuSel=rosmuSel)
+        sapBaseFps = b.pattern.sameInstance(SapBase_FPs, rosmu=rosmu, svcName=svcName, perfName=perfName, perfModel=perfModel, rosmuSel=rosmuSel)
 
         sapBaseFps.fps_setParam('perfIpAddr', "127.0.0.1")
         sapBaseFps.fps_setParam('perfPortNu', "123456")
@@ -1331,13 +1347,13 @@ class ro_sapCreate(cs.Cmnd):
 #+end_org """
 ####+END:
 
-####+BEGINNOT: b:py3:cs:cmnd/classHead :cmndName "csPerformer" :comment "" :parsMand "" :parsOpt "roSapPath perfName" :argsMin 0 :argsMax 0 :pyInv ""
+####+BEGINNOT: b:py3:cs:cmnd/classHead :cmndName "csPerformer" :comment "" :parsMand "" :parsOpt "roSapPath svcName" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<csPerformer>>parsMand= parsOpt=roSapPath perfName argsMin=0 argsMax=0 pyInv=
 #+end_org """
 class csPerformer(cs.Cmnd):
     cmndParamsMandatory = [ ]
-    cmndParamsOptional = [ 'roSapPath', 'perfName', ]
+    cmndParamsOptional = [ 'roSapPath', 'svcName', ]
     cmndArgsLen = {'Min': 0, 'Max': 0,}
     rtInvConstraints = cs.rtInvoker.RtInvoker.new_noRo()
 
@@ -1346,7 +1362,7 @@ class csPerformer(cs.Cmnd):
              rtInv: cs.RtInvoker,
              cmndOutcome: b.op.Outcome,
              roSapPath: typing.Optional[str]=None,  # Cs Optional Param
-             perfName: typing.Optional[str]=None,  # Cs Optional Param
+             svcName: typing.Optional[str]=None,  # Cs Optional Param
     ) -> b.op.Outcome:
 
 ####+END:
@@ -1358,11 +1374,11 @@ class csPerformer(cs.Cmnd):
         #b_io.pr(perfName)
         #b_io.pr(roSapPath)
 
-        if not (roSapPath or perfName):
+        if not (roSapPath or svcName):
             # both are None
             return b_io.eh.eh_problem_usageError(f"either perfName or roSapPath must be specified.")
 
-        if roSapPath and perfName:
+        if roSapPath and svcName:
             # neither are None
             return (
                 b_io.eh.eh_problem_usageError(f"both perfName and roSapPath can not be specified.")
@@ -1370,8 +1386,8 @@ class csPerformer(cs.Cmnd):
 
         #b_io.pr(perfName)
 
-        if perfName:
-            roSapPath = SapBase_FPs.perfNameToRoSapPath(perfName)
+        if svcName:
+            roSapPath = SapBase_FPs.svcNameToRoSapPath(svcName)
 
         #b_io.pr(roSapPath)
 
@@ -1382,7 +1398,7 @@ class csPerformer(cs.Cmnd):
         portNu = sapBaseFps.fps_getParam('perfPortNu')
         #sapBaseFps.fps_setParam('accessControl', "placeholder")
 
-        b_io.pr(f"Performer at::  portNu=${portNu} -- roSapPath={roSapPath}")
+        b_io.pr(f"Performer at::  portNu={portNu.parValueGet()} -- roSapPath={roSapPath}")
 
         cs.rpyc.csPerform(portNu.parValueGet())
 
@@ -1521,8 +1537,6 @@ def roInvokeCmndAtSap(
         **cmndKwArgs,
     )
     return rpycInvResult
-
-
 
 
 ####+BEGIN: b:py3:cs:framework/endOfFile :basedOn "classification"
