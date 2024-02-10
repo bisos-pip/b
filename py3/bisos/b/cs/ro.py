@@ -1536,6 +1536,8 @@ def roInvokeCmndAtSap(
         cmndClass,
         **cmndKwArgs,
     )
+    opResult = cmndKwArgs['cmndOutcome']
+    print(f"roOutcomeOf {cmndClass.__name__}::  {opResult.results}", file=sys.stderr)
     return rpycInvResult
 
 
