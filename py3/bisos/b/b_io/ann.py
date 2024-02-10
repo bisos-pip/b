@@ -114,10 +114,13 @@ def write(*v, **k):
 *  [[elisp:(org-cycle)][| ]]  [[elisp:(blee:ppmm:org-mode-toggle)][Nat]] [[elisp:(beginning-of-buffer)][Top]] [[elisp:(delete-other-windows)][(1)]] || Func             ::  ANN_note -- Prepends ANN_:     [[elisp:(org-cycle)][| ]]
 """
 
-def note(*v, **k):
+def noteOld(*v, **k):
     """
     """
     print( format(*v, **k) )
+
+def note(*v):
+    print(*v, file=sys.stderr)
 
 """
 *  [[elisp:(org-cycle)][| ]]  [[elisp:(blee:ppmm:org-mode-toggle)][Nat]] [[elisp:(beginning-of-buffer)][Top]] [[elisp:(delete-other-windows)][(1)]] || Func             ::  ANN_here -- Prepends ANN_ and adds stackFrameInfoGet(2)   [[elisp:(org-cycle)][| ]]
