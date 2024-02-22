@@ -36,6 +36,40 @@
 ** +
 ** Overview Comes Here.
 ** B|
+####+BEGIN: blee:bxPanel:foldingSection :outLevel 1 :sep t :title "Output Facilities  (Tabular)" :anchor "" :extraInfo "Table of funcs, with tags, cond and level"
+* /[[elisp:(beginning-of-buffer)][|^]]  [[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]] [[elisp:(delete-other-windows)][|1]]/
+* [[elisp:(show-all)][(>]]  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_  _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_       [[elisp:(outline-show-subtree+toggle)][| *Output Facilities  (Tabular):* |]]  Table of funcs, with tags, cond and level  [[elisp:(org-shifttab)][<)]] E|
+####+END
+
+Should link to each function.
+
+|-------------------+-----------+-----------+-------+--------+---------------------------------------|
+| Signature         | condition | Tags      | Log   | Dest   | Comments                              |
+|                   |           |           | Level |        |                                       |
+|-------------------+-----------+-----------+-------+--------+---------------------------------------|
+| [[b_io.note(*obj)]]   | Always    | "[N]: "   | All   | stderr | Not used for errors. Proved xtra info |
+| [[b_io.stderr]](*obj) | Always    | ""        | All   | stderr | Writes to fileno-2                    |
+| b_io.error        | Always    | "[E]: "   | All   | stderr | Prefixed. FileNo2.                    |
+| b_io.stdout       | Always    | ""        | All   | stdout | Same as print                         |
+| b_io.pr           | Always    |           |       | stdout |                                       |
+| b_io.output       | Always    | "[O]: "   | All   | stdout | Prefixed. Same as print.              |
+|-------------------+-----------+-----------+-------+--------+---------------------------------------|
+| b_io.tm_          | [[tracing]]   | File,line |       |        | For Debugging                         |
+|-------------------+-----------+-----------+-------+--------+---------------------------------------|
+| b_io.eh.          |           |           |       |        | Error Handeling                       |
+|-------------------+-----------+-----------+-------+--------+---------------------------------------|
+| b_io.xh.          |           |           |       |        | Exception Handeling                   |
+|-------------------+-----------+-----------+-------+--------+---------------------------------------|
+| Func Entry/exit   |           |           | 10    |        |                                       |
+| CS Sys Reports    |           |           | xx    |        |                                       |
+| Cmnd Exec Reports |           |           | yy    |        |                                       |
+| Invoker Reports   |           |           | zz    |        |                                       |
+| Performer rep     |           |           | nn    |        |                                       |
+|-------------------+-----------+-----------+-------+--------+---------------------------------------|
+| logging           |           |           |       |        |                                       |
+|-------------------+-----------+-----------+-------+--------+---------------------------------------|
+
+
 ####+BEGIN: blee:bxPanel:separator :outLevel 1
 * /[[elisp:(beginning-of-buffer)][|^]] [[elisp:(blee:menu-sel:navigation:popupMenu)][==]] [[elisp:(delete-other-windows)][|1]]/
 ####+END

@@ -96,7 +96,7 @@ When <ro==py  is same as cli+py plus <ro=noCli
 | Command Type    | :ro   | Constraints | In Pars  | Outcome | Comments |
 |                 | "xxx" |             | Origin   |         |          |
 |-----------------+-------+-------------+----------+---------+----------|
-| [[1.A Direct Cli]]  | [[cli]] |             | stdin    |         |          |
+| [[1.A Direct Cli]]  | [[cli]]   |             | stdin    |         |          |
 | [[1.B Direct Py]]   | cli   |             | cmndArgs |         |          |
 | [[2.A Remote Cli]]  |       | new_noRo()  | stdin    |         |          |
 | [[2.A Remote Py]]   | py    |             | stdin    |         |          |

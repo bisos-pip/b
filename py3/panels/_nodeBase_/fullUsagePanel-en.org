@@ -37,6 +37,12 @@
 ####+END
 ** +
 ** Scope of this panel is bisos Python Development and bisos pip packages.
+** TODO Create a b.Types Panel for b.Success b.Fail -- For Function Calls with Return Failure. Chk with is:
+SCHEDULED: <2024-02-09 Fri>
+There are different “categories” of objects that can be used checked for with is:
+
+singletons (None, NotImplemented, ...)
+Enums (bool, i.e. True/False, stdlib Enum subclasses)
 ** TODO Add transit and examples as new modules.
 SCHEDULED: <2022-08-28 Sun>
 ** TODO In paralell with bisos-pip create a CS-ModulesDev panel.
