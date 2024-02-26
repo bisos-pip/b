@@ -460,14 +460,13 @@ def badOutcome(
 ** [[elisp:(org-cycle)][| *DocStr | ]
     #+end_org """
 
-    print((
-        "io.eh.badOutcome: InvokedBy {invokerName}, Operation Failed: Stdcmnd={stdcmnd} Error={status} -- {errInfo}".
-        format(invokerName=outcome.invokerName,
+    print("io.eh.badOutcome: InvokedBy {invokerName}, Operation Failed: Stdcmnd={stdcmnd} Error={status} -- {errInfo}".
+           format(invokerName=outcome.invokerName,
                stdcmnd=outcome.stdcmnd,
                status=outcome.error,
                errInfo=outcome.errInfo,
-        )))
-    print(('io.eh.: ' + ' -- ' + b.ast.stackFrameInfoGet(2) ))
+                  ),  file=sys.stderr)   
+    print(('io.eh.: ' + ' -- ' + b.ast.stackFrameInfoGet(2) ), file=sys.stderr)
 
     return outcome
 
