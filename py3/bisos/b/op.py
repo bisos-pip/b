@@ -244,7 +244,8 @@ opResults = opOutcome.results
         if self.error:
             if self.error == b.OpError.Success:
                 return False
-            print(f"isProblematic: error={self.error}")
+            # NOTYET, these should be logged
+            # print(f"isProblematic: error={self.error}")
             b.cs.globalContext.get().__class__.lastOutcome = self
             return True
         else:
