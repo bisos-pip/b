@@ -483,7 +483,7 @@ def cmndEnter(
         args: str="",
         verb: list[str]=[],
         comment: str='none',
-        csWrapper: str='',
+        wrapper: str='',
         csName: str='',
 ) -> None:
     """ #+begin_org
@@ -518,7 +518,7 @@ def cmndEnter(
             commandLine=cmndLine,
             verbosity=eachVerbosity,
             comment=comment,
-            icmWrapper=csWrapper,
+            icmWrapper=wrapper,
             icmName=csName,
         )
 
