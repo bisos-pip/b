@@ -19,7 +19,7 @@ def longDescription():
 
 
 # __version__ = get_version('unisos/icm/__init__.py')
-__version__ = '0.3'
+__version__ = '0.4'
 
 
 requires = [
@@ -40,19 +40,9 @@ scripts = [
 setuptools.setup(
     name='bisos.b',
     version=__version__,
-    namespace_packages=['bisos'],
+    # namespace_packages=['bisos'],
     packages=setuptools.find_packages(),
     scripts=scripts,
-    # data_files=[
-    #     ('pkgInfo', ["unisos/pkgInfo/fp/icmsPkgName/value"]),
-    # ],
-    # package_dir={'unisos.marme': 'unisos'},
-    # package_data={
-    #     'unisos.marme': ['pkgInfo/fp/icmsPkgName/value'],
-    # },
-    # package_data={
-    #     '': ['unisos/marme/resolv.conf'],
-    # },
     include_package_data=True,
     zip_safe=False,
     author='Mohsen Banan',

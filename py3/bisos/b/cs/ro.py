@@ -1992,7 +1992,7 @@ def roInv_examples(
 
     if sectionTitle == 'default': cs.examples.menuChapter('*Remote Operations --Invoker Management*')
 
-    cmnd('inv_sapCreate', pars=od([('perfName', perfName), ('perfIpAddr', perfIpAddr)]))
+    cmnd('inv_sapCreate', pars=od([('svcName', svcName), ('perfName', perfName), ('rosmu', rosmu), ('perfIpAddr', perfIpAddr)]))
     literal(f"""csRo-manage.cs --svcName="{svcName}" --perfName="{perfName}" --rosmu="{rosmu}"  -i ro_fps list""")
 
 
