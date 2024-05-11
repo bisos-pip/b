@@ -47,6 +47,21 @@ Enums (bool, i.e. True/False, stdlib Enum subclasses)
 SCHEDULED: <2022-08-28 Sun>
 ** TODO In paralell with bisos-pip create a CS-ModulesDev panel.
 SCHEDULED: <2022-08-28 Sun>
+** https://opentelemetry-python-yusuket.readthedocs.io/en/latest/getting-started.html
+https://opentelemetry-python-contrib.readthedocs.io/en/latest/instrumentation/logging/logging.html
+https://stackify.com/a-basic-introduction-to-opentelemetry-python/
+https://docs.python.org/3/howto/logging-cookbook.html
+https://docs.python.org/3/howto/logging-cookbook.html
+** import traceback
+import logging
+
+try:
+    whatever()
+except Exception as e:
+    logging.error(traceback.format_exc())
+    # Logs the error appropriately.
+
+
 ** B|
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 1 :sep t :title "Conceptual Layering Of BISOS Packages" :anchor "" :extraInfo ""
 * /[[elisp:(beginning-of-buffer)][|^]]  [[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]] [[elisp:(delete-other-windows)][|1]]/
