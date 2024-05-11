@@ -758,6 +758,83 @@ pyCmnd invokactions are non-interactive
         return outcome
 
 
+####+BEGIN: b:py3:cs:method/typing :methodName "pyRoCmnd" :methodType "eType"  :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-eType [[elisp:(outline-show-subtree+toggle)][||]] /pyRoCmnd/  deco=default  [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def pyRoCmnd(
+####+END:
+            self,
+            rtInv=None,
+            cmndOutcome=None,
+            roSapPath=None,
+            rosmu=None,
+            perfName=None,
+            svcName=None,
+            **kwArgs,
+    )  -> b.op.Outcome:
+        """ #+begin_org
+** [[elisp:(org-cycle)][| DocStr| ]]  Calls Cmnd, Returns Outcome
+pyCmnd invokactions are non-interactive
+        #+end_org """
+
+        if rtInv is None:
+            rtInv = cs.RtInvoker.new_py()
+        if cmndOutcome is None:
+            cmndOutcome = b.op.Outcome()
+
+        cmndClass = self.__class__
+
+        if roSapPath is None:
+            roSapPath = cs.ro.SapBase_FPs.perfNameToRoSapPath(perfName, rosmu=rosmu, svcName=svcName)
+
+        print(roSapPath)
+        rpycInvResult =  cs.ro.roInvokeCmndAtSap(
+            roSapPath,
+            rtInv,
+            cmndOutcome,
+            cmndClass,
+            ** kwArgs,
+        )
+
+        return cmndOutcome
+
+####+BEGIN: b:py3:cs:method/typing :methodName "pyRoWCmnd" :methodType "eType"  :deco "default"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-eType [[elisp:(outline-show-subtree+toggle)][||]] /pyRoWCmnd/  deco=default  [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def pyRoWCmnd(
+####+END:
+            self,
+            cmndOutcome,
+            roSapPath=None,
+            rosmu=None,
+            perfName=None,
+            svcName=None,
+            **kwArgs,
+    )  -> b.op.Outcome:
+        """ #+begin_org
+** [[elisp:(org-cycle)][| DocStr| ]]  A Wrapped Cmnd, Calls Cmnd, Returns Outcome
+pyCmnd invokactions are non-interactive
+        #+end_org """
+
+        rtInv = cs.RtInvoker.new_py()
+
+        outcome = self.pyRoCmnd(
+            rtInv=rtInv,
+            cmndOutcome=cmndOutcome,
+            roSapPath=roSapPath,
+            rosmu=rosmu,
+            perfName=perfName,
+            svcName=svcName,
+            **kwArgs,
+        )
+
+        return outcome
+
+
 
 
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 0 :sep nil :title "CS Output" :anchor ""  :extraInfo "Perhaps It Belongs In The IO Package"
@@ -1439,6 +1516,10 @@ def invOutcomeReportCmnd(
     # print(G.__class__._outcomeReportCmnd)
 
     if G.__class__._outcomeReportCmnd == False:
+        return
+
+    if cmndOutcome is  None:
+        sys.stderr.write("Bad Cmnd Return -- No cmndOutcome\n")
         return
 
     if cmndOutcome.results is not  None:

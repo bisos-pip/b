@@ -472,6 +472,19 @@ def commonIcmParamsPrep(
 
     icmParams.parDictAdd(
         parAction='store',
+        parName='sectionTitle',
+        parDescription='For use as section title of examples',
+        parDataType=None,
+        parDefault=None,
+        parMetavar='ARG',
+        parChoices=[],
+        parScope=CmndParamScope.TargetParam,
+        #argparseShortOpt='-v',
+        argparseLongOpt='--sectionTitle',
+        )
+
+    icmParams.parDictAdd(
+        parAction='store',
         parName='logFileLevel',
         parDescription='Specifies destination LogFile for this run',
         parDataType=None,

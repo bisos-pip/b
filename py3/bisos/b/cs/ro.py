@@ -12,7 +12,7 @@
 (put 'b:dblockControls 'py3:cs:Classification "cs-u") ; one of cs-mu, cs-u, cs-lib, b-lib, pyLibPure
 #+END_SRC
 #+RESULTS:
-: cs-mu
+: cs-u
 #+end_org """
 ####+END:
 
@@ -81,6 +81,7 @@ Module description comes here.
 from bisos import b
 from bisos.b import cs
 from bisos.b import b_io
+from bisos.common import csParam
 
 import collections
 ####+END:
@@ -1120,6 +1121,7 @@ class SapBase_FPs(b.fpCls.BaseDir):
 
         return icmParams
 
+
 ####+BEGIN: b:py3:cs:method/typing :methodName "svcNameToRoSapPath" :deco "staticmethod"
     """ #+begin_org
 **  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /svcNameToRoSapPath/  deco=staticmethod  [[elisp:(org-cycle)][| ]]
@@ -1128,6 +1130,42 @@ class SapBase_FPs(b.fpCls.BaseDir):
     def svcNameToRoSapPath(
 ####+END:
             svcName,
+            rosmu=None,
+            rosmuSel=None,
+            perfName=None,
+            perfModel=None,
+    ):
+        """."""
+
+        if rosmu == None:
+            rosmu=cs.G.icmMyName()
+
+        if rosmuSel == None:
+            rosmuSel="default"
+
+        if perfModel == None:
+            perfModel="rpyc"
+
+        if perfName is None:
+            perfNames = __class__.fromRosmuSapPathGetPerfNames(rosmu)
+            perfName = perfNames[0].name
+
+        sapBaseFps = b.pattern.sameInstance(SapBase_FPs, rosmu=rosmu, svcName=svcName, perfName=perfName, perfModel=perfModel, rosmuSel=rosmuSel)
+
+        roSapPath = sapBaseFps.fps_absBasePath()
+
+        return roSapPath
+
+
+####+BEGIN: b:py3:cs:method/typing :methodName "perfNameToRoSapPath" :deco "staticmethod"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /perfNameToRoSapPath/  deco=staticmethod  [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @staticmethod
+    def perfNameToRoSapPath(
+####+END:
+            perfName,
+            svcName=None,
             rosmu=None,
             rosmuSel=None,
             perfModel=None,
@@ -1143,13 +1181,76 @@ class SapBase_FPs(b.fpCls.BaseDir):
         if perfModel == None:
             perfModel="rpyc"
 
-        perfName = svcName
+        if svcName is None:
+            svcNames = __class__.fromRosmuSapPathGetSvcNames(rosmu)
+            svcName = svcNames[0].name
 
         sapBaseFps = b.pattern.sameInstance(SapBase_FPs, rosmu=rosmu, svcName=svcName, perfName=perfName, perfModel=perfModel, rosmuSel=rosmuSel)
-
         roSapPath = sapBaseFps.fps_absBasePath()
 
         return roSapPath
+
+####+BEGIN: b:py3:cs:method/typing :methodName "rosmuSapPath_obtain" :deco "staticmethod"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /rosmuSapPath_obtain/  deco=staticmethod  [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @staticmethod
+    def rosmuSapPath_obtain(
+####+END:
+            rosmu=None,
+    ) -> pathlib.Path:
+
+        if rosmu == None:
+            rosmu=cs.G.icmMyName()
+
+        return (
+            pathlib.Path(
+                os.path.join(
+                    "/bisos/var/cs/ro/sap",
+                    rosmu,
+                )
+            )
+        )
+
+####+BEGIN: b:py3:cs:method/typing :methodName "fromRosmuSapPathGetPerfNames" :deco "staticmethod"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /fromRosmuSapPathGetPerfNames/  deco=staticmethod  [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @staticmethod
+    def fromRosmuSapPathGetPerfNames(
+####+END:
+            rosmu=None,
+    ) -> list[pathlib.Path]:
+
+        if rosmu == None:
+            rosmu=cs.G.icmMyName()
+
+        rosmuPath = __class__.rosmuSapPath_obtain(rosmu)
+        perfNames = rosmuPath.iterdir()
+        return  list(perfNames)
+
+####+BEGIN: b:py3:cs:method/typing :methodName "fromRosmuSapPathGetSvcNames" :deco "staticmethod"
+    """ #+begin_org
+**  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Mtd-T-     [[elisp:(outline-show-subtree+toggle)][||]] /fromRosmuSapPathGetSvcNames/  deco=staticmethod  [[elisp:(org-cycle)][| ]]
+    #+end_org """
+    @staticmethod
+    def fromRosmuSapPathGetSvcNames(
+####+END:
+            rosmu=None,
+    ) -> list[pathlib.Path]:
+
+        if rosmu == None:
+            rosmu=cs.G.icmMyName()
+
+        perfNames = __class__.fromRosmuSapPathGetPerfNames(rosmu)
+
+        svcNames = []
+
+        for eachPerfName in perfNames:
+            theseSvcNames = eachPerfName.iterdir()
+            svcNames = svcNames + list(theseSvcNames)
+
+        return list(svcNames)
 
 ####+BEGIN: b:py3:cs:method/typing :methodName "fps_manifestDict" :deco ""
     """ #+begin_org
@@ -1242,9 +1343,9 @@ class SapBase_FPs(b.fpCls.BaseDir):
                 os.path.join(
                     "/bisos/var/cs/ro/sap",
                     self.rosmu,
+                    self.perfName,
                     self.svcName,
                     self.perfModel,
-                    self.rosmuSel,
                 )
             )
         )
@@ -1288,11 +1389,11 @@ class SapBase_FPs(b.fpCls.BaseDir):
 #+end_org """
 ####+END:
 
-####+BEGINNOT: b:py3:cs:cmnd/classHead :cmndName "ro_sapCreate" :ro "noCli" :comment "" :parsMand "perfName rosmu" :parsOpt "perfModel rosmuSel" :argsMin 0 :argsMax 0
+####+BEGINNOT: b:py3:cs:cmnd/classHead :cmndName "ro_sapCreateOld" :ro "noCli" :comment "" :parsMand "perfName rosmu" :parsOpt "perfModel rosmuSel" :argsMin 0 :argsMax 0
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<ro_sapCreate>>parsMand=perfName rosmu parsOpt=perfModel rosmuSel argsMin=0 argsMax=0 ro=noCli pyInv=
 #+end_org """
-class ro_sapCreate(cs.Cmnd):
+class ro_sapCreateOld(cs.Cmnd):
     cmndParamsMandatory = [ 'perfName', 'rosmu', ]
     cmndParamsOptional = [ 'perfModel', 'rosmuSel', ]
     cmndArgsLen = {'Min': 0, 'Max': 0,}
@@ -1340,6 +1441,92 @@ class ro_sapCreate(cs.Cmnd):
         sapBaseFps.fps_setParam('rosmuSel', rosmuSel)
 
         return(cmndOutcome)
+
+
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "ro_sapCreate" :ro "noCli" :comment "" :parsMand "perfName rosmu svcName" :parsOpt "perfPortNu perfIpAddr perfModel rosmuSel rosmuControl accessControl" :argsMin 0 :argsMax 0
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<ro_sapCreate>>  =verify= parsMand=perfName rosmu svcName parsOpt=perfPortNu perfIpAddr perfModel rosmuSel rosmuControl accessControl ro=noCli   [[elisp:(org-cycle)][| ]]
+#+end_org """
+class ro_sapCreate(cs.Cmnd):
+    cmndParamsMandatory = [ 'perfName', 'rosmu', 'svcName', ]
+    cmndParamsOptional = [ 'perfPortNu', 'perfIpAddr', 'perfModel', 'rosmuSel', 'rosmuControl', 'accessControl', ]
+    cmndArgsLen = {'Min': 0, 'Max': 0,}
+    rtInvConstraints = cs.rtInvoker.RtInvoker.new_noRo() # NO RO From CLI
+
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def cmnd(self,
+             rtInv: cs.RtInvoker,
+             cmndOutcome: b.op.Outcome,
+             perfName: typing.Optional[str]=None,  # Cs Mandatory Param
+             rosmu: typing.Optional[str]=None,  # Cs Mandatory Param
+             svcName: typing.Optional[str]=None,  # Cs Mandatory Param
+             perfPortNu: typing.Optional[str]=None,  # Cs Optional Param
+             perfIpAddr: typing.Optional[str]=None,  # Cs Optional Param
+             perfModel: typing.Optional[str]=None,  # Cs Optional Param
+             rosmuSel: typing.Optional[str]=None,  # Cs Optional Param
+             rosmuControl: typing.Optional[str]=None,  # Cs Optional Param
+             accessControl: typing.Optional[str]=None,  # Cs Optional Param
+    ) -> b.op.Outcome:
+
+        failed = b_io.eh.badOutcome
+        callParamsDict = {'perfName': perfName, 'rosmu': rosmu, 'svcName': svcName, 'perfPortNu': perfPortNu, 'perfIpAddr': perfIpAddr, 'perfModel': perfModel, 'rosmuSel': rosmuSel, 'rosmuControl': rosmuControl, 'accessControl': accessControl, }
+        if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, None).isProblematic():
+            return failed(cmndOutcome)
+        perfName = csParam.mappedValue('perfName', perfName)
+        rosmu = csParam.mappedValue('rosmu', rosmu)
+        svcName = csParam.mappedValue('svcName', svcName)
+        perfPortNu = csParam.mappedValue('perfPortNu', perfPortNu)
+        perfIpAddr = csParam.mappedValue('perfIpAddr', perfIpAddr)
+        perfModel = csParam.mappedValue('perfModel', perfModel)
+        rosmuSel = csParam.mappedValue('rosmuSel', rosmuSel)
+        rosmuControl = csParam.mappedValue('rosmuControl', rosmuControl)
+        accessControl = csParam.mappedValue('accessControl', accessControl)
+####+END:
+        """\
+***** [[elisp:(org-cycle)][| *CmndDesc:* | ]] Creates path for ro_sap and updates FPs
+        """
+
+        if rosmuSel is None:
+            rosmuSel = 'default'
+
+        if perfModel is None:
+            perfModel = 'rpyc'
+
+        if rosmuControl is None:
+            rosmuControl  = 'bisos'
+
+        if accessControl is None:
+            accessControl  = 'placeholder'
+
+        # NOTYET
+        from bisos.banna import bannaPortNu
+
+        if perfPortNu is None:
+            if (perfPortsList := bannaPortNu.bannaPortNuOf().pyWCmnd(
+                    cmndOutcome,
+                    argsList=[svcName]
+            ).results) is None : return failed(cmndOutcome)
+            perfPortNu = perfPortsList[0]
+
+        if perfIpAddr is None:
+            perfIpAddr = 'localhost'
+
+        sapBaseFps = b.pattern.sameInstance(SapBase_FPs, rosmu=rosmu, svcName=svcName, perfName=perfName, perfModel=perfModel, rosmuSel=rosmuSel)
+
+        sapBaseFps.fps_setParam('perfIpAddr', perfIpAddr)
+        sapBaseFps.fps_setParam('svcName', svcName)
+        sapBaseFps.fps_setParam('perfPortNu', perfPortNu)
+        sapBaseFps.fps_setParam('accessControl', accessControl)
+        sapBaseFps.fps_setParam('rosmuControl', rosmuControl)
+        sapBaseFps.fps_setParam('perfName', perfName)
+        sapBaseFps.fps_setParam('perfModel', perfModel)
+        sapBaseFps.fps_setParam('rosmu', rosmu)
+        sapBaseFps.fps_setParam('rosmuSel', rosmuSel)
+
+        sapPath = sapBaseFps.basePath_obtain()
+
+        return cmndOutcome.set(opResults=sapPath,)
+
 
 ####+BEGIN: bx:cs:py3:section :title "CS Performer"
 """ #+begin_org
@@ -1507,6 +1694,8 @@ After that, we print the results and then provide a result in =cmndOutcome=.
         return cmndArgsSpecDict
 
 
+
+
 ####+BEGIN: b:py3:cs:func/typing :funcName "roInvokeCmndAtSap" :comment "~Name of Box File Params~"  :funcType "eType" :deco "track"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-eType  [[elisp:(outline-show-subtree+toggle)][||]] /roInvokeCmndAtSap/  ~Name of Box File Params~ deco=track  [[elisp:(org-cycle)][| ]]
@@ -1537,8 +1726,337 @@ def roInvokeCmndAtSap(
         **cmndKwArgs,
     )
     opResult = cmndKwArgs['cmndOutcome']
-    print(f"roOutcomeOf {cmndClass.__name__}::  {opResult.results}", file=sys.stderr)
+    resultsLen = len(opResult.results)
+    resultsType = type(opResult.results)
+    print(f"roOutcomeOf {cmndClass.__name__}::  opResult.results type = {resultsType} :: opResult.results length = {resultsLen}", file=sys.stderr)
     return rpycInvResult
+
+
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "roEnable" :comment "" :parsMand "" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<roEnable>>  =verify= ro=cli   [[elisp:(org-cycle)][| ]]
+#+end_org """
+class roEnable(cs.Cmnd):
+    cmndParamsMandatory = [ ]
+    cmndParamsOptional = [ ]
+    cmndArgsLen = {'Min': 0, 'Max': 0,}
+
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def cmnd(self,
+             rtInv: cs.RtInvoker,
+             cmndOutcome: b.op.Outcome,
+    ) -> b.op.Outcome:
+
+        failed = b_io.eh.badOutcome
+        callParamsDict = {}
+        if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, None).isProblematic():
+            return failed(cmndOutcome)
+####+END:
+
+        self.cmndDocStr(f""" #+begin_org
+** [[elisp:(org-cycle)][| *CmndDesc:* | ]]
+        #+end_org """)
+
+        self.captureRunStr(""" #+begin_org
+#+begin_src sh :results output :session shared
+  csExamples.cs -i roEnable
+#+end_src
+#+RESULTS:
+:
+        #+end_org """)
+        if self.justCaptureP(): return cmndOutcome
+
+        title = "NOTYET -- Should create roInv- and roPerf- symlinks."
+
+        return cmndOutcome.set(opResults=f"{title}",)
+
+
+
+####+BEGIN: b:py3:cs:func/typing :funcName "csMuIsPerformer" :comment "~Based on G_name~"  :funcType "eType" :deco "track"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-eType  [[elisp:(outline-show-subtree+toggle)][||]] /csMuIsPerformer/  ~Based on G_name~ deco=track  [[elisp:(org-cycle)][| ]]
+#+end_org """
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+def csMuIsPerformer(
+####+END:
+) -> bool:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ]
+    #+end_org """
+
+    csMuName = cs.G.icmMyName()
+    if "roPerf-" in csMuName:
+        return True
+    else:
+        return False
+
+####+BEGIN: b:py3:cs:func/typing :funcName "csMuIsInvoker" :comment "~Based on G_name~"  :funcType "eType" :deco "track"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-eType  [[elisp:(outline-show-subtree+toggle)][||]] /csMuIsInvoker/  ~Based on G_name~ deco=track  [[elisp:(org-cycle)][| ]]
+#+end_org """
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+def csMuIsInvoker(
+####+END:
+) -> bool:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ]
+    #+end_org """
+
+    csMuName = cs.G.icmMyName()
+    if "roInv-" in csMuName:
+        return True
+    else:
+        return False
+
+
+####+BEGIN: b:py3:cs:func/typing :funcName "csMuIsDirect" :comment "~Based on G_name~"  :funcType "eType" :deco "track"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-eType  [[elisp:(outline-show-subtree+toggle)][||]] /csMuIsDirect/  ~Based on G_name~ deco=track  [[elisp:(org-cycle)][| ]]
+#+end_org """
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+def csMuIsDirect(
+####+END:
+) -> bool:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ]
+    #+end_org """
+
+    csMuName = cs.G.icmMyName()
+    if "roInv-" in csMuName:
+        return False
+    elif "roPerf-" in csMuName:
+        return False
+    else:
+        return True
+
+####+BEGIN: b:py3:cs:func/typing :funcName "csMuDirectName" :comment "~Based on G_name~"  :funcType "eType" :deco "track"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-eType  [[elisp:(outline-show-subtree+toggle)][||]] /csMuDirectName/  ~Based on G_name~ deco=track  [[elisp:(org-cycle)][| ]]
+#+end_org """
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+def csMuDirectName(
+####+END:
+) -> bool:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ]
+    #+end_org """
+
+    csMuName = cs.G.icmMyName()
+    if "roInv-" in csMuName:
+        return csMuName.replace("roInv-", "")
+    elif "roPerf-" in csMuName:
+        return csMuName.replace("roPerf-", "")
+    else:
+        return csMuName
+
+####+BEGIN: b:py3:cs:func/typing :funcName "csMuInvokerName" :comment "~Based on G_name~"  :funcType "eType" :deco "track"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-eType  [[elisp:(outline-show-subtree+toggle)][||]] /csMuInvokerName/  ~Based on G_name~ deco=track  [[elisp:(org-cycle)][| ]]
+#+end_org """
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+def csMuInvokerName(
+####+END:
+) -> bool:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ]
+    #+end_org """
+
+    csMuName = cs.G.icmMyName()
+    if "roInv-" in csMuName:
+        return csMuName
+    elif "roPerf-" in csMuName:
+        return csMuName.replace("roPerf-", "roInv-")
+    else:
+        return ("roInv-" + csMuName)
+
+####+BEGIN: b:py3:cs:func/typing :funcName "csMuPerformerName" :comment "~Based on G_name~"  :funcType "eType" :deco "track"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-eType  [[elisp:(outline-show-subtree+toggle)][||]] /csMuPerformerName/  ~Based on G_name~ deco=track  [[elisp:(org-cycle)][| ]]
+#+end_org """
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+def csMuPerformerName(
+####+END:
+) -> bool:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ]
+    #+end_org """
+
+    csMuName = cs.G.icmMyName()
+    if "roInv-" in csMuName:
+        return csMuName.replace("roInv-", "roPerf-")
+    elif "roPerf-" in csMuName:
+        return csMuName
+    else:
+        return ("roPerf-" + csMuName)
+
+####+BEGIN: b:py3:cs:func/typing :funcName "roPerf_examples" :comment "~Based on G_name~"  :funcType "eType" :deco "track"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-eType  [[elisp:(outline-show-subtree+toggle)][||]] /roPerf_examples/  ~Based on G_name~ deco=track  [[elisp:(org-cycle)][| ]]
+#+end_org """
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+def roPerf_examples(
+####+END:
+        rosmu,
+        svcName,
+        perfName,
+        sectionTitle='default',
+        cmndOutcome=None,
+):
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ]
+    #+end_org """
+
+    od = collections.OrderedDict
+    cmnd = cs.examples.cmndEnter
+    literal = cs.examples.execInsert
+
+    if sectionTitle == 'default': cs.examples.menuChapter('*Remote Operations -- Performer SAP Create and Manage*')
+
+    cmnd('perf_sapCreate', pars=od([('svcName', svcName), ('perfName', perfName), ('rosmu', rosmu)]))
+    literal(f"""csRo-manage.cs --svcName={svcName} --rosmu={rosmu}  -i ro_fps list""")
+    cmnd('csPerformer', pars=od([('svcName', svcName)]), comment="&  #  in background Start rpyc CS Service" )
+
+
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "perf_sapCreate" :ro "noCli" :comment "" :parsMand "svcName perfName rosmu" :parsOpt "rosmuControl" :argsMin 0 :argsMax 0
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<perf_sapCreate>>  =verify= parsMand=svcName perfName rosmu parsOpt=rosmuControl ro=noCli   [[elisp:(org-cycle)][| ]]
+#+end_org """
+class perf_sapCreate(cs.Cmnd):
+    cmndParamsMandatory = [ 'svcName', 'perfName', 'rosmu', ]
+    cmndParamsOptional = [ 'rosmuControl', ]
+    cmndArgsLen = {'Min': 0, 'Max': 0,}
+    rtInvConstraints = cs.rtInvoker.RtInvoker.new_noRo() # NO RO From CLI
+
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def cmnd(self,
+             rtInv: cs.RtInvoker,
+             cmndOutcome: b.op.Outcome,
+             svcName: typing.Optional[str]=None,  # Cs Mandatory Param
+             perfName: typing.Optional[str]=None,  # Cs Mandatory Param
+             rosmu: typing.Optional[str]=None,  # Cs Mandatory Param
+             rosmuControl: typing.Optional[str]=None,  # Cs Optional Param
+    ) -> b.op.Outcome:
+
+        failed = b_io.eh.badOutcome
+        callParamsDict = {'svcName': svcName, 'perfName': perfName, 'rosmu': rosmu, 'rosmuControl': rosmuControl, }
+        if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, None).isProblematic():
+            return failed(cmndOutcome)
+        svcName = csParam.mappedValue('svcName', svcName)
+        perfName = csParam.mappedValue('perfName', perfName)
+        rosmu = csParam.mappedValue('rosmu', rosmu)
+        rosmuControl = csParam.mappedValue('rosmuControl', rosmuControl)
+####+END:
+        """\
+***** [[elisp:(org-cycle)][| *CmndDesc:* | ]] Invoked both by invoker and performer. Creates path for ro_sap and updates FPs
+        """
+        self.captureRunStr(""" #+begin_org
+#+begin_src sh :results output :session shared
+  example.cs -i perf_sapCreate
+#+end_src
+#+RESULTS:
+:
+        #+end_org """)
+        if self.justCaptureP(): return cmndOutcome
+
+        if (sapPath := cs.ro.ro_sapCreate().pyWCmnd(
+                cmndOutcome,
+                rosmu=rosmu,
+                svcName=svcName,
+                perfName=perfName
+        ).results) is None : return failed(cmndOutcome)
+
+        return cmndOutcome.set(opResults=sapPath,)
+
+
+####+BEGIN: b:py3:cs:func/typing :funcName "roInv_examples" :comment "~Based on G_name~"  :funcType "eType" :deco "track"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-eType  [[elisp:(outline-show-subtree+toggle)][||]] /roInv_examples/  ~Based on G_name~ deco=track  [[elisp:(org-cycle)][| ]]
+#+end_org """
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+def roInv_examples(
+####+END:
+        rosmu,
+        svcName,
+        perfName,
+        perfIpAddr,
+        sectionTitle='default',
+        cmndOutcome=None,
+):
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ]
+    #+end_org """
+
+    od = collections.OrderedDict
+    cmnd = cs.examples.cmndEnter
+    literal = cs.examples.execInsert
+
+    if sectionTitle == 'default': cs.examples.menuChapter('*Remote Operations --Invoker Management*')
+
+    cmnd('inv_sapCreate', pars=od([('perfName', perfName), ('perfIpAddr', perfIpAddr)]))
+    literal(f"""csRo-manage.cs --svcName="{svcName}" --perfName="{perfName}" --rosmu="{rosmu}"  -i ro_fps list""")
+
+
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "inv_sapCreate" :ro "noCli" :comment "" :parsMand "perfName perfIpAddr rosmu svcName" :parsOpt "" :argsMin 0 :argsMax 0
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<inv_sapCreate>>  =verify= parsMand=perfName perfIpAddr rosmu svcName ro=noCli   [[elisp:(org-cycle)][| ]]
+#+end_org """
+class inv_sapCreate(cs.Cmnd):
+    cmndParamsMandatory = [ 'perfName', 'perfIpAddr', 'rosmu', 'svcName', ]
+    cmndParamsOptional = [ ]
+    cmndArgsLen = {'Min': 0, 'Max': 0,}
+    rtInvConstraints = cs.rtInvoker.RtInvoker.new_noRo() # NO RO From CLI
+
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def cmnd(self,
+             rtInv: cs.RtInvoker,
+             cmndOutcome: b.op.Outcome,
+             perfName: typing.Optional[str]=None,  # Cs Mandatory Param
+             perfIpAddr: typing.Optional[str]=None,  # Cs Mandatory Param
+             rosmu: typing.Optional[str]=None,  # Cs Mandatory Param
+             svcName: typing.Optional[str]=None,  # Cs Mandatory Param
+    ) -> b.op.Outcome:
+
+        failed = b_io.eh.badOutcome
+        callParamsDict = {'perfName': perfName, 'perfIpAddr': perfIpAddr, 'rosmu': rosmu, 'svcName': svcName, }
+        if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, None).isProblematic():
+            return failed(cmndOutcome)
+        perfName = csParam.mappedValue('perfName', perfName)
+        perfIpAddr = csParam.mappedValue('perfIpAddr', perfIpAddr)
+        rosmu = csParam.mappedValue('rosmu', rosmu)
+        svcName = csParam.mappedValue('svcName', svcName)
+####+END:
+        """\
+***** [[elisp:(org-cycle)][| *CmndDesc:* | ]] Invoked both by invoker and performer. Creates path for ro_sap and updates FPs
+        """
+        self.captureRunStr(""" #+begin_org
+#+begin_src sh :results output :session shared
+  svcInvSiteRegBox.cs --rosmu svcSiteRegistrars.cs -i reg_sapCreateBox
+#+end_src
+#+RESULTS:
+#+begin_example
+
+FileParam.writeTo path=/bisos/var/cs/ro/sap/svcSiteRegistrars.cs/siteRegistrar/rpyc/default/perfIpAddr/value value=localhost
+#+end_example
+
+#+begin_src sh :results output :session shared
+  svcSiteRegistrars.cs -i reg_sapCreateBox
+#+end_src
+#+RESULTS:
+:
+: bash: svcSiteRegistrars.cs: command not found
+        #+end_org """)
+        if self.justCaptureP(): return cmndOutcome
+
+        if (sapPath := cs.ro.ro_sapCreate().pyWCmnd(
+                cmndOutcome,
+                rosmu=rosmu,
+                svcName=svcName,
+                perfName=perfName,
+                perfIpAddr=perfIpAddr,
+        ).results) is None : return failed(cmndOutcome)
+
+        return cmndOutcome.set(opResults=sapPath,)
+
 
 
 ####+BEGIN: b:py3:cs:framework/endOfFile :basedOn "classification"

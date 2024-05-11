@@ -561,7 +561,7 @@ class fpParamsReveal(cs.Cmnd):
             elif each == 'getExamples':
                 menu_getExamples(fpBaseInst,)
             elif each == 'setExamples':
-                print("Set Examples Come Here")
+                # print("Set Examples Come Here")
                 menu_setExamples(fpBaseInst,)
             else:
                 io.eh.problem_usageError(f"Unknown {each}")
@@ -1117,8 +1117,10 @@ def menu_setExamples(
     cmndFrontStr = f"""{csMainName} --fpBase="{fpBaseInst.fileTreeBaseGet()}" --cls="{fpBaseInst.__class__.__name__}" -i fpParamSetWithNameValue """
 
     for eachParam, eachDest  in fps_namesWithAbsPath.items():
-        thisCsParam = csParams.parNameFind(eachParam)   # type: ignore
-        print(f"{cmndFrontStr} {thisCsParam.parNameGet()} __VOID__")
+        # thisCsParam = csParams.parNameFind(eachParam)   # type: ignore
+        # print(f"{cmndFrontStr} {thisCsParam.parNameGet()} __VOID__")
+        print(f"{cmndFrontStr} {eachParam}  __VOID__")
+
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "menu_getExamples" :deco ""
 """ #+begin_org
@@ -1138,8 +1140,10 @@ def menu_getExamples(
     cmndFrontStr = f"""{csMainName} --fpBase="{fpBaseInst.fileTreeBaseGet()}" --cls="{fpBaseInst.__class__.__name__}" -i fpParamGetWithName """
 
     for eachParam, eachDest  in fps_namesWithAbsPath.items():
-        thisCsParam = csParams.parNameFind(eachParam)   # type: ignore
-        print(f"{cmndFrontStr} {thisCsParam.parNameGet()}")
+        #thisCsParam = csParams.parNameFind(eachParam)   # type: ignore
+        #print(f"{cmndFrontStr} {thisCsParam.parNameGet()}")
+        #print(f"{cmndFrontStr} {eachDest.cmndParam.parNameGet()}")
+        print(f"{cmndFrontStr} {eachParam}")
 
 
 ####+BEGIN: b:prog:file/endOfFile :extraParams nil
