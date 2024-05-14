@@ -2,39 +2,49 @@
 
 import setuptools
 # import sys
+import re
 
 
 def readme():
-    with open('TITLE.txt') as f:
-        return f.readline().rstrip('\n')
-
+    with open('./README.org') as file:
+        while line := file.readline():
+            if match := re.search(r'^#\+title: (.*)',  line.rstrip()):
+                return match.group(1)
+            return "MISSING TITLE in ./README.org"
 
 def longDescription():
-    with open('README.rst') as f:
-        return f.read()
+    try:
+        import pypandoc
+    except ImportError:
+        result = "warning: pypandoc module not found, could not convert to RST"
+        return result
+    return pypandoc.convert_file('README.org', 'rst')
 
+####+BEGIN: b:py3:pypi/nextVersion :increment 0.01
 
-# from setuphelpers import get_version, require_python
-# from setuptools import setup
+####+END:
 
-
-# __version__ = get_version('unisos/icm/__init__.py')
-__version__ = '0.4'
-
+####+BEGIN: b:py3:pypi/requires :extras ("rpyc" "bisos.transit")
 
 requires = [
-    'rpyc',
-    'bisos',
-    'bisos.transit',
+"blee",
+"blee.csPlayer",
+"bisos",
+"bisos.b",
+"bisos.banna",
+"bisos.common",
+"bisos.transit",
 ]
+####+END:
 
-
-# print('Setting up under python version %s' % sys.version)
-# print('Requirements: %s' % ','.join(requires))
+####+BEGIN: b:py3:pypi/scripts :comment ""
 
 scripts = [
-    "./bin/csExamples.cs"
+'./bin/facter.cs',
+'./bin/roInv-facter.cs',
+'./bin/roPerf-facter.cs',
 ]
+####+END:
 
 
 setuptools.setup(
@@ -43,6 +53,7 @@ setuptools.setup(
     # namespace_packages=['bisos'],
     packages=setuptools.find_packages(),
     scripts=scripts,
+    requires=requires,
     include_package_data=True,
     zip_safe=False,
     author='Mohsen Banan',
