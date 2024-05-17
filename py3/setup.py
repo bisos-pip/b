@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import setuptools
-# import sys
 import re
 
 
@@ -22,17 +21,18 @@ def longDescription():
 
 ####+BEGIN: b:py3:pypi/nextVersion :increment 0.01
 
+def pkgVersion(): return '0.43'
 ####+END:
 
-####+BEGIN: b:py3:pypi/requires :extras ("rpyc" "bisos.transit")
+####+BEGIN: b:py3:pypi/requires :extras ("rpyc")
 
 requires = [
 "blee",
-"blee.csPlayer",
+"blee.icmPlayer",
 "bisos",
-"bisos.b",
-"bisos.banna",
-"bisos.common",
+"bisos.examples",
+"bisos.transit",
+"rpyc",
 "bisos.transit",
 ]
 ####+END:
@@ -40,16 +40,15 @@ requires = [
 ####+BEGIN: b:py3:pypi/scripts :comment ""
 
 scripts = [
-'./bin/facter.cs',
-'./bin/roInv-facter.cs',
-'./bin/roPerf-facter.cs',
+'./bin/csExamples.cs',
+'./bin/csIcmExamples.cs',
 ]
 ####+END:
 
 
 setuptools.setup(
     name='bisos.b',
-    version=__version__,
+    version=pkgVersion(),
     # namespace_packages=['bisos'],
     packages=setuptools.find_packages(),
     scripts=scripts,
