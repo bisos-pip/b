@@ -1913,7 +1913,7 @@ def roPerf_examples(
     if sectionTitle == 'default': cs.examples.menuChapter('*Remote Operations -- Performer SAP Create and Manage*')
 
     cmnd('perf_sapCreate', pars=od([('svcName', svcName), ('perfName', perfName), ('rosmu', rosmu)]))
-    literal(f"""csRo-manage.cs --svcName={svcName} --rosmu={rosmu}  -i ro_fps list""")
+    literal(f"""csRo-manage.cs --svcName="{svcName}" --perfName="{perfName}" --rosmu="{rosmu}" -i ro_fps list""")
     cmnd('csPerformer', pars=od([('svcName', svcName)]), comment="&  #  in background Start rpyc CS Service" )
 
 
