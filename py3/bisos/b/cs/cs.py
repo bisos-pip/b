@@ -340,7 +340,8 @@ class Cmnd(object):
             argPosition,
             cmndArgsSpecDict,
             effectiveArgsList,
-    ) -> list[str]:
+            # ) -> list[str]:
+    ) -> str:
 
         def argDefaultGet(
                 cmndArgsSpecDict,
