@@ -1726,10 +1726,15 @@ def roInvokeCmndAtSap(
         **cmndKwArgs,
     )
     opResult = cmndKwArgs['cmndOutcome']
-    resultsLen = len(opResult.results)
     resultsType = type(opResult.results)
+    resultsLen = 0
+    try:
+        resultsLen = len(opResult.results)
+    except Exception:
+        pass
     print(f"roOutcomeOf {cmndClass.__name__}::  opResult.results type = {resultsType} :: opResult.results length = {resultsLen}", file=sys.stderr)
     return rpycInvResult
+
 
 
 ####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "roEnable" :comment "" :parsMand "" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""

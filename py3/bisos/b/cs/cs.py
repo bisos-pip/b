@@ -979,6 +979,12 @@ def csuList_commonParamsSpecify(
             parsSpecFunc = getattr(module, "commonParamsSpecify")
             parsSpecFunc(csParams)
 
+    module = sys.modules['__main__']
+    if hasattr(module, "commonParamsSpecify"):
+        parsSpecFunc = getattr(module, "commonParamsSpecify")
+        parsSpecFunc(csParams)
+
+
     return
 
 
