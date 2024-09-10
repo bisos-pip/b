@@ -17,10 +17,10 @@ based on the PyCS-BISOS-Framework.
 
 The above layering is captured below:
 
-   - BISOS-Applications    ::  bisos.marmee
-   - PyCS-BISOS-Framework  ::  bisos.bpo bisos.aas
-   - PyCS-Tramework        ::  bisos.currents
-   - PyCS-Foundation       ::  bisos.b
+   | BISOS-Applications   | bisos.marmee        |
+   | PyCS-BISOS-Framework | bisos.bpo bisos.aas |
+   | PyCS-Tramework       | bisos.currents      |
+   | PyCS-Foundation      | bisos.b             |
 
 * Table of Contents     :TOC:
 - [[#overview][Overview]]
