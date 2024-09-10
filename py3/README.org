@@ -9,11 +9,18 @@ for development of Command-Services based on the general model of
 
 PyCS-Foundation is further enhanced with other packages and tools forming *PyCS-Framework*.
 PyCS-Framework are a set of Standalone-BISOS-Packages.
+
 PyCS-Framework can be used in python environments without BISOS.
 
-PyCS-Framework is further enhanced with BISOS packages and tools forming
-*PyCS-BISOS-Framework*. Python BISOS-Applications and BISOS-Capabilities are all
+Python BISOS-Applications and BISOS-Capabilities are all
 based on the PyCS-BISOS-Framework.
+
+The above layering is captured below:
+
+   - BISOS-Applications    ::  bisos.marmee
+   - PyCS-BISOS-Framework  ::  bisos.bpo bisos.aas
+   - PyCS-Tramework        ::  bisos.currents
+   - PyCS-Foundation       ::  bisos.b
 
 * Table of Contents     :TOC:
 - [[#overview][Overview]]
