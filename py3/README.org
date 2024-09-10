@@ -19,7 +19,7 @@ The above layering is captured below:
 
    | BISOS-Applications   | bisos.marmee        |
    | PyCS-BISOS-Framework | bisos.bpo bisos.aas |
-   | PyCS-Tramework       | bisos.currents      |
+   | PyCS-Framework       | bisos.currents      |
    | PyCS-Foundation      | bisos.b             |
 
 * Table of Contents     :TOC:
