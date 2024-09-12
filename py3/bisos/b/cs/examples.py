@@ -72,6 +72,9 @@ from bisos import b
 
 from bisos.b import cs
 
+# from bisos.b import fpCls
+# from bisos.b.cs import ro
+
 import collections
 
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 0 :sep nil :title "G_examples" :anchor "" :extraInfo "*G_commonExamples -- Common features included in G_examples() + devExamples(), etc*"

@@ -1,6 +1,12 @@
-#+title: bisos.b:  PyCS-Foundation Package --  Python Commands and Services Package
+#+title: bisos.b:  PyCS-Foundation Package --  Python Commands and Services
 #+DATE: <2024-02-19 Mon 16:27>
 #+AUTHOR: Mohsen BANAN
+
+
+~Blee Panel Controls~: [[elisp:(show-all)][Show-All]] | [[elisp:(org-shifttab)][Overview]] | [[elisp:(progn (org-shifttab) (org-content))][Content]] | [[elisp:(delete-other-windows)][(1)]] | [[elisp:(progn (save-buffer) (kill-buffer))][S&Q]] | [[elisp:(save-buffer)][Save]]  | [[elisp:(kill-buffer)][Quit]]  | [[elisp:(bury-buffer)][Bury]]  \\
+~Panel Links~:  [[file:../_nodeBase_/fullUsagePanel-en.org][Blee Panel]] | [[file:./py3/panels/bisos.facter/_nodeBase_/fullUsagePanel-en.org][Github Panel]]
+~See Also~:  [[https://github.com/bisos-pip/b][At Github]] | [[https://pypi.org/project/bisos.facter][At PYPI]] | [[https://github.com/bisos-pip/pycs][bisos.PyCS]] | [[https://github.com/bisos-pip/cmdb][bisos.cmdb]]
+
 
 * Overview
 *bisos.b* (*PyCS-Foundation*) is a python package which functions as a foundation
@@ -15,23 +21,21 @@ PyCS-Framework can be used in python environments without BISOS.
 Python BISOS-Applications and BISOS-Capabilities are all
 based on the PyCS-BISOS-Framework.
 
-The above layering is captured below:
+This layering is captured below:
 
-   | BISOS-Applications   | bisos.marmee        |
-   | PyCS-BISOS-Framework | bisos.bpo bisos.aas |
-   | PyCS-Framework       | bisos.currents      |
-   | PyCS-Foundation      | bisos.b             |
+   | PyCS-BISOS-Applications | bisos.marmee        |
+   | PyCS-BISOS-Framework    | bisos.bpo bisos.aas |
+   | PyCS-Framework          | bisos.currents      |
+   | PyCS-Foundation         | bisos.b             |
 
 * Table of Contents     :TOC:
 - [[#overview][Overview]]
 - [[#about-bisos----bystar-internet-services-operating-system----and-bystar-de][About BISOS -- ByStar Internet Services Operating System -- and ByStar DE]]
-- [[#pycs-complete-framework][PyCS Complete Framework]]
 - [[#concept-of-command-services-and-expection-complete-operations-ecp][Concept of Command-Services and Expection Complete Operations (ECP)]]
   - [[#current-and-prior-art][Current and Prior Art]]
   - [[#our-model-and-terminology-for-remote-operation][Our model and terminology for Remote-Operation]]
   - [[#pycs-python-command-servicesbisoss-integration-framework][PyCS (Python Command Services):BISOS's Integration Framework]]
   - [[#commands-services-as-python-ecp][Commands-Services as Python ECP]]
-- [[#bisosfacter-as-a-standalone-piece-of-bisos][bisos.facter as a Standalone Piece of BISOS]]
 - [[#installation][Installation]]
   - [[#with-pip][With pip]]
   - [[#with-pipx][With pipx]]
@@ -59,8 +63,6 @@ foundation for *The Libre-Halaal ByStar Digital Ecosystem* which is described as
 a cure for losses of autonomy and privacy that we are experiencing in a book
 titled: [[https://github.com/bxplpc/120033][Nature of Polyexistentials]]
 
-* PyCS Complete Framework
-
 * Concept of Command-Services and Expection Complete Operations (ECP)
 
 ** Current and Prior Art
@@ -74,20 +76,21 @@ facilitate development of Web-APIs/Web-Services/REST-APIs/OpenAPI/Swagger based
 python clients and servers. These include: FastAPI (based on Pydantic), gRPC,
 pyswagger, Bravado, Flask-API, djangorestframework, RPyC, etc.
 
-These common conventional approaches have several shorcomings. These include:
-
+These common conventional approaches have several shorcomings which include:
 
 - The model and terminology of Web-APIs/Web-Services/REST-APIs/OpenAPI/SOAP/gRPC is
   ill directed. The proper model and terminology is that of *Remote Operations*.
 
-- All of the web services models mix web with remote ops at protocol layer.
-  Particularly true of OpenAPI.
+- All of the web services models mix web with remote operations at protocol layer.
+  This is particularly true of OpenAPI and is wrong.
 
-- Confusing Client Server with invoke/perform
+- All of the web services models confuse the Remote Operations invoke/perform
+  architecture with the Client/Server architecture. This modeling and
+  terminology error has caused immense confusion.
 
-- CLI development and API development have a great deal in common and can be merged.
+- The CLI development and API development frameworks have a great deal in common and can be merged.
 
-- Lack of framework
+- None of the exisiting frameworks combine CLI development and API development.
 
 ** Our model and terminology for Remote-Operation
 
@@ -95,9 +98,8 @@ Our model and terminology for Remote-Operations is based
 on:
 
 #+BEGIN_QUOTE
-  *X.880: Remote Operations: Model, Notation and Service Definition*
+  *X.880 ( ISO/IEC 13712-1): Remote Operations: Model, Notation and Service Definition*
 #+END_QUOTE
-
 
 ITU X.880 and X.881 which are harmonized with ISO/IEC 13712-1, provide
 a model, terminology and service definitions for Remote Operations.
@@ -106,8 +108,8 @@ These date back to mid 1990s
 Such a valuable formal model and terminology is absent in the Web
 Services world and the OpenAIP/Swagger world.
 
-The RO-Verifier software exposes web services capabilities in the
-Remote Operations model which conform to the ROSE terminology.
+Our model and terminology is based on the Remote Operations Services Element
+(ROSE).
 
 
 ** PyCS (Python Command Services):BISOS's Integration Framework
@@ -268,11 +270,6 @@ bisos.facter uses the PyCS Framework to:
 
 What is unique in the PyCS Framework is that these four models are all
 a single abstraction.
-
-
-
-
-* bisos.facter as a Standalone Piece of BISOS
 
 
 * Installation
