@@ -422,12 +422,15 @@ class Cmnd(object):
             argChoices = cmndArgSpec.argChoicesGet()
 
             if not argChoices:
+                print("MMM")
                 continue
 
             if argChoices == "any":
                 continue
 
             min, max = cs.arg.cmndArgPositionToMinAndMax(argPosition)
+
+            print(f"{min} {max} -- minMax")
 
             if min == None:
                 # io.eh.problem()
@@ -465,6 +468,7 @@ class Cmnd(object):
                                 argChoices,
                             )
 
+        print(f"{retVal} YYY--- ")
         return retVal
 
     def cmndCallTimeKwArgs(self,):
@@ -653,13 +657,28 @@ if =rtInv= is cli, assume that it has already been validated.
 Are nu of args in range?
 Are args values as expected?
 
-*** TODO Place holder,
+*** TODO Place holder,outcome.error = b.op.OpError.CmndLineUsageError
+            outcome.errInfo = errorStr
+
         #+end_org """
 
-        if argsList:
+        if (errorStr := self.cmndArgsLenValidate()):
+            outcome.error = b.op.OpError.CmndLineUsageError
+            outcome.errInfo = errorStr
             return outcome
-        # Validation comes here
+
+        cmndArgsSpecDict = self.cmndArgsSpec()
+
+        if self.cmndArgsValidate(argsList, cmndArgsSpecDict, outcome=outcome) == False:
+            outcome.error = b.op.OpError.CmndLineUsageError
+            outcome.errInfo = "invocationValidateArgs"
+
         return outcome
+
+        # if argsList:
+            # return outcome
+        # Validation comes here
+        # return outcome
 
 
 ####+BEGIN: b:py3:cs:method/typing :methodName "invocationValidate" :methodType "eType"  :deco "default"
@@ -691,7 +710,7 @@ From within cmnd method -- or later from within a decorator,
 
         self.rtInv = rtInv
         self.cmndOutcome = outcome
-        return outcome
+        # return outcome
 
         if callParamDict is not None:
             self.invocationValidateParams(rtInv, outcome, callParamDict)
@@ -940,6 +959,8 @@ class AuxInvokationContext(enum.Enum):
 #+end_org """
 ####+END
 
+G_csuList = []
+
 ####+BEGIN: b:py3:cs:func/typing :funcName "csuList_importedModules" :funcType "extTyped" :deco "track"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /csuList_importedModules/  deco=track  [[elisp:(org-cycle)][| ]]
@@ -953,8 +974,10 @@ def csuList_importedModules(
 ** [[elisp:(org-cycle)][| *DocStr | ] Later we may do more.
     #+end_org """
 
+    global G_csuList
     #print(csuList)
-    return csuList
+    G_csuList = G_csuList + csuList
+    return G_csuList
 
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "csuList_commonParamsSpecify" :funcType "extTyped" :deco "track"
@@ -1571,9 +1594,9 @@ def perfOutcomeReportRo(
         return
 
     if cmndOutcome.results is not None:
-        sys.stdout.write(f"Performer Outcome:: {cmndOutcome.results}\n")
+        b_io.log.here(f"Performer Outcome:: {cmndOutcome.results}\n")
     else:
-        sys.stderr.write("Rpyc Performer -- No Results\n")
+        b_io.log.here("Rpyc Performer -- No Results\n")
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "reportOp_roPerfParams" :funcType "extTyped" :deco ""
 """ #+begin_org
@@ -1702,7 +1725,7 @@ def invokesProcAllClassedInvModel(
         #
 
         # BUG, NOTYET, io.eh.problem goes to -v 20
-        io.eh.io.eh.problem_info("Invalid Action: {invoke}"
+        b_io.eh.problem_info("Invalid Action: {invoke}"
                         .format(invoke=invoke))
 
         print(("Invalid Action: {invoke}"

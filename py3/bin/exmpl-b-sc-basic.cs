@@ -90,19 +90,20 @@ csInfo['cmndParts'] = "IcmCmndParts[common] IcmCmndParts[param]"
 ####+END:
 
 
-# import os
+####+BEGIN: b:py3:cs:framework/imports :basedOn "classification"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CsFrmWrk   [[elisp:(outline-show-subtree+toggle)][||]] *Imports* =Based on Classification=cs-mu=
+#+end_org """
+from bisos import b
+from bisos.b import cs
+from bisos.b import b_io
+from bisos.common import csParam
+
 import collections
-
-####+BEGINNOT: bx:dblock:global:file-insert-cond :cond "./blee.el" :file "/bisos/apps/defaults/update/sw/icm/py/importUcfIcmBleepG.py"
-from bisos import cs
-from bisos import io
-from bisos import bpf
-
-#G = cs.globalContext.get()
-
-from blee.icmPlayer import bleep
 ####+END:
 
+
+# import os
 import collections
 
 """ #+begin_org
@@ -110,6 +111,7 @@ import collections
 #+BEGIN_SRC emacs-lisp
 (setq  b:py:cs:csuList
   (list
+   "bisos.b.cs.ro"
    "blee.icmPlayer.bleep"
    "bisos.examples.pattern_csu"
    "bisos.examples.pyRunAs_csu"
@@ -121,18 +123,18 @@ import collections
 #+END_SRC
 
 #+RESULTS:
-| blee.icmPlayer.bleep | bisos.examples.pattern_csu | bisos.examples.pyRunAs_csu | bisos.examples.io_csu | bisos.examples.parsArgsStdinCmndResult_csu | bisos.examples.subProcOps_csu | bisos.examples.platformConfigs_csu |
+| bisos.b.cs.ro | blee.icmPlayer.bleep | bisos.examples.pattern_csu | bisos.examples.pyRunAs_csu | bisos.examples.io_csu | bisos.examples.parsArgsStdinCmndResult_csu | bisos.examples.subProcOps_csu | bisos.examples.platformConfigs_csu |
 
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CsFrmWrk   [[elisp:(outline-show-subtree+toggle)][||]] /csuList emacs-list Specifications/  [[elisp:(blee:org:code-block/above-run)][Eval Above:]] [[elisp:(org-cycle)][| ]]
 
 #+end_org """
 
-
-####+BEGIN: b:py:cs:framework/csuListProc :pyImports t :csuImports t :csuParams t
+####+BEGIN: b:py3:cs:framework/csuListProc :pyImports t :csuImports t :csuParams t :csmuParams nil
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CsFrmWrk   [[elisp:(outline-show-subtree+toggle)][||]] ~Process CSU List~ with 7 in csuList pyImports=t csuImports=t csuParams=t
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CsFrmWrk   [[elisp:(outline-show-subtree+toggle)][||]] =Process CSU List= with /8/ in csuList pyImports=t csuImports=t csuParams=t
 #+end_org """
 
+from bisos.b.cs import ro
 from blee.icmPlayer import bleep
 from bisos.examples import pattern_csu
 from bisos.examples import pyRunAs_csu
@@ -142,7 +144,7 @@ from bisos.examples import subProcOps_csu
 from bisos.examples import platformConfigs_csu
 
 
-csuList = [ 'blee.icmPlayer.bleep', 'bisos.examples.pattern_csu', 'bisos.examples.pyRunAs_csu', 'bisos.examples.io_csu', 'bisos.examples.parsArgsStdinCmndResult_csu', 'bisos.examples.subProcOps_csu', 'bisos.examples.platformConfigs_csu', ]
+csuList = [ 'bisos.b.cs.ro', 'blee.icmPlayer.bleep', 'bisos.examples.pattern_csu', 'bisos.examples.pyRunAs_csu', 'bisos.examples.io_csu', 'bisos.examples.parsArgsStdinCmndResult_csu', 'bisos.examples.subProcOps_csu', 'bisos.examples.platformConfigs_csu', ]
 
 g_importedCmndsModules = cs.csuList_importedModules(csuList)
 
@@ -153,30 +155,25 @@ def g_extraParams():
 
 ####+END:
 
-####+BEGINNOT: b:py3:cs:cmnd/classHead :cmndName "examples" :comment "FrameWrk: ICM Examples" :parsMand "" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "examples" :comment "FrameWrk: ICM Examples" :parsMand "" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc    [[elisp:(outline-show-subtree+toggle)][||]] <<example>> =FrameWrk: ICM Examples= parsMand= parsOpt= argsMin=0 argsMax=0 asFunc= interactive=  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<examples>>  *FrameWrk: ICM Examples*  =verify= ro=cli   [[elisp:(org-cycle)][| ]]
 #+end_org """
 class examples(cs.Cmnd):
     cmndParamsMandatory = [ ]
     cmndParamsOptional = [ ]
     cmndArgsLen = {'Min': 0, 'Max': 0,}
 
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def cmnd(self,
              rtInv: cs.RtInvoker,
-             cmndOutcome: bpf.op.Outcome,
-    ) -> bpf.op.Outcome:
-        cmndOutcome = self.getOpOutcome()
-        if rtInv.outs:
-            if not self.cmndLineValidate(outcome=cmndOutcome):
-                return cmndOutcome
-
-        callParamsDict = {}
-        if not cs.cmndCallParamsValidate(callParamsDict, rtInv, outcome=cmndOutcome):
-            return cmndOutcome
-
+             cmndOutcome: b.op.Outcome,
+    ) -> b.op.Outcome:
         """FrameWrk: ICM Examples"""
+        failed = b_io.eh.badOutcome
+        callParamsDict = {}
+        if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, None).isProblematic():
+            return failed(cmndOutcome)
 ####+END:
         def cpsInit(): return collections.OrderedDict()
         def menuItem(verbosity): cs.examples.cmndInsert(cmndName, cps, cmndArgs, verbosity=verbosity) # 'little' or 'none'
@@ -222,22 +219,23 @@ class examples(cs.Cmnd):
 
 ####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "examplesOld" :comment "FrameWrk: ICM Examples" :parsMand "" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<examplesOld>> =FrameWrk: ICM Examples=parsMand= parsOpt= argsMin=0 argsMax=0 pyInv=
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<examplesOld>>  *FrameWrk: ICM Examples*  =verify= ro=cli   [[elisp:(org-cycle)][| ]]
 #+end_org """
 class examplesOld(cs.Cmnd):
     cmndParamsMandatory = [ ]
     cmndParamsOptional = [ ]
     cmndArgsLen = {'Min': 0, 'Max': 0,}
 
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def cmnd(self,
              rtInv: cs.RtInvoker,
-             cmndOutcome: bpf.op.Outcome,
-    ) -> bpf.op.Outcome:
+             cmndOutcome: b.op.Outcome,
+    ) -> b.op.Outcome:
         """FrameWrk: ICM Examples"""
+        failed = b_io.eh.badOutcome
         callParamsDict = {}
         if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, None).isProblematic():
-            return io.eh.badOutcome(cmndOutcome)
+            return failed(cmndOutcome)
 ####+END:
         def cpsInit(): return collections.OrderedDict()
         def menuItem(verbosity): cs.examples.cmndInsert(cmndName, cps, cmndArgs, verbosity=verbosity) # 'little' or 'none'
@@ -283,22 +281,23 @@ class examplesOld(cs.Cmnd):
 
 ####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "dirCreateExamples" :comment "" :parsMand "" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<dirCreateExamples>>parsMand= parsOpt= argsMin=0 argsMax=0 pyInv=
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<dirCreateExamples>>  =verify= ro=cli   [[elisp:(org-cycle)][| ]]
 #+end_org """
 class dirCreateExamples(cs.Cmnd):
     cmndParamsMandatory = [ ]
     cmndParamsOptional = [ ]
     cmndArgsLen = {'Min': 0, 'Max': 0,}
 
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def cmnd(self,
              rtInv: cs.RtInvoker,
-             cmndOutcome: bpf.op.Outcome,
-    ) -> bpf.op.Outcome:
+             cmndOutcome: b.op.Outcome,
+    ) -> b.op.Outcome:
 
+        failed = b_io.eh.badOutcome
         callParamsDict = {}
         if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, None).isProblematic():
-            return io.eh.badOutcome(cmndOutcome)
+            return failed(cmndOutcome)
 ####+END:
         docStr = """
 ***** [[elisp:(org-cycle)][| *CmndDesc:* | ]] Various examples for creation of directories.
@@ -306,7 +305,7 @@ class dirCreateExamples(cs.Cmnd):
         """
         if self.docStrClassSet(docStr,): return cmndOutcome
 
-        bpf.dir.createIfNotThere("/tmp/t1")
+        # bpf.dir.createIfNotThere("/tmp/t1")
 
         return cmndOutcome
 
@@ -314,22 +313,23 @@ class dirCreateExamples(cs.Cmnd):
 
 ####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "exceptionExamples" :comment "" :parsMand "" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<exceptionExamples>>parsMand= parsOpt= argsMin=0 argsMax=0 pyInv=
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<exceptionExamples>>  =verify= ro=cli   [[elisp:(org-cycle)][| ]]
 #+end_org """
 class exceptionExamples(cs.Cmnd):
     cmndParamsMandatory = [ ]
     cmndParamsOptional = [ ]
     cmndArgsLen = {'Min': 0, 'Max': 0,}
 
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def cmnd(self,
              rtInv: cs.RtInvoker,
-             cmndOutcome: bpf.op.Outcome,
-    ) -> bpf.op.Outcome:
+             cmndOutcome: b.op.Outcome,
+    ) -> b.op.Outcome:
 
+        failed = b_io.eh.badOutcome
         callParamsDict = {}
         if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, None).isProblematic():
-            return io.eh.badOutcome(cmndOutcome)
+            return failed(cmndOutcome)
 ####+END:
 
         bpf.exception.terminate("PREV-Term", "NEXT-Term", "Some Termination Message")
@@ -348,22 +348,23 @@ class exceptionExamples(cs.Cmnd):
 
 ####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "allExamplesAsTests" :comment "" :parsMand "" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<allExamplesAsTests>>parsMand= parsOpt= argsMin=0 argsMax=0 pyInv=
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<allExamplesAsTests>>  =verify= ro=cli   [[elisp:(org-cycle)][| ]]
 #+end_org """
 class allExamplesAsTests(cs.Cmnd):
     cmndParamsMandatory = [ ]
     cmndParamsOptional = [ ]
     cmndArgsLen = {'Min': 0, 'Max': 0,}
 
-    @io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
     def cmnd(self,
              rtInv: cs.RtInvoker,
-             cmndOutcome: bpf.op.Outcome,
-    ) -> bpf.op.Outcome:
+             cmndOutcome: b.op.Outcome,
+    ) -> b.op.Outcome:
 
+        failed = b_io.eh.badOutcome
         callParamsDict = {}
         if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, None).isProblematic():
-            return io.eh.badOutcome(cmndOutcome)
+            return failed(cmndOutcome)
 ####+END:
         self.cmndDocStr(f""" #+begin_org \
 ** [[elisp:(org-cycle)][| *CmndDesc:* | ]] This is an example of a CmndSvc with lots of features.
@@ -371,31 +372,32 @@ class allExamplesAsTests(cs.Cmnd):
 
         myName = cs.G.icmMyName()
 
-        verbosity = " -v 20 "
+        #verbosity = " -v 20 "
+        verbosity = " -v 30 "
 
-        if bpf.subProc.WOpW(invedBy=self, log=1).bash(
+        if b.subProc.WOpW(invedBy=self, log=1).bash(
                 f"""{myName}  {verbosity} -i sameInstanceEx""",
-        ).isProblematic():  return(io.eh.badOutcome(cmndOutcome))
+        ).isProblematic():  return(b_io.eh.badOutcome(cmndOutcome))
 
-        if bpf.subProc.WOpW(invedBy=self, log=1).bash(
+        if b.subProc.WOpW(invedBy=self, log=1).bash(
                 f"""{myName}  {verbosity} -i runAsUser""",
-        ).isProblematic():  return(io.eh.badOutcome(cmndOutcome))
+        ).isProblematic():  return(b_io.eh.badOutcome(cmndOutcome))
 
-        if bpf.subProc.WOpW(invedBy=self, log=1).bash(
+        if b.subProc.WOpW(invedBy=self, log=1).bash(
                 f"""{myName}  {verbosity} -i outStreamsExamples""",
-        ).isProblematic():  return(io.eh.badOutcome(cmndOutcome))
+        ).isProblematic():  return(b_io.eh.badOutcome(cmndOutcome))
 
         # if bpf.subProc.WOpW(invedBy=self, log=1).bash(
         #         f"""{myName}  {verbosity} -i subProcOpsWithArgs echo this and that""",
         # ).isProblematic():  return(io.eh.badOutcome(cmndOutcome))
 
-        if bpf.subProc.WOpW(invedBy=self, log=1).bash(
+        if b.subProc.WOpW(invedBy=self, log=1).bash(
                 f"""{myName}  {verbosity} --par1Example="par1Mantory" --par2Example="par2Optional" -i parsArgsStdinCmndResult""",
-        ).isProblematic():  return(io.eh.badOutcome(cmndOutcome))
+        ).isProblematic():  return(b_io.eh.badOutcome(cmndOutcome))
 
-        if bpf.subProc.WOpW(invedBy=self, log=1).bash(
+        if b.subProc.WOpW(invedBy=self, log=1).bash(
                 f"""{myName}  {verbosity} -i pyCmndInvOf_parsArgsStdinCmndResult""",
-        ).isProblematic():  return(io.eh.badOutcome(cmndOutcome))
+        ).isProblematic():  return(b_io.eh.badOutcome(cmndOutcome))
 
         return cmndOutcome
 

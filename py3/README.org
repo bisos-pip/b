@@ -69,7 +69,7 @@ titled: [[https://github.com/bxplpc/120033][Nature of Polyexistentials]]
 
 Conventionally, a good number of packages and frameworks have been produced to
 facilitate development of CLI based python applications. These include:
-Click, Typer (based on Pydantic), [[https://docs.python.org/3/library/argparse.html][argparse]], Docopt, fire, etc.
+Click, Typer (based on Pydantic), cyto,  [[https://docs.python.org/3/library/argparse.html][argparse]], Docopt, fire, plumbum, cleo, etc.
 
 Conventionally, a good number of packages and frameworks have been produced to
 facilitate development of Web-APIs/Web-Services/REST-APIs/OpenAPI/Swagger based

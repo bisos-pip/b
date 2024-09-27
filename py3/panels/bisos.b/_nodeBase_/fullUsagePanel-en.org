@@ -51,7 +51,7 @@ SCHEDULED: <2022-08-28 Sun>
 https://opentelemetry-python-contrib.readthedocs.io/en/latest/instrumentation/logging/logging.html
 https://stackify.com/a-basic-introduction-to-opentelemetry-python/
 https://docs.python.org/3/howto/logging-cookbook.html
-https://docs.python.org/3/howto/logging-cookbook.html
+https://github.com/jordonbiondo/call-log/blob/master/call-log.el
 ** import traceback
 import logging
 
