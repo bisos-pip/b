@@ -133,6 +133,7 @@ class commonExamples(cs.Cmnd):
 @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
 def commonBrief(
 ####+END:
+        excludeRoExamples=True,
         interactive=False,
 ) -> None:
     """ #+begin_org
@@ -150,34 +151,35 @@ def commonBrief(
     print(( G_myName + " -i visit"))
     print(( """emlVisit -v -n showRun -i gotoPanel """ + G_myFullName))
 
-    if cs.ro.csMuIsDirect() is True:
-        menuChapter('/Remote Operations -- Performer And Invoker/')
+    if excludeRoExamples != True:
+        if cs.ro.csMuIsDirect() is True:
+            menuChapter('/Remote Operations -- Performer And Invoker/')
 
-        # print(f"""csRo-manage.cs --perfName="localhost" --rosmu="{G_myName}"  -i ro_sapCreate""")
-        # print(f"""{G_myName} --perfName="localhost" -i csPerformer  & # in background Start rpyc CS Service""")
-        # print(f"""csRo-manage.cs --perfName="localhost" --rosmu="{G_myName}"  -i ro_fps list""")
-        # print(f"""{G_myName}  --perfName="localhost" -i examples""")
+            # print(f"""csRo-manage.cs --perfName="localhost" --rosmu="{G_myName}"  -i ro_sapCreate""")
+            # print(f"""{G_myName} --perfName="localhost" -i csPerformer  & # in background Start rpyc CS Service""")
+            # print(f"""csRo-manage.cs --perfName="localhost" --rosmu="{G_myName}"  -i ro_fps list""")
+            # print(f"""{G_myName}  --perfName="localhost" -i examples""")
 
-        print(( G_myName + " -i roEnable" + "    # Create Symlinks For roPerf- and roInv-"))
-        print(( "roPerf-" + G_myName + "    # Remote Operations Performer"))
-        print(( "roInv-" + G_myName  + "    # Remote Operations Invoker"))
+            print(( G_myName + " -i roEnable" + "    # Create Symlinks For roPerf- and roInv-"))
+            print(( "roPerf-" + G_myName + "    # Remote Operations Performer"))
+            print(( "roInv-" + G_myName  + "    # Remote Operations Invoker"))
 
-    elif cs.ro.csMuIsPerformer() is True:
-        menuChapter('/Direct Commands and roInvoker/')
-        directName = cs.ro.csMuDirectName()
-        invokerName = cs.ro.csMuInvokerName()
-        print(( directName + "    # Direct Commands"))
-        print(( invokerName + "   # Remote Operations Invoker"))
+        elif cs.ro.csMuIsPerformer() is True:
+            menuChapter('/Direct Commands and roInvoker/')
+            directName = cs.ro.csMuDirectName()
+            invokerName = cs.ro.csMuInvokerName()
+            print(( directName + "    # Direct Commands"))
+            print(( invokerName + "   # Remote Operations Invoker"))
 
-    elif cs.ro.csMuIsInvoker() is True:
-        menuChapter('/Direct Commands and roInvoker/')
-        directName = cs.ro.csMuDirectName()
-        performerName = cs.ro.csMuPerformerName()
-        print(( directName + "    # Direct Commands"))
-        print(( performerName + "   # Remote Operations Performer"))
+        elif cs.ro.csMuIsInvoker() is True:
+            menuChapter('/Direct Commands and roInvoker/')
+            directName = cs.ro.csMuDirectName()
+            performerName = cs.ro.csMuPerformerName()
+            print(( directName + "    # Direct Commands"))
+            print(( performerName + "   # Remote Operations Performer"))
 
-    else:
-        oops()
+        else:
+            oops()
 
 
     # menuChapter('*ICM Blee Player Invokations*')

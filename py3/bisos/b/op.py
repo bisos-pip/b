@@ -196,6 +196,7 @@ opResults = opOutcome.results
                  opError=None,
                  opErrInfo=None,
                  opResults=None,
+                 opReports=None,
                  opStdout=None,
                  opStderr=None,
                  opStdcmnd=None,
@@ -205,6 +206,7 @@ opResults = opOutcome.results
         self.error = opError
         self.errInfo  = opErrInfo
         self.results = opResults
+        self.reports = opReports     # NOTYET, 2024, string reports of what happened
         self.stdout = opStdout
         self.stdoutRstrip = opStdout
         self.stderr = opStderr
@@ -250,6 +252,18 @@ opResults = opOutcome.results
             return True
         else:
             return False
+
+    def adopt(self):
+        pass   # NOTYET, record the callers identity
+        return self
+
+    def report(self,
+               info: str,
+               ):
+        # NOTYET, These should go in a list
+        print(info)
+        return self
+
 
 
     def log(self):

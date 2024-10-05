@@ -422,7 +422,6 @@ class Cmnd(object):
             argChoices = cmndArgSpec.argChoicesGet()
 
             if not argChoices:
-                print("MMM")
                 continue
 
             if argChoices == "any":
@@ -430,7 +429,7 @@ class Cmnd(object):
 
             min, max = cs.arg.cmndArgPositionToMinAndMax(argPosition)
 
-            print(f"{min} {max} -- minMax")
+            #  print(f"{min} {max} -- minMax")
 
             if min == None:
                 # io.eh.problem()
@@ -467,8 +466,6 @@ class Cmnd(object):
                                 cmndLineArgValue,
                                 argChoices,
                             )
-
-        print(f"{retVal} YYY--- ")
         return retVal
 
     def cmndCallTimeKwArgs(self,):
@@ -661,6 +658,9 @@ Are args values as expected?
             outcome.errInfo = errorStr
 
         #+end_org """
+
+        if rtInv.mode != 'Cli':
+            return outcome
 
         if (errorStr := self.cmndArgsLenValidate()):
             outcome.error = b.op.OpError.CmndLineUsageError
