@@ -69,7 +69,7 @@ from bisos.b.cs import ro
 
 from .subProc import *
 
-# from .pyRunAs import *
+from .pyRunAs import *
 
 from .niche import *
 

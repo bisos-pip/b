@@ -155,11 +155,11 @@ def getConsoleLevel(
     return level
 
 
-####+BEGIN: b:py3:class/decl :className "Control" :superClass "" :comment "" :classType "basic"
+####+BEGIN: b:py3:class/decl :className "_Control" :superClass "" :comment "" :classType "basic"
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-basic  [[elisp:(outline-show-subtree+toggle)][||]] /Control/  superClass=object  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-basic  [[elisp:(outline-show-subtree+toggle)][||]] /_Control/  superClass=object  [[elisp:(org-cycle)][| ]]
 #+end_org """
-class Control(object):
+class _Control(object):
 ####+END:
     """ #+begin_org
 ** [[elisp:(org-cycle)][| DocStr| ]]  ICM Logging on top of basic Logging.
@@ -225,8 +225,7 @@ https://docs.python.org/3/howto/logging-cookbook.html#adding-contextual-informat
         formatter = logging.Formatter(FORMAT_STR)
         fh = self.__class__.fh
         #fh.formatter = formatter
-        if fh:
-            fh.setFormatter(formatter)
+        fh.setFormatter(formatter)
         ch = self.__class__.ch
         #ch.formatter = formatter
         if ch:
@@ -302,7 +301,7 @@ https://docs.python.org/3/howto/logging-cookbook.html#adding-contextual-informat
         return self.__class__.logger
 
 
-controller = pattern.singleton(Control)
+controller = pattern.singleton(_Control)
 
 ####+BEGIN: bx:cs:py3:section :title "LOG_: Significant Event Which Is Not An Error"
 """ #+begin_org
@@ -349,44 +348,7 @@ def here(
     """ #+begin_org
 ** [[elisp:(org-cycle)][| *DocStr | ] Mark file and line -- do the equivalent of a print statement.
     #+end_org """
-
-    logger = b_io.log.controller.loggerGet()
-
-    b_io.log.controller.formatterExtra()
-
-    pathname, lineno, funcName = b.ast.stackFrameInfoGetValues(2)
-
-    outString = format(*v, **k)
-    logger.info(
-        f"B.INFO: {outString}",
-        extra={
-            'extraPathname': pathname,
-            'extraLineno': lineno,
-            'extraFuncName': funcName,
-        }
-    )
-
-    b_io.log.controller.formatterBasic()
-
-    return
-
-
-####+BEGIN: b:py3:cs:func/typing :funcName "hereOLD" :funcType "extTyped" :deco ""
-""" #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /hereOLD/   [[elisp:(org-cycle)][| ]]
-#+end_org """
-def hereOLD(
-####+END:
-        *v,
-        **k,
-) -> None:
-    """ #+begin_org
-** [[elisp:(org-cycle)][| *DocStr | ] Mark file and line -- do the equivalent of a print statement.
-    #+end_org """
-
-    # logControler = b_io.log.Control()
-
-    logControler = Control()
+    logControler = b_io.log.Control()
     logger = logControler.loggerGet()
 
     fn = b.ast.FUNC_currentGet()

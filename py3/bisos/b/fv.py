@@ -25,7 +25,6 @@
 """ #+begin_org
 * *[[elisp:(org-cycle)][| Particulars-csInfo |]]*
 #+end_org """
-from sys import base_exec_prefix
 import typing
 csInfo: typing.Dict[str, typing.Any] = { 'moduleName': ['fv'], }
 csInfo['version'] = '202209242507'
@@ -66,8 +65,6 @@ import os
 
 from bisos.b import b_io
 from bisos.b import cs
-
-from pathlib import Path
 
 ####+BEGIN: bx:cs:py3:section :title "FV_                :: File Variables (FV_)" :subTitle "File Variables"
 """ #+begin_org
@@ -165,7 +162,6 @@ def writeToBaseDir(
 ):
     """
     """
-
     if not os.path.isdir(baseDir):
         return None
 
@@ -176,38 +172,10 @@ def writeToBaseDir(
 
     with open(varValueFullPath, "w") as valueFile:
         valueFile.write(str(varValue) +'\n')
-        b_io.log.here(f"FILE_Param.writeTo path={varValueFullPath} value={varValue}")
+        b_io.log.here("FILE_Param.writeTo path={path} value={value}".
+                format(path=varValueFullPath, value=varValue))
 
 
-####+BEGIN: b:py3:cs:func/typing :funcName "readFromBaseDir" :funcType "extTyped" :retType "extTyped" :deco "default" :argsList ""
-""" #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /readFromBaseDir/  deco=default  [[elisp:(org-cycle)][| ]]
-#+end_org """
-@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
-def readFromBaseDir(
-####+END:
-        baseDir: str | Path,
-        varName: str,
-) -> str | None:
-    """
-    """
-
-    if isinstance(baseDir, str):
-        baseDir = Path(baseDir)
-
-    if not baseDir.is_dir():
-        b_io.log.here(f"Missing Directory baseDir={baseDir}")
-        return None
-
-    fvPath = baseDir.joinpath(varName)
-
-    if not fvPath.is_file():
-        b_io.log.here(f"Missing File fvPath={fvPath}")
-        return None
-
-    contents = fvPath.read_text()
-
-    return contents
 
 
 ####+BEGIN: b:prog:file/endOfFile :extraParams nil
