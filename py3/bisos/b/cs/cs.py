@@ -1532,7 +1532,8 @@ def invOutcomeReportCmnd(
     if cmndOutcome.results is not  None:
         sys.stdout.write(f"{cmndOutcome.results}\n")
     else:
-        sys.stderr.write("Cmnd -- No Results\n")
+        # sys.stderr.write("Cmnd -- No Results\n")
+        pass
 
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "invOutcomeReportRo" :funcType "extTyped" :deco ""
