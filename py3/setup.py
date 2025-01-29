@@ -43,14 +43,14 @@ def longDescription():
 # b:py3:pypi:setup/version Arguments  :forSys t :forPyPi t :constant "666"
 ####+BEGIN: b:py3:pypi:setup/version :comment "Auto Detected"
 
-# ./pypiUploadVer DID NOT exist -- forPypiVersion=0.48 -- forSysVersion=0.43 -- constant=NA
+# ./pypiUploadVer DID NOT exist -- forPypiVersion=0.49 -- forSysVersion=0.43 -- constant=NA
 def pkgVersion():
         return '0.43'
 
 ####+END:
 
 # b:py3:pypi:setup/requires :extras ; :requirements "requirements.txt" (bring here requirements.txt)
-####+BEGIN: b:py3:pypi:setup/requires :extras ()
+####+BEGIN: b:py3:pypi:setup/requires :extras ("rpyc")
 
 requires = [
 "blee",
@@ -59,6 +59,7 @@ requires = [
 "bisos.common",
 "bisos.examples",
 "bisos.transit",
+"rpyc",
 ]
 ####+END:
 
