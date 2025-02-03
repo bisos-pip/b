@@ -332,6 +332,7 @@ class version(cs.Cmnd):
 
         return(cmndOutcome)
 
+
 ####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "visit" :comment "" :parsMand "" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<visit>> ro=cli   [[elisp:(org-cycle)][| ]]
@@ -347,6 +348,43 @@ class visit(cs.Cmnd):
              cmndOutcome: b.op.Outcome,
     ) -> b.op.Outcome:
 
+####+END:
+        self.cmndDocStr(f""" #+begin_org
+** [[elisp:(org-cycle)][| *CmndDesc:* | ]]  Visit The ICM Module. Use emacs client to visit the ICM module.
+        #+end_org """)
+
+        myFullName = sys.argv[0]
+
+        if b.subProc.Op(outcome=cmndOutcome, log=1).bash(
+                f"""emlVisit -v -n showRun -i gotoPanel {myFullName}""",
+        ).isProblematic():  return(b_io.eh.badOutcome(cmndOutcome))
+
+        return cmndOutcome.set(
+            opError=b.OpError.Success,
+            opResults=None,
+        )
+
+
+    
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "visitPrev" :comment "" :parsMand "" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<visitPrev>>  =verify= ro=cli   [[elisp:(org-cycle)][| ]]
+#+end_org """
+class visitPrev(cs.Cmnd):
+    cmndParamsMandatory = [ ]
+    cmndParamsOptional = [ ]
+    cmndArgsLen = {'Min': 0, 'Max': 0,}
+
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def cmnd(self,
+             rtInv: cs.RtInvoker,
+             cmndOutcome: b.op.Outcome,
+    ) -> b.op.Outcome:
+
+        failed = b_io.eh.badOutcome
+        callParamsDict = {}
+        if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, None).isProblematic():
+            return failed(cmndOutcome)
 ####+END:
         self.cmndDocStr(f""" #+begin_org
 ** [[elisp:(org-cycle)][| *CmndDesc:* | ]]  Visit The ICM Module. Use emacs client to visit the ICM module.
