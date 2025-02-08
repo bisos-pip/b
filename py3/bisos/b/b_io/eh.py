@@ -461,7 +461,7 @@ def badOutcome(
     #+end_org """
 
     print("io.eh.badOutcome: InvokedBy {invokerName}, Operation Failed: Stdcmnd={stdcmnd} Error={status} -- {errInfo}".
-           format(invokerName=outcome.invokerName,
+           format(invokerName="NOTYET",  # invokerName=outcome.invokerName,
                stdcmnd=outcome.stdcmnd,
                status=outcome.error,
                errInfo=outcome.errInfo,
