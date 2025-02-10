@@ -565,6 +565,33 @@ def icmParamsToFileParamsUpdate(
 
     return
 
+
+####+BEGIN: bx:cs:py3:func :funcName "csParamsToFileParamsUpdate" :funcType "extTyped" :deco ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /csParamsToFileParamsUpdate/  [[elisp:(org-cycle)][| ]]
+#+end_org """
+def csParamsToFileParamsUpdate(
+####+END:
+        parRoot,
+        icmParams,
+) -> None:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ] Convert icmParams to parser
+    #+end_org """
+
+    b_io.log.here("Updating icmParams at: {parRoot}".format(parRoot=parRoot))
+
+    for key, icmParam in icmParams.parDictGet().items():
+        if ( icmParam.argsparseShortOptGet() == None )  and ( icmParam.argsparseLongOptGet() == None ):
+            break
+
+        icmParam.writeAsFileParam(
+            parRoot=parRoot,
+        )
+
+    return
+
+
 ####+BEGIN: bx:cs:py3:func :funcName "cmndParamsMandatoryAssert" :funcType "extTyped" :deco ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /cmndParamsMandatoryAssert/  [[elisp:(org-cycle)][| ]]

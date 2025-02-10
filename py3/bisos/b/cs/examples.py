@@ -130,6 +130,7 @@ class commonExamples(cs.Cmnd):
 @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
 def commonBrief(
 ####+END:
+        roMenu=False,
         interactive=False,
 ) -> None:
     """ #+begin_org
@@ -148,16 +149,17 @@ def commonBrief(
     print(( """emlVisit -v -n showRun -i gotoPanel """ + G_myFullName))
 
     if cs.ro.csMuIsDirect() is True:
-        menuChapter('/Remote Operations -- Performer And Invoker/')
+        if roMenu is True:
+            menuChapter('/Remote Operations -- Performer And Invoker/')
 
-        # print(f"""csRo-manage.cs --perfName="localhost" --rosmu="{G_myName}"  -i ro_sapCreate""")
-        # print(f"""{G_myName} --perfName="localhost" -i csPerformer  & # in background Start rpyc CS Service""")
-        # print(f"""csRo-manage.cs --perfName="localhost" --rosmu="{G_myName}"  -i ro_fps list""")
-        # print(f"""{G_myName}  --perfName="localhost" -i examples""")
+            # print(f"""csRo-manage.cs --perfName="localhost" --rosmu="{G_myName}"  -i ro_sapCreate""")
+            # print(f"""{G_myName} --perfName="localhost" -i csPerformer  & # in background Start rpyc CS Service""")
+            # print(f"""csRo-manage.cs --perfName="localhost" --rosmu="{G_myName}"  -i ro_fps list""")
+            # print(f"""{G_myName}  --perfName="localhost" -i examples""")
 
-        print(( G_myName + " -i roEnable" + "    # Create Symlinks For roPerf- and roInv-"))
-        print(( "roPerf-" + G_myName + "    # Remote Operations Performer"))
-        print(( "roInv-" + G_myName  + "    # Remote Operations Invoker"))
+            print(( G_myName + " -i roEnable" + "    # Create Symlinks For roPerf- and roInv-"))
+            print(( "roPerf-" + G_myName + "    # Remote Operations Performer"))
+            print(( "roInv-" + G_myName  + "    # Remote Operations Invoker"))
 
     elif cs.ro.csMuIsPerformer() is True:
         menuChapter('/Direct Commands and roInvoker/')
