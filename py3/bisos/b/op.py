@@ -281,6 +281,14 @@ def opSuccess():
     )
 
 
+def successAndNoResult(cmndOutcome):
+    """."""
+    return cmndOutcome.set(
+        opError=OpError.Success,  # type: ignore
+        opResults=None,
+    )
+
+
 ####+BEGIN: bx:dblock:python:class :className "BasicOp" :classType "basic"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  Cls-basic  [[elisp:(outline-show-subtree+toggle)][||]] /BasicOp/ object  [[elisp:(org-cycle)][| ]]
