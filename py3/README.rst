@@ -6,31 +6,6 @@ bisos.b: PyCS-Foundation Package – Python Commands and Services
    :depth: 3
 ..
 
-+--------------------------+------------------------------------------+
-| ``Blee Panel Controls``: | `Show-All <elisp:(show-all)>`__ :        |
-|                          | `Overview <elisp:(org-shifttab)>`__ :    |
-|                          | `Content <elisp:                         |
-|                          | (progn (org-shifttab) (org-content))>`__ |
-|                          | : `(1) <elisp:(delete-other-windows)>`__ |
-|                          | :                                        |
-|                          | `S&Q <elisp                              |
-|                          | :(progn (save-buffer) (kill-buffer))>`__ |
-|                          | : `Save <elisp:(save-buffer)>`__ :       |
-|                          | `Quit <elisp:(kill-buffer)>`__ :         |
-|                          | `Bury <elisp:(bury-buffer)>`__           |
-+--------------------------+------------------------------------------+
-| ``Panel Links``:         | `Repo Blee                               |
-|                          | Panel <./panels/bisos.fac                |
-|                          | ter/_nodeBase_/fullUsagePanel-en.org>`__ |
-+--------------------------+------------------------------------------+
-| ``See Also``:            | `At                                      |
-|                          | PYPI <h                                  |
-|                          | ttps://pypi.org/project/bisos.facter>`__ |
-|                          | :                                        |
-|                          | `bisos.PyC                               |
-|                          | S <https://github.com/bisos-pip/pycs>`__ |
-+--------------------------+------------------------------------------+
-
 Overview
 ========
 

@@ -1771,7 +1771,16 @@ class roEnable(cs.Cmnd):
         #+end_org """)
         if self.justCaptureP(): return cmndOutcome
 
-        title = "NOTYET -- Should create -roInv and -roPerf symlinks."
+        G_myFullName = sys.argv[0]
+        G_myName = pathlib.Path(os.path.basename(G_myFullName))
+
+        invokerName = pathlib.Path(cs.ro.csMuInvokerName())
+        performerName = pathlib.Path(cs.ro.csMuPerformerName())
+
+        invokerName.symlink_to(G_myName)
+        performerName.symlink_to(G_myName)
+
+        title = "Created -roInv and -roPerf symlinks."
 
         return cmndOutcome.set(opResults=f"{title}",)
 
@@ -1841,7 +1850,7 @@ def csMuIsDirect(
 @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
 def csMuDirectName(
 ####+END:
-) -> bool:
+) -> str:
     """ #+begin_org
 ** [[elisp:(org-cycle)][| *DocStr | ]
     #+end_org """
@@ -1861,18 +1870,22 @@ def csMuDirectName(
 @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
 def csMuInvokerName(
 ####+END:
-) -> bool:
+) -> str:
     """ #+begin_org
 ** [[elisp:(org-cycle)][| *DocStr | ]
     #+end_org """
 
     csMuName = cs.G.icmMyName()
+    csMuPath = pathlib.Path(csMuName)
+    csMuStem = csMuPath.stem
+    csMuSuffix = csMuPath.suffix
+
     if "-roInv" in csMuName:
         return csMuName
     elif "-roPerf" in csMuName:
         return csMuName.replace("-roPerf", "-roInv")
     else:
-        return (csMuName + "-roInv")
+        return (csMuStem + "-roInv" + csMuSuffix)
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "csMuPerformerName" :comment "~Based on G_name~"  :funcType "eType" :deco "track"
 """ #+begin_org
@@ -1881,18 +1894,22 @@ def csMuInvokerName(
 @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
 def csMuPerformerName(
 ####+END:
-) -> bool:
+) -> str:
     """ #+begin_org
 ** [[elisp:(org-cycle)][| *DocStr | ]
     #+end_org """
 
     csMuName = cs.G.icmMyName()
+    csMuPath = pathlib.Path(csMuName)
+    csMuStem = csMuPath.stem
+    csMuSuffix = csMuPath.suffix
+
     if "-roInv" in csMuName:
         return csMuName.replace("-roInv", "-roPerf")
     elif "-roPerf" in csMuName:
         return csMuName
     else:
-        return (csMuName + "-roPerf")
+        return (csMuStem + "-roPerf" + csMuSuffix)
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "roPerf_examples" :comment "~Based on G_name~"  :funcType "eType" :deco "track"
 """ #+begin_org

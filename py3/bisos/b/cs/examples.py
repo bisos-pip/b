@@ -148,6 +148,9 @@ def commonBrief(
     print(( G_myName + " -i visit"))
     print(( """emlVisit -v -n showRun -i gotoPanel """ + G_myFullName))
 
+    invokerName = cs.ro.csMuInvokerName()
+    performerName = cs.ro.csMuPerformerName()
+
     if cs.ro.csMuIsDirect() is True:
         if roMenu is True:
             menuChapter('/Remote Operations -- Performer And Invoker/')
@@ -158,8 +161,8 @@ def commonBrief(
             # print(f"""{G_myName}  --perfName="localhost" -i examples""")
 
             print(( G_myName + " -i roEnable" + "    # Create Symlinks For -roPerf and -roInv"))
-            print(( G_myName + "-roPerf" + "    # Remote Operations Performer"))
-            print(( G_myName  + "-roInv" + "    # Remote Operations Invoker"))
+            print(( invokerName + "    # Remote Operations Performer"))
+            print(( performerName + "   # Remote Operations Invoker"))
 
     elif cs.ro.csMuIsPerformer() is True:
         menuChapter('/Direct Commands and roInvoker/')
