@@ -1771,7 +1771,7 @@ class roEnable(cs.Cmnd):
         #+end_org """)
         if self.justCaptureP(): return cmndOutcome
 
-        title = "NOTYET -- Should create roInv- and roPerf- symlinks."
+        title = "NOTYET -- Should create -roInv and -roPerf symlinks."
 
         return cmndOutcome.set(opResults=f"{title}",)
 
@@ -1790,7 +1790,7 @@ def csMuIsPerformer(
     #+end_org """
 
     csMuName = cs.G.icmMyName()
-    if "roPerf-" in csMuName:
+    if "-roPerf" in csMuName:
         return True
     else:
         return False
@@ -1808,7 +1808,7 @@ def csMuIsInvoker(
     #+end_org """
 
     csMuName = cs.G.icmMyName()
-    if "roInv-" in csMuName:
+    if "-roInv" in csMuName:
         return True
     else:
         return False
@@ -1827,9 +1827,9 @@ def csMuIsDirect(
     #+end_org """
 
     csMuName = cs.G.icmMyName()
-    if "roInv-" in csMuName:
+    if "-roInv" in csMuName:
         return False
-    elif "roPerf-" in csMuName:
+    elif "-roPerf" in csMuName:
         return False
     else:
         return True
@@ -1847,10 +1847,10 @@ def csMuDirectName(
     #+end_org """
 
     csMuName = cs.G.icmMyName()
-    if "roInv-" in csMuName:
-        return csMuName.replace("roInv-", "")
-    elif "roPerf-" in csMuName:
-        return csMuName.replace("roPerf-", "")
+    if "-roInv" in csMuName:
+        return csMuName.replace("-roInv", "")
+    elif "-roPerf" in csMuName:
+        return csMuName.replace("-roPerf", "")
     else:
         return csMuName
 
@@ -1867,12 +1867,12 @@ def csMuInvokerName(
     #+end_org """
 
     csMuName = cs.G.icmMyName()
-    if "roInv-" in csMuName:
+    if "-roInv" in csMuName:
         return csMuName
-    elif "roPerf-" in csMuName:
-        return csMuName.replace("roPerf-", "roInv-")
+    elif "-roPerf" in csMuName:
+        return csMuName.replace("-roPerf", "-roInv")
     else:
-        return ("roInv-" + csMuName)
+        return (csMuName + "-roInv")
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "csMuPerformerName" :comment "~Based on G_name~"  :funcType "eType" :deco "track"
 """ #+begin_org
@@ -1887,12 +1887,12 @@ def csMuPerformerName(
     #+end_org """
 
     csMuName = cs.G.icmMyName()
-    if "roInv-" in csMuName:
-        return csMuName.replace("roInv-", "roPerf-")
-    elif "roPerf-" in csMuName:
+    if "-roInv" in csMuName:
+        return csMuName.replace("-roInv", "-roPerf")
+    elif "-roPerf" in csMuName:
         return csMuName
     else:
-        return ("roPerf-" + csMuName)
+        return (csMuName + "-roPerf")
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "roPerf_examples" :comment "~Based on G_name~"  :funcType "eType" :deco "track"
 """ #+begin_org

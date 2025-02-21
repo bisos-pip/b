@@ -157,9 +157,9 @@ def commonBrief(
             # print(f"""csRo-manage.cs --perfName="localhost" --rosmu="{G_myName}"  -i ro_fps list""")
             # print(f"""{G_myName}  --perfName="localhost" -i examples""")
 
-            print(( G_myName + " -i roEnable" + "    # Create Symlinks For roPerf- and roInv-"))
-            print(( "roPerf-" + G_myName + "    # Remote Operations Performer"))
-            print(( "roInv-" + G_myName  + "    # Remote Operations Invoker"))
+            print(( G_myName + " -i roEnable" + "    # Create Symlinks For -roPerf and -roInv"))
+            print(( G_myName + "-roPerf" + "    # Remote Operations Performer"))
+            print(( G_myName  + "-roInv" + "    # Remote Operations Invoker"))
 
     elif cs.ro.csMuIsPerformer() is True:
         menuChapter('/Direct Commands and roInvoker/')

@@ -6,6 +6,31 @@ bisos.b: PyCS-Foundation Package – Python Commands and Services
    :depth: 3
 ..
 
++--------------------------+------------------------------------------+
+| ``Blee Panel Controls``: | `Show-All <elisp:(show-all)>`__ :        |
+|                          | `Overview <elisp:(org-shifttab)>`__ :    |
+|                          | `Content <elisp:                         |
+|                          | (progn (org-shifttab) (org-content))>`__ |
+|                          | : `(1) <elisp:(delete-other-windows)>`__ |
+|                          | :                                        |
+|                          | `S&Q <elisp                              |
+|                          | :(progn (save-buffer) (kill-buffer))>`__ |
+|                          | : `Save <elisp:(save-buffer)>`__ :       |
+|                          | `Quit <elisp:(kill-buffer)>`__ :         |
+|                          | `Bury <elisp:(bury-buffer)>`__           |
++--------------------------+------------------------------------------+
+| ``Panel Links``:         | `Repo Blee                               |
+|                          | Panel <./panels/bisos.fac                |
+|                          | ter/_nodeBase_/fullUsagePanel-en.org>`__ |
++--------------------------+------------------------------------------+
+| ``See Also``:            | `At                                      |
+|                          | PYPI <h                                  |
+|                          | ttps://pypi.org/project/bisos.facter>`__ |
+|                          | :                                        |
+|                          | `bisos.PyC                               |
+|                          | S <https://github.com/bisos-pip/pycs>`__ |
++--------------------------+------------------------------------------+
+
 Overview
 ========
 
@@ -66,8 +91,8 @@ Table of Contents TOC
       COMEEGA <#bisosfacter-source-code-is-in-comeega>`__
    -  `Take from
       120033/common/engAdopt <#take-from-120033commonengadopt>`__
-   -  `./bin/facter.cs (./bin/roPerf-facter.cs
-      ./bin/roInv-facter.cs) <#binfactercs--binroperf-factercs--binroinv-factercs>`__
+   -  `./bin/facter.cs (./bin/facter-roPerf.cs
+      ./bin/facter-roInv.cs) <#binfactercs--binfacter-roperfcs--binfacter-roinvcs>`__
    -  `./bisos/facter/facter.py <#bisosfacterfacterpy>`__
    -  `./bisos/facter/facter\ csu.py <#bisosfacterfacter_csupy>`__
 
@@ -334,11 +359,11 @@ it with pipx:
 The following commands are made available:
 
 -  facter.cs
--  roInv-facter.cs
--  roPerf-facter.cs
+-  facter-roInv.cs
+-  facter-roPerf.cs
 
-These are all one file with 3 names. *roInv-facter.cs* and
-*roPerf-facter.cs* are sym-links to *facter.cs*
+These are all one file with 3 names. *facter-roInv.cs* and
+*facter-roPerf.cs* are sym-links to *facter.cs*
 
 Usage
 =====
@@ -364,14 +389,14 @@ Invoke performer as:
 
 .. code:: bash
 
-   bin/roPerf-facter.cs
+   bin/facter-roPerf.cs
 
 Invoker
 ~~~~~~~
 
 .. code:: bash
 
-   bin/roInv-facter.cs
+   bin/facter-roInv.cs
 
 bisos.facter Code Walkthrough
 =============================
@@ -387,7 +412,7 @@ service.
 TODO Take from 120033/common/engAdopt
 -------------------------------------
 
-./bin/facter.cs (./bin/roPerf-facter.cs ./bin/roInv-facter.cs)
+./bin/facter.cs (./bin/facter-roPerf.cs ./bin/facter-roInv.cs)
 --------------------------------------------------------------
 
 A multi-unit

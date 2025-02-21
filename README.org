@@ -49,7 +49,7 @@ This layering is captured below:
 - [[#bisosfacter-code-walkthrough][bisos.facter Code Walkthrough]]
   - [[#bisosfacter-source-code-is-in-comeega][bisos.facter Source Code is in COMEEGA]]
   - [[#take-from-120033commonengadopt][Take from 120033/common/engAdopt]]
-  - [[#binfactercs--binroperf-factercs--binroinv-factercs][./bin/facter.cs  (./bin/roPerf-facter.cs  ./bin/roInv-facter.cs)]]
+  - [[#binfactercs--binfacter-roperfcs--binfacter-roinvcs][./bin/facter.cs  (./bin/facter-roPerf.cs  ./bin/facter-roInv.cs)]]
   - [[#bisosfacterfacterpy][./bisos/facter/facter.py]]
   - [[#bisosfacterfacter_csupy][./bisos/facter/facter_csu.py]]
 - [[#support][Support]]
@@ -304,10 +304,10 @@ pipx install bisos.facter
 
 The following commands are made available:
 - facter.cs
-- roInv-facter.cs
-- roPerf-facter.cs
+- facter-roInv.cs
+- facter-roPerf.cs
 
-These are all one file with 3 names. _roInv-facter.cs_ and _roPerf-facter.cs_ are sym-links to _facter.cs_
+These are all one file with 3 names. _facter-roInv.cs_ and _facter-roPerf.cs_ are sym-links to _facter.cs_
 
 * Usage
 
@@ -329,13 +329,13 @@ You can also  run
 Invoke performer as:
 
 #+begin_src bash
-bin/roPerf-facter.cs
+bin/facter-roPerf.cs
 #+end_src
 
 *** Invoker
 
 #+begin_src bash
-bin/roInv-facter.cs
+bin/facter-roInv.cs
 #+end_src
 
 * bisos.facter Code Walkthrough
@@ -346,7 +346,7 @@ bisos.facter can be used locally on command-line or remotely as a service.
 ** TODO Take from 120033/common/engAdopt
 
 
-** ./bin/facter.cs  (./bin/roPerf-facter.cs  ./bin/roInv-facter.cs)
+** ./bin/facter.cs  (./bin/facter-roPerf.cs  ./bin/facter-roInv.cs)
 A multi-unit
 
 ** ./bisos/facter/facter.py
