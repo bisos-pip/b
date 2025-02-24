@@ -39,7 +39,7 @@
 #+end_org """
 import typing
 csInfo: typing.Dict[str, typing.Any] = { 'moduleName': ['importFile'], }
-csInfo['version'] = '202210022742'
+csInfo['version'] = '202502233111'
 csInfo['status']  = 'inUse'
 csInfo['panel'] = 'importFile-Panel.org'
 csInfo['groupingType'] = 'IcmGroupingType-pkged'
@@ -68,10 +68,17 @@ Module description comes here.
 #+end_org """
 ####+END:
 
+from bisos import b
+# from bisos.b import cs
+
+import importlib.util
+import importlib.machinery
 
 import sys
 import types
-import  pathlib
+import pathlib
+import shutil
+import os
 
 ####+BEGIN: b:py3:cs:orgItem/section :title "CSU-Lib Examples" :comment "-- Providing examples_csu"
 """ #+begin_org
@@ -86,7 +93,7 @@ import  pathlib
 def importFileAs(
 ####+END:
         modAsName: str,
-        importedFilePath: typing.Union[str,  pathlib.Path],
+        importedFilePath: str | pathlib.Path,
 ) -> types.ModuleType:
     """ #+begin_org
 ** [[elisp:(org-cycle)][| *DocStr* |]] Import ~importedFilePath~ as ~modAsName~, return imported *module*.
@@ -105,25 +112,91 @@ Usage:
 
     #+end_org """
 
-    import importlib.util
-    import importlib.machinery
-
     # importlib.util.spec_from_file_location() enforces .py limitation but importlib.util.spec_from_loader() does not,
-    spec = importlib.util.spec_from_loader(
-        modAsName,
-        importlib.machinery.SourceFileLoader(modAsName, importedFilePath),
-    )
+    spec = importlib.util.spec_from_file_location(modAsName, importedFilePath)
+
     if spec is None:
-        raise ImportError(f"Could not load spec for module '{modAsName}' at: {importedFilePath}")
+        # try specifying a loader
+        loader = importlib.machinery.SourceFileLoader(modAsName, str(importedFilePath))
+        spec = importlib.util.spec_from_loader(modAsName, loader)
+        if spec is None:
+            raise ImportError(f"Could not load spec for module '{modAsName}' at: {importedFilePath}")
     module = importlib.util.module_from_spec(spec)
+
+    sys.modules[modAsName] = module
 
     try:
         spec.loader.exec_module(module)
     except FileNotFoundError as e:
         raise ImportError(f"{e.strerror}: {importedFilePath}") from e
 
-    sys.modules[modAsName] = module
     return module
+
+
+####+BEGIN: b:py3:cs:func/typing :funcName "execFileAsMain" :comment "~__main__ module~" :funcType "eType" :deco "" :argsList ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-eType  [[elisp:(outline-show-subtree+toggle)][||]] /execFileAsMain/  ~__main__ module~  [[elisp:(org-cycle)][| ]]
+#+end_org """
+def execFileAsMain(
+####+END:
+        importedFilePath: typing.Union[str,  pathlib.Path],
+) -> types.ModuleType:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr* |]] Import ~importedFilePath~ as __main__, return imported *module*.
+    #+end_org """
+
+    return (
+        importFileAs('__main__', importedFilePath,)
+    )
+
+####+BEGIN: b:py3:cs:func/typing :funcName "execWithWhich" :comment "~With which~" :funcType "eType" :deco "" :argsList ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-eType  [[elisp:(outline-show-subtree+toggle)][| |]] /execWithWhich/  ~With which~  [[elisp:(org-cycle)][| ]]
+#+end_org """
+def execWithWhich(
+####+END:
+        inExecName: str,
+) -> types.ModuleType | None:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr* |]] Use /which/ to get the executable's path. Then  [[execFileAsMain]].
+    #+end_org """
+
+    execPath = shutil.which(inExecName)
+    if execPath is None:
+        pathEnvVar = os.environ.get("PATH")
+        raise ImportError(f"Found nothing for {inExecName} -- PATH={pathEnvVar}")
+
+    execFilePath = pathlib.Path(execPath).resolve()
+
+    return (
+        execFileAsMain(execFilePath,)
+    )
+
+####+BEGIN: b:py3:cs:func/typing :funcName "plantWithWhich" :comment "~With which~" :funcType "eType" :deco "" :argsList ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-eType  [[elisp:(outline-show-subtree+toggle)][||]] /plantWithWhich/  ~With which~  [[elisp:(org-cycle)][| ]]
+#+end_org """
+def plantWithWhich(
+####+END:
+        inExecName: str,
+) -> types.ModuleType | None:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr* |]] Use /which/ to get the executable's path. Then  [[execFileAsMain]].
+    #+end_org """
+
+    execPath = shutil.which(inExecName)
+    if execPath is None:
+        pathEnvVar = os.environ.get("PATH")
+        raise ImportError(f"Found nothing for {inExecName} -- PATH={pathEnvVar}")
+
+    execFilePath = pathlib.Path(execPath).resolve()
+
+    b.cs.G.seedOfThisPlant = execFilePath
+    b.cs.G.plantOfThisSeed = sys.argv[0]
+
+    return (
+        execWithWhich(inExecName,)
+    )
 
 
 ####+BEGIN: b:py3:cs:framework/endOfFile :basedOn "classification"

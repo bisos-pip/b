@@ -25,6 +25,7 @@
 """ #+begin_org
 * *[[elisp:(org-cycle)][| Particulars-csInfo |]]*
 #+end_org """
+from ast import Pass
 import typing
 csInfo: typing.Dict[str, typing.Any] = { 'moduleName': ['examples'], }
 csInfo['version'] = '202209241240'
@@ -140,7 +141,7 @@ def commonBrief(
     G_myFullName = sys.argv[0]
     G_myName = os.path.basename(G_myFullName)
 
-    menuChapter('/Intercatively Invokable Module (ICM) Brief Usage Model/')
+    menuChapter('/Command Service (CS) Brief Usage/')
 
     print(( G_myName + " -i commonExamples" + "    # Help, Model, icmOptionsExample"))
     print(( G_myName + " -i describe" + " |" + " emlVisit"))
@@ -259,6 +260,11 @@ def myName(
 
     print(f"#######    *{myName}*    ##########")
     print(f"=======  {myFullName}   ===========")
+    if cs.G.seedOfThisPlant is None:
+        pass
+        # print("UnSeeded")
+    else:
+        print(f"=======  Seed :: {cs.G.plantOfThisSeed}   ===========")
 
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "ex_gCommon" :funcType "extTyped" :deco "track"
