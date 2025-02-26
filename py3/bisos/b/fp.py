@@ -708,12 +708,13 @@ def FileParamVerReadFrom(
 #+end_org """
 ####+END:
 
-####+BEGIN: b:py3:cs:func/typing :funcName "FILE_paramDictRead" :comment "OLD Style CMND" :funcType "extTyped" :retType "extTyped" :deco "default" :argsList ""
+
+####+BEGIN: b:py3:cs:func/typing :funcName "FILE_paramDictRead_ICM" :comment "OLD Style CMND" :funcType "extTyped" :retType "extTyped" :deco "default" :argsList ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /FILE_paramDictRead/ deco=default  =OLD Style CMND= deco=default   [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /FILE_paramDictRead_ICM/  OLD Style CMND deco=default  [[elisp:(org-cycle)][| ]]
 #+end_org """
 @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
-def FILE_paramDictRead(
+def FILE_paramDictRead_ICM(
 ####+END:
         interactive=None, # NOTYET, icm.Interactivity.Both,
         inPathList=None
@@ -755,6 +756,58 @@ def FILE_paramDictRead(
             thisValue=filePar.parValueGetLines()
             if thisValue == None:
                 icm.TM_here("Skipping: " + filePar.parNameGet())
+                continue
+            print((
+                filePar.parNameGet() +
+                '=' +
+                thisValue[0]))
+    return
+
+
+
+####+BEGIN: b:py3:cs:func/typing :funcName "FILE_paramDictRead" :comment "OLD Style CMND" :funcType "extTyped" :retType "extTyped" :deco "default" :argsList ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /FILE_paramDictRead/ deco=default  =OLD Style CMND= deco=default   [[elisp:(org-cycle)][| ]]
+#+end_org """
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+def FILE_paramDictRead(
+####+END:
+        interactive=None, # NOTYET, icm.Interactivity.Both,
+        inPathList=None
+):
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ] Old Style CMND
+    #+end_org """
+
+    G = cs.globalContext.get()
+
+    if interactive:
+        icmRunArgs = G.icmRunArgsGet()
+        #if cmndArgsLengthValidate(cmndArgs=icmRunArgs.cmndArgs, expected=0, comparison=int__gt):
+            #return(ReturnCode.UsageError)
+
+        inPathList = []
+        for thisPath in icm.icmRunArgs.cmndArgs:
+            inPathList.append(thisPath)
+    else:
+        if inPathList == None:
+            return b_io.eh.critical_usageError('inPathList is None and is Non-Interactive')
+
+    for thisPath in inPathList:
+        blankDict = FileParamDict()
+        thisParamDict = blankDict.readFrom(path=thisPath)
+        # icm.TM_here('path=' + thisPath)
+
+        if thisParamDict == None:
+            continue
+
+        for parName, filePar  in thisParamDict.items():
+            print(('parName=' + parName))
+            if filePar == None:
+                continue
+            thisValue=filePar.parValueGetLines()
+            if thisValue == None:
+                # icm.TM_here("Skipping: " + filePar.parNameGet())
                 continue
             print((
                 filePar.parNameGet() +
@@ -896,6 +949,64 @@ def FILE_paramDictPrint(
                 '='))
 
 
+####+BEGIN: b:py3:cs:func/typing :funcName "FILE_paramDictReadDeep_ICM" :comment "OLD Style Cmnd" :funcType "extTyped" :retType "extTyped" :deco "default" :argsList ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /FILE_paramDictReadDeep_ICM/  OLD Style Cmnd deco=default  [[elisp:(org-cycle)][| ]]
+#+end_org """
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+def FILE_paramDictReadDeep_ICM(
+####+END:
+        interactive=None, # NOTYET, icm.Interactivity.Both,
+        inPathList=None
+):
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ] OLD Style Cmnd --- NOTYET, to be revisited
+    #+end_org """
+
+
+    G = cs.globalContext.get()
+    G.curFuncNameSet(b.ast.FUNC_currentGet().__name__)
+
+    if icm.Interactivity().interactiveInvokation(interactive):
+        icmRunArgs = G.icmRunArgsGet()
+        #if cmndArgsLengthValidate(cmndArgs=icmRunArgs.cmndArgs, expected=0, comparison=int__gt):
+            #return(ReturnCode.UsageError)
+
+        inPathList = []
+        for thisPath in icm.icmRunArgs.cmndArgs:
+            inPathList.append(thisPath)
+    else:
+        if inPathList == None:
+            return b_io.eh.critical_usageError('inPathList is None and is Non-Interactive')
+
+    fileParamsDict = {}
+
+    for thisPath in inPathList:
+        #absolutePath = os.path.abspath(thisPath)
+
+        if not os.path.isdir(thisPath):
+            return b_io.eh.critical_usageError('Missing Directory: {thisPath}'.format(thisPath=thisPath))
+
+        for root, dirs, files in os.walk(thisPath):
+            #print("root={root}".format(root=root))
+            #print ("dirs={dirs}".format(dirs=dirs))
+            #print ("files={files}".format(files=files))
+
+            thisFileParamValueFile = os.path.join(root, "value")
+            if os.path.isfile(thisFileParamValueFile):
+                try:
+                    fileParam = FileParamReadFromPath(parRoot=root)
+                except IOError:
+                    b_io.eh.problem_info("Missing " + root)
+                    continue
+
+                fileParamsDict.update({root:fileParam.parValueGet()})
+                if interactive:
+                    print((root + "=" + fileParam.parValueGet()))
+
+    return fileParamsDict
+
+
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "FILE_paramDictReadDeep" :comment "OLD Style Cmnd" :funcType "extTyped" :retType "extTyped" :deco "default" :argsList ""
 """ #+begin_org
@@ -911,13 +1022,10 @@ def FILE_paramDictReadDeep(
 ** [[elisp:(org-cycle)][| *DocStr | ] OLD Style Cmnd --- NOTYET, to be revisited
     #+end_org """
 
-    try: icm.callableEntryEnhancer(type='cmnd')
-    except StopIteration:  return(icm.ReturnCode.ExtractionSuccess)
-
+    
     G = cs.globalContext.get()
-    G.curFuncNameSet(b.ast.FUNC_currentGet().__name__)
 
-    if icm.Interactivity().interactiveInvokation(interactive):
+    if interactive:
         icmRunArgs = G.icmRunArgsGet()
         #if cmndArgsLengthValidate(cmndArgs=icmRunArgs.cmndArgs, expected=0, comparison=int__gt):
             #return(ReturnCode.UsageError)
