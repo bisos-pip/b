@@ -105,11 +105,13 @@ def classedCmndsDict(
     importedCmndsFilesList=[]
     importedTagsList=[]
     for moduleName in importedCmndsModules:
-        #print(f"moduleName={moduleName}")
+        # print(f"moduleName={moduleName}")
         moduleNameList = moduleName.split(".")
         importTag = moduleNameList.pop()
         importModule = ".".join(moduleNameList)
-        #print(f"importTag= {importTag} -- moduleNameList={moduleNameList} -- importModule={importModule}")
+        # print(f"importTag= {importTag} -- moduleNameList={moduleNameList} -- importModule={importModule}")
+        if importTag == 'exmpl-seeded-cmnds':
+            continue
         _tmp = importlib.import_module(importModule)
         exec(f"{importTag} = _tmp.{importTag}") # assignment is a statement
         #eval(f"print({importTag}.__file__)") # DEBUG
@@ -229,21 +231,25 @@ def g_csMain(
             examples = noCmndEntry
             mainEntry = noCmndEntry
 
-    sys.exit(
-        cs.G_mainWithClass(
-            inArgv=sys.argv[1:],                 # Mandatory
-            #extraArgs=__main__.g_argsExtraSpecify,        # Mandatory
-            extraArgs=extraParamsHook,
-            G_examples=examples,               # Mandatory
-            classedCmndsDict=classedCmndsDict(importedCmndsModules),   # Mandatory
-            mainEntry=mainEntry,
-            g_icmPreCmnds=csPreCmndsHook,
-            g_icmPostCmnds=csPostCmndsHook,
+    # With atexit, sys.exit raises SystemExit
+
+    try:
+        sys.exit(
+            cs.G_mainWithClass(
+                inArgv=sys.argv[1:],                 # Mandatory
+                #extraArgs=__main__.g_argsExtraSpecify,        # Mandatory
+                extraArgs=extraParamsHook,
+                G_examples=examples,               # Mandatory
+                classedCmndsDict=classedCmndsDict(importedCmndsModules),   # Mandatory
+                mainEntry=mainEntry,
+                g_icmPreCmnds=csPreCmndsHook,
+                g_icmPostCmnds=csPostCmndsHook,
+            )
         )
-    )
-
-
-
+    except SystemExit as e:
+        # Handle the SystemExit exception
+        # print(f"SystemExit caught with code: {e}")
+        pass
 
 #from bisos.cs import inCmnd
 

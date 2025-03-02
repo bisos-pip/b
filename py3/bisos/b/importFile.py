@@ -80,12 +80,6 @@ import pathlib
 import shutil
 import os
 
-####+BEGIN: b:py3:cs:orgItem/section :title "CSU-Lib Examples" :comment "-- Providing examples_csu"
-""" #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  /Section/    [[elisp:(outline-show-subtree+toggle)][||]] *CSU-Lib Examples* -- Providing examples_csu  [[elisp:(org-cycle)][| ]]
-#+end_org """
-####+END:
-
 ####+BEGIN: b:py3:cs:func/typing :funcName "importFileAs" :comment "~Based on importlib~" :funcType "eType" :deco "" :argsList ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-eType  [[elisp:(outline-show-subtree+toggle)][||]] /importFileAs/  ~Based on importlib~  [[elisp:(org-cycle)][| ]]
@@ -132,6 +126,7 @@ Usage:
 
     return module
 
+alreadyImported = False
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "execFileAsMain" :comment "~__main__ module~" :funcType "eType" :deco "" :argsList ""
 """ #+begin_org
@@ -145,13 +140,29 @@ def execFileAsMain(
 ** [[elisp:(org-cycle)][| *DocStr* |]] Import ~importedFilePath~ as __main__, return imported *module*.
     #+end_org """
 
+    global alreadyImported
+
+
+    if alreadyImported is True:
+        return None
+    else:
+        alreadyImported = True
+
+    import __main__
+
+    # print("ZZZ")
+    # print(importedFilePath)
+
+    # sys.argv[0] instead of importedFilePath
+    __main__.__file__ = sys.argv[0]  # importedFilePath  # Needed when using @atexit
+
     return (
         importFileAs('__main__', importedFilePath,)
     )
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "execWithWhich" :comment "~With which~" :funcType "eType" :deco "" :argsList ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-eType  [[elisp:(outline-show-subtree+toggle)][| |]] /execWithWhich/  ~With which~  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-eType  [[elisp:(outline-show-subtree+toggle)][||]] /execWithWhich/  ~With which~  [[elisp:(org-cycle)][| ]]
 #+end_org """
 def execWithWhich(
 ####+END:
@@ -181,7 +192,7 @@ def plantWithWhich(
         inExecName: str,
 ) -> types.ModuleType | None:
     """ #+begin_org
-** [[elisp:(org-cycle)][| *DocStr* |]] Use /which/ to get the executable's path. Then  [[execFileAsMain]].
+** [[elisp:(org-cycle)][| *DocStr* |]] Use /which/ to get the executable's path. Record it as /b.cs.G.seedOfThisPlant/ Then  [[execWithWhich]].
     #+end_org """
 
     execPath = shutil.which(inExecName)
