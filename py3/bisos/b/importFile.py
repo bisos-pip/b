@@ -126,39 +126,31 @@ Usage:
 
     return module
 
-alreadyImported = False
-
-####+BEGIN: b:py3:cs:func/typing :funcName "execFileAsMain" :comment "~__main__ module~" :funcType "eType" :deco "" :argsList ""
+####+BEGIN: b:py3:cs:func/typing :funcName "execFileAsMain" :comment "~__main__ module~" :funcType "eType" :deco "b.utils.idempotentMake" :argsList ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-eType  [[elisp:(outline-show-subtree+toggle)][||]] /execFileAsMain/  ~__main__ module~  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-eType  [[elisp:(outline-show-subtree+toggle)][||]] /execFileAsMain/  ~__main__ module~ deco=b.utils.idempotentMake  [[elisp:(org-cycle)][| ]]
 #+end_org """
+@b.utils.idempotentMake
 def execFileAsMain(
 ####+END:
         importedFilePath: typing.Union[str,  pathlib.Path],
-) -> types.ModuleType:
+) -> types.ModuleType | None:
     """ #+begin_org
-** [[elisp:(org-cycle)][| *DocStr* |]] Import ~importedFilePath~ as __main__, return imported *module*.
+** [[elisp:(org-cycle)][| *DocStr* |]] Iddempotently import ~importedFilePath~ as __main__, but have __main__.__file__ be sys.argv[0],  return imported *module*.
+Key aspects to note:
+    - execFileAsMain may be called twice, first atexit of plantedCsu. second when plantedCsu is imported by ~importedFilePath~
+    - __main__.__file__ = sys.argv[0] is needed when using @atexit
+    - __main__.__file__ is not going to be importedFilePath because Commands and Params are in plantedCsu
     #+end_org """
 
-    global alreadyImported
-
-
-    if alreadyImported is True:
-        return None
-    else:
-        alreadyImported = True
-
     import __main__
-
-    # print("ZZZ")
-    # print(importedFilePath)
-
     # sys.argv[0] instead of importedFilePath
-    __main__.__file__ = sys.argv[0]  # importedFilePath  # Needed when using @atexit
+    __main__.__file__ = sys.argv[0]  # Needed when using @atexit
 
     return (
         importFileAs('__main__', importedFilePath,)
     )
+
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "execWithWhich" :comment "~With which~" :funcType "eType" :deco "" :argsList ""
 """ #+begin_org
@@ -208,7 +200,6 @@ def plantWithWhich(
     return (
         execWithWhich(inExecName,)
     )
-
 
 ####+BEGIN: b:py3:cs:framework/endOfFile :basedOn "classification"
 """ #+begin_org

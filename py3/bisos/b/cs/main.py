@@ -110,7 +110,7 @@ def classedCmndsDict(
         importTag = moduleNameList.pop()
         importModule = ".".join(moduleNameList)
         # print(f"importTag= {importTag} -- moduleNameList={moduleNameList} -- importModule={importModule}")
-        if importTag == 'exmpl-seeded-cmnds':
+        if importTag == 'plantedCsu':
             continue
         _tmp = importlib.import_module(importModule)
         exec(f"{importTag} = _tmp.{importTag}") # assignment is a statement

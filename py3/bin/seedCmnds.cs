@@ -84,18 +84,9 @@ import collections
 
 from bisos.b import cmndsSeed
 
+b.importFileAs('plantedCsu', b.cs.G.plantOfThisSeed)
+
 import sys
-
-plantPath = b.cs.G.plantOfThisSeed
-# b.importFileAs('exmpl-seeded-cmnds', './exmpl-seeded-cmnds.cs')
-b.importFileAs('exmpl-seeded-cmnds', plantPath)
-
-# commonParamsFuncs = cmndsSeed.cmndsSeedInfo.commonParamsFuncs
-# if commonParamsFuncs is not None:
-#     csParams = cs.param.CmndParamDict()
-#     for each in commonParamsFuncs:
-#         each(csParams)
-#     # cs.argsparseBasedOnCsParams(csParams)
 
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CsFrmWrk   [[elisp:(outline-show-subtree+toggle)][||]] ~csuList emacs-list Specifications~  [[elisp:(blee:org:code-block/above-run)][ /Eval Below/ ]] [[elisp:(org-cycle)][| ]]
@@ -104,58 +95,33 @@ b.importFileAs('exmpl-seeded-cmnds', plantPath)
   (list
    "bisos.b.cs.ro"
    "bisos.csPlayer.bleep"
+   "plantedCsu"
  ))
 #+END_SRC
 #+RESULTS:
-| bisos.b.cs.ro | bisos.csPlayer.bleep |
+| bisos.b.cs.ro | bisos.csPlayer.bleep | plantedCsu |
 #+end_org """
 
-####+BEGINNOT: b:py3:cs:framework/csuListProc :pyImports t :csuImports t :csuParams t
+####+BEGIN: b:py3:cs:framework/csuListProc :pyImports t :csuImports t :csuParams t
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CsFrmWrk   [[elisp:(outline-show-subtree+toggle)][||]] =Process CSU List= with /2/ in csuList pyImports=t csuImports=t csuParams=t
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CsFrmWrk   [[elisp:(outline-show-subtree+toggle)][||]] =Process CSU List= with /3/ in csuList pyImports=t csuImports=t csuParams=t
 #+end_org """
 
 from bisos.b.cs import ro
 from bisos.csPlayer import bleep
 
 
-csuList = [ 'bisos.b.cs.ro', 'bisos.csPlayer.bleep', 'exmpl-seeded-cmnds', ]
+csuList = [ 'bisos.b.cs.ro', 'bisos.csPlayer.bleep', 'plantedCsu', ]
 
 g_importedCmndsModules = cs.csuList_importedModules(csuList)
 
 def g_extraParams():
     csParams = cs.param.CmndParamDict()
     cs.csuList_commonParamsSpecify(csuList, csParams)
-    # commonParamsFuncs = cmndsSeed.cmndsSeedInfo.commonParamsFuncs
-    # if commonParamsFuncs is not None:
-        #for each in commonParamsFuncs:
-            # each(csParams)
-
     cs.argsparseBasedOnCsParams(csParams)
 
 ####+END:
 
-####+BEGIN: b:py3:cs:func/typing :funcName "examplesFromPlanted" :funcType "extTyped" :deco "track"
-""" #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /examplesFromPlanted/  deco=track  [[elisp:(org-cycle)][| ]]
-#+end_org """
-@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
-def examplesFromPlanted(
-####+END:
-) -> typing.Callable | None:
-    """ #+begin_org
-** [[elisp:(org-cycle)][| *DocStr | ] Walkthrough =csuList=, call module.commonParamsSpecify(=csParams=).
-    #+end_org """
-
-    module = sys.modules['exmpl-seeded-cmnds']
-    if hasattr(module, "examples_csu"):
-        examplesCsu = getattr(module, "examples_csu")
-        return examplesCsu
-    else:
-        return None
-
-examplesCsu = examplesFromPlanted()
-# print(examplesCsu)
 
 ####+BEGIN: b:py3:cs:main/exposedSymbols :classes ()
 """ #+begin_org
@@ -208,15 +174,14 @@ class examples(cs.Cmnd):
 
         bleep.examples_csBasic()
 
-        # examplesFuncsList = cmndsSeed.cmndsSeedInfo.examplesFuncsList
-        # if examplesFuncsList is not None:
-        #     for each in examplesFuncsList:
-        #         each()
-
-        if examplesCsu is not None:
-            examplesCsu()
-
-        # sbom_csu.examples_csu()
+        examplesFuncsList = cmndsSeed.cmndsSeedInfo.examplesFuncsList
+        if examplesFuncsList is not None:
+            for each in examplesFuncsList:
+                each()
+        else:
+            examplesCsu = cmndsSeed.examplesOfPlantedCsu()
+            if examplesCsu is not None:
+                examplesCsu()
 
         # NOTYET
         print(f"Planted with SEED={__file__}")

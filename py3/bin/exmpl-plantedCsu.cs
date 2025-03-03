@@ -19,19 +19,12 @@ def commonParamsSpecify(csParams: cs.param.CmndParamDict,) -> None:
     csParams.parDictAdd(
         parName='par1Example',
         parDescription="Description of par1Example comes here",
-        parDataType=None,
-        parDefault=None,
-        parChoices=[],
-        argparseShortOpt=None,
         argparseLongOpt='--par1Example',
     )
     csParams.parDictAdd(
         parName='par2Example',
         parDescription="Description of par2Example comes here",
-        parDataType=None,
-        parDefault='ParTwo',
-        parChoices=[],
-        argparseShortOpt=None,
+        parDefault='ParTwoDefault',
         argparseLongOpt='--par2Example',
     )
 
@@ -78,14 +71,13 @@ Variations of this are captured as snippets to be used.
 
         self.captureRunStr(""" #+begin_org
 #+begin_src sh :results output :session shared
-  csExamples.cs --par1Example="par1Mantory" --par2Example="par2Optional" -i parsArgsStdinCmndResult arg1 argTwo
+  exmpl-seeded-cmnds.cs --par1Example="par1Mantory" --par2Example="par2Optional" -i parsArgsStdinCmndResult arg1 argTwo
 #+end_src
 #+RESULTS:
-:
 : cmndArgs= arg1  argTwo
 : stdin instead of methodInvokeArg =
 : cmndParams= par1Mantory par2Optional
-: OpError.Success
+: cmnd results come here
         #+end_org """)
 
         if self.justCaptureP(): return cmndOutcome
@@ -162,14 +154,12 @@ class pyCmndInvOf_parsArgsStdinCmndResult(cs.Cmnd):
 
         self.captureRunStr(""" #+begin_org
 #+begin_src sh :results output :session shared
-  csExamples.cs --par1Example="par1Mantory" --par2Example="par2Optional" -i parsArgsStdinCmndResult arg1 argTwo
+  exmpl-seeded-cmnds.cs -i pyCmndInvOf_parsArgsStdinCmndResult
 #+end_src
 #+RESULTS:
-:
-: cmndArgs= arg1  argTwo
-: stdin instead of methodInvokeArg =
-: cmndParams= par1Mantory par2Optional
-: OpError.Success
+: cmndArgs= echo  py_arg2Val
+: stdin instead of methodInvokeArg = py method invoke arg
+: cmndParams= py_par1Val None
         #+end_org """)
 
         if self.justCaptureP(): return cmndOutcome

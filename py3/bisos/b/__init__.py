@@ -13,6 +13,7 @@ Vague = type('Vague', (), dict(__repr__=lambda self: 'Vague'))()
 # __import__('pkg_resources').declare_namespace(__name__)
 
 # This has to come late or before .types  because types collides with b.types
+from .utils import *
 from .importFile import *
 
 #from bisos.b import types # expose ./types.py as b.types.
