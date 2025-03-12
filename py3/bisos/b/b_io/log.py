@@ -326,13 +326,15 @@ def note(
     logControler = b_io.log.Control()
     logger = logControler.loggerGet()
 
-    fn = b.ast.FUNC_currentGet()
-    argsLength =  b.ast.FUNC_argsLength(fn, v, k)
+    # fn = b.ast.FUNC_currentGet()
+    # argsLength =  b.ast.FUNC_argsLength(fn, v, k)
 
-    if argsLength == 2:   # empty '()'
-        outString = ''
-    else:
-        outString = format(*v, **k)
+    # if argsLength == 2:   # empty '()'
+        # outString = ''
+    # else:
+        # outString = format(*v, **k)
+
+    outString = format(*v, **k)
 
     logger.info( 'LOG_: ' + outString )
 
@@ -348,18 +350,20 @@ def here(
     """ #+begin_org
 ** [[elisp:(org-cycle)][| *DocStr | ] Mark file and line -- do the equivalent of a print statement.
     #+end_org """
-    logControler = b_io.log.Control()
+    logControler = b_io.log.controller
     logger = logControler.loggerGet()
 
-    fn = b.ast.FUNC_currentGet()
-    argsLength =  b.ast.FUNC_argsLength(fn, v, k)
+    # fn = b.ast.FUNC_currentGet()
+    # argsLength =  b.ast.FUNC_argsLength(fn, v, k)
 
-    if argsLength == 2:   # empty '()'
-        outString = ''
-    else:
-        outString = format(*v, **k)
+    # if argsLength == 2:   # empty '()'
+    #     outString = ''
+    # else:
+    #     outString = format(*v, **k)
 
-    logger.info('LOG_: ' + outString + ' -- ' + b.ast.stackFrameInfoGet(2) )
+    outString = format(*v, **k)
+
+    logger.info('LOG_: ' + outString + ' -- ') #  + b.ast.stackFrameInfoGet(2) )
 
 
 ####+BEGIN: bx:cs:py3:section :title "Raw  Logging At Level"

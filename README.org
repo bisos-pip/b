@@ -4,11 +4,7 @@
 
 #+BEGIN: b:org:pypi:readme/topControls :pkgName "facter" :comment "basic"
 
-|----------------------+------------------------------------------------------------------|
-| ~Blee Panel Controls~: | [[elisp:(show-all)][Show-All]] : [[elisp:(org-shifttab)][Overview]] : [[elisp:(progn (org-shifttab) (org-content))][Content]] : [[elisp:(delete-other-windows)][(1)]] : [[elisp:(progn (save-buffer) (kill-buffer))][S&Q]] : [[elisp:(save-buffer)][Save]]  : [[elisp:(kill-buffer)][Quit]]  : [[elisp:(bury-buffer)][Bury]] |
-| ~Panel Links~:         | [[file:./py3/panels/bisos.facter/_nodeBase_/fullUsagePanel-en.org][Repo Blee Panel]]                                                  |
-| ~See Also~:            | [[https://pypi.org/project/bisos.facter][At PYPI]] : [[https://github.com/bisos-pip/pycs][bisos.PyCS]]                                             |
-|----------------------+------------------------------------------------------------------|
+# TopControls don't apply to pypi.org documentation.
 
 #+END:
 

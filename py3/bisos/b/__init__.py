@@ -65,6 +65,7 @@ from .fp import  *
 #
 
 from .fpCls import  *
+from .fp_csu import  *
 
 from bisos.b.cs import ro
 

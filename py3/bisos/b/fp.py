@@ -61,10 +61,6 @@ See panel for details.
 #+end_org """
 ####+END:
 
-# __all__ = [
-#     'FP_readTreeAtBaseDir',
-# ]
-
 import typing
 
 from bisos import b
@@ -103,7 +99,7 @@ class FileParam(object):
       2- content of ParameterName/value is ParameterValue
       3- rest of the files in ParameterName/ are ParameterAttributes.
 
-    The concept of a FileParam dates back to [[http://www.qmailwiki.org/Qmail-control-files][Qmail Control Files]] (at least).
+    The concept of a FileParam is based on FileVariables which  dates back to [[http://www.qmailwiki.org/Qmail-control-files][Qmail Control Files]] (at least).
     A FileParam is broader than that concept in two respects.
      1) A FileParam is represented as a directory on the file system. This FileParam
         permits the parameter to have attributes beyond just a value. Other attributes
@@ -119,16 +115,16 @@ class FileParam(object):
                  parName=None,
                  parValue=None,
                  storeBase=None,
-                 storeRoot=None,
-                 storeRel=None,
+                 # storeRoot=None,
+                 # storeRel=None,
                  attrRead=None,
                  ):
         '''Constructor'''
         self.__parName = parName
         self.__parValue = parValue
         self.__storeBase = storeBase   # storeBase = storeRoot + storeRel
-        self.__storeRoot = storeRoot
-        self.__storeRel = storeRel
+        # self.__storeRoot = storeRoot
+        # self.__storeRel = storeRel
         self.__attrRead = attrRead
 
 
@@ -136,6 +132,10 @@ class FileParam(object):
         return  format(
             str(self.parNameGet()) + ": " + str(self.parValueGet())
             )
+
+    def parBaseGet(self):
+        """  """
+        return self.__storeBase
 
     def parNameGet(self):
         """  """
@@ -466,6 +466,7 @@ def FileParamWriteTo(
 
     return thisFileParam.writeTo(storeBase=parRoot)
 
+
 ####+BEGIN: b:py3:cs:func/typing :funcName "FileParamWriteToPath" :funcType "extTyped" :retType "extTyped" :deco "default" :argsList ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /FileParamWriteToPath/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
@@ -579,6 +580,7 @@ def FileParamReadFrom(
 
     return filePar
 
+
 ####+BEGIN: b:py3:cs:func/typing :funcName "FileParamValueReadFrom" :funcType "extTyped" :retType "extTyped" :deco "default" :argsList ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /FileParamValueReadFrom/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
@@ -609,6 +611,7 @@ def FileParamValueReadFrom(
         return None
 
     return(filePar.parValueGet())
+
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "FileParamReadFromPath" :funcType "extTyped" :retType "extTyped" :deco "default" :argsList ""
 """ #+begin_org
@@ -702,6 +705,7 @@ def FileParamVerReadFrom(
     #print(filePar.parValueGet())
     return filePar
 
+
 ####+BEGIN: bx:cs:py3:section :title "FILE_paramDict Functional Interface"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  /Section/    [[elisp:(outline-show-subtree+toggle)][||]] *FILE_paramDict Functional Interface*  [[elisp:(org-cycle)][| ]]
@@ -709,12 +713,135 @@ def FileParamVerReadFrom(
 ####+END:
 
 
-####+BEGIN: b:py3:cs:func/typing :funcName "FILE_paramDictRead_ICM" :comment "OLD Style CMND" :funcType "extTyped" :retType "extTyped" :deco "default" :argsList ""
+####+BEGIN: b:py3:cs:func/typing :funcName "readTreeAtBaseDir_wOp" :funcType "wOp" :retType "OpOutcome" :deco "default" :argsList ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /FILE_paramDictRead_ICM/  OLD Style CMND deco=default  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-wOp    [[elisp:(outline-show-subtree+toggle)][||]] /readTreeAtBaseDir_wOp/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
 #+end_org """
 @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
-def FILE_paramDictRead_ICM(
+def readTreeAtBaseDir_wOp(
+####+END:
+        fpsDir: typing.AnyStr,
+        outcome: typing.Optional[b.op.Outcome] = None,
+) -> b.op.Outcome:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ] A Wrapped Operation with results
+    #+end_org """
+
+    if not outcome:
+        outcome = b.op.Outcome()
+
+    blankParDictObj  = FileParamDict()
+    thisParamDict = blankParDictObj.readFrom(path=fpsDir)
+    b_io.tm.here(f"path={fpsDir}")
+
+    if thisParamDict == None:
+        return b_io.eh.problem_usageError_wOp(
+            outcome,
+            "thisParamDict == None",
+        )
+
+    return outcome.set(
+        opError=b.OpError.Success,
+        opResults=thisParamDict,
+    )
+
+
+####+BEGIN: b:py3:cs:func/typing :funcName "parsGetAsDictValue_wOp" :funcType "wOp" :retType "OpOutcome" :deco "default" :argsList "typed"
+""" #+begin_org
+* _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-wOp    [[elisp:(outline-show-subtree+toggle)][||]] /parsGetAsDictValue_wOp/  deco=default  [[elisp:(org-cycle)][| ]]
+#+end_org """
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+def parsGetAsDictValue_wOp(
+####+END:
+        parNamesList: typing.Optional[list],
+        fpsDir: typing.AnyStr,
+        outcome: typing.Optional[b.op.Outcome] = None,
+) -> b.op.Outcome:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ] A Wrapped Operation with results being a dictionary of values.
+    if not ~parNamesList~, get all the values.
+    #+end_org """
+
+    outcome = readTreeAtBaseDir_wOp(fpsDir, outcome=outcome)
+
+    results = outcome.results
+
+    opResults = dict()
+    #opErrors = ""
+
+    if parNamesList:
+        for each in parNamesList:
+            # NOTYET, If no results[each], we need to record it in opErrors
+            if each in results.keys():
+                opResults[each] = results[each].parValueGet()
+            else:
+                opResults[each] = "_UnFound_"
+
+            #print(f"{each} {eachFpValue}")
+    else:
+        for eachFpName in results:
+            opResults[eachFpName] = results[eachFpName].parValueGet()
+            #print(f"{eachFpName} {eachFpValue}")
+
+    return outcome.set(
+        opError=b.OpError.Success,
+        opResults=opResults,
+    )
+
+
+####+BEGIN: b:py3:cs:func/typing :funcName "parsGetAsDictValue" :funcType "wOp" :retType "OpOutcome" :deco "default" :argsList "typed"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-wOp    [[elisp:(outline-show-subtree+toggle)][||]] /parsGetAsDictValue/  deco=default  [[elisp:(org-cycle)][| ]]
+#+end_org """
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+def parsGetAsDictValue(
+####+END:
+        parNamesList: typing.Optional[list],
+        fpsDir: typing.AnyStr,
+) -> typing.Dict[str, typing.Any]:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ] A Wrapped Operation with results being a dictionary of values.
+    if not ~parNamesList~, get all the values.
+*** TODO --- NOTYET This needs to be moved to
+    #+end_org """
+
+    blankParDictObj  = FileParamDict()
+    thisParamDict = blankParDictObj.readFrom(path=fpsDir)
+    b_io.tm.here(f"path={fpsDir}")
+
+    results = thisParamDict
+
+    opResults = dict()
+    #opErrors = ""
+
+    if parNamesList:
+        for each in parNamesList:
+            # NOTYET, If no results[each], we need to record it in opErrors
+            if each in results.keys():
+                opResults[each] = results[each].parValueGet()
+            else:
+                opResults[each] = "UnFound"
+            #print(f"{each} {eachFpValue}")
+    else:
+        for eachFpName in results:
+            opResults[eachFpName] = results[eachFpName].parValueGet()
+            #print(f"{eachFpName} {eachFpValue}")
+
+    return opResults
+
+
+####+BEGIN: bx:cs:py3:section :title "OLD ICM Junk Yard -- FILE_paramDict Functional Interface"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  /Section/    [[elisp:(outline-show-subtree+toggle)][||]] *OLD ICM Junk Yard -- FILE_paramDict Functional Interface*  [[elisp:(org-cycle)][| ]]
+#+end_org """
+####+END:
+
+####+BEGIN: b:py3:cs:func/typing :funcName "FILE_paramDictRead_ICM_OBSOLETED" :comment "OLD Style CMND" :funcType "extTyped" :retType "extTyped" :deco "default" :argsList ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /FILE_paramDictRead_ICM_OBSOLETED/  OLD Style CMND deco=default  [[elisp:(org-cycle)][| ]]
+#+end_org """
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+def FILE_paramDictRead_ICM_OBSOLETED(
 ####+END:
         interactive=None, # NOTYET, icm.Interactivity.Both,
         inPathList=None
@@ -765,12 +892,12 @@ def FILE_paramDictRead_ICM(
 
 
 
-####+BEGIN: b:py3:cs:func/typing :funcName "FILE_paramDictRead" :comment "OLD Style CMND" :funcType "extTyped" :retType "extTyped" :deco "default" :argsList ""
+####+BEGIN: b:py3:cs:func/typing :funcName "FILE_paramDictReadObsolete" :comment "OLD Style CMND" :funcType "extTyped" :retType "extTyped" :deco "default" :argsList ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /FILE_paramDictRead/ deco=default  =OLD Style CMND= deco=default   [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /FILE_paramDictReadObsolete/  OLD Style CMND deco=default  [[elisp:(org-cycle)][| ]]
 #+end_org """
 @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
-def FILE_paramDictRead(
+def FILE_paramDictReadObsolete(
 ####+END:
         interactive=None, # NOTYET, icm.Interactivity.Both,
         inPathList=None
@@ -795,8 +922,9 @@ def FILE_paramDictRead(
 
     for thisPath in inPathList:
         blankDict = FileParamDict()
+        # print('path=' + thisPath)
         thisParamDict = blankDict.readFrom(path=thisPath)
-        # icm.TM_here('path=' + thisPath)
+
 
         if thisParamDict == None:
             continue
@@ -816,62 +944,7 @@ def FILE_paramDictRead(
     return
 
 
-####+BEGINNOT: b:py3:cs:cmnd/classHead :modPrefix "" :cmndName "FP_readTreeAtBaseDir" :comment "" :parsMand "FPsDir" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
-""" #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc    [[elisp:(outline-show-subtree+toggle)][||]] <<FP_readTreeAtBaseDir>> parsMand=FPsDir parsOpt= argsMin=0 argsMax=0 asFunc= interactive=  [[elisp:(org-cycle)][| ]]
-#+end_org """
-class FP_readTreeAtBaseDir(b.cs.Cmnd):
-    cmndParamsMandatory = [ 'FPsDir', ]
-    cmndParamsOptional = [ ]
-    cmndArgsLen = {'Min': 0, 'Max': 0,}
-
-    #@io.track.subjectToTracking(fnLoc=True, fnEntry=True, fnExit=True)
-    def cmnd(self,
-        interactive=False,        # Can also be called non-interactively
-        FPsDir=None,         # or Cmnd-Input
-    ) -> b.op.Outcome:
-        cmndOutcome = self.getOpOutcome()
-        if interactive:
-            if not self.cmndLineValidate(outcome=cmndOutcome):
-                return cmndOutcome
-
-        callParamsDict = {'FPsDir': FPsDir, }
-        if not cs.cmndCallParamsValidate(callParamsDict, interactive, outcome=cmndOutcome):
-            return cmndOutcome
-        FPsDir = callParamsDict['FPsDir']
-
-####+END:
-        #G = cs.globalContext.get()
-
-        # return FP_readTreeAtBaseDir_f(
-        #     interactive=interactive,
-        #     outcome = cmndOutcome,
-        #     FPsDir=FPsDir,
-        # )
-
-        blankParDictObj  = FileParamDict()
-        thisParamDict = blankParDictObj.readFrom(path=FPsDir)
-        b_io.tm.here(f"path={FPsDir}")
-
-        if thisParamDict == None:
-            return icm.eh_problem_usageError(
-                cmndOutcome,
-                "thisParamDict == None",
-            )
-
-        if interactive:
-            b_io.ann.write(FPsDir)
-            FILE_paramDictPrint(thisParamDict)
-
-        return cmndOutcome.set(
-            # opError=cs.OpError.Success,
-            opResults=thisParamDict,
-        )
-
-    def cmndDocStr(self): return """
-** Reads and recurses through all FPs.  [[elisp:(org-cycle)][| ]]
-*** When interactive, also prints out parValues as read.
-"""
+# FP_readTreeAtBaseDir = b.fp_csu.fpBaseDictRead   # OBSOLETED
 
 
 def cmndCallParamsValidate(
@@ -949,64 +1022,6 @@ def FILE_paramDictPrint(
                 '='))
 
 
-####+BEGIN: b:py3:cs:func/typing :funcName "FILE_paramDictReadDeep_ICM" :comment "OLD Style Cmnd" :funcType "extTyped" :retType "extTyped" :deco "default" :argsList ""
-""" #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /FILE_paramDictReadDeep_ICM/  OLD Style Cmnd deco=default  [[elisp:(org-cycle)][| ]]
-#+end_org """
-@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
-def FILE_paramDictReadDeep_ICM(
-####+END:
-        interactive=None, # NOTYET, icm.Interactivity.Both,
-        inPathList=None
-):
-    """ #+begin_org
-** [[elisp:(org-cycle)][| *DocStr | ] OLD Style Cmnd --- NOTYET, to be revisited
-    #+end_org """
-
-
-    G = cs.globalContext.get()
-    G.curFuncNameSet(b.ast.FUNC_currentGet().__name__)
-
-    if icm.Interactivity().interactiveInvokation(interactive):
-        icmRunArgs = G.icmRunArgsGet()
-        #if cmndArgsLengthValidate(cmndArgs=icmRunArgs.cmndArgs, expected=0, comparison=int__gt):
-            #return(ReturnCode.UsageError)
-
-        inPathList = []
-        for thisPath in icm.icmRunArgs.cmndArgs:
-            inPathList.append(thisPath)
-    else:
-        if inPathList == None:
-            return b_io.eh.critical_usageError('inPathList is None and is Non-Interactive')
-
-    fileParamsDict = {}
-
-    for thisPath in inPathList:
-        #absolutePath = os.path.abspath(thisPath)
-
-        if not os.path.isdir(thisPath):
-            return b_io.eh.critical_usageError('Missing Directory: {thisPath}'.format(thisPath=thisPath))
-
-        for root, dirs, files in os.walk(thisPath):
-            #print("root={root}".format(root=root))
-            #print ("dirs={dirs}".format(dirs=dirs))
-            #print ("files={files}".format(files=files))
-
-            thisFileParamValueFile = os.path.join(root, "value")
-            if os.path.isfile(thisFileParamValueFile):
-                try:
-                    fileParam = FileParamReadFromPath(parRoot=root)
-                except IOError:
-                    b_io.eh.problem_info("Missing " + root)
-                    continue
-
-                fileParamsDict.update({root:fileParam.parValueGet()})
-                if interactive:
-                    print((root + "=" + fileParam.parValueGet()))
-
-    return fileParamsDict
-
-
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "FILE_paramDictReadDeep" :comment "OLD Style Cmnd" :funcType "extTyped" :retType "extTyped" :deco "default" :argsList ""
 """ #+begin_org
@@ -1015,27 +1030,14 @@ def FILE_paramDictReadDeep_ICM(
 @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
 def FILE_paramDictReadDeep(
 ####+END:
-        interactive=None, # NOTYET, icm.Interactivity.Both,
         inPathList=None
 ):
     """ #+begin_org
-** [[elisp:(org-cycle)][| *DocStr | ] OLD Style Cmnd --- NOTYET, to be revisited
+** [[elisp:(org-cycle)][| *DocStr | ] Uses os.walk.
     #+end_org """
 
-    
-    G = cs.globalContext.get()
-
-    if interactive:
-        icmRunArgs = G.icmRunArgsGet()
-        #if cmndArgsLengthValidate(cmndArgs=icmRunArgs.cmndArgs, expected=0, comparison=int__gt):
-            #return(ReturnCode.UsageError)
-
-        inPathList = []
-        for thisPath in icm.icmRunArgs.cmndArgs:
-            inPathList.append(thisPath)
-    else:
-        if inPathList == None:
-            return b_io.eh.critical_usageError('inPathList is None and is Non-Interactive')
+    if inPathList == None:
+            return b_io.eh.critical_usageError('inPathList is None')
 
     fileParamsDict = {}
 
@@ -1059,134 +1061,8 @@ def FILE_paramDictReadDeep(
                     continue
 
                 fileParamsDict.update({root:fileParam.parValueGet()})
-                if interactive:
-                    print((root + "=" + fileParam.parValueGet()))
 
     return fileParamsDict
-
-
-####+BEGIN: b:py3:cs:func/typing :funcName "readTreeAtBaseDir_wOp" :funcType "wOp" :retType "OpOutcome" :deco "default" :argsList ""
-""" #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-wOp    [[elisp:(outline-show-subtree+toggle)][||]] /readTreeAtBaseDir_wOp/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
-#+end_org """
-@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
-def readTreeAtBaseDir_wOp(
-####+END:
-        fpsDir: typing.AnyStr,
-        outcome: typing.Optional[b.op.Outcome] = None,
-) -> b.op.Outcome:
-    """ #+begin_org
-** [[elisp:(org-cycle)][| *DocStr | ] A Wrapped Operation with results
-    #+end_org """
-
-    if not outcome:
-        outcome = b.op.Outcome()
-
-    blankParDictObj  = FileParamDict()
-    thisParamDict = blankParDictObj.readFrom(path=fpsDir)
-    b_io.tm.here(f"path={fpsDir}")
-
-    if thisParamDict == None:
-        return b_io.eh.problem_usageError_wOp(
-            outcome,
-            "thisParamDict == None",
-        )
-
-    # b_io.ann.write(fpsDir)
-    # FILE_paramDictPrint(thisParamDict)
-
-    return outcome.set(
-        opError=b.OpError.Success,
-        opResults=thisParamDict,
-    )
-
-####+BEGIN: b:py3:cs:func/typing :funcName "parsGetAsDictValue_wOp" :funcType "wOp" :retType "OpOutcome" :deco "default" :argsList "typed"
-""" #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-wOp    [[elisp:(outline-show-subtree+toggle)][||]] /parsGetAsDictValue_wOp/ deco=default  deco=default   [[elisp:(org-cycle)][| ]]
-#+end_org """
-@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
-def parsGetAsDictValue_wOp(
-####+END:
-        parNamesList: typing.Optional[list],
-        fpsDir: typing.AnyStr,
-        outcome: typing.Optional[b.op.Outcome] = None,
-) -> b.op.Outcome:
-    """ #+begin_org
-** [[elisp:(org-cycle)][| *DocStr | ] A Wrapped Operation with results being a dictionary of values.
-    if not ~parNamesList~, get all the values.
-*** TODO --- NOTYET This needs to be moved to
-    #+end_org """
-
-    outcome = readTreeAtBaseDir_wOp(fpsDir, outcome=outcome)
-
-    results = outcome.results
-
-    opResults = dict()
-    #opErrors = ""
-
-    if parNamesList:
-        for each in parNamesList:
-            # NOTYET, If no results[each], we need to record it in opErrors
-            if each in results.keys():
-                opResults[each] = results[each].parValueGet()
-            else:
-                opResults[each] = "UnFound"
-
-
-            #print(f"{each} {eachFpValue}")
-
-    else:
-        for eachFpName in results:
-            opResults[eachFpName] = results[eachFpName].parValueGet()
-            #print(f"{eachFpName} {eachFpValue}")
-
-    return outcome.set(
-        opError=b.OpError.Success,
-        opResults=opResults,
-    )
-
-####+BEGIN: b:py3:cs:func/typing :funcName "parsGetAsDictValue" :funcType "wOp" :retType "OpOutcome" :deco "default" :argsList "typed"
-""" #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-wOp    [[elisp:(outline-show-subtree+toggle)][||]] /parsGetAsDictValue/  deco=default  [[elisp:(org-cycle)][| ]]
-#+end_org """
-@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
-def parsGetAsDictValue(
-####+END:
-        parNamesList: typing.Optional[list],
-        fpsDir: typing.AnyStr,
-) -> typing.Dict[str, typing.Any]:
-    """ #+begin_org
-** [[elisp:(org-cycle)][| *DocStr | ] A Wrapped Operation with results being a dictionary of values.
-    if not ~parNamesList~, get all the values.
-*** TODO --- NOTYET This needs to be moved to
-    #+end_org """
-
-    blankParDictObj  = FileParamDict()
-    thisParamDict = blankParDictObj.readFrom(path=fpsDir)
-    b_io.tm.here(f"path={fpsDir}")
-
-    results = thisParamDict
-
-    opResults = dict()
-    #opErrors = ""
-
-    if parNamesList:
-        for each in parNamesList:
-            # NOTYET, If no results[each], we need to record it in opErrors
-            if each in results.keys():
-                opResults[each] = results[each].parValueGet()
-            else:
-                opResults[each] = "UnFound"
-
-
-            #print(f"{each} {eachFpValue}")
-
-    else:
-        for eachFpName in results:
-            opResults[eachFpName] = results[eachFpName].parValueGet()
-            #print(f"{eachFpName} {eachFpValue}")
-
-    return opResults
 
 
 ####+BEGIN: b:prog:file/endOfFile :extraParams nil

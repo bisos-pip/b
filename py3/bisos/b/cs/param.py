@@ -122,6 +122,8 @@ class CmndParam(object):
                   parDescription=None,
                   parDataType=None,
                   parDefault=None,
+                  fileParInit=None,
+                  fileParName=None,
                   parChoices=None,
                   parScope=None,
                   parMetavar=None,
@@ -138,6 +140,8 @@ class CmndParam(object):
          self.__parDescription = parDescription
          self.__parDataType = parDataType
          self.__parDefault = parDefault
+         self.__fileParInit = fileParInit
+         self.__fileParName = fileParName
          self.__parChoices = parChoices
          self.__parMetavar = parMetavar
          self.parActionSet(parAction)
@@ -169,9 +173,29 @@ description: {description}""".
          """        """
          return self.__parValue
 
+     def parValueSet(self, value):
+         """        """
+         self.__parValue = value
+
      def parFpValueSet(self, value):
          """        """
          self.__parFpValue = value
+
+     @property
+     def fileParInit(self) -> str | None:
+         return self.__fileParInit
+
+     @fileParInit.setter
+     def fileParInit(self, value: str | None,):
+         self.__fileParInit = value
+
+     @property
+     def fileParName(self) -> str | None:
+         return self.__fileParName
+
+     @fileParName.setter
+     def fileParName(self, value: str | None,):
+         self.__fileParName = value
 
      def parDescriptionGet(self):
          """        """
@@ -303,15 +327,19 @@ description: {description}""".
          if not parValue:
              parValue = "unSet"
 
+         fileParName = self.parNameGet()
+         if self.fileParName:
+             fileParName = self.fileParName
+
          b.fp.FileParamWriteTo(
              parRoot=absoluteParRoot,
-             parName=self.parNameGet(),
+             parName=fileParName,
              parValue=parValue,
          )
 
          varValueFullPath = os.path.join(
              absoluteParRoot,
-             self.parNameGet(),
+             fileParName,
              'description'
          )
 
@@ -322,7 +350,7 @@ description: {description}""".
 
          varValueBaseDir = os.path.join(
              absoluteParRoot,
-             self.parNameGet(),
+             fileParName,
              'enums'
          )
 
@@ -339,13 +367,13 @@ description: {description}""".
 #+end_org """
 class CmndParamDict(object):
 ####+END:
-     """ICM Parameters Dictionary -- Collection of CmndParam s can be placed in CmndParamDict
+     """CS Parameters Dictionary -- Collection of CmndParam s can be placed in CmndParamDict
 
-     From icmParamDict
+     From csParamDict
      """
 
      def __init__(self):
-         self.__icmParamDict = dict()
+         self.__csParamDict = dict()
 
      def parDictAdd(self,
                     parName=None,
@@ -353,6 +381,8 @@ class CmndParamDict(object):
                     parDataType=None,
                     parMetavar=None,
                     parDefault=None,
+                    fileParInit=None,
+                    fileParName=None,
                     parChoices=None,
                     parScope=None,
                     parAction='store',
@@ -366,6 +396,8 @@ class CmndParamDict(object):
                                parDataType=parDataType,
                                parMetavar=parMetavar,
                                parDefault=parDefault,
+                               fileParInit=fileParInit,
+                               fileParName=fileParName,
                                parChoices=parChoices,
                                parScope=parScope,
                                parAction=parAction,
@@ -377,18 +409,18 @@ class CmndParamDict(object):
          self.parDictAppend(thisParam)
          # print(f"rrr {thisParam}")
 
-     def parDictAppend(self, icmParam):
+     def parDictAppend(self, csParam):
          """        """
-         self.__icmParamDict.update({icmParam.parNameGet():icmParam})
+         self.__csParamDict.update({csParam.parNameGet():csParam})
 
 
      def parDictGet(self):
          """        """
-         return self.__icmParamDict
+         return self.__csParamDict
 
      def parNameFind(self, parName):
          """        """
-         found = self.__icmParamDict[parName]
+         found = self.__csParamDict[parName]
          return found
 
 
@@ -399,28 +431,22 @@ class CmndParamDict(object):
                                 ):
          """NOTYET -- Verify That Mandatory and Optional Params for this cmnd have been specified At Runtime."""
 
-         # if icmRunArgs.perfSap:
-         #     print(icmRunArgs.perfSap)
-
-         # if icmRunArgs.wsdlUrl:
-         #     print(icmRunArgs.wsdlUrl)
-
          return
 
-####+BEGIN: bx:cs:py3:func :funcName "commonIcmParamsPrep" :funcType "extTyped" :deco ""
+####+BEGIN: bx:cs:py3:func :funcName "commonCsParamsPrep" :funcType "extTyped" :deco ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /commonIcmParamsPrep/  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /commonCsParamsPrep/  [[elisp:(org-cycle)][| ]]
 #+end_org """
-def commonIcmParamsPrep(
+def commonCsParamsPrep(
 ####+END:
 ) -> None:
     """ #+begin_org
 ** [[elisp:(org-cycle)][| *DocStr | ] Module Common Command Line Parameters.
     #+end_org """
 
-    icmParams = CmndParamDict()
+    csParams = CmndParamDict()
 
-    icmParams.parDictAdd(
+    csParams.parDictAdd(
         parAction='append',
         parName='callTrackings',
         parDescription="Set monitoring of calls and selected invokes.",
@@ -432,7 +458,7 @@ def commonIcmParamsPrep(
         argparseLongOpt='--callTrackings',
         )
 
-    icmParams.parDictAdd(
+    csParams.parDictAdd(
         parAction='store',
         parName='runMode',
         parDescription="Run Mode as fullRun or dryRun",
@@ -444,7 +470,7 @@ def commonIcmParamsPrep(
         argparseLongOpt='--runMode',
         )
 
-    icmParams.parDictAdd(
+    csParams.parDictAdd(
         parAction='store',
         parName='verbosity',
         parDescription='Adds a Console Logger for the level specified in the range 1..50',
@@ -457,7 +483,7 @@ def commonIcmParamsPrep(
         argparseLongOpt='--verbosity',
         )
 
-    icmParams.parDictAdd(
+    csParams.parDictAdd(
         parAction='store',
         parName='logFile',
         parDescription='Specifies destination LogFile for this run',
@@ -470,7 +496,7 @@ def commonIcmParamsPrep(
         argparseLongOpt='--logFile',
         )
 
-    icmParams.parDictAdd(
+    csParams.parDictAdd(
         parAction='store',
         parName='sectionTitle',
         parDescription='For use as section title of examples',
@@ -483,7 +509,7 @@ def commonIcmParamsPrep(
         argparseLongOpt='--sectionTitle',
         )
 
-    icmParams.parDictAdd(
+    csParams.parDictAdd(
         parAction='store',
         parName='logFileLevel',
         parDescription='Specifies destination LogFile for this run',
@@ -496,7 +522,7 @@ def commonIcmParamsPrep(
         argparseLongOpt='--logFileLevel',
         )
 
-    icmParams.parDictAdd(
+    csParams.parDictAdd(
         parAction='store_true',
         parName='docstring',
         parDescription='Docstring',
@@ -509,7 +535,7 @@ def commonIcmParamsPrep(
         argparseLongOpt='--logFileLevel',
         )
 
-    # icmParams.parDictAdd(
+    # csParams.parDictAdd(
     #
     #     parAction='store',
     #     parName='cmndArgs',
@@ -524,7 +550,7 @@ def commonIcmParamsPrep(
     #     )
 
 
-    icmParams.parDictAdd(
+    csParams.parDictAdd(
         parAction='append',
         parName='loadfiles',
         parDescription='Load Files',
@@ -538,33 +564,9 @@ def commonIcmParamsPrep(
         )
 
 
-    return icmParams
+    return csParams
 
-####+BEGIN: bx:cs:py3:func :funcName "icmParamsToFileParamsUpdate" :funcType "extTyped" :deco ""
-""" #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /icmParamsToFileParamsUpdate/  [[elisp:(org-cycle)][| ]]
-#+end_org """
-def icmParamsToFileParamsUpdate(
-####+END:
-        parRoot,
-        icmParams,
-) -> None:
-    """ #+begin_org
-** [[elisp:(org-cycle)][| *DocStr | ] Convert icmParams to parser
-    #+end_org """
-
-    b_io.log.here("Updating icmParams at: {parRoot}".format(parRoot=parRoot))
-
-    for key, icmParam in icmParams.parDictGet().items():
-        if ( icmParam.argsparseShortOptGet() == None )  and ( icmParam.argsparseLongOptGet() == None ):
-            break
-
-        icmParam.writeAsFileParam(
-            parRoot=parRoot,
-        )
-
-    return
-
+commonIcmParamsPrep = commonCsParamsPrep
 
 ####+BEGIN: bx:cs:py3:func :funcName "csParamsToFileParamsUpdate" :funcType "extTyped" :deco ""
 """ #+begin_org
@@ -591,6 +593,7 @@ def csParamsToFileParamsUpdate(
 
     return
 
+icmParamsToFileParamsUpdate = csParamsToFileParamsUpdate
 
 ####+BEGIN: bx:cs:py3:func :funcName "cmndParamsMandatoryAssert" :funcType "extTyped" :deco ""
 """ #+begin_org

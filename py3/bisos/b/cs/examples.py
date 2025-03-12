@@ -119,7 +119,8 @@ class commonExamples(cs.Cmnd):
         print(( G_myName + " -i describe" ))
         print(( G_myName + " -i describe" + " |" + " emlVisit"))
         print(( G_myName + " -i examples" ))
-        print(( G_myName + " -i examples" + " |" + " icmToEmlVisit"))
+        print(f"{G_myName} -i examples | emlOutFilter.sh -i iimToEmlStdout  | emlVisit")
+        # print(( G_myName + " -i examples" + " |" + " icmToEmlVisit"))
 
         return(cmndOutcome)
 
@@ -145,7 +146,8 @@ def commonBrief(
 
     print(( G_myName + " -i commonExamples" + "    # Help, Model, icmOptionsExample"))
     print(( G_myName + " -i describe" + " |" + " emlVisit"))
-    print(( G_myName + " -i examples" + " |" + " icmToEmlVisit"))
+    # print(( G_myName + " -i examples" + " |" + " icmToEmlVisit"))
+    print(f"{G_myName} -i examples | emlOutFilter.sh -i iimToEmlStdout  | emlVisit")
     print(( G_myName + " -i visit"))
     print(( """emlVisit -v -n showRun -i gotoPanel """ + G_myFullName))
 
