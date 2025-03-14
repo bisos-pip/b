@@ -675,6 +675,7 @@ class fpBaseParsGetAsDictValue(cs.Cmnd):
             if not pathlib.Path(fpBase).exists():
                 return failed(cmndOutcome)
         except:
+            print(fpBase)
             return failed(cmndOutcome)
 
         return  ( b.fp.parsGetAsDictValue_wOp(parNamesList, fpBase, cmndOutcome) )

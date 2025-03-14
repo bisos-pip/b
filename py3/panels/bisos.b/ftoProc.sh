@@ -5,7 +5,7 @@ SEED="
 *  /[dblock]/ /Seed/ :: [[file:/bisos/core/bsip/bin/seedFtoCommon.sh]] |
 "
 FILE="
-*  /This File/ :: /bisos/git/auth/bxRepos/bisos-pip/b/py3/panels/bisos.b/ftoProc.sh
+*  /This File/ :: //l/pip/b/py3/panels/bisos.b/ftoProc.sh
 "
 if [ "${loadFiles}" == "" ] ; then
     /bisos/core/bsip/bin/seedFtoCommon.sh -l $0 "$@"
@@ -26,15 +26,13 @@ nodesOrdered=""
 ####+BEGIN: bx:dblock:pypi:bash:leavesList :types ""
 leavesList="
 README
-fileTreeObject-FTO
-fileVariables
 "
 ####+END:
 
 ####+BEGIN: bx:dblock:pypi:bash:nodesList :types ""
 nodesList="
 evolution
-fileParameters
+fileCmndParams
 _nodeBase_
 "
 ####+END:
