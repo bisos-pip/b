@@ -124,7 +124,8 @@ class CmndParam(object):
                   parDefault=None,
                   fileParInit=None,
                   fileParName=None,
-                  parChoices=None,
+                  # parChoices=None,
+                  parChoices=[],
                   parScope=None,
                   parMetavar=None,
                   parAction='store',                    # Same as argparse's action
@@ -383,7 +384,7 @@ class CmndParamDict(object):
                     parDefault=None,
                     fileParInit=None,
                     fileParName=None,
-                    parChoices=None,
+                    parChoices=[],
                     parScope=None,
                     parAction='store',
                     parNargs=None,
