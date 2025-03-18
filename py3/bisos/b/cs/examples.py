@@ -299,6 +299,19 @@ def ex_gCommon(
 #+end_org """
 ####+END:
 
+####+BEGIN: b:py3:cs:func/typing :funcName "menuPart" :funcType "extTyped" :deco "track"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /menuPart/  deco=track  [[elisp:(org-cycle)][| ]]
+#+end_org """
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+def menuPart(
+####+END:
+        title: str,
+) -> None:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ]
+    #+end_org """
+    print(("@@@@@@@@  " + title + "  @@@@@@@@@"))
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "menuChapter" :funcType "extTyped" :deco "track"
 """ #+begin_org
@@ -313,7 +326,6 @@ def menuChapter(
 ** [[elisp:(org-cycle)][| *DocStr | ]
     #+end_org """
     print(("#######  " + title + "  ##########"))
-
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "menuSection" :funcType "extTyped" :deco "track"
 """ #+begin_org

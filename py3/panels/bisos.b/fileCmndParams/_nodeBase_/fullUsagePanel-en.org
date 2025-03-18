@@ -38,6 +38,19 @@
 ** +
 ** Scope is File Variables (fv), File Tree Objects (fto), File Parameters (fp), Command Parameters
 ** File Command Parameters: fpCls.py, bpoFpBases.py
+** <<CleanUps>> Clean Ups Planning
+*** +
+*** WAITING bpoFpsCls.py, fpCls.py fto.py, fp.py Cleanups::
+- ftoProc.cs :: New Idea --  Equivalent of ftoProc.sh with seed machinary.
+- =============
+- fp.py :: Cleanups
+- =============
+- fpCls.py :: type hints for fpBase  and ftoNode
+- =============
+- bpoFpsCls.py :: type hints for everything
+- =============
+- platfSiteBootstrap_fps.py :: Use it to test everything
+*** -
 ** -B|
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 1 :sep t :title "The Full FileParams, CmndParams and BpoFileParams Full Picture" :anchor "" :extraInfo "FileParams Layerings"
 * /[[elisp:(beginning-of-buffer)][|^]]  [[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]] [[elisp:(delete-other-windows)][|1]]/

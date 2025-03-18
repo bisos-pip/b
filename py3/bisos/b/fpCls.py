@@ -433,7 +433,10 @@ FP_Base is also a FILE_TreeObject.
         """Returns a dict of FileParam s. Reads in all FPs at self.fps_absBasePath()."""
         fileCmndParams = self.fps_manifestGet()
         fpBase = self.fileTreeBaseGet()
-        fileParName = self.cmndParNameToFileParName(paramName, fileCmndParams[paramName].cmndParam)
+        try:
+            fileParName = self.cmndParNameToFileParName(paramName, fileCmndParams[paramName].cmndParam)
+        except KeyError:
+            return None
         paramValue = b.fp.FileParamReadFrom(fpBase, fileParName,)
         return paramValue
 
