@@ -136,7 +136,7 @@ def execFileAsMain(
         importedFilePath: typing.Union[str,  pathlib.Path],
 ) -> types.ModuleType | None:
     """ #+begin_org
-** [[elisp:(org-cycle)][| *DocStr* |]] Iddempotently import ~importedFilePath~ as __main__, but have __main__.__file__ be sys.argv[0],  return imported *module*.
+** [[elisp:(org-cycle)][| *DocStr* |]] Idempotently import ~importedFilePath~ as __main__, but have __main__.__file__ be sys.argv[0],  return imported *module*.
 Key aspects to note:
     - execFileAsMain may be called twice, first atexit of plantedCsu. second when plantedCsu is imported by ~importedFilePath~
     - __main__.__file__ = sys.argv[0] is needed when using @atexit
