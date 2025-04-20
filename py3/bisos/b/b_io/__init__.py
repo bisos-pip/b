@@ -18,6 +18,10 @@ from .log import *
 
 from .stdin import *
 
+from .stdout import *
+
+from .stderr import *
+
 from .eh import *
 # from .eh import (EH_critical_cmndArgsPositional, EH_critical_cmndArgsOptional,)
 #                  EH_critical_usageError, EH_problem_notyet,

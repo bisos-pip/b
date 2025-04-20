@@ -276,7 +276,9 @@ class FileParam(object):
         with open(parValueFullPath, 'wb') as valueFile:
              valueFile.write(parValue)
              # NOTYET, this should be a pr
-             b_io.pr("FileParam.writeTo path={path} value={value}".
+             # b_io.pr("FileParam.writeTo path={path} value={value}".
+             #          format(path=parValueFullPath, value=parValue))
+             b_io.stderr("FileParam.writeTo path={path} value={value}".
                       format(path=parValueFullPath, value=parValue))
 
         return parNameFullPath
@@ -322,7 +324,9 @@ class FileParam(object):
         with open(parValueFullPath, "w") as valueFile:
              valueFile.write(str(parValue) +'\n')
              # NOTYET, this should be a pr
-             b_io.pr("FileParam.writeTo path={path} value={value}".
+             #b_io.pr("FileParam.writeTo path={path} value={value}".
+             #         format(path=parValueFullPath, value=parValue))
+             b_io.stderr("FileParam.writeTo path={path} value={value}".
                       format(path=parValueFullPath, value=parValue))
 
         return parNameFullPath

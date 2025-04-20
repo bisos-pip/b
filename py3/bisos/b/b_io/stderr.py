@@ -64,29 +64,22 @@ Module description comes here.
 
 import sys
 
-####+BEGIN: bx:cs:py3:func :funcName "read" :funcType "extTyped" :retType "extTyped" :deco "" :argsList ""
+####+BEGIN: bx:cs:py3:func :funcName "stderr" :funcType "extTyped" :retType "extTyped" :deco "" :argsList ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /read/  [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /stderr/  [[elisp:(org-cycle)][| ]]
 #+end_org """
-def read(
+def stderr(
 ####+END:
-) -> str:
+        *v,
+        **k,
+) -> None:
     """ #+begin_org
-** [[elisp:(org-cycle)][| *DocStr | ] Reads stdin. Returns a string. -- Uses mutable list.
+** [[elisp:(org-cycle)][| *DocStr | ]
     #+end_org """
 
-    stdinAsStr = ""
-    #if select.select([sys.stdin, ], [], [], 0.0)[0]:
-    if not sys.stdin.isatty():
+    return print(format(*v, **k), file=sys.stderr)
 
-        msgAsList = []
-        for line in sys.stdin:
-            msgAsList.append(str(line))
-
-        stdinAsStr = str("".join(msgAsList),)
-
-    return stdinAsStr
-
+ 
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 0 :title " ~End Of Editable Text~ "
 """
 *  [[elisp:(beginning-of-buffer)][Top]] ############## [[elisp:(blee:ppmm:org-mode-toggle)][Nat]] [[elisp:(delete-other-windows)][(1)]]    *End Of Editable Text*  [[elisp:(org-cycle)][| ]]  [[elisp:(org-show-subtree)][|=]]
