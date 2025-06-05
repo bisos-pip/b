@@ -377,7 +377,7 @@ class fileParamWrite(cs.Cmnd):
         if not parName: return(b_io.eh.badOutcome(cmndOutcome))
 
         parValue = self.cmndArgsGet("2", cmndArgsSpecDict, argsList)
-        if not parValue: return(b_io.eh.badOutcome(cmndOutcome))
+        # parVale can be an empty string -- if not parValue: return(b_io.eh.badOutcome(cmndOutcome))
 
         opResults = b.fp.FileParamWriteTo(
             parRoot=parRoot,
