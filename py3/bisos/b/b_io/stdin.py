@@ -89,6 +89,28 @@ def read(
 
     return stdinAsStr
 
+
+####+BEGIN: bx:cs:py3:func :funcName "readAsList" :funcType "extTyped" :retType "extTyped" :deco "" :argsList ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /readAsList/  [[elisp:(org-cycle)][| ]]
+#+end_org """
+def readAsList(
+####+END:
+) -> list[str]:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ] Reads stdin. Returns a string. -- Uses mutable list.
+    #+end_org """
+
+    #if select.select([sys.stdin, ], [], [], 0.0)[0]:
+    if not sys.stdin.isatty():
+
+        stdinAsList = []
+        for line in sys.stdin:
+            stdinAsList.append(str(line.strip()))
+
+    return stdinAsList
+
+
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 0 :title " ~End Of Editable Text~ "
 """
 *  [[elisp:(beginning-of-buffer)][Top]] ############## [[elisp:(blee:ppmm:org-mode-toggle)][Nat]] [[elisp:(delete-other-windows)][(1)]]    *End Of Editable Text*  [[elisp:(org-cycle)][| ]]  [[elisp:(org-show-subtree)][|=]]
