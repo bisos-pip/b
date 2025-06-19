@@ -445,18 +445,20 @@ def commonCsParamsPrep(
 ** [[elisp:(org-cycle)][| *DocStr | ] Module Common Command Line Parameters.
     #+end_org """
 
+    print("NOTYET --- This Has been obsoleted??? ---- JJJJJJJJJJJJJJ")
+
     csParams = CmndParamDict()
 
     csParams.parDictAdd(
         parAction='append',
-        parName='callTrackings',
+        parName='callTrackingsFF',
         parDescription="Set monitoring of calls and selected invokes.",
         parDataType=None,
         parDefault=[],
         parChoices=['invoke+', 'invoke-', 'monitor+', 'monitor-'],
         parScope=CmndParamScope.TargetParam,
         argparseShortOpt='-t',
-        argparseLongOpt='--callTrackings',
+        argparseLongOpt='--callTrackingsFF',  # NOTYET
         )
 
     csParams.parDictAdd(
@@ -533,7 +535,20 @@ def commonCsParamsPrep(
         parChoices=[],
         parScope=CmndParamScope.TargetParam,
         #argparseShortOpt='-v',
-        argparseLongOpt='--logFileLevel',
+        argparseLongOpt='--docString',
+        )
+
+    csParams.parDictAdd(
+        parAction='store_true',
+        parName='force',
+        parDescription='Over writes default behaviour and forces actions',
+        parDataType=None,
+        parDefault=None,
+        parMetavar='ARG',
+        parChoices=[],
+        parScope=CmndParamScope.TargetParam,
+        argparseShortOpt='-f',
+        argparseLongOpt='--force',
         )
 
     # csParams.parDictAdd(
