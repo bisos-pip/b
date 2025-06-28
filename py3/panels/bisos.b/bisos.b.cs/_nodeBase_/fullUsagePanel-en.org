@@ -51,6 +51,18 @@
 * [[elisp:(show-all)][(>]]  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_  _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_       [[elisp:(outline-show-subtree+toggle)][| *CS Internal Design:* |]]    [[elisp:(org-shifttab)][<)]] E|
 ####+END
 ** +
+** A CSMU passes the followint to cs.main.g_csMain
+- csInfo -- Human oriented information about this CSMU
+- noCmndEntry -- Callable or Cmnd to run when no cmnd (-i) has been specified
+- extraParams -- List of paramaters available to the CSMU
+- importedCmndsModules -- List of CSUs
+- csPreCmndsHook=None -- Execute before applying the command line to Cmnds
+- csPostCmndsHook=None -- Execute after applying the command line to Cmnds
+** cs.main.g_csMain (Current Implementation)
+- Invoked classedCmndsDict(importedCmndsModules)
+** cs.main.g_csMain (Evolution, ToDos)
+- Parse the command line and set logging level so that logs can be used in classedCmndsDict
+** cs.G_mainWithClass  Applies command line to Cmnds
 ** B|
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 1 :sep t :title "Types Of Cmnds Inputs" :anchor "" :extraInfo ""
 * /[[elisp:(beginning-of-buffer)][|^]]  [[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]] [[elisp:(delete-other-windows)][|1]]/

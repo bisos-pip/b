@@ -205,7 +205,7 @@ def devExamples(
 
     print("======== Development =========")
 
-    print(("python -m trace -l " + G_myName + " | egrep -v " + '\'/python2.7/|\<string\>\''))
+    # print(("python -m trace -l " + G_myName + " | egrep -v " + '\'/python2.7/|\<string\>\''))
     print(("python -m trace -l " + G_myName))
     print(("python -m trace -t " + G_myName))
 

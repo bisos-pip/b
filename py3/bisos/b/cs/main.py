@@ -21,19 +21,6 @@
 #+end_org """
 ####+END:
 
-####+BEGIN: b:python:file/particulars-csInfo :status "inUse"
-""" #+begin_org
-* *[[elisp:(org-cycle)][| Particulars-csInfo |]]*
-#+end_org """
-import typing
-csInfo: typing.Dict[str, typing.Any] = { 'moduleName': ['main'], }
-csInfo['version'] = '202209033323'
-csInfo['status']  = 'inUse'
-csInfo['panel'] = 'main-Panel.org'
-csInfo['groupingType'] = 'IcmGroupingType-pkged'
-csInfo['cmndParts'] = 'IcmCmndParts[common] IcmCmndParts[param]'
-####+END:
-
 """ #+begin_org
 * /[[elisp:(org-cycle)][| Description |]]/ :: [[file:/bisos/git/auth/bxRepos/blee-binders/bisos-core/PyFwrk/bisos.crypt/_nodeBase_/fullUsagePanel-en.org][PyFwrk bisos.crypt Panel]]
 Module description comes here.
@@ -62,9 +49,9 @@ Module description comes here.
 #+end_org """
 ####+END:
 
-
 import __main__
 
+import typing
 import types
 
 import sys
@@ -73,17 +60,8 @@ from bisos.b import b_io
 from bisos.b import cs
 from bisos import b
 
-####+BEGIN: b:py3:cs:func/typing :funcName "G_main" :funcType "extTyped" :deco ""
-""" #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /G_main/   [[elisp:(org-cycle)][| ]]
-#+end_org """
-def G_main(
-####+END:
-):
-    """ #+begin_org
-** [[elisp:(org-cycle)][| *DocStr | ] Replaces ICM dispatcher for other command line args parsings.
-    #+end_org """
-    pass
+import importlib
+
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "classedCmndsDict" :funcType "extTyped" :deco ""
 """ #+begin_org
@@ -91,48 +69,49 @@ def G_main(
 #+end_org """
 def classedCmndsDict(
 ####+END:
-        importedCmndsModules,
-) -> dict:
+        importedCmndsModules: typing.List[str],
+) -> typing.Dict[str, typing.Any]:
     """ #+begin_org
-** [[elisp:(org-cycle)][| *DocStr | ] Should be done here, can not be done in icm library because of the evals.
-    =importedCmndsModules= is a list of modules.
-    Returns a dictionary of ???
+** [[elisp:(org-cycle)][| *DocStr | ] Given a list of modules as =importedCmndsModules=, return a dictionary of [cmndName, cmndClass]
+    The resulting dictionary also include built-in cmnds and also __main__
+
+    Implemetation:: is currently redundant, it overlaps inCmnd.cmndList_mainsMethods()
+    for each moduleName, we find its file; we then use inCmnd.cmndList_mainsMethods()
+    to get a list of all the CmndNames in those files. Then for each of the
+    CmndNames, we find the CmndClass.
     #+end_org """
 
-    from bisos.b.cs import inCmnd
+    from bisos.b.cs import inCmnd  #  Should be done here to prevent circular import
 
-    import importlib
-    importedCmndsFilesList=[]
-    importedTagsList=[]
+    importedCmndsFilesList = []
+    cmndsModulesList = importedCmndsModules
+
     for moduleName in importedCmndsModules:
-        # print(f"moduleName={moduleName}")
-        moduleNameList = moduleName.split(".")
-        importTag = moduleNameList.pop()
-        importModule = ".".join(moduleNameList)
-        # print(f"importTag= {importTag} -- moduleNameList={moduleNameList} -- importModule={importModule}")
-        if importTag == 'plantedCsu':
+        # print(f"INFO:: moduleName={moduleName}")
+        if 'plantedCsu' in moduleName:
             continue
-        _tmp = importlib.import_module(importModule)
-        exec(f"{importTag} = _tmp.{importTag}") # assignment is a statement
-        #eval(f"print({importTag}.__file__)") # DEBUG
-        eval(f"importedCmndsFilesList.append({importTag}.__file__)") # expression
-        importedTagsList.append(importTag)
+
+        spec = importlib.util.find_spec(moduleName)
+        if spec is None:
+            print(f"EH_Problem: find_spec failed for {moduleName}")
+            continue
+
+        importedCmndsFilesList.append(spec.origin)
 
     for moduleName in ["bisos.b.cs.inCmnd", "bisos.b.cs.examples", "bisos.b.cs.rpyc", "bisos.b.cs.ro"]:
-        #print(f"moduleName={moduleName}")
-        moduleNameList = moduleName.split(".")
-        importTag = moduleNameList.pop()
-        importModule = ".".join(moduleNameList)
-        #print(f"importTag= {importTag} -- moduleNameList={moduleNameList} -- importModule={importModule}")
-        _tmp = importlib.import_module(importModule)
-        exec(f"{importTag} = _tmp.{importTag}") # assignment is a statement
-        #eval(f"print({importTag}.__file__)") # DEBUG
-        eval(f"importedCmndsFilesList.append({importTag}.__file__)") # expression
-        importedTagsList.append(importTag)
+        # print(f"INFO:: moduleName={moduleName}")
+
+        if moduleName not in cmndsModulesList:
+            spec = importlib.util.find_spec(moduleName)
+            if spec is None:
+                print(f"EH_Problem:: find_spec failed for {moduleName}")
+                continue
+
+            cmndsModulesList.append(moduleName)
+            importedCmndsFilesList.append(spec.origin)
 
 
-    #print(importedCmndsFilesList)
-    #print(importedTagsList)
+    # print(importedCmndsFilesList)
 
     rtInv = cs.RtInvoker.new_cmnd()
     outcome = b.op.Outcome()
@@ -145,60 +124,34 @@ def classedCmndsDict(
             mainFileName=__main__.__file__,
             importedCmndsFilesList=importedCmndsFilesList,
     ):
-        #print(f"eachCmnd={eachCmnd}")
-        try:
-            callDict[eachCmnd] = eval("__main__.{}".format(eachCmnd))
-        except AttributeError:
-            #print(f"AttributeError -- __main__.{eachCmnd} -- ignored")
-            pass
-        except NameError:
-            #print(f"NameError -- __main__.{eachCmnd} -- ignored")
+        # print(f"INFO:: eachCmnd={eachCmnd}")
+
+        mainModule = sys.modules['__main__']
+        # Use getattr to check for the attribute, defaulting to None if it doesn't exist
+        cmndClass = getattr(mainModule, eachCmnd, None)
+        if cmndClass is None:
+            # print(f"TRIVIAL:: {eachCmnd} is not in __main__")
             pass
         else:
-            #print(f"Added __main__.{eachCmnd}")
+            # print(f"INFO:: Added __main__.{eachCmnd}")
+            callDict[eachCmnd] = cmndClass
             continue
 
-        for importTag in importedTagsList:
-            #print(f"trying {importTag}")
-            try:
-                #print(f"Evaling -- {importTag}.{eachCmnd}")
-                eval(f"{importTag}.{eachCmnd}")
-            except AttributeError:
-                #print(f"AttributeError -- {importTag}.{eachCmnd}")
-                continue
-            try:
-                callDict[eachCmnd] = eval(f"{importTag}.{eachCmnd}")
-                #print(f"callDict -- {importTag}.{eachCmnd}")
-                break
-            except NameError:
+        for eachModuleName in cmndsModulesList:
+            eachModule = importlib.import_module(eachModuleName)
+            cmndClass = getattr(eachModule, eachCmnd, None)
+            if cmndClass is None:
+                # print(f"TRIVIAL:: {eachCmnd} is not in {eachModuleName}")
                 pass
+            else:
+                # print(f"INFO:: Added {eachModuleName}::{eachCmnd}")
+                callDict[eachCmnd] = cmndClass
+                continue
 
+    # print(callDict)
 
     return callDict
 
-
-# G = cs.globalContext.get()
-
-# csInfo = G.csInfo()
-
-# try:
-#    __main__.csInfo
-# except AttributeError:
-#     pass
-# else:
-#     csInfo.update(__main__.csInfo)
-
-#     csInfo['icmName'] = __main__.__icmName__
-#     csInfo['version'] = __main__.__version__
-#     csInfo['status'] = __main__.__status__
-#     csInfo['credits'] = __main__.__credits__
-
-#     G.csInfoSet(csInfo)
-#
-
-# g_examples = __main__.examples  # or None
-# g_mainEntry = None  # or G_main
-#
 
 ####+BEGIN: bx:cs:py3:func :funcName "g_csMain" :funcType "extTyped" :deco ""
 """ #+begin_org
@@ -206,8 +159,8 @@ def classedCmndsDict(
 #+end_org """
 def g_csMain(
 ####+END:
-        noCmndEntry=None,   # To Be Obsoleted
-        extraParamsHook=None,
+        noCmndEntry=None,   # Name of cmnd to invoke when nothing is specified on the command line
+        extraParamsHook=None,   # List of additional parameters
         importedCmndsModules=[],
         csPreCmndsHook=None,
         csPostCmndsHook=None,
@@ -251,7 +204,18 @@ def g_csMain(
         # print(f"SystemExit caught with code: {e}")
         pass
 
-#from bisos.cs import inCmnd
+
+####+BEGIN: b:py3:cs:func/typing :funcName "G_main" :funcType "extTyped" :deco ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /G_main/   [[elisp:(org-cycle)][| ]]
+#+end_org """
+def G_main(
+####+END:
+):
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ] Replaces ICM dispatcher for other command line args parsings.
+    #+end_org """
+    pass
 
 
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 0 :title " ~End Of Editable Text~ "
