@@ -101,10 +101,10 @@ def readAsList(
 ** [[elisp:(org-cycle)][| *DocStr | ] Reads stdin. Returns a string. -- Uses mutable list.
     #+end_org """
 
+    stdinAsList = []
+    
     #if select.select([sys.stdin, ], [], [], 0.0)[0]:
     if not sys.stdin.isatty():
-
-        stdinAsList = []
         for line in sys.stdin:
             stdinAsList.append(str(line.strip()))
 

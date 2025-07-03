@@ -465,13 +465,8 @@ def badOutcome(
     if outcomeInfo is not None:
         outcomeInfoStr=f" -- {outcomeInfo}"
 
-    print("io.eh.badOutcome: InvokedBy {invokerName}, Operation Failed: Stdcmnd={stdcmnd} Error={status} -- {errInfo}{outcomeInfoStr}".
-           format(invokerName="NOTYET",  # invokerName=outcome.invokerName,
-               stdcmnd=outcome.stdcmnd,
-               status=outcome.error,
-               errInfo=outcome.errInfo,
-                  outcomeInfoStr=outcomeInfoStr,
-                  ),  file=sys.stderr)   
+    print(f"io.eh.badOutcome: {outcomeInfoStr} -- InvokedBy NOTYET, Operation Failed: Stdcmnd={outcome.stdcmnd} Error={outcome.error} -- {outcome.errInfo}"
+          , file=sys.stderr)
     print(('io.eh.: ' + ' -- ' + b.ast.stackFrameInfoGet(2) ), file=sys.stderr)
 
     return outcome
