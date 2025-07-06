@@ -87,8 +87,10 @@ import os
 def importFileAs(
 ####+END:
         modAsName: str,
-        importedFilePath: str | pathlib.Path,
-) -> types.ModuleType:
+        importedFilePath: str | pathlib.Path | None,
+        callingFile: str = None,  # Typically called as __file__
+        callingName: str = None,
+) -> types.ModuleType | None:
     """ #+begin_org
 ** [[elisp:(org-cycle)][| *DocStr* |]] Import ~importedFilePath~ as ~modAsName~, return imported *module*.
 
@@ -105,6 +107,24 @@ Usage:
  aasMarmeeManage = importFileAs('aasMarmeeManage', '/bisos/bpip/bin/aasMarmeeManage.cs')
 
     #+end_org """
+
+    # print(f"{modAsName} {importedFilePath} {callingFile} {callingName}")
+
+    if callingFile is not None:
+        #callingName = os.path.basename(callingFile)
+        if importedFilePath is None:
+            # print("importedFilePath is None")
+            sys.modules[modAsName] = sys.modules[callingName]
+            return None
+
+        callingFileAbsPath = pathlib.Path(callingFile).resolve()
+        importedFilePath =  pathlib.Path(importedFilePath).resolve()
+
+        #print(f"HHH {callingFileAbsPath} {importedFilePath}")
+
+        if callingFileAbsPath == importedFilePath:
+            # print("Self Importing Skipped")
+            return None
 
     # importlib.util.spec_from_file_location() enforces .py limitation but importlib.util.spec_from_loader() does not,
     spec = importlib.util.spec_from_file_location(modAsName, importedFilePath)

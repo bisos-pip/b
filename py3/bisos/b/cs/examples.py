@@ -266,8 +266,8 @@ def myName(
         pass
         # print("UnSeeded")
     else:
-        print(f"=======  Seed :: {cs.G.plantOfThisSeed}   ===========")
-
+        print(f"=======  PlantedCSU :: {cs.G.plantOfThisSeed}   ===========")
+        print(f"=======  Seed :: {cs.G.seedOfThisPlant}   ===========")
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "ex_gCommon" :funcType "extTyped" :deco "track"
 """ #+begin_org

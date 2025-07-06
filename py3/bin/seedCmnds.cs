@@ -83,8 +83,7 @@ import collections
 ####+END:
 
 from bisos.b import cmndsSeed
-
-b.importFileAs('plantedCsu', b.cs.G.plantOfThisSeed)
+b.importFileAs('plantedCsu', b.cs.G.plantOfThisSeed, __file__, __name__)
 
 import sys
 
