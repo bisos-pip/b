@@ -165,6 +165,7 @@ def g_csMain(
         csPreCmndsHook=None,
         csPostCmndsHook=None,
         csInfo=None,
+        ignoreUnknownParams=False,
 ):
     """ #+begin_org
 ** [[elisp:(org-cycle)][| *DocStr | ] This ICM's specific information is passed to G_mainWithClass
@@ -197,6 +198,7 @@ def g_csMain(
                 mainEntry=mainEntry,
                 g_icmPreCmnds=csPreCmndsHook,
                 g_icmPostCmnds=csPostCmndsHook,
+                ignoreUnknownParams=ignoreUnknownParams,
             )
         )
     except SystemExit as e:

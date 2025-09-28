@@ -504,7 +504,7 @@ class Cmnd(object):
         if icmRunArgs.cmndArgs:
             applicableCmndKwArgs.update({'argsList': icmRunArgs.cmndArgs})
 
-        # print(f"YYY == {applicableCmndKwArgs}")
+        # print(f"YYY 4444  == {applicableCmndKwArgs}")
         return applicableCmndKwArgs
 
     def invModel(self,
@@ -521,8 +521,8 @@ class Cmnd(object):
         G = cs.globalContext.get()
         icmRunArgs = G.icmRunArgsGet()
 
-        # print(f"cmndParamsMandatory={self.cmndParamsMandatory}")
-        # print(f"cmndParamsOptional={self.cmndParamsOptional}")
+        # print(f"NOTYET 4444 cmndParamsMandatory={self.cmndParamsMandatory}")
+        print(f"cmndParamsOptional={self.cmndParamsOptional}")
 
         if not pathlib.Path(baseDir).is_dir():
             print(f"BadUsage: Missing {baseDir}")
@@ -533,7 +533,7 @@ class Cmnd(object):
         applicableIcmParams = CmndParamDict()
 
         def absorbApplicableIcmParam(icmParam, each):
-            # print(f"4444 {each} {icmRunArgs.__dict__[each]}")
+            unrecognizedprint(f"4444 {each} {icmRunArgs.__dict__[each]}")
             icmParam.parValueSet(icmRunArgs.__dict__[each])
             applicableIcmParams.parDictAppend(eachIcmParam)
 
@@ -1180,6 +1180,7 @@ def G_argsProc(
 ####+END:
         arguments,
         extraArgs,
+        ignoreUnknownParams=False,
 ):
      """ #+begin_org
 ** [[elisp:(org-cycle)][| *DocStr | ] ICM-ICM Argument Parser. extraArgs resides in the G_ module.
@@ -1216,9 +1217,16 @@ def G_argsProc(
              break
          index = index + 1
 
-     args = parser.parse_args(arguments)
+     args, unknown = parser.parse_known_args()
 
-     return args, parser
+     # print(f"Known arguments: {args}")
+     # print(f"Unknown arguments: {unknown}")
+
+     if ignoreUnknownParams == False:
+         if len(unkown):
+             args = parser.parse_args(arguments)
+
+     return args, unknown, parser
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "argsparseBasedOnCsParams" :funcType "extTyped" :deco "track"
 """ #+begin_org
@@ -1313,6 +1321,8 @@ def G_main(
 ** [[elisp:(org-cycle)][| *DocStr | ] This is the main entry point for Python.Icm.Icm (InteractiveInvokationModules)
     #+end_org """
 
+    print(f"Is this b.cs.G_main being used at all -- Obsolete and Delete if NOT USED")
+
     #
     # The order is important here,
     # 1) Parse The Command Line -- 2) LOG_ usese the command line -- 3) G. setup
@@ -1361,6 +1371,7 @@ def G_mainWithClass(
         mainEntry=None,
         g_icmPreCmnds=None,
         g_icmPostCmnds=None,
+        ignoreUnknownParams=False,
 ):
     """ #+begin_org
 ** [[elisp:(org-cycle)][| *DocStr | ] This is the main entry point for Python.Icm.Icm (InteractiveInvokationModules)
@@ -1381,10 +1392,10 @@ Missing Feature. We want to use the logger inside of extraParamsHook.
     # With logArgv, we set the logger, before extraParamsHook is run
     # G_argsProc runs args parse without the extraArgs
     #
-    icmRunArgs, icmArgsParser = G_argsProc(logArgv, None)
+    icmRunArgs, unknownParams, icmArgsParser = G_argsProc(logArgv, None, ignoreUnknownParams=ignoreUnknownParams,)
     logControler.loggerSet(icmRunArgs)  # First loggerSet
 
-    icmRunArgs, icmArgsParser = G_argsProc(inArgv, extraArgs)   # runs extraArgs with logArgv
+    icmRunArgs, unknownParams, icmArgsParser = G_argsProc(inArgv, extraArgs, ignoreUnknownParams=ignoreUnknownParams,)   # runs extraArgs with logArgv
 
     logControler.loggerSet(icmRunArgs)  # second loggerSet, with extraArgs
 
