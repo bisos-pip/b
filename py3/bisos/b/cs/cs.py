@@ -528,7 +528,8 @@ class Cmnd(object):
             print(f"BadUsage: Missing {baseDir}")
             return
 
-        #print(icmRunArgs)
+        # print(4444-100)
+        # print(icmRunArgs)
 
         applicableIcmParams = CmndParamDict()
 
@@ -1158,6 +1159,7 @@ def argsCommonProc(
      #dest='cmndArgs',   #
          metavar='CMND',
          nargs='*',
+         # nargs=argparse.REMAINDER,  NOTYET, Revisit this later
          action='store',
          help='Interactively Invokable Function Arguments'
          )
@@ -1168,6 +1170,7 @@ def argsCommonProc(
          action='append',
          default=[]
          )
+
 
      return
 
@@ -1217,14 +1220,58 @@ def G_argsProc(
              break
          index = index + 1
 
-     args, unknown = parser.parse_known_args()
+     args, unknown = parser.parse_known_intermixed_args(arguments)
 
-     # print(f"Known arguments: {args}")
-     # print(f"Unknown arguments: {unknown}")
+     # print(f"4444 -- Known arguments: {args}")
+     # print(f"4444 -- Unknown arguments: {unknown}")
 
      if ignoreUnknownParams == False:
-         if len(unkown):
+         # This will result in a desired exception
+         if len(unknown):
              args = parser.parse_args(arguments)
+     else:
+         # THE FOLLOWING WAS CODED WITH COPILOT CHAT-GPT
+         # We are going to ignore unknown parameters
+         # by removing them from arguments and running args = parser.parse_args(arguments)
+         # If we don't do this cmndArgs would be messed up
+         onlyKnownArgs = arguments.copy()
+         for each in unknown:
+             #  Look in unkown, decide if it should have a value and remove it and its value if any
+             # Find the first occurrence of this unknown token in the argument list
+             if each == "--":
+                 break
+             try:
+                 # locate index of token not already removed
+                 idx = None
+                 for i, tok in enumerate(onlyKnownArgs):
+                     if tok == each:
+                         idx = i
+                         break
+                 if idx is None:
+                     continue
+
+                 # remove the option itself
+                 onlyKnownArgs[idx] = None
+
+                 # If the token looks like an option that takes a separate value (e.g. '-x' or '--opt'),
+                 # and it is not of the form '--opt=val', then if the next token exists and
+                 # does not start with '-' treat it as the option's value and remove it too.
+                 tok = each
+                 if tok.startswith('-') and ('=' not in tok):
+                     nxt = idx + 1
+                     if nxt < len(onlyKnownArgs):
+                         nxt_tok = onlyKnownArgs[nxt]
+                         if nxt_tok is not None and (not str(nxt_tok).startswith('-')):
+                             onlyKnownArgs[nxt] = None
+             except Exception:
+                 # defensive: ignore any errors and continue
+                 continue
+
+         # Rebuild the argument list excluding removed tokens (None)
+         onlyKnownArgs = [t for t in onlyKnownArgs if t is not None]
+
+         # Parse using only the known args
+         args = parser.parse_args(onlyKnownArgs)
 
      return args, unknown, parser
 
@@ -1404,6 +1451,9 @@ Missing Feature. We want to use the logger inside of extraParamsHook.
     logger.info('Main Started: ' + b.ast.stackFrameInfoGet(1) )
 
     G = cs.globalContext.get()
+    # print(f"4444 -- {icmRunArgs}")
+    # print(f"4444.2 -- {unknownParams}")
+
     G.globalContextSet( icmRunArgs=icmRunArgs )
     G.icmArgsParser = icmArgsParser
     G.cmndMethodsDictSet(classedCmndsDict)
