@@ -142,6 +142,7 @@ class CmndsSeedInfo(object):
     def examplesFuncsList(self, value: list[typing.Callable] | None,):
         self._examplesFuncsList = value
 
+# Singleton
 cmndsSeedInfo = CmndsSeedInfo()
 
 ####+BEGIN: bx:cs:py3:section :title "Public Functions"
@@ -160,7 +161,7 @@ def examplesOfPlantedCsu(
 ####+END:
 ) -> typing.Callable | None:
     """ #+begin_org
-** [[elisp:(org-cycle)][| *DocStr | ] Walkthrough =csuList=, call module.commonParamsSpecify(=csParams=).
+** [[elisp:(org-cycle)][| *DocStr | ] If plantedCsu has a function named examples_csu run it.
     #+end_org """
 
     module = sys.modules['plantedCsu']
@@ -179,12 +180,14 @@ def examplesOfPlantedCsu(
 @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
 def setup(
 ####+END:
+        seedType: str | None = None,
         commonParamsFuncs: list[typing.Callable] | None = None,
         examplesFuncsList: list[typing.Callable] | None = None,
 ):
     """ #+begin_org
 ** [[elisp:(org-cycle)][| *DocStr | ]
     #+end_org """
+    cmndsSeedInfo.seedType = seedType
     cmndsSeedInfo.commonParamsFuncs = commonParamsFuncs
     cmndsSeedInfo.examplesFuncsList = examplesFuncsList
 
@@ -201,13 +204,16 @@ def plantWithWhich(
 ) -> None:
     """ #+begin_org
 ** [[elisp:(org-cycle)][| *DocStr | ] shim over b.importFile.plantWithWhich
+*** TODO get rid of seedCmnds.cs
     #+end_org """
 
-    if asExpected != "seedCmnds.cs":
-        b_io.pr(f"plantWithWhich Expected seedCmnds.cs Got: {asExpected}")
-        return
+    # if asExpected != "seedCmnds.cs":
+    #     b_io.pr(f"plantWithWhich Expected seedCmnds.cs Got: {asExpected}")
+    #     return
 
-    b.importFile.plantWithWhich('seedCmnds.cs')
+    # b.importFile.plantWithWhich('seedCmnds.cs')
+
+    b.importFile.plantWithWhich(asExpected)
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "atexit_plantWithWhich" :funcType "extTyped" :comment "expects seedSbom.cs" :deco "atexit.register"
 """ #+begin_org
