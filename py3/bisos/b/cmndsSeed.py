@@ -112,9 +112,13 @@ class CmndsSeedInfo(object):
 
     def __init__(
             self,
+            seedType: str | None = None,
+            kwSeedInfo: dict[str, typing.Any] | None = None,
             commonParamsFuncs: list[typing.Callable] | None = None,
             examplesFuncsList: list[typing.Callable] | None = None,
     ):
+        self._seedType = seedType
+        self._kwSeedInfo = kwSeedInfo
         self._commonParamsFuncs = commonParamsFuncs
         self._examplesFuncsList = examplesFuncsList
 
@@ -125,6 +129,14 @@ class CmndsSeedInfo(object):
     @seedType.setter
     def seedType(self, value: str | None,):
         self._seedType = value
+
+    @property
+    def kwSeedInfo(self) -> dict[str, typing.Any] | None:
+        return self._kwSeedInfo
+
+    @kwSeedInfo.setter
+    def kwSeedInfo(self, value: dict[str, typing.Any] | None,):
+        self._kwSeedInfo = value
 
     @property
     def commonParamsFuncs(self) -> list[typing.Callable] | None:
@@ -181,6 +193,7 @@ def examplesOfPlantedCsu(
 def setup(
 ####+END:
         seedType: str | None = None,
+        kwSeedInfo: dict[str, typing.Any] | None = None,
         commonParamsFuncs: list[typing.Callable] | None = None,
         examplesFuncsList: list[typing.Callable] | None = None,
 ):
@@ -188,6 +201,7 @@ def setup(
 ** [[elisp:(org-cycle)][| *DocStr | ]
     #+end_org """
     cmndsSeedInfo.seedType = seedType
+    cmndsSeedInfo.kwSeedInfo = kwSeedInfo
     cmndsSeedInfo.commonParamsFuncs = commonParamsFuncs
     cmndsSeedInfo.examplesFuncsList = examplesFuncsList
 
