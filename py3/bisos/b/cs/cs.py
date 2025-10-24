@@ -1426,6 +1426,8 @@ def G_mainWithClass(
 Missing Feature. We want to use the logger inside of extraParamsHook.
     But, loggerSet needs runArgs.
 
+NOTYET: Problem, return value becomes exit code and that is inconsistent
+
     #+end_org """
 
     logControler = b_io.log.controller
@@ -1467,7 +1469,7 @@ Missing Feature. We want to use the logger inside of extraParamsHook.
     if len( inArgv ) == 0:
         if G_examples:
             G_examples().cmnd(rtInv, outcome,)
-            return
+            return 0
 
     if icmRunArgs.invokes:
         thisCmndName=icmRunArgs.invokes[0]

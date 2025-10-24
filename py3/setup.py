@@ -43,7 +43,7 @@ def longDescription():
 # b:py3:pypi:setup/version Arguments  :forSys t :forPyPi t :constant "666"
 ####+BEGIN: b:py3:pypi:setup/version :comment "Auto Detected"
 
-# ./pypiUploadVer DID NOT exist -- forPypiVersion=0.77 -- forLocalVersion=0.43 -- constant=NA
+# ./pypiUploadVer DID NOT exist -- forPypiVersion=0.79 -- forLocalVersion=0.43 -- constant=NA
 def pkgVersion():
         return '0.43'
 
@@ -73,7 +73,8 @@ scripts = [
 'bin/csRo-manage.cs',
 'bin/exmpl-b-sc-basic.cs',
 'bin/exmpl-plantedCsu.cs',
-'bin/seedCmnds.cs',
+'bin/plantedHelloWorld.cs',
+'bin/seededCmnds.cs',
 ]
 ####+END:
 

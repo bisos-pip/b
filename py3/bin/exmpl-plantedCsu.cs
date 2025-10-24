@@ -6,7 +6,7 @@
 #+end_org """
 
 from bisos import b
-from bisos.b import cmndsSeed
+from bisos.b import seededCmnds_seed
 from bisos.b import cs
 from bisos.b import b_io
 
@@ -199,11 +199,3 @@ def examples_csu() -> None:
     cs.examples.menuSection('Direct PyInv of parsArgsStdinCmndResult*')
 
     cmnd('pyCmndInvOf_parsArgsStdinCmndResult', comment=" # Uses py invokes parsArgsStdinCmndResult")
-
-
-# cmndsSeed.register(
-#     commonParamsFuncs=[commonParamsSpecify,],
-#     examplesFuncsList=[examples_csu,],
-# )
-
-# cmndsSeed.plantWithWhich("seedCmnds.cs")

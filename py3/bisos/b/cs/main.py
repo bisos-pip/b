@@ -55,6 +55,7 @@ import typing
 import types
 
 import sys
+import os
 
 from bisos.b import b_io
 from bisos.b import cs
@@ -187,9 +188,8 @@ def g_csMain(
 
     # With atexit, sys.exit raises SystemExit
 
-    try:
-        sys.exit(
-            cs.G_mainWithClass(
+
+    exitCode = cs.G_mainWithClass(
                 inArgv=sys.argv[1:],                 # Mandatory
                 #extraArgs=__main__.g_argsExtraSpecify,        # Mandatory
                 extraArgs=extraParamsHook,
@@ -199,12 +199,23 @@ def g_csMain(
                 g_icmPreCmnds=csPreCmndsHook,
                 g_icmPostCmnds=csPostCmndsHook,
                 ignoreUnknownParams=ignoreUnknownParams,
-            )
-        )
+    )
+
+
+    try:
+        sys.exit(exitCode)
     except SystemExit as e:
         # Handle the SystemExit exception
         # print(f"SystemExit caught with code: {e}")
-        pass
+        #
+        # cs.G_mainWithClass needs to be cleaned to return proper exit codes
+
+        return
+
+        if exitCode is None:
+            os._exit(222)
+        else:
+            os._exit(exitCode)
 
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "G_main" :funcType "extTyped" :deco ""
@@ -217,6 +228,7 @@ def G_main(
     """ #+begin_org
 ** [[elisp:(org-cycle)][| *DocStr | ] Replaces ICM dispatcher for other command line args parsings.
     #+end_org """
+    print(f"In b.cs.main.py:G_main")
     pass
 
 
