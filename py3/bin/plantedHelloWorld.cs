@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 
 """ #+begin_org
-* Panel::  [[file:/bisos/panels/bisos-apps/NameOfThePanelComeHere/_nodeBase_/fullUsagePanel-en.org]]
-* Overview and Relevant Pointers
+* Panel::  [[file:/bisos/git/auth/bxRepos/bisos-pip/b/py3/panels/bisos.b/bisos.b.cs/_nodeBase_/fullUsagePanel-en.org]]
 #+end_org """
 
 from bisos import b
@@ -50,5 +49,5 @@ class helloWorld(cs.Cmnd):
         )
 
 def examples_csu() -> None:
-    cs.examples.menuChapter('*A Starting Point Hello World*')
+    cs.examples.menuChapter('*Planted Examples:: A Starting Point Hello World*')
     cs.examples.cmndEnter('helloWorld',  comment=" # Just Saying Hello")

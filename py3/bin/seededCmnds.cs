@@ -82,8 +82,14 @@ from bisos.common import csParam
 import collections
 ####+END:
 
+####+BEGIN: b:py3:cs:framework/csmuSeeded :comment "Import plantedCsu"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CsFrmWrk   [[elisp:(outline-show-subtree+toggle)][||]] =Seeded CSMU= Import plantedCsu
+#+end_org """
 from bisos.b import cmndsSeed
-b.importFileAs('plantedCsu', b.cs.G.plantOfThisSeed, __file__, __name__)
+if b.cs.G.plantOfThisSeed is not None:
+    b.importFileAs('plantedCsu', b.cs.G.plantOfThisSeed, __file__, __name__)
+####+END:
 
 import sys
 
@@ -109,8 +115,10 @@ import sys
 from bisos.b.cs import ro
 from bisos.csPlayer import bleep
 
-
 csuList = [ 'bisos.b.cs.ro', 'bisos.csPlayer.bleep', 'plantedCsu', ]
+
+if b.cs.G.plantOfThisSeed is None:
+    csuList.remove('plantedCsu')
 
 g_importedCmndsModules = cs.csuList_importedModules(csuList)
 
@@ -173,17 +181,8 @@ class examples(cs.Cmnd):
 
         bleep.examples_csBasic()
 
-        examplesFuncsList = cmndsSeed.cmndsSeedInfo.examplesFuncsList
-        if examplesFuncsList is not None:
-            for each in examplesFuncsList:
-                each()
-        else:
-            examplesCsu = cmndsSeed.examplesOfPlantedCsu()
-            if examplesCsu is not None:
-                examplesCsu()
-
-        # NOTYET
-        print(f"Planted with SEED={__file__}")
+        if b.cs.G.plantOfThisSeed is not None:
+            cmndsSeed.plantedCsuExamplesRun()
 
         b.ignore(ro.__doc__,  cmndArgsSpecDict)  # We are not using these modules, but they are auto imported.
 
@@ -195,17 +194,19 @@ class examples(cs.Cmnd):
 #+end_org """
 ####+END:
 
-####+BEGIN: b:py3:cs:framework/main :isSeed t :csInfo "csInfo" :noCmndEntry "examples" :extraParamsHook "g_extraParams" :importedCmndsModules "g_importedCmndsModules"
+####+BEGIN: b:py3:cs:framework/main :csInfo "csInfo" :noCmndEntry "examples" :extraParamsHook "g_extraParams" :importedCmndsModules "g_importedCmndsModules"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CsFrmWrk   [[elisp:(outline-show-subtree+toggle)][||]] =g_csMain= (csInfo, _examples_, g_extraParams, g_importedCmndsModules)
 #+end_org """
 
-cs.main.g_csMain(
+if __name__ == '__main__':
+    cs.main.g_csMain(
         csInfo=csInfo,
         noCmndEntry=examples,  # specify a Cmnd name
         extraParamsHook=g_extraParams,
+        ignoreUnknownParams=False,
         importedCmndsModules=g_importedCmndsModules,
-)
+    )
 
 ####+END:
 

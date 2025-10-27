@@ -10,8 +10,7 @@
 **  [[elisp:(bap:magit:bisos:current-bpo-repos/visit)][BPO-Repos-Magit]] ||
 **  [[elisp:(blee:buf:re-major-mode)][Re-Major-Mode]] ||  [[elisp:(org-dblock-update-buffer-bx)][Update Buf Dblocks]] || [[elisp:(org-dblock-bx-blank-buffer)][Blank Buf Dblocks]] || [[elisp:(bx:panel:variablesShow)][bx:panel:variablesShow]]
 **  [[elisp:(blee:menu-sel:comeega:maintenance:popupMenu)][||Maintenance]]
-**  This File :: *= /bisos/panels/bisos-core/PyCsFwrk/bisos.b/bisos.b.cs/_nodeBase_/fullUsagePanel-en.org =*
-* /file-truename:/  /bisos/git/auth/bxRepos/bisos-pip/b/py3/panels/bisos.b.cs/_nodeBase_/fullUsagePanel-en.org
+**  This File :: *= /bisos/git/auth/bxRepos/bisos-pip/b/py3/panels/bisos.b/bisos.b.cs/_nodeBase_/fullUsagePanel-en.org =*
 *  [[elisp:(org-cycle)][|#Select|]]  :: (Results: [[elisp:(blee:bnsm:results-here)][Here]] | [[elisp:(blee:bnsm:results-split-below)][Below]] | [[elisp:(blee:bnsm:results-split-right)][Right]] | [[elisp:(blee:bnsm:results-other)][Other]] | [[elisp:(blee:bnsm:results-popup)][Popup]]) (Select:  [[elisp:(lsip-local-run-command "lpCurrentsAdmin.sh -i currentsGetThenShow")][Show Currents]]  [[elisp:(lsip-local-run-command "lpCurrentsAdmin.sh")][lpCurrentsAdmin.sh]] ) [[elisp:(org-cycle)][| ]]
 **  #See:  (Window: [[elisp:(blee:bnsm:results-window-show)][?]] | [[elisp:(blee:bnsm:results-window-set 0)][0]] | [[elisp:(blee:bnsm:results-window-set 1)][1]] | [[elisp:(blee:bnsm:results-window-set 2)][2]] | [[elisp:(blee:bnsm:results-window-set 3)][3]] ) || [[elisp:(lsip-local-run-command-here "echo pushd dest")][echo pushd dir]] || [[elisp:(lsip-local-run-command-here "lsf")][lsf]] || [[elisp:(lsip-local-run-command-here "pwd")][pwd]] |
 **  [[elisp:(org-cycle)][|#Destinations|]] :: [[Evolution]] | [[Maintainers]]  [[elisp:(org-cycle)][| ]]
@@ -39,6 +38,28 @@
 ** +
 ** Scope is Cmnd-s Cmnd-Svcs, Params, Args, Inputs.
 ** B|
+####+BEGIN: blee:bxPanel:foldingSection :outLevel 1 :sep t :title "Types of CSMU -- Pure Cmnds, Direct+RO, Seeded, UploadModule" :anchor "" :extraInfo "Tabular"
+* /[[elisp:(beginning-of-buffer)][|^]]  [[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]] [[elisp:(delete-other-windows)][|1]]/
+* [[elisp:(show-all)][(>]]  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_  _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_       [[elisp:(outline-show-subtree+toggle)][| *Types of CSMU -- Pure Cmnds, Direct+RO, Seeded, UploadModule:* |]]  Tabular  [[elisp:(org-shifttab)][<)]] E|
+####+END
+
+Depending on the purpose a CSMU can be of different types:
+
+|--------------+----------------------------+-------------------+----------|
+| CSMU Type    | Special Facilities         | Examples          | Comments |
+|--------------+----------------------------+-------------------+----------|
+| Pure Cmnds   |                            |                   |          |
+|--------------+----------------------------+-------------------+----------|
+| RO+Direct    |                            | bisos.facter      |          |
+|--------------+----------------------------+-------------------+----------|
+| Seeded       | bisos.b.cmndsSeed          | bisos.b           |          |
+|              | b/bin/seededCmnds.cs       | bisos.sbom        |          |
+|              | b/bin/plantedHelloWorld.cs |                   |          |
+|--------------+----------------------------+-------------------+----------|
+| UploadModule | bisos.uploadAsCs           | bisos.tocsModules |          |
+|--------------+----------------------------+-------------------+----------|
+
+
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 1 :sep t :title "CS Exposed Name Spaces" :anchor "" :extraInfo "cs.Cmnd, cs.main. cs.examples."
 * /[[elisp:(beginning-of-buffer)][|^]]  [[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]] [[elisp:(delete-other-windows)][|1]]/
 * [[elisp:(show-all)][(>]]  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_  _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_       [[elisp:(outline-show-subtree+toggle)][| *CS Exposed Name Spaces:* |]]  cs.Cmnd, cs.main. cs.examples.  [[elisp:(org-shifttab)][<)]] E|
@@ -63,6 +84,8 @@
 ** cs.main.g_csMain (Evolution, ToDos)
 - Parse the command line and set logging level so that logs can be used in classedCmndsDict
 ** cs.G_mainWithClass  Applies command line to Cmnds
+** plantedCsu is a special module representing planted-xx.cs. Cmnds and Params can be extracted from plantedCsu
+** ignoreUnknownParams=True, of cs.main.g_csMain( -- disables unknown parameter errors.
 ** B|
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 1 :sep t :title "Types Of Cmnds Inputs" :anchor "" :extraInfo ""
 * /[[elisp:(beginning-of-buffer)][|^]]  [[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]] [[elisp:(delete-other-windows)][|1]]/
@@ -235,6 +258,45 @@ List of File Parameters
 | rosmuSel           | string      | default       | See above                                                |
 |--------------------+-------------+---------------+----------------------------------------------------------|
 
+####+BEGIN: blee:bxPanel:foldingSection :outLevel 0 :sep t :title "Seeds -- Niching, Planting and SpreadPlants" :anchor "" :extraInfo ""
+* /[[elisp:(beginning-of-buffer)][|^]]  [[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]] [[elisp:(delete-other-windows)][|1]]/
+* [[elisp:(show-all)][(>]]  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_  _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_     [[elisp:(outline-show-subtree+toggle)][| _Seeds -- Niching, Planting and SpreadPlants_: |]]    [[elisp:(org-shifttab)][<)]] E|
+####+END
+** +
+** -B|
+####+BEGIN: blee:bxPanel:foldingSection :outLevel 1 :sep t :title "How Plants Use Seeds" :anchor "" :extraInfo "atexit"
+* /[[elisp:(beginning-of-buffer)][|^]]  [[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]] [[elisp:(delete-other-windows)][|1]]/
+* [[elisp:(show-all)][(>]]  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_  _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_       [[elisp:(outline-show-subtree+toggle)][| *How Plants Use Seeds:* |]]  atexit  [[elisp:(org-shifttab)][<)]] E|
+####+END
+** +
+** from bin/plantedHelloWorld.cs (plantedCsu) :: from bisos.b import seededCmnds_seed
+** bisos.b.seededCmnds_seed  include @atexit.register def atexit_plantWithWhich()
+** atexit b.importFile.plantWithWhich('seededCmnds.cs') is called.
+** b.importFile.plantWithWhich sets b.cs.G.seedOfThisPlant = execFilePath and invokes: execWithWhich(inExecName,)
+** b.importFile.execWithWhich() resolves which and invoked execFileAsMain(execFilePath,)
+** b.importFile.execFileAsMain(importedFilePath) sets __main__.__file__ = sys.argv[0] invokes importFileAs(__main__)
+** b.importFile.importFileAs('__main__', importedFilePath) eventuallu execs which resolved seededCmnds.cs
+** The Cmnds+Params of bin/plantedHelloWorld.cs are included in seededCmnds.cs through the special  'plantedCsu'
+** In csmu (seededCmnds.cs) Use DBlock::  BEGIN: b:py3:cs:framework/csmuSeeded :comment "Import plantedCsu"
+** Add "plantedCsu" to (setq  b:py:cs:csuList (list
+** Inside of seededCmnds.cs you can detect plant's execution with if b.cs.G.plantOfThisSeed is not None:
+** /plantedCsu/  is considered special. It represents the plantedModule. bisos.b.cs is aware of plantedCsu name.
+** -|B
+####+BEGIN: blee:bxPanel:foldingSection :outLevel 0 :sep t :title "Uploadable Modules -- cstoModules" :anchor "" :extraInfo "facterModule"
+* /[[elisp:(beginning-of-buffer)][|^]]  [[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]] [[elisp:(delete-other-windows)][|1]]/
+* [[elisp:(show-all)][(>]]  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_  _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_     [[elisp:(outline-show-subtree+toggle)][| _Uploadable Modules -- cstoModules_: |]]  facterModule  [[elisp:(org-shifttab)][<)]] E|
+####+END
+** +
+** -B|
+####+BEGIN: blee:bxPanel:foldingSection :outLevel 1 :sep t :title "CSMU of uploadAsCs" :anchor "" :extraInfo "How it Works"
+* /[[elisp:(beginning-of-buffer)][|^]]  [[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]] [[elisp:(delete-other-windows)][|1]]/
+* [[elisp:(show-all)][(>]]  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_  _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_       [[elisp:(outline-show-subtree+toggle)][| *CSMU of uploadAsCs:* |]]  How it Works  [[elisp:(org-shifttab)][<)]] E|
+####+END
+** +
+** in csmu (facterModule.cs) Use DBlock:: BEGIN: b:py3:cs:framework/uploadLoader :comment "Select Upload Loader"
+** In DBlock BEGIN: b:py3:cs:framework/main :ignoreUnknownParams "True"
+** ignoreUnknownParams lets you specify parameters that are only in --upload module.
+** -|
 ####+BEGIN: blee:bxPanel:separator :outLevel 1
 * /[[elisp:(beginning-of-buffer)][|^]] [[elisp:(blee:menu-sel:navigation:popupMenu)][==]] [[elisp:(delete-other-windows)][|1]]/
 ####+END

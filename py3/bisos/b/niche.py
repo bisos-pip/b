@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """ #+begin_org
-* *[Summary]* :: A =CmndSvc= for
+* *[Summary]* :: A =CmndSvc= for applying a CS in context of scope (user, platform, site.) A given niched-CS knows about its own contexts. Niched CS-es are plants of their seeds.
 #+end_org """
 
 ####+BEGIN: b:prog:file/proclamations :outLevel 1

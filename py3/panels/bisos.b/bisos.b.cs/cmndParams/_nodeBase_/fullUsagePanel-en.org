@@ -26,9 +26,9 @@
 * [[elisp:(show-all)][(>]] [[elisp:(describe-function 'org-dblock-write:blee:bxPanel:terseTreeNavigator)][dbf]]
 * +
 *                                        *━━━━━━━━━━━━━━━━━━━━━━━━*
-*   *Siblings*   :: [[elisp:(blee:bnsm:panel-goto "//l/pip/b/py3/panels/bisos.b/bisos.b.cs/cmndParams/_nodeBase_")][ =cmndParams= ]] *|*
-*   /Ancestors/  :: [[elisp:(blee:bnsm:panel-goto "/l/pip/b/py3/panels/bisos.b/bisos.b.cs/_nodeBase_")][ =bisos.b.cs= ]] *|* [[elisp:(blee:bnsm:panel-goto "/l/pip/b/py3/panels/bisos.b/_nodeBase_")][ =bisos.b= ]] *|* [[elisp:(dired "/l/pip/b/py3/panels")][ ~panels~ ]] *|* [[elisp:(blee:bnsm:panel-goto "/l/pip/b/py3")][py3]] *|* [[elisp:(blee:bnsm:panel-goto "/l/pip/b/_nodeBase_")][ =b= ]] *|*
-*   /Ancestors/  :: [[elisp:(blee:bnsm:panel-goto "/l/pip/_nodeBase_")][ = /<pip>/ = ]] *|* [[elisp:(dired "/l")][ ~l~ ]] *|* [[elisp:(dired "//")][ ~~ ]] *|*
+*   *Siblings*   :: [[elisp:(blee:bnsm:panel-goto "/l/pip/b/py3/panels/bisos.b/bisos.b.cs/cmndParams/_nodeBase_")][ =cmndParams= ]] *|*
+*   /Ancestors/  :: [[elisp:(blee:bnsm:panel-goto "//l/pip/b/py3/panels/bisos.b/bisos.b.cs/_nodeBase_")][ =bisos.b.cs= ]] *|* [[elisp:(blee:bnsm:panel-goto "//l/pip/b/py3/panels/bisos.b/_nodeBase_")][ =bisos.b= ]] *|* [[elisp:(dired "//l/pip/b/py3/panels")][ ~panels~ ]] *|* [[elisp:(blee:bnsm:panel-goto "//l/pip/b/py3")][py3]] *|* [[elisp:(blee:bnsm:panel-goto "//l/pip/b/_nodeBase_")][ =b= ]] *|*
+*   /Ancestors/  :: [[elisp:(blee:bnsm:panel-goto "//l/pip/_nodeBase_")][ = /<pip>/ = ]] *|* [[elisp:(dired "//l")][ ~l~ ]] *|*
 *                                   _━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━_                          [[elisp:(org-shifttab)][<)]] E|
 ####+END
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 1 :title "Overview and Use Cases" :anchor "Panel" :extraInfo "  /::Blank Starting Point::/"

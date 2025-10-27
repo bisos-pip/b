@@ -94,13 +94,12 @@ seedCSMU = 'seededCmnds.cs'
 @atexit.register
 def atexit_plantWithWhich(
 ####+END:
-        asExpected: str=seedCSMU,
 ) -> None:
     """ #+begin_org
 ** [[elisp:(org-cycle)][| *DocStr | ] shim over b.importFile.plantWithWhich
     #+end_org """
 
-    cmndsSeed.plantWithWhich(asExpected)
+    cmndsSeed.plantWithWhich(seedCSMU)
 
 
 ####+BEGIN: b:py3:cs:framework/endOfFile :basedOn "classification"

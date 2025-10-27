@@ -82,7 +82,7 @@ from bisos.common import csParam
 import collections
 ####+END:
 
-import atexit
+# import atexit
 
 import sys
 
@@ -163,6 +163,26 @@ cmndsSeedInfo = CmndsSeedInfo()
 #+end_org """
 ####+END:
 
+####+BEGIN: b:py3:cs:func/typing :funcName "plantedCsuExamplesRun" :funcType "extTyped" :deco "track"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /plantedCsuExamplesRun/  deco=track  [[elisp:(org-cycle)][| ]]
+#+end_org """
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+def plantedCsuExamplesRun(
+####+END:
+) -> None:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ] Run each of examplesFuncsList or examplesOfPlantedCsu
+    #+end_org """
+
+    examplesFuncsList = cmndsSeedInfo.examplesFuncsList
+    if examplesFuncsList is not None:
+        for each in examplesFuncsList:
+            each()
+    else:
+        examplesCsu = examplesOfPlantedCsu()
+        if examplesCsu is not None:
+            examplesCsu()
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "examplesOfPlantedCsu" :funcType "extTyped" :deco "track"
 """ #+begin_org
@@ -182,8 +202,6 @@ def examplesOfPlantedCsu(
         return examplesCsu
     else:
         return None
-
-
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "setup" :funcType "extTyped" :deco "track"
 """ #+begin_org
@@ -212,13 +230,13 @@ def setup(
 @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
 def plantWithWhich(
 ####+END:
-        asExpected: str,
+        seededCsmu: str,
 ) -> None:
     """ #+begin_org
 ** [[elisp:(org-cycle)][| *DocStr | ] shim over b.importFile.plantWithWhich
     #+end_org """
 
-    b.importFile.plantWithWhich(asExpected)
+    b.importFile.plantWithWhich(seededCsmu)
 
 ####+BEGIN: b:py3:cs:framework/endOfFile :basedOn "classification"
 """ #+begin_org
