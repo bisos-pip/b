@@ -781,7 +781,7 @@ def parsGetAsDictValue_wOp(
             else:
                 opResults[each] = "_UnFound_"
 
-            print(f"{each} {eachFpValue}")
+            # print(f"{each} {eachFpValue}")
     else:
         for eachFpName in results:
             opResults[eachFpName] = results[eachFpName].parValueGet()

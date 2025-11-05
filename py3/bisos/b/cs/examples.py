@@ -419,7 +419,7 @@ def csCmndLine(
         cmndPars: typing.Dict[str, str],
         cmndArgs: str,
         verbosity: str='basic',
-        comment: str='none',
+        comment: str='',
         icmWrapper: str='',
         icmName: str='',
 ) -> str:
