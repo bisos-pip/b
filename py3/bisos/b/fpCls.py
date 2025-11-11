@@ -68,9 +68,9 @@ from bisos.b import cs
 from bisos.b import io
 from bisos.b import io
 from bisos.b import b_io
-from bisos.common import csParam
+# from bisos.common import csParam
 
-from bisos.transit import pattern
+from bisos.basics import pattern
 
 import os
 import collections
@@ -518,7 +518,7 @@ FP_Base is also a FILE_TreeObject.
 ####+END:
 
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "examples_csu" :comment "" :parsMand "fpBase cls" :parsOpt "sectionTitle" :argsMin 0 :argsMax 0 :pyInv ""
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "examples_csu" :comment "" :noMapping "t" :parsMand "fpBase cls" :parsOpt "sectionTitle" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<examples_csu>>  =verify= parsMand=fpBase cls parsOpt=sectionTitle ro=cli   [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -540,9 +540,6 @@ class examples_csu(cs.Cmnd):
         callParamsDict = {'fpBase': fpBase, 'cls': cls, 'sectionTitle': sectionTitle, }
         if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, None).isProblematic():
             return failed(cmndOutcome)
-        fpBase = csParam.mappedValue('fpBase', fpBase)
-        cls = csParam.mappedValue('cls', cls)
-        sectionTitle = csParam.mappedValue('sectionTitle', sectionTitle)
 ####+END:
         self.cmndDocStr(f""" #+begin_org
 ** [[elisp:(org-cycle)][| *CmndDesc:* | ]]  Basic example command.
@@ -620,7 +617,7 @@ class examples_csu(cs.Cmnd):
 ####+END:
 
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpBaseClsFullReport" :extent "verify" :parsMand "fpBase cls" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpBaseClsFullReport" :noMapping "t" :extent "verify" :parsMand "fpBase cls" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<fpBaseClsFullReport>>  =verify= parsMand=fpBase cls ro=cli   [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -641,8 +638,6 @@ class fpBaseClsFullReport(cs.Cmnd):
         callParamsDict = {'fpBase': fpBase, 'cls': cls, }
         if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, None).isProblematic():
             return failed(cmndOutcome)
-        fpBase = csParam.mappedValue('fpBase', fpBase)
-        cls = csParam.mappedValue('cls', cls)
 ####+END:
 
         if rtInv.outs:
@@ -671,7 +666,7 @@ class fpBaseClsFullReport(cs.Cmnd):
         return cmndOutcome.set(opResults=None)
 
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpCmndParamsReveal" :extent "verify" :parsMand "fpBase cls" :parsOpt "" :argsMin 0 :argsMax 3 :pyInv ""
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpCmndParamsReveal" :noMapping "t" :extent "verify" :parsMand "fpBase cls" :parsOpt "" :argsMin 0 :argsMax 3 :pyInv ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<fpCmndParamsReveal>>  =verify= parsMand=fpBase cls argsMax=3 ro=cli   [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -694,8 +689,6 @@ class fpCmndParamsReveal(cs.Cmnd):
         if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, argsList).isProblematic():
             return failed(cmndOutcome)
         cmndArgsSpecDict = self.cmndArgsSpec()
-        fpBase = csParam.mappedValue('fpBase', fpBase)
-        cls = csParam.mappedValue('cls', cls)
 ####+END:
 
         fpBaseInst = b.pattern.sameInstance(getattr(__main__, cls), fpBase=fpBase)
@@ -760,7 +753,7 @@ class fpCmndParamsReveal(cs.Cmnd):
 #+end_org """
 ####+END:
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpCmndParamsSetAllInit" :parsMand "fpBase cls" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpCmndParamsSetAllInit" :noMapping "t" :parsMand "fpBase cls" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<fpCmndParamsSetAllInit>>  =verify= parsMand=fpBase cls ro=cli   [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -781,8 +774,6 @@ class fpCmndParamsSetAllInit(cs.Cmnd):
         callParamsDict = {'fpBase': fpBase, 'cls': cls, }
         if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, None).isProblematic():
             return failed(cmndOutcome)
-        fpBase = csParam.mappedValue('fpBase', fpBase)
-        cls = csParam.mappedValue('cls', cls)
 ####+END:
         self.cmndDocStr(f""" #+begin_org
 ** [[elisp:(org-cycle)][| *CmndDesc:* | ]] Walk through all the fpCmndParams and set them to CsParam.fileParInit using CsParam.writeAsFileParam.
@@ -803,7 +794,7 @@ class fpCmndParamsSetAllInit(cs.Cmnd):
         return cmndOutcome
 
     
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpCmndParamsSet" :parsMand "fpBase cls" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpCmndParamsSet" :noMapping "t" :parsMand "fpBase cls" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<fpCmndParamsSet>>  =verify= parsMand=fpBase cls ro=cli   [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -824,8 +815,6 @@ class fpCmndParamsSet(cs.Cmnd):
         callParamsDict = {'fpBase': fpBase, 'cls': cls, }
         if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, None).isProblematic():
             return failed(cmndOutcome)
-        fpBase = csParam.mappedValue('fpBase', fpBase)
-        cls = csParam.mappedValue('cls', cls)
 ####+END:
         self.cmndDocStr(f""" #+begin_org
 ** [[elisp:(org-cycle)][| *CmndDesc:* | ]]fpCmndParams and their values are taken from cmndLine and are set accordingly.
@@ -883,7 +872,7 @@ class fpCmndParamsSet(cs.Cmnd):
 
 
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpCmndParamsGetAll" :parsMand "fpBase cls" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpCmndParamsGetAll" :noMapping "t" :parsMand "fpBase cls" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<fpCmndParamsGetAll>>  =verify= parsMand=fpBase cls ro=cli   [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -904,8 +893,6 @@ class fpCmndParamsGetAll(cs.Cmnd):
         callParamsDict = {'fpBase': fpBase, 'cls': cls, }
         if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, None).isProblematic():
             return failed(cmndOutcome)
-        fpBase = csParam.mappedValue('fpBase', fpBase)
-        cls = csParam.mappedValue('cls', cls)
 ####+END:
         self.cmndDocStr(f""" #+begin_org
 ** [[elisp:(org-cycle)][| *CmndDesc:* | ]] Walk through fpCmndParams of {cls}, obtain their vaues and return it as dict.
@@ -925,7 +912,7 @@ class fpCmndParamsGetAll(cs.Cmnd):
         return cmndOutcome
 
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpCmndParamsGet" :parsMand "fpBase cls" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpCmndParamsGet" :noMapping "t" :parsMand "fpBase cls" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<fpCmndParamsGet>>  =verify= parsMand=fpBase cls ro=cli   [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -946,8 +933,6 @@ class fpCmndParamsGet(cs.Cmnd):
         callParamsDict = {'fpBase': fpBase, 'cls': cls, }
         if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, None).isProblematic():
             return failed(cmndOutcome)
-        fpBase = csParam.mappedValue('fpBase', fpBase)
-        cls = csParam.mappedValue('cls', cls)
 ####+END:
         self.cmndDocStr(f""" #+begin_org
 ** [[elisp:(org-cycle)][| *CmndDesc:* | ]] look in cmndArgs=sys.argv and find specified fpCmndParams. Obtain those values and return as dict.
@@ -994,7 +979,7 @@ class fpCmndParamsGet(cs.Cmnd):
 
 
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpParamSetWithNameValue" :comment "OBSOLETED by: fpCmndParamsSet" :parsMand "fpBase cls" :parsOpt "" :argsMin 2 :argsMax 2 :pyInv ""
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpParamSetWithNameValue" :comment "OBSOLETED by: fpCmndParamsSet" :noMapping "t" :parsMand "fpBase cls" :parsOpt "" :argsMin 2 :argsMax 2 :pyInv ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<fpParamSetWithNameValue>>  *OBSOLETED by: fpCmndParamsSet*  =verify= parsMand=fpBase cls argsMin=2 argsMax=2 ro=cli   [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -1017,8 +1002,6 @@ class fpParamSetWithNameValue(cs.Cmnd):
         if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, argsList).isProblematic():
             return failed(cmndOutcome)
         cmndArgsSpecDict = self.cmndArgsSpec()
-        fpBase = csParam.mappedValue('fpBase', fpBase)
-        cls = csParam.mappedValue('cls', cls)
 ####+END:
 
         print("Obsoleted by: fpParamSetWithNameValue to fpCmndParamsSet")
@@ -1065,7 +1048,7 @@ class fpParamSetWithNameValue(cs.Cmnd):
 
         return cmndArgsSpecDict
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpBaseRead" :parsMand "fpBase" :parsOpt "" :argsMin 0 :argsMax 999 :pyInv ""
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpBaseRead" :noMapping "t" :parsMand "fpBase" :parsOpt "" :argsMin 0 :argsMax 999 :pyInv ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<fpBaseRead>>  =verify= parsMand=fpBase argsMax=999 ro=cli   [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -1087,7 +1070,6 @@ class fpBaseRead(cs.Cmnd):
         if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, argsList).isProblematic():
             return failed(cmndOutcome)
         cmndArgsSpecDict = self.cmndArgsSpec()
-        fpBase = csParam.mappedValue('fpBase', fpBase)
 ####+END:
         # fpBaseInst = pattern.sameInstance(getattr(__main__, cls), fpBase=fpBase)
         # fpBaseDir = fpBaseInst.fileTreeBaseGet()  # type: ignore
@@ -1253,7 +1235,7 @@ def menu_getExamples(
 ####+END:
 
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpParamsValueDictObsolete" :parsMand "fpBase cls" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpParamsValueDictObsolete" :noMapping "t" :parsMand "fpBase cls" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<fpParamsValueDictObsolete>>  =verify= parsMand=fpBase cls ro=cli   [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -1274,8 +1256,6 @@ class fpParamsValueDictObsolete(cs.Cmnd):
         callParamsDict = {'fpBase': fpBase, 'cls': cls, }
         if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, None).isProblematic():
             return failed(cmndOutcome)
-        fpBase = csParam.mappedValue('fpBase', fpBase)
-        cls = csParam.mappedValue('cls', cls)
 ####+END:
         self.cmndDocStr(f""" #+begin_org
 ** [[elisp:(org-cycle)][| *CmndDesc:* | ]] Return a dict of parName:parValue as results
@@ -1362,7 +1342,7 @@ def FP_writeWithCsParams(
             thisCsParam.writeAsFileParam(parRoot=str(fpCmndParam.fileParam.parBaseGet()))
 
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpParamGetWithName" :comment "OBSOLETED by: fpCmndParamsGet" :parsMand "fpBase cls" :parsOpt "" :argsMin 1 :argsMax 1 :pyInv ""
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpParamGetWithName" :noMapping "t" :comment "OBSOLETED by: fpCmndParamsGet" :parsMand "fpBase cls" :parsOpt "" :argsMin 1 :argsMax 1 :pyInv ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<fpParamGetWithName>>  *OBSOLETED by: fpCmndParamsGet*  =verify= parsMand=fpBase cls argsMin=1 argsMax=1 ro=cli   [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -1385,8 +1365,6 @@ class fpParamGetWithName(cs.Cmnd):
         if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, argsList).isProblematic():
             return failed(cmndOutcome)
         cmndArgsSpecDict = self.cmndArgsSpec()
-        fpBase = csParam.mappedValue('fpBase', fpBase)
-        cls = csParam.mappedValue('cls', cls)
 ####+END:
 
         # print("Obsoleted by: fpParamGetWithName to fpCmndParamsGet")
@@ -1429,7 +1407,7 @@ class fpParamGetWithName(cs.Cmnd):
 
 
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpParamsSetDefaults" :comment "OBSOLETED" :parsMand "fpBase cls" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpParamsSetDefaults" :comment "OBSOLETED" :noMapping "t" :parsMand "fpBase cls" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<fpParamsSetDefaults>>  *OBSOLETED*  =verify= parsMand=fpBase cls ro=cli   [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -1450,8 +1428,6 @@ class fpParamsSetDefaults(cs.Cmnd):
         callParamsDict = {'fpBase': fpBase, 'cls': cls, }
         if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, None).isProblematic():
             return failed(cmndOutcome)
-        fpBase = csParam.mappedValue('fpBase', fpBase)
-        cls = csParam.mappedValue('cls', cls)
 ####+END:
         fpBaseInst = pattern.sameInstance(getattr(__main__, cls), fpBase)
         fps_namesWithAbsPath = fpBaseInst.fps_namesWithAbsPath()  # type: ignore
@@ -1462,7 +1438,7 @@ class fpParamsSetDefaults(cs.Cmnd):
 
 
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpParamsInfoDict" :comment "OBSOLETED" :parsMand "fpBase cls" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpParamsInfoDict" :comment "OBSOLETED" :noMapping "t" :parsMand "fpBase cls" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<fpParamsInfoDict>>  *OBSOLETED*  =verify= parsMand=fpBase cls ro=cli   [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -1483,8 +1459,6 @@ class fpParamsInfoDict(cs.Cmnd):
         callParamsDict = {'fpBase': fpBase, 'cls': cls, }
         if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, None).isProblematic():
             return failed(cmndOutcome)
-        fpBase = csParam.mappedValue('fpBase', fpBase)
-        cls = csParam.mappedValue('cls', cls)
 ####+END:
         self.cmndDocStr(f""" #+begin_org
 ** [[elisp:(org-cycle)][| *CmndDesc:* | ]] Return a dict of parName:parValue as results

@@ -85,13 +85,12 @@ from bisos.b import b_io
 
 ####+END:
 
-
-
 import logging
 import getpass
 import sys
+import pathlib
 
-from bisos.transit import pattern
+from bisos.basics import pattern
 
 logger = logging.getLogger('root') # We are using 'root' for all of bpf
 
@@ -122,11 +121,11 @@ FORMAT_STR = "* %(msg)s \n%(asctime)s - %(levelname)s -\t%(pathname)s::[%(lineno
 FORMAT_EXTRA_STR = "* %(msg)s \n%(asctime)s - %(levelname)s -\t%(extraPathname)s::[%(extraLineno)d] %(extraFuncName)s():"
 
 
-####+BEGIN: b:py3:cs:func/typing :funcName "logFileName" :funcType "extTyped" :deco ""
+####+BEGIN: b:py3:cs:func/typing :funcName "logFileNameOrig" :funcType "extTyped" :deco ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /logFileName/   [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /logFileNameOrig/   [[elisp:(org-cycle)][| ]]
 #+end_org """
-def logFileName(
+def logFileNameOrig(
 ####+END:
 ):
     return (
@@ -134,6 +133,20 @@ def logFileName(
             userName=getpass.getuser()
         )
     )
+
+####+BEGIN: b:py3:cs:func/typing :funcName "logFileName" :funcType "extTyped" :deco ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /logFileName/   [[elisp:(org-cycle)][| ]]
+#+end_org """
+def logFileName(
+####+END:
+):
+    userName = getpass.getuser()
+    home = pathlib.Path.home()
+    return (
+        f"{home}/{userName}-ICM.log"
+    )
+
 
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "getConsoleLevel" :funcType "extTyped" :deco ""

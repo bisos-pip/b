@@ -72,7 +72,7 @@ from bisos import b
 
 import logging
 
-from bisos.transit import pattern
+from bisos.basics import pattern
 
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 0 :title "CsGlobalContext Singleton Usage, provides global context"
 """ #+begin_org

@@ -77,7 +77,6 @@ Module description comes here.
 from bisos import b
 from bisos.b import cs
 from bisos.b import b_io
-from bisos.common import csParam
 
 import collections
 ####+END:

@@ -67,7 +67,7 @@ from bisos import b
 from bisos.b import cs
 from bisos.b import b_io
 
-from bisos.transit import pattern
+from bisos.basics import pattern
 
 import os
 import collections

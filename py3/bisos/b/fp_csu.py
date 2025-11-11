@@ -90,13 +90,9 @@ import collections
 from bisos import b
 from bisos.b import cs
 from bisos.b import b_io
-from bisos.common import csParam
 
 import collections
 ####+END:
-
-from bisos.facter import facter
-from bisos.banna import bannaPortNu
 
 import pathlib
 
@@ -271,7 +267,7 @@ def examplesFpBase(
 ####+END:
 
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpBaseWrite" :comment "" :extent "verify" :ro "cli" :parsMand "fpBase" :parsOpt "" :argsMin 2 :argsMax 2 :pyInv ""
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpBaseWrite" :comment "" :noMapping "t" :extent "verify" :ro "cli" :parsMand "fpBase" :parsOpt "" :argsMin 2 :argsMax 2 :pyInv ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<fpBaseWrite>>  =verify= parsMand=fpBase argsMin=2 argsMax=2 ro=cli   [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -293,7 +289,6 @@ class fpBaseWrite(cs.Cmnd):
         if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, argsList).isProblematic():
             return failed(cmndOutcome)
         cmndArgsSpecDict = self.cmndArgsSpec()
-        fpBase = csParam.mappedValue('fpBase', fpBase)
 ####+END:
         self.cmndDocStr(f""" #+begin_org
 ** [[elisp:(org-cycle)][| *CmndDesc:* | ]]  maps to b.fp.FileParamWriteTo(parRoot, name, value)
@@ -571,7 +566,7 @@ class fileParamWriteFromFile(cs.Cmnd):
 ####+END:
 
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpBaseRead" :comment "" :extent "verify" :ro "cli" :parsMand "fpBase" :parsOpt "" :argsMin 1 :argsMax 1 :pyInv ""
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpBaseRead" :comment "" :noMapping "t" :extent "verify" :ro "cli" :parsMand "fpBase" :parsOpt "" :argsMin 1 :argsMax 1 :pyInv ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<fpBaseRead>>  =verify= parsMand=fpBase argsMin=1 argsMax=1 ro=cli   [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -593,7 +588,6 @@ class fpBaseRead(cs.Cmnd):
         if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, argsList).isProblematic():
             return failed(cmndOutcome)
         cmndArgsSpecDict = self.cmndArgsSpec()
-        fpBase = csParam.mappedValue('fpBase', fpBase)
 ####+END:
         self.cmndDocStr(f""" #+begin_org
 ** [[elisp:(org-cycle)][| *CmndDesc:* | ]]  arg0 is ~inPypiPkg~.
@@ -639,7 +633,7 @@ class fpBaseRead(cs.Cmnd):
         return cmndArgsSpecDict
 
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpBaseParsGetAsDictValue" :comment "" :extent "verify" :ro "cli" :parsMand "fpBase" :parsOpt "" :argsMin 0 :argsMax 9999 :pyInv ""
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpBaseParsGetAsDictValue" :comment "" :noMapping "t" :extent "verify" :ro "cli" :parsMand "fpBase" :parsOpt "" :argsMin 0 :argsMax 9999 :pyInv ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<fpBaseParsGetAsDictValue>>  =verify= parsMand=fpBase argsMax=9999 ro=cli   [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -661,7 +655,6 @@ class fpBaseParsGetAsDictValue(cs.Cmnd):
         if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, argsList).isProblematic():
             return failed(cmndOutcome)
         cmndArgsSpecDict = self.cmndArgsSpec()
-        fpBase = csParam.mappedValue('fpBase', fpBase)
 ####+END:
         self.cmndDocStr(f""" #+begin_org
 ** [[elisp:(org-cycle)][| *CmndDesc:* | ]]  arg0 is ~inPypiPkg~.
@@ -858,7 +851,7 @@ class fileParamReadPath(cs.Cmnd):
 ####+END:
 
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpBaseDictRead" :comment "" :extent "verify" :ro "cli" :parsMand "fpBase" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpBaseDictRead" :comment "" :noMapping "t" :extent "verify" :ro "cli" :parsMand "fpBase" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<fpBaseDictRead>>  =verify= parsMand=fpBase ro=cli   [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -878,7 +871,6 @@ class fpBaseDictRead(cs.Cmnd):
         callParamsDict = {'fpBase': fpBase, }
         if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, None).isProblematic():
             return failed(cmndOutcome)
-        fpBase = csParam.mappedValue('fpBase', fpBase)
 ####+END:
         self.cmndDocStr(f""" #+begin_org
 ** [[elisp:(org-cycle)][| *CmndDesc:* | ]]  Reads and recurses through all FPs.
@@ -1031,7 +1023,7 @@ class fileParamDictReadWop(cs.Cmnd):
 
 
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpBaseDictReadDeep" :comment "" :extent "verify" :ro "cli" :parsMand "fpBase" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "fpBaseDictReadDeep" :comment "" :noMapping "t" :extent "verify" :ro "cli" :parsMand "fpBase" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<fpBaseDictReadDeep>>  =verify= parsMand=fpBase ro=cli   [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -1051,7 +1043,6 @@ class fpBaseDictReadDeep(cs.Cmnd):
         callParamsDict = {'fpBase': fpBase, }
         if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, None).isProblematic():
             return failed(cmndOutcome)
-        fpBase = csParam.mappedValue('fpBase', fpBase)
 ####+END:
         self.cmndDocStr(f""" #+begin_org
 ** [[elisp:(org-cycle)][| *CmndDesc:* | ]]  Interactive py invokation of /fileParamDictReadDeep/ Command.

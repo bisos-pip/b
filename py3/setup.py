@@ -43,35 +43,29 @@ def longDescription():
 # b:py3:pypi:setup/version Arguments  :forSys t :forPyPi t :constant "666"
 ####+BEGIN: b:py3:pypi:setup/version :comment "Auto Detected"
 
-# ./pypiUploadVer DID NOT exist -- forPypiVersion=0.80 -- forLocalVersion=0.43 -- constant=NA
+# ./pypiUploadVer DID NOT exist -- forPypiVersion=0.86 -- forLocalVersion=0.43 -- constant=NA
 def pkgVersion():
         return '0.43'
 
 ####+END:
 
 # b:py3:pypi:setup/requires :extras ; :requirements "requirements.txt" (bring here requirements.txt)
-####+BEGIN: b:py3:pypi:setup/requires :extras ("rpyc" "black")
+####+BEGIN: b:py3:pypi:setup/requires :extras ("bisos.basics" "rpyc" "black")
 
 requires = [
 "bisos",
-"bisos.common",
-"bisos.csPlayer",
-"bisos.examples",
-"bisos.facter",
-"bisos.transit",
+"bisos.basics",
 "rpyc",
 "black",
 "setuptools==75.8.0",
 ]
 ####+END:
 
-
 # b:py3:pypi:setup/scripts :comment
 ####+BEGIN: b:py3:pypi:setup/scripts :comment ""
 
 scripts = [
 'bin/csRo-manage.cs',
-'bin/exmpl-b-sc-basic.cs',
 'bin/exmpl-plantedCsu.cs',
 'bin/plantedHelloWorld.cs',
 'bin/seededCmnds.cs',
@@ -82,7 +76,7 @@ scripts = [
 ####+BEGIN: b:py3:pypi:setup/dataFiles :comment "Instead of ./MANIFEST.in or in pyproject.toml"
 
 data_files = [
-(' ',  ['lh-agpl3-LICENSE.txt', '_description.org', 'README.rst']),
+('',  ['lh-agpl3-LICENSE.txt', '_description.org', 'README.rst']),
 ]
 ####+END:
 

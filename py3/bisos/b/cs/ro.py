@@ -76,12 +76,11 @@ Module description comes here.
 
 ####+BEGIN: b:py3:cs:framework/imports :basedOn "classification"
 """ #+begin_org
-** Imports Based On Classification=cs-u
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CsFrmWrk   [[elisp:(outline-show-subtree+toggle)][||]] *Imports* =Based on Classification=cs-u=
 #+end_org """
 from bisos import b
 from bisos.b import cs
 from bisos.b import b_io
-from bisos.common import csParam
 
 import collections
 ####+END:
@@ -1443,7 +1442,7 @@ class ro_sapCreateOld(cs.Cmnd):
         return(cmndOutcome)
 
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "ro_sapCreate" :ro "noCli" :comment "" :parsMand "perfName rosmu svcName" :parsOpt "perfPortNu perfIpAddr perfModel rosmuSel rosmuControl accessControl" :argsMin 0 :argsMax 0
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "ro_sapCreate" :noMapping "t" :ro "noCli" :comment "" :parsMand "perfName rosmu svcName" :parsOpt "perfPortNu perfIpAddr perfModel rosmuSel rosmuControl accessControl" :argsMin 0 :argsMax 0
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<ro_sapCreate>>  =verify= parsMand=perfName rosmu svcName parsOpt=perfPortNu perfIpAddr perfModel rosmuSel rosmuControl accessControl ro=noCli   [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -1472,15 +1471,6 @@ class ro_sapCreate(cs.Cmnd):
         callParamsDict = {'perfName': perfName, 'rosmu': rosmu, 'svcName': svcName, 'perfPortNu': perfPortNu, 'perfIpAddr': perfIpAddr, 'perfModel': perfModel, 'rosmuSel': rosmuSel, 'rosmuControl': rosmuControl, 'accessControl': accessControl, }
         if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, None).isProblematic():
             return failed(cmndOutcome)
-        perfName = csParam.mappedValue('perfName', perfName)
-        rosmu = csParam.mappedValue('rosmu', rosmu)
-        svcName = csParam.mappedValue('svcName', svcName)
-        perfPortNu = csParam.mappedValue('perfPortNu', perfPortNu)
-        perfIpAddr = csParam.mappedValue('perfIpAddr', perfIpAddr)
-        perfModel = csParam.mappedValue('perfModel', perfModel)
-        rosmuSel = csParam.mappedValue('rosmuSel', rosmuSel)
-        rosmuControl = csParam.mappedValue('rosmuControl', rosmuControl)
-        accessControl = csParam.mappedValue('accessControl', accessControl)
 ####+END:
         """\
 ***** [[elisp:(org-cycle)][| *CmndDesc:* | ]] Creates path for ro_sap and updates FPs
@@ -1939,7 +1929,7 @@ def roPerf_examples(
     cmnd('csPerformer', pars=od([('svcName', svcName)]), comment="&  #  in background Start rpyc CS Service" )
 
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "perf_sapCreate" :ro "noCli" :comment "" :parsMand "svcName perfName rosmu" :parsOpt "rosmuControl" :argsMin 0 :argsMax 0
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "perf_sapCreate" :noMapping "t" :ro "noCli" :comment "" :parsMand "svcName perfName rosmu" :parsOpt "rosmuControl" :argsMin 0 :argsMax 0
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<perf_sapCreate>>  =verify= parsMand=svcName perfName rosmu parsOpt=rosmuControl ro=noCli   [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -1963,10 +1953,6 @@ class perf_sapCreate(cs.Cmnd):
         callParamsDict = {'svcName': svcName, 'perfName': perfName, 'rosmu': rosmu, 'rosmuControl': rosmuControl, }
         if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, None).isProblematic():
             return failed(cmndOutcome)
-        svcName = csParam.mappedValue('svcName', svcName)
-        perfName = csParam.mappedValue('perfName', perfName)
-        rosmu = csParam.mappedValue('rosmu', rosmu)
-        rosmuControl = csParam.mappedValue('rosmuControl', rosmuControl)
 ####+END:
         """\
 ***** [[elisp:(org-cycle)][| *CmndDesc:* | ]] Invoked both by invoker and performer. Creates path for ro_sap and updates FPs
@@ -2018,7 +2004,7 @@ def roInv_examples(
     literal(f"""csRo-manage.cs --svcName="{svcName}" --perfName="{perfName}" --rosmu="{rosmu}"  -i ro_fps list""")
 
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "inv_sapCreate" :ro "noCli" :comment "" :parsMand "perfName perfIpAddr rosmu svcName" :parsOpt "" :argsMin 0 :argsMax 0
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "inv_sapCreate" :noMapping "t" :ro "noCli" :comment "" :parsMand "perfName perfIpAddr rosmu svcName" :parsOpt "" :argsMin 0 :argsMax 0
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<inv_sapCreate>>  =verify= parsMand=perfName perfIpAddr rosmu svcName ro=noCli   [[elisp:(org-cycle)][| ]]
 #+end_org """
@@ -2042,10 +2028,6 @@ class inv_sapCreate(cs.Cmnd):
         callParamsDict = {'perfName': perfName, 'perfIpAddr': perfIpAddr, 'rosmu': rosmu, 'svcName': svcName, }
         if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, None).isProblematic():
             return failed(cmndOutcome)
-        perfName = csParam.mappedValue('perfName', perfName)
-        perfIpAddr = csParam.mappedValue('perfIpAddr', perfIpAddr)
-        rosmu = csParam.mappedValue('rosmu', rosmu)
-        svcName = csParam.mappedValue('svcName', svcName)
 ####+END:
         """\
 ***** [[elisp:(org-cycle)][| *CmndDesc:* | ]] Invoked both by invoker and performer. Creates path for ro_sap and updates FPs

@@ -77,7 +77,6 @@ Module description comes here.
 from bisos import b
 from bisos.b import cs
 from bisos.b import b_io
-from bisos.common import csParam
 
 import collections
 ####+END:
@@ -99,23 +98,22 @@ import sys
 (setq  b:py:cs:csuList
   (list
    "bisos.b.cs.ro"
-   "bisos.csPlayer.bleep"
+   ;;"bisos.csPlayer.bleep"
    "plantedCsu"
  ))
 #+END_SRC
 #+RESULTS:
-| bisos.b.cs.ro | bisos.csPlayer.bleep | plantedCsu |
+| bisos.b.cs.ro | plantedCsu |
 #+end_org """
 
 ####+BEGIN: b:py3:cs:framework/csuListProc :pyImports t :csuImports t :csuParams t
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CsFrmWrk   [[elisp:(outline-show-subtree+toggle)][||]] =Process CSU List= with /3/ in csuList pyImports=t csuImports=t csuParams=t
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CsFrmWrk   [[elisp:(outline-show-subtree+toggle)][||]] ~Process CSU List~ with /2/ in csuList pyImports=t csuImports=t csuParams=t
 #+end_org """
 
 from bisos.b.cs import ro
-from bisos.csPlayer import bleep
 
-csuList = [ 'bisos.b.cs.ro', 'bisos.csPlayer.bleep', 'plantedCsu', ]
+csuList = [ 'bisos.b.cs.ro', 'plantedCsu', ]
 
 if b.cs.G.plantOfThisSeed is None:
     csuList.remove('plantedCsu')
@@ -179,7 +177,7 @@ class examples(cs.Cmnd):
 
         cs.examples.commonBrief()
 
-        bleep.examples_csBasic()
+        # bleep.examples_csBasic()
 
         if b.cs.G.plantOfThisSeed is not None:
             cmndsSeed.plantedCsuExamplesRun()
