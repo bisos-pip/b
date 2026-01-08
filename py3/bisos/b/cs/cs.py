@@ -1976,11 +1976,19 @@ def cmndNameToClass(
         #print "TM_"
         pass
     else:
+        if not isinstance(classedCmnd, type):
+            print(f"Invalid Command Class: {cmndName} -- not a class type: {type(classedCmnd)}")
+            return None
+
         return classedCmnd
 
     try:
         cmndClass = eval("{cmndName}".format(cmndName=cmndName))
     except NameError:
+        return None
+
+    if not isinstance(cmndClass, type):
+        print("Invalid Command Class: {cmndName}".format(cmndName=cmndName))
         return None
 
     if cmndName in cmndSubclassesNames():
@@ -2028,7 +2036,7 @@ def cmndMainsMethodsToFileParamsUpdate(
     """ #+begin_org
 ** [[elisp:(org-cycle)][| *DocStr | ]
     #+end_org """
-    mainsCmndMethods = cmndList_mainsMethods().cmnd()
+    mainsCmndMethods = cs.inCmnd.cmndList_mainsMethodsFromG().pyCmnd()
     for each in mainsCmndMethods:
         cmndToFileParamsUpdate(
             cmndName=each,
@@ -2049,7 +2057,7 @@ def cmndLibsMethodsToFileParamsUpdate(
     """ #+begin_org
 ** [[elisp:(org-cycle)][| *DocStr | ]
     #+end_org """
-    libsCmndMethods = cmndList_libsMethods().cmnd()
+    libsCmndMethods = cs.inCmnd.cmndList_libsMethods().pyCmnd()
     for each in libsCmndMethods:
         cmndToFileParamsUpdate(
             cmndName=each,
@@ -2118,7 +2126,7 @@ def cmndToFileParamsUpdate(
         )
 
 
-    docStr = cmndDocStrShort().cmnd(
+    docStr = cs.inCmnd.cmndDocStrShort().pyCmnd(
         cmndName=cmndName,
     )
     writeCmndAttrFV(
@@ -2127,7 +2135,7 @@ def cmndToFileParamsUpdate(
         attrValue=docStr,
     )
 
-    docStr = cmndDocStrFull().cmnd(
+    docStr = cs.inCmnd.cmndDocStrFull().pyCmnd(
         cmndName=cmndName,
     )
     writeCmndAttrFV(
@@ -2152,8 +2160,7 @@ def cmndToFileParamsUpdate(
     writeCmndAttrFV(
         cmndName=cmndName,
         attrName='cmndInfo',
-        attrValue=cmndInfoEssential().cmnd(
-            interactive=False,
+        attrValue=cs.inCmnd.cmndInfoEssential().pyCmnd(
             orgLevel=2,
             cmndName=cmndName,
         )

@@ -112,7 +112,7 @@ class commonExamples(cs.Cmnd):
         print(( G_myName + " -i icmHelp" ))
         print(( G_myName + " -i icmOptionsExamples" ))
         print(( G_myName + " -i csInfo" ))
-        print(( G_myName + " -i icmInUpdate ./var" ))
+        print(( G_myName + " -i csmuInSchema ./var" ))
         print(( G_myName + " -i cmndInfo cmndName" ))
         print(( G_myName + " -i cmndInfo cmndInfo" ))
         print(( G_myName + " -i devExamples" ))

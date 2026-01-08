@@ -591,7 +591,7 @@ commonIcmParamsPrep = commonCsParamsPrep
 def csParamsToFileParamsUpdate(
 ####+END:
         parRoot,
-        icmParams,
+        csParams,
 ) -> None:
     """ #+begin_org
 ** [[elisp:(org-cycle)][| *DocStr | ] Convert icmParams to parser
@@ -599,7 +599,7 @@ def csParamsToFileParamsUpdate(
 
     b_io.log.here("Updating icmParams at: {parRoot}".format(parRoot=parRoot))
 
-    for key, icmParam in icmParams.parDictGet().items():
+    for key, icmParam in csParams.parDictGet().items():
         if ( icmParam.argsparseShortOptGet() == None )  and ( icmParam.argsparseLongOptGet() == None ):
             break
 
