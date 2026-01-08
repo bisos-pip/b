@@ -140,132 +140,144 @@ class AuxInvokationContext(enum.Enum):
 #+end_org """
 class CsGlobalContext(object):
 ####+END:
-     """ #+begin_org
+    """ #+begin_org
 ** [[elisp:(org-cycle)][| DocStr| ]]  Singleton Usage Model: Interactively Invokable Module Global Context.
     #+end_org """
 
-     icmArgsParser = None
+    icmArgsParser = None
 
-     icmRunArgsThis = None
-     #icmRunArgsThis = []
+    icmRunArgsThis = None
+    #icmRunArgsThis = []
 
-     icmParamDict = None       # ICM Specified Parameters in g_argsExtraSpecify()
-     thisFuncName = None
-     logger = None
-     astModuleFunctionsList = None
-     plantOfThisSeed = None
-     seedOfThisPlant = None
+    icmParamDict = None       # ICM Specified Parameters in g_argsExtraSpecify()
+    thisFuncName = None
+    logger = None
+    astModuleFunctionsList = None
+    plantOfThisSeed = None
+    seedOfThisPlant = None
 
-     _csInfo = {}
+    _csInfo = {}
 
-     usageParams = b.types.Variables
-     usageArgs = b.types.Variables
+    usageParams = b.types.Variables
+    usageArgs = b.types.Variables
 
-     # ICM-Profile Specifications
-     icmGroupingType = ICM_GroupingType.UnSet
-     icmPkgedModel = ICM_PkgedModel.UnSet
-     icmCmndPartsList = [ICM_CmndParts.UnSet]
+    # ICM-Profile Specifications
+    icmGroupingType = ICM_GroupingType.UnSet
+    icmPkgedModel = ICM_PkgedModel.UnSet
+    icmCmndPartsList = [ICM_CmndParts.UnSet]
 
-     _auxInvokationContext = AuxInvokationContext.UnSet
-     _auxInvokationResults = None
-     _cmndNames = None # All 3 of the above have been obsoleted
+    _auxInvokationContext = AuxInvokationContext.UnSet
+    _auxInvokationResults = None
+    _cmndNames = None # All 3 of the above have been obsoleted
 
-     _cmndFuncsDict = None
-     _cmndMethodsDict = None
+    _cmndFuncsDict = None
+    _cmndMethodsDict = None
 
-     lastOpOutcome = None
+    lastOpOutcome = None
 
-     _outcomeReportCmnd = False
-     _outcomeReportRo = True
+    _outcomeReportCmnd = False
+    _outcomeReportRo = True
 
 
-     def __init__(self):
+    def __init__(self):
         # self.__class__.invOutcomeReportCmnd = False
         # self.__class__.invOutcomeReportRo = True
-        pass
-
-     def globalContextSet(self,
-                          icmRunArgs=None,
-                          icmParamDict=None
-                          ):
-         """
-         """
-         #if not icmRunArgs == None:
-         self.__class__.icmRunArgsThis = icmRunArgs
-
-         # NOTYET, 2017 -- Review This
-         if icmParamDict == None:
-             pass
-             #self.__class__.icmParamDict = CmndParamDict()
-
-         logger = logging.getLogger(b_io.log.LOGGER)
-         self.__class__.logger = logger
-
-         self.__class__.astModuleFunctionsList = b.ast.ast_topLevelFunctionsInFile(
-             self.icmMyFullName()
-         )
-
-     def icmRunArgsGet(self):
-         return self.__class__.icmRunArgsThis
-
-     def icmParamDictSet(self, icmParamDict):
-         # print(f"XXX {icmParamDict}")
-         self.__class__.icmParamDict = icmParamDict
-
-     def icmParamDictGet(self):
-         return self.__class__.icmParamDict
-
-     def icmMyFullName(self):
-          return os.path.abspath(sys.argv[0])
-
-     def icmMyName(self):
-         return os.path.basename(sys.argv[0])
-
-     def icmModuleFunctionsList(self):
-         return self.__class__.astModuleFunctionsList
-
-     def curFuncNameSet(self, curFuncName):
-         self.__class__.thisFuncName = curFuncName
-
-     def curFuncName(self):
-         return self.__class__.thisFuncName
-
-     def auxInvokationContextSet(self, auxInvokationEnum):
-         self.__class__._auxInvokationContext = auxInvokationEnum
-
-     def auxInvokationContext(self):
-         return self.__class__._auxInvokationContext
-
-     def auxInvokationResultsSet(self, auxInvokationRes):
-         self.__class__._auxInvokationResults = auxInvokationRes
-
-     def auxInvokationResults(self):
-         return self.__class__._auxInvokationResults
-
-     def csInfoSet(self, csInfo):
-         self.__class__._csInfo = csInfo
-
-     def csInfo(self):
-         return self.__class__._csInfo
+        _importedCmndsFilesList: list[str] = []
 
 
-     def cmndNamesSet(self, cmnds):
-         self.__class__._cmndNames = cmnds
+    @property
+    def importedCmndsFilesList(self) -> list[str]:
+        """List of files."""
+        return self._importedCmndsFilesList
 
-     def cmndNames(self):
-         return self.__class__._cmndNames
+    @importedCmndsFilesList.setter
+    def importedCmndsFilesList(self, value: list[str]) -> None:
+        """Expects a list."""
+        if not isinstance(value, list):
+            raise ValueError("Expected a list")
+        self._importedCmndsFilesList     = value
 
-     def cmndMethodsDictSet(self, cmnds):
-         self.__class__._cmndMethodsDict = cmnds
+    def globalContextSet(self,
+                         icmRunArgs=None,
+                         icmParamDict=None
+                         ):
+        """
+        """
+        #if not icmRunArgs == None:
+        self.__class__.icmRunArgsThis = icmRunArgs
 
-     def cmndMethodsDict(self):
-         return self.__class__._cmndMethodsDict
+        # NOTYET, 2017 -- Review This
+        if icmParamDict == None:
+            pass
+            #self.__class__.icmParamDict = CmndParamDict()
 
-     def cmndFuncsDictSet(self, cmnds):
-         self.__class__._cmndFuncsDict = cmnds
+        logger = logging.getLogger(b_io.log.LOGGER)
+        self.__class__.logger = logger
 
-     def cmndFuncsDict(self):
-         return self.__class__._cmndFuncsDict
+        self.__class__.astModuleFunctionsList = b.ast.ast_topLevelFunctionsInFile(
+            self.icmMyFullName()
+        )
+
+    def icmRunArgsGet(self):
+        return self.__class__.icmRunArgsThis
+
+    def icmParamDictSet(self, icmParamDict):
+        # print(f"XXX {icmParamDict}")
+        self.__class__.icmParamDict = icmParamDict
+
+    def icmParamDictGet(self):
+        return self.__class__.icmParamDict
+
+    def icmMyFullName(self):
+        return os.path.abspath(sys.argv[0])
+
+    def icmMyName(self):
+        return os.path.basename(sys.argv[0])
+
+    def icmModuleFunctionsList(self):
+        return self.__class__.astModuleFunctionsList
+
+    def curFuncNameSet(self, curFuncName):
+        self.__class__.thisFuncName = curFuncName
+
+    def curFuncName(self):
+        return self.__class__.thisFuncName
+
+    def auxInvokationContextSet(self, auxInvokationEnum):
+        self.__class__._auxInvokationContext = auxInvokationEnum
+
+    def auxInvokationContext(self):
+        return self.__class__._auxInvokationContext
+
+    def auxInvokationResultsSet(self, auxInvokationRes):
+        self.__class__._auxInvokationResults = auxInvokationRes
+
+    def auxInvokationResults(self):
+        return self.__class__._auxInvokationResults
+
+    def csInfoSet(self, csInfo):
+        self.__class__._csInfo = csInfo
+
+    def csInfo(self):
+        return self.__class__._csInfo
+
+    def cmndNamesSet(self, cmnds):
+        self.__class__._cmndNames = cmnds
+
+    def cmndNames(self):
+        return self.__class__._cmndNames
+
+    def cmndMethodsDictSet(self, cmnds):
+        self.__class__._cmndMethodsDict = cmnds
+
+    def cmndMethodsDict(self):
+        return self.__class__._cmndMethodsDict
+
+    def cmndFuncsDictSet(self, cmnds):
+        self.__class__._cmndFuncsDict = cmnds
+
+    def cmndFuncsDict(self):
+        return self.__class__._cmndFuncsDict
 
 G = pattern.singleton(CsGlobalContext)
 

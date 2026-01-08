@@ -2024,6 +2024,48 @@ def cmndSubclassesNames(
         cmndsNames.append(eachClass.__name__)
     return cmndsNames
 
+####+BEGIN: b:py3:cs:func/typing :funcName "csmuCmndsToFileParamsUpdate" :funcType "extTyped" :deco "track"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /csmuCmndsToFileParamsUpdate/  deco=track  [[elisp:(org-cycle)][| ]]
+#+end_org """
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+def csmuCmndsToFileParamsUpdate(
+####+END:
+        parRoot: str,
+) -> None:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ]
+    #+end_org """
+
+    import importlib
+
+    importedCmndsFilesList = []
+
+    # print(f"xxxx {cs.G.importedCmndsModules}")
+
+    # for moduleName in cs.G.importedCmndsModules:  NOTYET
+    for moduleName in ['bisos.facter.facter_csu']:
+        # print(f"INFO:: moduleName={moduleName}")
+        if 'plantedCsu' in moduleName:
+            continue
+
+        spec = importlib.util.find_spec(moduleName)
+        if spec is None:
+            print(f"EH_Problem: find_spec failed for {moduleName}")
+            continue
+
+        importedCmndsFilesList.append(spec.origin)
+
+    # print(f"yyyy {importedCmndsFilesList}")
+
+    cmndClasses = cs.inCmnd.csmuCmndsFromCsusPath(importedCmndsFilesList)
+    for each in cmndClasses:
+        cmndToFileParamsUpdate(
+            cmndName=each,
+            parRoot=parRoot,
+        )
+    return
+
 ####+BEGIN: b:py3:cs:func/typing :funcName "cmndMainsMethodsToFileParamsUpdate" :funcType "extTyped" :deco "track"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /cmndMainsMethodsToFileParamsUpdate/  deco=track  [[elisp:(org-cycle)][| ]]
@@ -2043,6 +2085,7 @@ def cmndMainsMethodsToFileParamsUpdate(
             parRoot=parRoot,
         )
     return
+
 
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "cmndLibsMethodsToFileParamsUpdate" :funcType "extTyped" :deco "track"

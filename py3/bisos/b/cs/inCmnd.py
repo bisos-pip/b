@@ -66,6 +66,8 @@ Module description comes here.
 import os
 import sys
 
+from pathlib import Path
+
 from bisos.b import b_io
 from bisos import b
 from bisos.b import cs
@@ -199,34 +201,41 @@ class csmuInSchema(cs.Cmnd):
 ** [[elisp:(org-cycle)][| *CmndDesc:* | ]]  Given a baseDir, update icmIn. "Part of icm framework.
         #+end_org """)
 
-        icmsBase = argsList[0]
+        if not argsList or argsList is None:
+            return failed(cmndOutcome, "Missing Mandatory Argument")
+
+        csmusBase = argsList[0]
 
         G_myFullName = sys.argv[0]
         G_myName = os.path.basename(G_myFullName)
 
-        G = cs.globalContext.get()
+        # G = cs.globalContext.get()
 
-        icmInBase = icmsBase + "/" + G_myName + "/icmIn"
+        csmuInBase = str(Path(csmusBase) / G_myName / "inSchema")
 
-        print("{icmInBase}".format(icmInBase=icmInBase))
-
-        cs.param.csParamsToFileParamsUpdate(
-            parRoot="{icmInBase}/paramsFp".format(icmInBase=icmInBase),
-            csParams=G.icmParamDictGet(),
-        )
+        #print("{csmuInBase}".format(csmuInBase=csmuInBase))
 
         cs.param.csParamsToFileParamsUpdate(
-            parRoot="{icmInBase}/commonParamsFp".format(icmInBase=icmInBase),
-            csParams=cs.param.commonCsParamsPrep(),
+            parRoot=f"{csmuInBase}/paramsFp",
+            csParams=cs.G.icmParamDictGet(),
         )
 
-        cs.cmndMainsMethodsToFileParamsUpdate(
-            parRoot="{icmInBase}/cmndMainsFp".format(icmInBase=icmInBase),
+        # cs.param.csParamsToFileParamsUpdate(
+        #     parRoot=f"{csmuInBase}/commonParamsFp",
+        #     csParams=cs.param.commonCsParamsPrep(),
+        # )
+
+        cs.csmuCmndsToFileParamsUpdate(
+            parRoot=f"{csmuInBase}/csmuCmndsFp",
         )
 
-        cs.cmndLibsMethodsToFileParamsUpdate(
-            parRoot="{icmInBase}/cmndLibsFp".format(icmInBase=icmInBase),
-        )
+        # cs.cmndMainsMethodsToFileParamsUpdate(
+        #     parRoot=f"{csmuInBase}/cmndMainsFp",
+        # )
+
+        # cs.cmndLibsMethodsToFileParamsUpdate(
+        #     parRoot=f"{csmuInBase}/cmndLibsFp",
+        # )
 
         return(cmndOutcome)
 
@@ -694,6 +703,31 @@ importedCmndsList was added later with icmMainProxy.
 
         return mainsClassedCmnds
 
+
+####+BEGIN: b:py3:cs:func/typing :funcName "csmuCmndsFromCsusPath" :funcType "extTyped" :deco "track"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /csmuCmndsFromCsusPath/  deco=track  [[elisp:(org-cycle)][| ]]
+#+end_org """
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+def csmuCmndsFromCsusPath(
+####+END:
+        importedCmndsFilesList: list[str]=[],
+) -> list[str]:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ]
+    #+end_org """
+
+    relevantClasses = []
+    # print(f"zzzz {importedCmndsFilesList}")
+    for modPath in importedCmndsFilesList:
+        if modPath.endswith('.pyc') and os.path.exists(modPath[:-1]):
+            modPath = modPath[:-1]
+        relevantClasses += b.ast.ast_topLevelClassNamesInFile(modPath)
+
+    # print(relevantClasses)
+    return relevantClasses
+
+
 ####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "cmndList_mainsMethods" :comment "USED IN MAIN" :parsMand "" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv "importedCmnds mainFileName importedCmndsFilesList"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<cmndList_mainsMethods>>  *USED IN MAIN*  =verify= ro=cli pyInv=importedCmnds mainFileName importedCmndsFilesList   [[elisp:(org-cycle)][| ]]
@@ -736,7 +770,7 @@ importedCmndsList was added later with icmMainProxy.
             mainFileName,
         )
 
-        #print mainClasses
+        # print(mainClasses)
 
         relevantClasses = mainClasses
         for key, modPath in importedCmnds.items():
@@ -744,10 +778,19 @@ importedCmndsList was added later with icmMainProxy.
                 modPath = modPath[:-1]
             relevantClasses += b.ast.ast_topLevelClassNamesInFile(modPath)
 
-        for modPath in importedCmndsFilesList:
-            if modPath.endswith('.pyc') and os.path.exists(modPath[:-1]):
-                modPath = modPath[:-1]
-            relevantClasses += b.ast.ast_topLevelClassNamesInFile(modPath)
+        # print(relevantClasses)
+
+        # print("zzzzzzzzzzzzzzzzzzz")
+        # print(importedCmndsFilesList)
+
+        # for modPath in importedCmndsFilesList:
+        #     if modPath.endswith('.pyc') and os.path.exists(modPath[:-1]):
+        #         modPath = modPath[:-1]
+        #     relevantClasses += b.ast.ast_topLevelClassNamesInFile(modPath)
+
+        relevantClasses += csmuCmndsFromCsusPath(importedCmndsFilesList)
+
+        # print(relevantClasses)
 
         mainsClassedCmnds = set.intersection(
             set(allClassedCmndNames),
@@ -759,6 +802,8 @@ importedCmndsList was added later with icmMainProxy.
             b.ast.listPrintItems(mainsClassedCmnds)
 
         mainsClassedCmndsGlobal = mainsClassedCmnds
+
+        # print(mainsClassedCmnds)
 
         return mainsClassedCmnds
 
@@ -983,8 +1028,6 @@ class cmndDocStrShort(cs.Cmnd):
 ** [[elisp:(org-cycle)][| *CmndDesc:* | ]]  Given a list of cmnds as Args, for each return the the class docStr.
         The Cmnd class from which this is drived, includes docStr extractors.
         #+end_org """)
-
-
 
         classDocStr = cmndClassDocStr().pyCmnd(
                 cmndName=cmndName,

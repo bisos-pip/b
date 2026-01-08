@@ -175,6 +175,10 @@ def g_csMain(
     G = cs.globalContext.get()
     G.csInfoSet(csInfo)
 
+    cs.G.importedCmndsModules = importedCmndsModules
+    # print(importedCmndsModules)
+    # print(f"aaaaa {cs.G.importedCmndsModules}")
+
     examples = None
     mainEntry = None
 

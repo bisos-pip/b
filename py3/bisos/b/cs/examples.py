@@ -150,6 +150,8 @@ def commonBrief(
     print(f"{G_myName} -i examples | emlOutFilter.sh -i iimToEmlStdout  | emlVisit")
     print(( G_myName + " -i visit"))
     print(( """emlVisit -v -n showRun -i gotoPanel """ + G_myFullName))
+    print(f"""{G_myName} -i csmuInSchema ./var""")
+    print(f"""{G_myName} -i csPlayersMenu""")
 
     invokerName = cs.ro.csMuInvokerName()
     performerName = cs.ro.csMuPerformerName()
