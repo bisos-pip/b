@@ -1822,7 +1822,9 @@ def invokesProcAllClassed(
     ):
         """ Chooses the method to apply Cmnd() to.
         """
-        perfName = icmRunArgs.perfName  # This can be a "None" string but not None
+        
+        perfName = getattr(icmRunArgs, 'perfName', "None")  # This can be a "None" string but not None
+
         csBase = icmRunArgs.csBase
 
         outcome = b.op.Outcome()
@@ -1933,7 +1935,7 @@ def invokesProcAllClassed(
         outcome.error = b.op.OpError.CmndLineUsageError
         outcome.errInfo = "Invalid Action: {invoke}".format(invoke=invoke)
 
-    perfModel = icmRunArgs.perfModel  # This can be a "None" string but not a None
+    perfModel = getattr(icmRunArgs, 'perfModel', "None")  # This can be a "None" string but not a None
 
     #     if insAsFP_baseDir != "None":
     if perfModel != "None":
@@ -1977,7 +1979,8 @@ def cmndNameToClass(
         pass
     else:
         if not isinstance(classedCmnd, type):
-            print(f"Invalid Command Class: {cmndName} -- not a class type: {type(classedCmnd)}")
+            # NOTYET, should become a LOG message.
+            # print(f"Invalid Command Class: {cmndName} -- not a class type: {type(classedCmnd)}")
             return None
 
         return classedCmnd
@@ -2041,10 +2044,7 @@ def csmuCmndsToFileParamsUpdate(
 
     importedCmndsFilesList = []
 
-    # print(f"xxxx {cs.G.importedCmndsModules}")
-
-    # for moduleName in cs.G.importedCmndsModules:  NOTYET
-    for moduleName in ['bisos.facter.facter_csu']:
+    for moduleName in cs.G.csmuImportedCsus:
         # print(f"INFO:: moduleName={moduleName}")
         if 'plantedCsu' in moduleName:
             continue
@@ -2056,7 +2056,6 @@ def csmuCmndsToFileParamsUpdate(
 
         importedCmndsFilesList.append(spec.origin)
 
-    # print(f"yyyy {importedCmndsFilesList}")
 
     cmndClasses = cs.inCmnd.csmuCmndsFromCsusPath(importedCmndsFilesList)
     for each in cmndClasses:

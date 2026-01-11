@@ -182,7 +182,8 @@ class CsGlobalContext(object):
     def __init__(self):
         # self.__class__.invOutcomeReportCmnd = False
         # self.__class__.invOutcomeReportRo = True
-        _importedCmndsFilesList: list[str] = []
+        self._importedCmndsFilesList: list[str] = []
+        self._csmuImportedCsus: list[str] = []
 
 
     @property
@@ -195,7 +196,19 @@ class CsGlobalContext(object):
         """Expects a list."""
         if not isinstance(value, list):
             raise ValueError("Expected a list")
-        self._importedCmndsFilesList     = value
+        self._importedCmndsFilesList = value
+
+    @property
+    def csmuImportedCsus(self) -> list[str]:
+        """List of files."""
+        return self._csmuImportedCsus
+
+    @csmuImportedCsus.setter
+    def csmuImportedCsus (self, value: list[str]) -> None:
+        """Expects a list."""
+        if not isinstance(value, list):
+            raise ValueError("Expected a list")
+        self._csmuImportedCsus = value
 
     def globalContextSet(self,
                          icmRunArgs=None,

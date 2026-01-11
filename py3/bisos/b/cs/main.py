@@ -85,7 +85,7 @@ def classedCmndsDict(
     from bisos.b.cs import inCmnd  #  Should be done here to prevent circular import
 
     importedCmndsFilesList = []
-    cmndsModulesList = importedCmndsModules
+    cmndsModulesList = importedCmndsModules.copy()  # Otherwise .append has side effects
 
     for moduleName in importedCmndsModules:
         # print(f"INFO:: moduleName={moduleName}")
@@ -99,6 +99,8 @@ def classedCmndsDict(
 
         importedCmndsFilesList.append(spec.origin)
 
+    # print(f"aaaaa {cs.G.csmuImportedCsus}")
+
     for moduleName in ["bisos.b.cs.inCmnd", "bisos.b.cs.examples", "bisos.b.cs.rpyc", "bisos.b.cs.ro"]:
         # print(f"INFO:: moduleName={moduleName}")
 
@@ -111,6 +113,7 @@ def classedCmndsDict(
             cmndsModulesList.append(moduleName)
             importedCmndsFilesList.append(spec.origin)
 
+    # print(f"aaaaa AFTERRRR {cs.G.csmuImportedCsus}")
 
     # print(importedCmndsFilesList)
 
@@ -175,9 +178,8 @@ def g_csMain(
     G = cs.globalContext.get()
     G.csInfoSet(csInfo)
 
-    cs.G.importedCmndsModules = importedCmndsModules
-    # print(importedCmndsModules)
-    # print(f"aaaaa {cs.G.importedCmndsModules}")
+    cs.G.csmuImportedCsus = importedCmndsModules
+    # print(f"aaaaa {cs.G.csmuImportedCsus}")
 
     examples = None
     mainEntry = None

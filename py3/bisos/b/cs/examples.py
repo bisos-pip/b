@@ -150,8 +150,8 @@ def commonBrief(
     print(f"{G_myName} -i examples | emlOutFilter.sh -i iimToEmlStdout  | emlVisit")
     print(( G_myName + " -i visit"))
     print(( """emlVisit -v -n showRun -i gotoPanel """ + G_myFullName))
-    print(f"""{G_myName} -i csmuInSchema ./var""")
-    print(f"""{G_myName} -i csPlayersMenu""")
+    # print(f"""{G_myName} -i csmuInSchema ./var""")
+    # print(f"""{G_myName} -i csPlayersMenu""")
 
     invokerName = cs.ro.csMuInvokerName()
     performerName = cs.ro.csMuPerformerName()
@@ -548,7 +548,7 @@ def cmndEnter(
 
     roEnable = ""
 
-    perfName = cs.G.icmRunArgsGet().perfName
+    perfName = getattr(cs.G.icmRunArgsGet(), 'perfName', None)
     if perfName is not None:
         roEnable = f" --perfName={perfName}"
 
