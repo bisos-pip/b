@@ -165,9 +165,10 @@ def writeToBaseDir(
     if not os.path.isdir(baseDir):
         return None
 
+    # NOTYET, this fails when varName is not string -- 20260117 fixed but needs more testing.
     varValueFullPath = os.path.join(
         baseDir,
-        varName
+        str(varName)
     )
 
     with open(varValueFullPath, "w") as valueFile:

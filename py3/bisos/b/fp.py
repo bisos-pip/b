@@ -286,7 +286,7 @@ class FileParam(object):
 
 
     @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
-    def writeTo(self, storeBase=None, parName=None, parValue=None):
+    def writeTo(self, storeBase=None, parName=None, parValue=None, rejectNoneValue=False):
         """Write this FileParam to storeBase.
 
         """
@@ -296,8 +296,9 @@ class FileParam(object):
         if self.__parName == None and parName == None:
             return b_io.eh.problem_usageError("parName")
 
-        if self.__parValue == None and parValue == None:
-            return b_io.eh.problem_usageError("parValue")
+        if rejectNoneValue:
+            if self.__parValue == None and parValue == None:
+                return b_io.eh.problem_usageError(f"parValue is None -- {parName} -- {self.__parName}")
 
         if storeBase:
             self.__storeBase = storeBase

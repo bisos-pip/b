@@ -96,6 +96,7 @@ import time
 import argparse
 
 import abc
+import pathlib
 
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 0 :sep nil :title "Cmnd Abstract Class" :anchor ""  :extraInfo "An Expectation Complete Operation"
 """ #+begin_org
@@ -482,11 +483,11 @@ class Cmnd(object):
             try:
                 eachIcmParam = g_parDict[each]
             except  KeyError:
-                print(f"BadUsage: Missing parameter definition: {each}")
+                print(f"BadUsage: cmndCallTimeKwArgs: Missing parameter definition: {each}")
                 return
             else:
                 if not icmRunArgs.__dict__[each]:
-                    print(f"BadUsage: Missing mandatory parameter zz: {each}")
+                    print(f"BadUsage: cmndCallTimeKwArgs: Missing mandatory parameter: {each}")
                     return
                 applicableCmndKwArgs.update({each: icmRunArgs.__dict__[each]})
                 continue
@@ -504,7 +505,6 @@ class Cmnd(object):
         if icmRunArgs.cmndArgs:
             applicableCmndKwArgs.update({'argsList': icmRunArgs.cmndArgs})
 
-        # print(f"YYY 4444  == {applicableCmndKwArgs}")
         return applicableCmndKwArgs
 
     def invModel(self,
@@ -1209,16 +1209,28 @@ def G_argsProc(
      # We are inserting "--" after -i cmnd
      # to get things like -i run pip install --verbose
      #
+     # Fixed: Insert "--" at the END if -i or --invokes is found,
+     # not immediately after the command name. This ensures all global options
+     # (whether before or after -i) are parsed correctly, regardless of argument order.
      #
+     has_invoke_flag = False
+     invoke_cmd_index = None
      index = 0
      for each in arguments:
          if each == "-i":
-             arguments.insert(index+2, "--")
+             has_invoke_flag = True
+             invoke_cmd_index = index + 1
              break
          if each == "--invokes":
-             arguments.insert(index+2, "--")
+             has_invoke_flag = True
+             invoke_cmd_index = index + 1
              break
          index = index + 1
+     
+     # If we found -i or --invokes, insert "--" at the end to separate
+     # global options from passthrough arguments to the subcommand
+     if has_invoke_flag and invoke_cmd_index is not None and invoke_cmd_index < len(arguments):
+         arguments.append("--")
 
      args, unknown = parser.parse_known_intermixed_args(arguments)
 
@@ -2167,7 +2179,6 @@ def cmndToFileParamsUpdate(
             varValue=attrValue,
         )
 
-
     docStr = cs.inCmnd.cmndDocStrShort().pyCmnd(
         cmndName=cmndName,
     )
@@ -2201,12 +2212,61 @@ def cmndToFileParamsUpdate(
     )
     writeCmndAttrFV(
         cmndName=cmndName,
+        attrName='argsLen',
+        attrValue=cmndClass().argsLen(),
+    )
+
+    argsParRoot = pathlib.Path(absoluteParRoot) / pathlib.Path(cmndName) / pathlib.Path("argsSpec")
+
+    cmndArgsToFileParamsUpdate(cmndClass, argsParRoot)
+
+
+    writeCmndAttrFV(
+        cmndName=cmndName,
         attrName='cmndInfo',
         attrValue=cs.inCmnd.cmndInfoEssential().pyCmnd(
             orgLevel=2,
             cmndName=cmndName,
         )
     )
+
+    return
+
+
+
+####+BEGIN: b:py3:cs:func/typing :funcName "cmndArgsToFileParamsUpdate" :funcType "extTyped" :deco "track"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  F-T-extTyped [[elisp:(outline-show-subtree+toggle)][||]] /cmndArgsToFileParamsUpdate/  deco=track  [[elisp:(org-cycle)][| ]]
+#+end_org """
+@cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+def cmndArgsToFileParamsUpdate(
+####+END:
+        cmndClass,
+        parRoot,
+) -> None:
+    """ #+begin_org
+** [[elisp:(org-cycle)][| *DocStr | ] Write cmndARgs as fileParam.
+    #+end_org """
+
+
+    cmndArgsSpecDict = cmndClass().cmndArgsSpec()
+
+    if cmndArgsSpecDict is None:
+        return
+
+    parRootPath = pathlib.Path(parRoot)
+    parRootPath.mkdir(parents=True, exist_ok=True)
+
+    cmndArgsDict = cmndArgsSpecDict.argDictGet()
+    # print(f"{cmndArgsDict}")
+
+    for argPosition, cmndArgSpec in cmndArgsDict.items():
+        b.fp.FileParamWriteTo(parRootPath, 'argPosition', argPosition)
+        b.fp.FileParamWriteTo(parRootPath, 'argName', cmndArgSpec.argNameGet())
+        b.fp.FileParamWriteTo(parRootPath, 'argChoices', cmndArgSpec.argChoicesGet())
+        b.fp.FileParamWriteTo(parRootPath, 'argDescription', cmndArgSpec.argDescriptionGet())
+        b.fp.FileParamWriteTo(parRootPath, 'argPyType', cmndArgSpec.argDataTypeGet())
+        b.fp.FileParamWriteTo(parRootPath, 'argDefault', cmndArgSpec.argDefaultGet())
 
     return
 

@@ -494,9 +494,12 @@ def ex_gExtCmndMenuItem(
     for key in cmndPars:
         cmndParsStr += """--{parName}="{parValue}" """.format(parName=key, parValue=cmndPars[key])
 
-    cmndLine = """{cmndParsStr} -i {cmndName} {cmndArgs}""".format(
-        cmndName=cmndName, cmndParsStr=cmndParsStr, cmndArgs=cmndArgs
-    )
+    # 260115 Changed so -i comes first -- Pars later
+    # cmndLine = """{cmndParsStr} -i {cmndName} {cmndArgs}""".format(
+    #     cmndName=cmndName, cmndParsStr=cmndParsStr, cmndArgs=cmndArgs
+    # )
+
+    cmndLine = f"""-i {cmndName} {cmndParsStr} {cmndArgs}"""
 
     menuItem(
         cmndLine=cmndLine,
@@ -556,7 +559,7 @@ def cmndEnter(
     for key in pars:
         cmndParsStr += f"""--{key}="{pars[key]}" """
 
-    cmndLine = f"""{cmndParsStr}{roEnable} -i {name} {args}"""
+    cmndLine = f"""-i {name} {cmndParsStr}{roEnable} {args}"""
 
     #print(cmndLine)
 
@@ -571,8 +574,6 @@ def cmndEnter(
             icmWrapper=wrapper,
             icmName=csName,
         )
-
-
 
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "cmndInsert" :funcType "extTyped" :deco "track"
@@ -611,7 +612,7 @@ def cmndInsert(
     for key in cmndPars:
         cmndParsStr += """--{parName}="{parValue}" """.format(parName=key, parValue=cmndPars[key])
 
-    cmndLine = f"""{cmndParsStr}{roEnable} -i {cmndName} {cmndArgs}"""
+    cmndLine = f"""-i {cmndName} {cmndParsStr}{roEnable} {cmndArgs}"""
 
     menuItemInsert(
         commandLine=cmndLine,

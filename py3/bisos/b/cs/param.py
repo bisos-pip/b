@@ -151,16 +151,14 @@ class CmndParam(object):
          self.__argparseLongOpt =  argparseLongOpt
 
      def __str__(self):
-         return  ("""\
-parName: {parName}
-value: {value}
-description: {description}""".
-                  format(
-                      parName=self.parNameGet(),
-                      value=self.parValueGet(),
-                      description=self.parDescriptionGet()
-                  )
-             )
+         return  (f"""\
+parName: {self.__parName}
+parDescription: {self.__parDescription}
+parDataType: {self.__parDataType}
+parValue: {self.__parValue}
+parDefault: {self.__parDefault}
+parChoices: {self.__parChoices}\
+""")
 
      def parNameGet(self):
          """  """
@@ -409,6 +407,13 @@ class CmndParamDict(object):
 
          self.parDictAppend(thisParam)
          # print(f"rrr {thisParam}")
+
+     def __str__(self):
+         result = "{\n"
+         for key, value in self.__csParamDict.items():
+             result = f"{result} {key}:\n{value}\n,\n"
+         result = f"{result}}}"
+         return result
 
      def parDictAppend(self, csParam):
          """        """
