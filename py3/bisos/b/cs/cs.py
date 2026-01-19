@@ -2248,7 +2248,6 @@ def cmndArgsToFileParamsUpdate(
 ** [[elisp:(org-cycle)][| *DocStr | ] Write cmndARgs as fileParam.
     #+end_org """
 
-
     cmndArgsSpecDict = cmndClass().cmndArgsSpec()
 
     if cmndArgsSpecDict is None:
@@ -2269,7 +2268,6 @@ def cmndArgsToFileParamsUpdate(
         b.fp.FileParamWriteTo(parRootPath, 'argDefault', cmndArgSpec.argDefaultGet())
 
     return
-
 
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "cmndCallParamsValidate" :funcType "extTyped" :deco "track"
