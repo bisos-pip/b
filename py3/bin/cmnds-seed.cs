@@ -81,9 +81,16 @@ from bisos.b import b_io
 import collections
 ####+END:
 
+####+BEGIN: b:py3:cs:framework/exceptionImports :comment "BISOS Enhanced Excpetions"
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CsFrmWrk   [[elisp:(outline-show-subtree+toggle)][||]] *Imports* =BISOS Enhanced Exceptions=
+#+end_org """
+from bisos.b import enhancedExceptions
+####+END:
+
 ####+BEGIN: b:py3:cs:framework/csmuSeeded :comment "Import plantedCsu"
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CsFrmWrk   [[elisp:(outline-show-subtree+toggle)][||]] =Seeded CSMU= Import plantedCsu
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CsFrmWrk   [[elisp:(outline-show-subtree+toggle)][||]] ~Seeded CSMU~ Import plantedCsu
 #+end_org """
 from bisos.b import cmndsSeed
 if b.cs.G.plantOfThisSeed is not None:
@@ -91,6 +98,8 @@ if b.cs.G.plantOfThisSeed is not None:
 ####+END:
 
 import sys
+
+
 
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CsFrmWrk   [[elisp:(outline-show-subtree+toggle)][||]] ~csuList emacs-list Specifications~  [[elisp:(blee:org:code-block/above-run)][ /Eval Below/ ]] [[elisp:(org-cycle)][| ]]
@@ -185,6 +194,52 @@ class examples(cs.Cmnd):
         b.ignore(ro.__doc__,  cmndArgsSpecDict)  # We are not using these modules, but they are auto imported.
 
         return(cmndOutcome)
+
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "testException" :comment "" :parsMand "" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
+""" #+begin_org
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<testException>>  =verify= ro=cli   [[elisp:(org-cycle)][| ]]
+#+end_org """
+class testException(cs.Cmnd):
+    cmndParamsMandatory = [ ]
+    cmndParamsOptional = [ ]
+    cmndArgsLen = {'Min': 0, 'Max': 0,}
+
+    @cs.track(fnLoc=True, fnEntry=True, fnExit=True)
+    def cmnd(self,
+             rtInv: cs.RtInvoker,
+             cmndOutcome: b.op.Outcome,
+    ) -> b.op.Outcome:
+
+        failed = b_io.eh.badOutcome
+        callParamsDict = {}
+        if self.invocationValidate(rtInv, cmndOutcome, callParamsDict, None).isProblematic():
+            return failed(cmndOutcome)
+####+END:
+        self.cmndDocStr(f""" #+begin_org
+** [[elisp:(org-cycle)][| *CmndDesc:* | ]]  A test command that raises an exception.
+        #+end_org """)
+
+        if self.justCaptureP(): return cmndOutcome
+
+        # Test variables for enhanced exception output
+        seedCSMU = {'cmndName': 'testException', 'module': 'test_module'}
+        inExecName = 'testException.cs'
+        pathEnvVar = '/usr/bin:/bin'
+
+        from bisos.b import cmndsSeed
+
+        seedCSMU = 'seededCmnds.cs'
+        cmndsSeed.plantWithWhich(seedCSMU)
+
+
+        # Intentionally raise an exception
+        raise ValueError(f"Test exception with seedCSMU={seedCSMU}")
+
+        return cmndOutcome.set(
+            opError=b.OpError.Success,
+        )
+
+
 
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 0 :sep nil :title "Main" :anchor ""  :extraInfo "Framework Dblock"
 """ #+begin_org

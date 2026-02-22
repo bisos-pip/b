@@ -269,18 +269,7 @@ List of File Parameters
 * [[elisp:(show-all)][(>]]  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_  _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_       [[elisp:(outline-show-subtree+toggle)][| *How Plants Use Seeds:* |]]  atexit  [[elisp:(org-shifttab)][<)]] E|
 ####+END
 ** +
-** from bin/plantedHelloWorld.cs (plantedCsu) :: from bisos.b import seededCmnds_seed
-** bisos.b.seededCmnds_seed  include @atexit.register def atexit_plantWithWhich()
-** atexit b.importFile.plantWithWhich('seededCmnds.cs') is called.
-** b.importFile.plantWithWhich sets b.cs.G.seedOfThisPlant = execFilePath and invokes: execWithWhich(inExecName,)
-** b.importFile.execWithWhich() resolves which and invoked execFileAsMain(execFilePath,)
-** b.importFile.execFileAsMain(importedFilePath) sets __main__.__file__ = sys.argv[0] invokes importFileAs(__main__)
-** b.importFile.importFileAs('__main__', importedFilePath) eventuallu execs which resolved seededCmnds.cs
-** The Cmnds+Params of bin/plantedHelloWorld.cs are included in seededCmnds.cs through the special  'plantedCsu'
-** In csmu (seededCmnds.cs) Use DBlock::  BEGIN: b:py3:cs:framework/csmuSeeded :comment "Import plantedCsu"
-** Add "plantedCsu" to (setq  b:py:cs:csuList (list
-** Inside of seededCmnds.cs you can detect plant's execution with if b.cs.G.plantOfThisSeed is not None:
-** /plantedCsu/  is considered special. It represents the plantedModule. bisos.b.cs is aware of plantedCsu name.
+** See: [[file:/bisos/panels/bisos-core/PyCsFwrk/seededCS/_nodeBase_/fullUsagePanel-en.org]]
 ** -|B
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 0 :sep t :title "Uploadable Modules -- cstoModules" :anchor "" :extraInfo "facterModule"
 * /[[elisp:(beginning-of-buffer)][|^]]  [[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]] [[elisp:(delete-other-windows)][|1]]/

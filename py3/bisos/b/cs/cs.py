@@ -1229,8 +1229,8 @@ def G_argsProc(
      
      # If we found -i or --invokes, insert "--" at the end to separate
      # global options from passthrough arguments to the subcommand
-     if has_invoke_flag and invoke_cmd_index is not None and invoke_cmd_index < len(arguments):
-         arguments.append("--")
+     # if has_invoke_flag and invoke_cmd_index is not None and invoke_cmd_index < len(arguments):
+         # arguments.append("--")
 
      args, unknown = parser.parse_known_intermixed_args(arguments)
 
@@ -1246,6 +1246,8 @@ def G_argsProc(
          # We are going to ignore unknown parameters
          # by removing them from arguments and running args = parser.parse_args(arguments)
          # If we don't do this cmndArgs would be messed up
+         # Feb 18, 2025 -- With ignoreUnknownParams == True, args have PROBLEMS
+         # print(f"4444 {ignoreUnknownParams}")
          onlyKnownArgs = arguments.copy()
          for each in unknown:
              #  Look in unkown, decide if it should have a value and remove it and its value if any

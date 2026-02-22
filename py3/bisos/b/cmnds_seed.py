@@ -84,7 +84,7 @@ import atexit
 
 from bisos.b import cmndsSeed
 
-seedCSMU = 'seededCmnds.cs'
+seedCSMU = 'cmnds-seed.cs'
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "atexit_plantWithWhich" :funcType "extTyped" :comment "expects seedGraphviz.cs" :deco "atexit.register"
 """ #+begin_org

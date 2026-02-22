@@ -262,7 +262,9 @@ def myName(
 ** [[elisp:(org-cycle)][| *DocStr | ] Emit =myName= and =myFullName=
     #+end_org """
 
-    print(f"#######    *{myName}*    ##########")
+    features = cs.G.csInfo().get('features', "missing csInfo['features']")
+
+    print(f"#######    *{myName}*  --- Features:{features}   ##########")
     print(f"=======  {myFullName}   ===========")
     if cs.G.seedOfThisPlant is None:
         pass

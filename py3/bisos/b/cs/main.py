@@ -142,6 +142,7 @@ def classedCmndsDict(
             continue
 
         for eachModuleName in cmndsModulesList:
+            # print(f"444 {eachModuleName}")
             eachModule = importlib.import_module(eachModuleName)
             cmndClass = getattr(eachModule, eachCmnd, None)
             if cmndClass is None:
