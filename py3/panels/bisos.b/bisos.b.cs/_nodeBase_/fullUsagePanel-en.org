@@ -253,6 +253,7 @@ List of File Parameters
 | perfPortNu         | integer     | 100001        | /bisos/control/services -- corresponding to rosmu/csMain |
 | accessControl      | placeholder | placeholder   | placeholder                                              |
 | perfModel          | string      | rpyc          | in 2022, rpyc is your only choice                        |
+| perfModel          | string      | oas           | in 2026, django OpenApiSpecification
 | perfName           | string      | PML-1006      | See above                                                |
 | rosmu              | string      | csExamples.cs | See above                                                |
 | rosmuSel           | string      | default       | See above                                                |
