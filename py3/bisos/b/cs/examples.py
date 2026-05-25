@@ -410,7 +410,8 @@ def menuItemInsert(
     elif verbosity == 'full':
         print(( G_myName + " -v 1"  + " --callTrackings monitor+" + " --callTrackings invoke+" + " " + fullCommandLine ))
     else:
-        return io.eh.io.eh.critical_oops('')
+        print(f"Problem: verbosity={verbosity}")
+        # return io.eh.io.eh.critical_oops('')
 
 ####+BEGIN: b:py3:cs:func/typing :funcName "csCmndLine" :funcType "extTyped" :deco "track"
 """ #+begin_org

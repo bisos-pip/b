@@ -417,7 +417,7 @@ def info(
 ** [[elisp:(org-cycle)][| *DocStr | ]
     #+end_org """
 
-    logControler = b_io.log.Control()
+    logControler = b_io.log._Control()
     logger = logControler.loggerGet()
     return (
         logger.info(format(*v, **k))
@@ -436,7 +436,7 @@ def warning(
 ** [[elisp:(org-cycle)][| *DocStr | ]
     #+end_org """
 
-    logControler = b_io.log.Control()
+    logControler = b_io.log._Control()
     logger = logControler.loggerGet()
     return (
         logger.info(format(*v, **k))
@@ -455,7 +455,7 @@ def error(
 ** [[elisp:(org-cycle)][| *DocStr | ]
     #+end_org """
 
-    logControler = b_io.log.Control()
+    logControler = b_io.log._Control()
     logger = logControler.loggerGet()
     return (
         logger.error(format(*v, **k))
@@ -474,7 +474,7 @@ def critical(
 ** [[elisp:(org-cycle)][| *DocStr | ]
     #+end_org """
 
-    logControler = b_io.log.Control()
+    logControler = b_io.log._Control()
     logger = logControler.loggerGet()
     return (
         logger.critical(format(*v, **k))
