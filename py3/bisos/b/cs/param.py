@@ -133,6 +133,7 @@ class CmndParam(object):
                   parCmndApplicability=None,             # List of CMNDs to which this ICM is applicable
                   argparseShortOpt=None,
                   argparseLongOpt=None,
+                  parPermanence=None,                    # e.g. "userConfig" for persistent user-config params
                  ):
          '''Constructor'''
          self.__parName = parName
@@ -149,6 +150,7 @@ class CmndParam(object):
          self.parNargsSet(parNargs)
          self.__argparseShortOpt =  argparseShortOpt
          self.__argparseLongOpt =  argparseLongOpt
+         self.__parPermanence = parPermanence
 
      def __str__(self):
          return  (f"""\
@@ -195,6 +197,14 @@ parChoices: {self.__parChoices}\
      @fileParName.setter
      def fileParName(self, value: str | None,):
          self.__fileParName = value
+
+     @property
+     def parPermanence(self) -> str | None:
+         return self.__parPermanence
+
+     @parPermanence.setter
+     def parPermanence(self, value: str | None):
+         self.__parPermanence = value
 
      def parDescriptionGet(self):
          """        """
@@ -388,6 +398,7 @@ class CmndParamDict(object):
                     parNargs=None,
                     argparseShortOpt=None,
                     argparseLongOpt=None,
+                    parPermanence=None,
                    ):
          """        """
          thisParam = CmndParam(parName=parName,
@@ -403,10 +414,16 @@ class CmndParamDict(object):
                                parNargs=parNargs,
                                argparseShortOpt=argparseShortOpt,
                                argparseLongOpt=argparseLongOpt,
+                               parPermanence=parPermanence,
                                )
 
          self.parDictAppend(thisParam)
          # print(f"rrr {thisParam}")
+
+         if parPermanence == 'userConfig' and parDefault is not None:
+             from bisos.b import userConfig_csu
+             if userConfig_csu.parGet(parName) is None:
+                 userConfig_csu.parSet(parName, str(parDefault))
 
      def __str__(self):
          result = "{\n"
