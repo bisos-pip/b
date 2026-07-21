@@ -26,9 +26,8 @@
 * [[elisp:(show-all)][(>]] [[elisp:(describe-function 'org-dblock-write:blee:bxPanel:terseTreeNavigator)][dbf]]
 * +
 *                                        *━━━━━━━━━━━━━━━━━━━━━━━━*
-*   *Siblings*   :: [[elisp:(blee:bnsm:panel-goto "//l/pip/b/py3/panels/bisos.b/README")][README]] *|* [[elisp:(blee:bnsm:panel-goto "//l/pip/b/py3/panels/bisos.b/bisos.b.b_io/_nodeBase_")][ =bisos.b.b_io= ]] *|* [[elisp:(blee:bnsm:panel-goto "//l/pip/b/py3/panels/bisos.b/bisos.b.cs/_nodeBase_")][ =bisos.b.cs= ]] *|* [[elisp:(blee:bnsm:panel-goto "//l/pip/b/py3/panels/bisos.b/evolution/_nodeBase_")][ =evolution= ]] *|* [[elisp:(blee:bnsm:panel-goto "//l/pip/b/py3/panels/bisos.b/fileCmndParams/_nodeBase_")][ =fileCmndParams= ]] *|*
-*   /Ancestors/  :: [[elisp:(blee:bnsm:panel-goto "/l/pip/b/py3/panels/bisos.b/_nodeBase_")][ =bisos.b= ]] *|* [[elisp:(dired "/l/pip/b/py3/panels")][ ~panels~ ]] *|* [[elisp:(blee:bnsm:panel-goto "/l/pip/b/py3")][py3]] *|* [[elisp:(blee:bnsm:panel-goto "/l/pip/b/_nodeBase_")][ =b= ]] *|* [[elisp:(blee:bnsm:panel-goto "/l/pip/_nodeBase_")][ = /<pip>/ = ]] *|*
-*   /Ancestors/  :: [[elisp:(dired "/l")][ ~l~ ]] *|* [[elisp:(dired "//")][ ~~ ]] *|*
+*   *Siblings*   :: [[elisp:(blee:bnsm:panel-goto "/bisos/panels/bisos-core/bisos-pip/bisos.b/README")][README]] *|* [[elisp:(blee:bnsm:panel-goto "/bisos/panels/bisos-core/bisos-pip/bisos.b/bisos.b.b_io/_nodeBase_")][ =bisos.b.b_io= ]] *|* [[elisp:(blee:bnsm:panel-goto "/bisos/panels/bisos-core/bisos-pip/bisos.b/bisos.b.cs/_nodeBase_")][ =bisos.b.cs= ]] *|* [[elisp:(blee:bnsm:panel-goto "/bisos/panels/bisos-core/bisos-pip/bisos.b/evolution/_nodeBase_")][ =evolution= ]] *|* [[elisp:(blee:bnsm:panel-goto "/bisos/panels/bisos-core/bisos-pip/bisos.b/fileCmndParams/_nodeBase_")][ =fileCmndParams= ]] *|*
+*   /Ancestors/  :: [[elisp:(blee:bnsm:panel-goto "//bisos/panels/bisos-core/bisos-pip/bisos.b/_nodeBase_")][ = /<bisos.b>/ = ]] *|* [[elisp:(blee:bnsm:panel-goto "//bisos/panels/bisos-core/bisos-pip/_nodeBase_")][ =bisos-pip= ]] *|* [[elisp:(blee:bnsm:panel-goto "//bisos/panels/bisos-core/_nodeBase_")][ =bisos-core= ]] *|* [[elisp:(blee:bnsm:panel-goto "//bisos/panels/_nodeBase_")][ = /<panels>/ = ]] *|* [[elisp:(dired "//bisos")][ ~bisos~ ]] *|*
 *                                   _━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━_                          [[elisp:(org-shifttab)][<)]] E|
 ####+END
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 1 :title "Overview" :anchor "Panel"
@@ -52,6 +51,19 @@
 ####+END
 ** +
 ** TODO introduce cmndOutcome and control over it with reportCmndOutcome and merge with reportInvocationOutcome
+** -B|
+####+BEGIN: blee:bxPanel:foldingSection :outLevel 1 :sep t :title "CS Command Parameters" :anchor "cs-cmnd" :extraInfo ""
+* /[[elisp:(beginning-of-buffer)][|^]]  [[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]] [[elisp:(delete-other-windows)][|1]]/
+* [[elisp:(show-all)][(>]]  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_  _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_       [[elisp:(outline-show-subtree+toggle)][| *CS Command Parameters:* |]] <<cs-cmnd>>   [[elisp:(org-shifttab)][<)]] E|
+####+END
+** +
+** In an ordered fashion, value of a parameter can come from 4 different places
+** 1) The Command Line Itself --- --<param>=value
+** 2) The User Config  ---  ~/.config/bisos/<csxu>/fps/<param>/value --- Only applicable if permanenece is specified
+** 3) Currents  --- ~/.config/bisos/currents/xxx/<param>/value
+** 4) Defaults
+** ------- Based on the above, optional vs mandatory, takes the form 4 only
+** Need to create a cmndParamProvenance, where an array comes through.
 ** -B|
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 1 :sep t :title "CS Examples" :anchor "cs-examples" :extraInfo ""
 * /[[elisp:(beginning-of-buffer)][|^]]  [[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]] [[elisp:(delete-other-windows)][|1]]/
