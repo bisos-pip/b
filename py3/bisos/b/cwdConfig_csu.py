@@ -2,22 +2,23 @@
 # -*- coding: utf-8 -*-
 
 """ #+begin_org
-* ~[Summary]~ :: Generic persistent user-config file-parameter helpers and CS commands.
+* ~[Summary]~ :: Generic per-directory persistent file-parameter helpers and CS commands.
 
-Config root: =~/.config/bisos/<csxu-name>/fps/<parName>/value=
-where =<csxu-name>= is the basename of =sys.argv[0]=.
+Config root: =<cwd>/.<csxu-name>/fps/<parName>/value=
+where =<csxu-name>= is the basename of =sys.argv[0]= and =<cwd>= is the
+current working directory at invocation time.
 
-For per-directory overrides, see the companion module =bisos.b.cwdConfig_csu=.
-The two are independent: add either or both to a csxu's =csuList=. Precedence
-policy (per-directory beats global, etc.) is decided by the caller.
+Companion to =bisos.b.userConfig_csu= (which stores under =~/.config/bisos/=).
+Where =userConfig_csu= provides machine-wide defaults, =cwdConfig_csu= provides
+per-directory overrides. The two are independent — a caller decides precedence
+policy by asking one or the other (or both) in the desired order.
 
-Any PyCS param declared with =parPermanence="userConfig"= is automatically managed here.
-Add =bisos.b.userConfig_csu= to a csxu's =csuList= and tag params with
-=parPermanence="userConfig"= to get persistent user-config for free.
+Any PyCS param declared with =parPermanence="userConfig"= is discoverable here
+the same way as in =userConfig_csu=. Add =bisos.b.cwdConfig_csu= to a csxu's
+=csuList= to expose =cwdConfig_get= / =cwdConfig_set= commands.
 #+end_org """
 
 import collections
-import os
 import pathlib
 import sys
 import typing
@@ -35,11 +36,11 @@ from bisos.common import csParam
 
 def _configRoot() -> str:
     csxuName = pathlib.Path(sys.argv[0]).name
-    return os.path.expanduser(f'~/.config/bisos/{csxuName}/fps')
+    return str(pathlib.Path.cwd().resolve() / f'.{csxuName}' / 'fps')
 
 
 # ---------------------------------------------------------------------------
-# Discover params tagged parPermanence="userConfig" from all loaded modules
+# Discover params tagged parPermanence="userConfig" from __main__ and csuList
 # ---------------------------------------------------------------------------
 
 def _allCsParams() -> typing.Dict[str, cs.param.CmndParam]:
@@ -56,8 +57,8 @@ def _allCsParams() -> typing.Dict[str, cs.param.CmndParam]:
     return csParams.parDictGet()
 
 
-def userConfigParamsGet() -> typing.Dict[str, cs.param.CmndParam]:
-    """Return all params whose parPermanence list contains 'userConfig'.
+def cwdConfigParamsGet() -> typing.Dict[str, cs.param.CmndParam]:
+    """Return all params whose parPermanence list contains 'cwdConfig'.
 
     parPermanence is a list of persistence tags (Python literal), e.g.
     ["userConfig"], ["cwdConfig"], or ["userConfig", "cwdConfig"] for
@@ -67,7 +68,7 @@ def userConfigParamsGet() -> typing.Dict[str, cs.param.CmndParam]:
     result = {}
     for name, param in _allCsParams().items():
         perm = getattr(param, 'parPermanence', None) or []
-        if "userConfig" in perm:
+        if "cwdConfig" in perm:
             result[name] = param
     return result
 
@@ -94,28 +95,14 @@ def parSet(
 
 
 # ---------------------------------------------------------------------------
-# commonParamsSpecify — contributes parName / parValue to the main CLI
+# commonParamsSpecify — no params of its own; reuses parName / parValue from
+# userConfig_csu when that CSU is also in csuList. If cwdConfig_csu is used
+# without userConfig_csu, the main csxu is responsible for declaring
+# parName / parValue.
 # ---------------------------------------------------------------------------
 
 def commonParamsSpecify(csParams: cs.param.CmndParamDict) -> None:
-    csParams.parDictAdd(
-        parName='parName',
-        parDescription="Name of the persistent user-config parameter.",
-        parDataType=None,
-        parDefault=None,
-        parChoices=[],
-        argparseShortOpt=None,
-        argparseLongOpt='--parName',
-    )
-    csParams.parDictAdd(
-        parName='parValue',
-        parDescription="Value to set for the persistent user-config parameter.",
-        parDataType=None,
-        parDefault=None,
-        parChoices=[],
-        argparseShortOpt=None,
-        argparseLongOpt='--parValue',
-    )
+    pass
 
 
 # ---------------------------------------------------------------------------
@@ -147,34 +134,34 @@ class examples_csu(cs.Cmnd):
         od = collections.OrderedDict
         cmnd = cs.examples.cmndEnter
 
-        persistentParams = userConfigParamsGet()
+        persistentParams = cwdConfigParamsGet()
 
-        cs.examples.menuChapter('=userConfig_get= -- show current value of a persistent parameter')
+        cs.examples.menuChapter('=cwdConfig_get= -- show per-directory value of a persistent parameter')
         for parName, param in persistentParams.items():
             currentVal = parGet(parName)
             comment = f"# current: {currentVal}" if currentVal else "# (not set)"
-            cmnd('userConfig_get',
+            cmnd('cwdConfig_get',
                  pars=od([('parName', parName)]),
                  comment=comment)
 
-        cs.examples.menuChapter('=userConfig_set= -- set a persistent parameter')
+        cs.examples.menuChapter('=cwdConfig_set= -- set a per-directory persistent parameter')
         for parName, param in persistentParams.items():
-            cmnd('userConfig_set',
+            cmnd('cwdConfig_set',
                  pars=od([('parName', parName), ('parValue', f'<{parName}-value>')]),
-                 comment=f"# {param.parDescriptionGet()}")
+                 comment=f"# {param.parDescriptionGet()}  (writes ./.<csxu-name>/fps/{parName}/value)")
 
         return cmndOutcome.set(opError=b.op.OpError.Success, opResults=None)
 
 
 # ---------------------------------------------------------------------------
-# userConfig_get
+# cwdConfig_get
 # ---------------------------------------------------------------------------
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "userConfig_get" :comment "Show current value of a persistent user-config parameter" :extent "verify" :ro "cli" :parsMand "parName" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "cwdConfig_get" :comment "Show per-directory value of a persistent parameter" :extent "verify" :ro "cli" :parsMand "parName" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<userConfig_get>>  =verify= parsMand=parName ro=cli   [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<cwdConfig_get>>  =verify= parsMand=parName ro=cli   [[elisp:(org-cycle)][| ]]
 #+end_org """
-class userConfig_get(cs.Cmnd):
+class cwdConfig_get(cs.Cmnd):
     cmndParamsMandatory = [ 'parName', ]
     cmndParamsOptional = [ ]
     cmndArgsLen = {'Min': 0, 'Max': 0,}
@@ -193,8 +180,8 @@ class userConfig_get(cs.Cmnd):
         parName = csParam.mappedValue('parName', parName)
 ####+END:
         self.cmndDocStr(f""" #+begin_org
-** [[elisp:(org-cycle)][| *CmndDesc:* | ]]  Show current value of a persistent user-config parameter.
-Config root: =~/.config/bisos/<csxu-name>/fps/=
+** [[elisp:(org-cycle)][| *CmndDesc:* | ]]  Show per-directory value of a persistent parameter.
+Config root: =<cwd>/.<csxu-name>/fps/=
         #+end_org """)
 
         val = parGet(parName)
@@ -210,14 +197,14 @@ Config root: =~/.config/bisos/<csxu-name>/fps/=
 
 
 # ---------------------------------------------------------------------------
-# userConfig_set
+# cwdConfig_set
 # ---------------------------------------------------------------------------
 
-####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "userConfig_set" :comment "Set a persistent user-config parameter" :extent "verify" :ro "cli" :parsMand "parName parValue" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
+####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "cwdConfig_set" :comment "Set a per-directory persistent parameter" :extent "verify" :ro "cli" :parsMand "parName parValue" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv ""
 """ #+begin_org
-*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<userConfig_set>>  =verify= parsMand="parName parValue" ro=cli   [[elisp:(org-cycle)][| ]]
+*  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<cwdConfig_set>>  =verify= parsMand="parName parValue" ro=cli   [[elisp:(org-cycle)][| ]]
 #+end_org """
-class userConfig_set(cs.Cmnd):
+class cwdConfig_set(cs.Cmnd):
     cmndParamsMandatory = [ 'parName', 'parValue', ]
     cmndParamsOptional = [ ]
     cmndArgsLen = {'Min': 0, 'Max': 0,}
@@ -238,8 +225,8 @@ class userConfig_set(cs.Cmnd):
         parValue = csParam.mappedValue('parValue', parValue)
 ####+END:
         self.cmndDocStr(f""" #+begin_org
-** [[elisp:(org-cycle)][| *CmndDesc:* | ]]  Set a persistent user-config parameter.
-Writes value to =~/.config/bisos/<csxu-name>/fps/<parName>/value=.
+** [[elisp:(org-cycle)][| *CmndDesc:* | ]]  Set a per-directory persistent parameter.
+Writes value to =<cwd>/.<csxu-name>/fps/<parName>/value=.
         #+end_org """)
 
         parSet(parName, parValue)
