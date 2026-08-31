@@ -359,6 +359,13 @@ class AbstractWithinOpWrapper(object):
     ):
         self.invedBy = invedBy
         if invedBy:
+            # FOOTGUN: with invedBy set, self.outcome is SHARED with invedBy (its
+            # cmndOutcome). Every wrapper built from the same invedBy --- e.g.
+            # repeated b.subProc.WOpW(invedBy=self).bash(...) calls --- writes to
+            # this one object, so a later call OVERWRITES an earlier call's
+            # stdout/stderr/error. Consume each result inline (read .stdout /
+            # .isProblematic()) BEFORE the next call, or capture into a local.
+            # Pass invedBy=None to get an independent, fresh Outcome per call.
             self.outcome = invedBy.cmndOutcome
         else:
             self.outcome = None
