@@ -641,6 +641,7 @@ def FileParamReadFromPath(
 
     if filePar == None:
         #print('Missing: ' + parRoot + parName)
+        b_io.tm.note(f"In FileParamReadFromPath Missing: {parRoot}")
         raise IOError
         #return b_io.eh.critical_usageError('blank')
 
