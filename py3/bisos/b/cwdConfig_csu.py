@@ -109,6 +109,19 @@ def commonParamsSpecify(csParams: cs.param.CmndParamDict) -> None:
 # examples_csu
 # ---------------------------------------------------------------------------
 
+def _setExamplesPars(parName: str, param: typing.Any, current: typing.Optional[str]) -> typing.List[typing.Tuple[typing.Any, str]]:
+    """(pars, commentSuffix) for each *_set example of a param: one per suggestion
+    (see CmndParam.parSuggestionsGet), or the generic placeholder if none."""
+    od = collections.OrderedDict
+    suggestions = param.parSuggestionsGet()
+    if not suggestions:
+        return [(od([('parName', parName), ('parValue', f'<{parName}-value>')]), "")]
+    return [
+        (od([('parName', parName), ('parValue', each)]), "  (current)" if each == current else "")
+        for each in suggestions
+    ]
+
+
 ####+BEGIN: b:py3:cs:cmnd/classHead :cmndName "examples_csu" :extent "verify" :ro "noCli" :comment "CSU Examples" :parsMand "" :parsOpt "" :argsMin 0 :argsMax 0 :pyInv "pyKwArgs"
 """ #+begin_org
 *  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_ _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_ [[elisp:(outline-show-branches+toggle)][|=]] [[elisp:(bx:orgm:indirectBufOther)][|>]] *[[elisp:(blee:ppmm:org-mode-toggle)][|N]]*  CmndSvc-   [[elisp:(outline-show-subtree+toggle)][||]] <<examples_csu>>  =verify= ro=noCli   [[elisp:(org-cycle)][| ]]
@@ -146,9 +159,10 @@ class examples_csu(cs.Cmnd):
 
         cs.examples.menuChapter('=cwdConfig_set= -- set a per-directory persistent parameter')
         for parName, param in persistentParams.items():
-            cmnd('cwdConfig_set',
-                 pars=od([('parName', parName), ('parValue', f'<{parName}-value>')]),
-                 comment=f"# {param.parDescriptionGet()}  (writes ./.<csxu-name>/fps/{parName}/value)")
+            for pars, note in _setExamplesPars(parName, param, parGet(parName)):
+                cmnd('cwdConfig_set',
+                     pars=pars,
+                     comment=f"# {param.parDescriptionGet()}{note}  (writes ./.<csxu-name>/fps/{parName}/value)")
 
         return cmndOutcome.set(opError=b.op.OpError.Success, opResults=None)
 

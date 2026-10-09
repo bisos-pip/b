@@ -43,16 +43,16 @@ def longDescription():
 # b:py3:pypi:setup/version Arguments  :forSys t :forPyPi t :constant "666"
 ####+BEGIN: b:py3:pypi:setup/version :comment "Auto Detected"
 
-# ./pypiUploadVer DID NOT exist -- forPypiVersion=0.95 -- forLocalVersion=0.43 -- constant=NA
+# ./pypiUploadVer DID NOT exist -- forPypiVersion=0.96 -- forLocalVersion=0.95 -- constant=NA
 def pkgVersion():
-        return '0.43'
+        return '0.95'
 
 ####+END:
 
 # b:py3:pypi:setup/requires :extras ; :requirements "requirements.txt" (bring here requirements.txt)
 ####+BEGIN: b:py3:pypi:setup/requires :extras ("bisos.basics" "rpyc" "black")
 
-requires = [
+requires = [ 
 "bisos",
 "bisos.common",
 "by",
@@ -67,7 +67,7 @@ requires = [
 # b:py3:pypi:setup/scripts :comment
 ####+BEGIN: b:py3:pypi:setup/scripts :comment ""
 
-scripts = [
+scripts = [ 
 'bin/csRo-manage.cs',
 'bin/obsoleted-cmnds-seed.cs',
 'bin/obsoleted-exampleCsu.pcs',
@@ -78,7 +78,7 @@ scripts = [
 # b:py3:pypi:setup/dataFiles :comment
 ####+BEGIN: b:py3:pypi:setup/dataFiles :comment "Instead of ./MANIFEST.in or in pyproject.toml"
 
-data_files = [
+data_files = [ 
 ('',  ['lh-agpl3-LICENSE.txt', '_description.org', 'README.rst']),
 ]
 ####+END:

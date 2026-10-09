@@ -134,6 +134,7 @@ class CmndParam(object):
                   argparseShortOpt=None,
                   argparseLongOpt=None,
                   parPermanence=None,                    # e.g. "userConfig" for persistent user-config params
+                  parSuggestions=None,                   # list, or callable returning a list: values examples may suggest
                  ):
          '''Constructor'''
          self.__parName = parName
@@ -151,6 +152,7 @@ class CmndParam(object):
          self.__argparseShortOpt =  argparseShortOpt
          self.__argparseLongOpt =  argparseLongOpt
          self.__parPermanence = parPermanence
+         self.__parSuggestions = parSuggestions
 
      def __str__(self):
          return  (f"""\
@@ -229,6 +231,28 @@ parChoices: {self.__parChoices}\
      def parDefaultSet(self, parDefault):
          """        """
          self.__parDefault = parDefault
+
+     def parSuggestionsGet(self):
+         """Suggested values, for example menus only: never validated, never persisted.
+
+         parSuggestions may be a list or a callable returning one (evaluated
+         here, when a menu is built, so probing the machine costs nothing at
+         import). Returns a de-duplicated list of strings, [] if none, or if
+         the callable fails.
+         """
+         suggestions = self.__parSuggestions
+         if callable(suggestions):
+             try:
+                 suggestions = suggestions()
+             except Exception:
+                 return []
+         if not suggestions:
+             return []
+         return list(dict.fromkeys(str(each) for each in suggestions))
+
+     def parSuggestionsSet(self, parSuggestions):
+         """        """
+         self.__parSuggestions = parSuggestions
 
      def parChoicesGet(self):
          """        """
@@ -399,6 +423,7 @@ class CmndParamDict(object):
                     argparseShortOpt=None,
                     argparseLongOpt=None,
                     parPermanence=None,
+                    parSuggestions=None,
                    ):
          """        """
          thisParam = CmndParam(parName=parName,
@@ -415,6 +440,7 @@ class CmndParamDict(object):
                                argparseShortOpt=argparseShortOpt,
                                argparseLongOpt=argparseLongOpt,
                                parPermanence=parPermanence,
+                               parSuggestions=parSuggestions,
                                )
 
          self.parDictAppend(thisParam)
