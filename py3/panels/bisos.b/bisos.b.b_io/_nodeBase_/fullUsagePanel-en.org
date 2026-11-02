@@ -36,6 +36,81 @@
 ** +
 ** Overview Comes Here.
 ** B|
+
+####+BEGIN: blee:bxPanel:foldingSection :outLevel 0 :sep t :title "PyCS Abstract Auxiliary Execution Output" :anchor "" :extraInfo ""
+* /[[elisp:(beginning-of-buffer)][|^]]  [[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]] [[elisp:(delete-other-windows)][|1]]/
+* [[elisp:(show-all)][(>]]  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_  _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_     [[elisp:(outline-show-subtree+toggle)][| _PyCS Abstract Auxiliary Execution Output_: |]]    [[elisp:(org-shifttab)][<)]] E|
+####+END
+
+####+BEGIN: blee:bxPanel:foldingSection :outLevel 1 :sep t :title "baxo: B Abstract eXecution Output" :anchor "" :extraInfo ""
+* /[[elisp:(beginning-of-buffer)][|^]]  [[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]] [[elisp:(delete-other-windows)][|1]]/
+* [[elisp:(show-all)][(>]]  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_  _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_       [[elisp:(outline-show-subtree+toggle)][| *baxo: B Abstract eXecution Output:* |]]    [[elisp:(org-shifttab)][<)]] E|
+####+END
+
+- baxo is an intgral part of bisos.b
+- At run time, behaviour of each of the baxo.xxx functions can be modified in one of two ways:
+- If bisos.baxoPlus or bisos.telemtry has been installed, baxo.xxx uses those extra facilities
+- At run time other functions can be registered to be used instead of baxo.xxx
+
+- baxo.xxx can be consistently mixed with the raw log module
+- baxo.xxx can be consistently mixed with telemetry
+
+- baxo.xxx behaviour can be controlled through the command line. baxo Related parameters are to be identified.
+- baxo function and Cmnd entry/exit decorators can be controlled by generic Cmnd Params
+- types of CSXU, and run-user determine determine default behaviour in BISOS context. iSh is fall back mode.
+- baxo facilities should behave properly outside of BISOS and even on Windows
+
+####+BEGIN: blee:bxPanel:foldingSection :outLevel 1 :sep t :title "baxo (Output) Facilities  (Tabular)" :anchor "" :extraInfo "Table of funcs, with tags, cond and level"
+* /[[elisp:(beginning-of-buffer)][|^]]  [[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]] [[elisp:(delete-other-windows)][|1]]/
+* [[elisp:(show-all)][(>]]  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_  _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_       [[elisp:(outline-show-subtree+toggle)][| *Output Facilities  (Tabular):* |]]  Table of funcs, with tags, cond and level  [[elisp:(org-shifttab)][<)]] E|
+####+END
+
+Top level baxo types
+
+baxo.std.f2
+
+baxo.uo.ann (User Output) -- Destined for user
+
+|--------------------+--------+---------+---------+-------------+------+-----------+-------------------|
+| Signature          | iSh    | Subproc | Wrapped | Purpose     | Tags | Cntrl     | Comments          |
+|                    | CSXU   | CSXU    | CSU     |             |      |           |                   |
+|--------------------+--------+---------+---------+-------------+------+-----------+-------------------|
+| baxo.ann           | stdout | stdout  | log     | User Output | Raw  | NA        |                   |
+| baxo.note          | stderr | stderr  | log     | User Info   | Raw  | NA        |                   |
+| baxo.info          | stderr | stderr  | log     | User Info   | [I]: | NA        |                   |
+| baxo.result        | stdout | stdout  | log     | User Output | Raw  | NA        |                   |
+|--------------------+--------+---------+---------+-------------+------+-----------+-------------------|
+| baxo.stdout        |        |         |         |             | Raw  | NA        |                   |
+| baxo.stderr        |        |         |         |             | Raw  | NA        |                   |
+| baxo.std.f3        |        |         |         |             | Raw  | NA        | baxo.err.badUsage |
+|--------------------+--------+---------+---------+-------------+------+-----------+-------------------|
+| baxo.log.success   |        |         |         |             | FLNo | Log lvl   | File/Line No      |
+| baxo.warn.resource |        |         |         |             | FLNo | Log lvl   |                   |
+|--------------------+--------+---------+---------+-------------+------+-----------+-------------------|
+| baxo.err.badUsage  |        |         |         |             | FLNo | NA        |                   |
+| baxo.err.badInput  |        |         |         |             | FLNo | NA        |                   |
+| baxo.err.failed    |        |         |         |             | FLNo | NA        |                   |
+|--------------------+--------+---------+---------+-------------+------+-----------+-------------------|
+| baxo.tm.note       |        |         |         |             | FLNo | Trace lvl | log + otel        |
+| baxo.tm.callIn     |        |         |         |             | FLno | Trace lvl | log + otel        |
+| baxo.tm.callOut    |        |         |         |             | Flno | Trace lvl | log + otel        |
+| baxo.tm.invoker    |        |         |         |             | Flno | Trace lvl | log + otel        |
+| baxo.tm.performer  |        |         |         |             | FLno | Trace lvl | log + otel        |
+| baxo.tm.subProc    |        |         |         |             | FLno | Trace lvl |                   |
+| baxo.tm.module     |        |         |         |             | FLNo | Trace lvl | at defined module |
+|--------------------+--------+---------+---------+-------------+------+-----------+-------------------|
+| baxo.xh.event      |        |         |         |             | FLno | Trace lvl | exception         |
+|--------------------+--------+---------+---------+-------------+------+-----------+-------------------|
+
+####+BEGIN: blee:bxPanel:foldingSection :outLevel 1 :sep t :title "baxo: B Abstract User Input" :anchor "" :extraInfo ""
+* /[[elisp:(beginning-of-buffer)][|^]]  [[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]] [[elisp:(delete-other-windows)][|1]]/
+* [[elisp:(show-all)][(>]]  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_  _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_       [[elisp:(outline-show-subtree+toggle)][| *baxo: B Abstract User Input:* |]]    [[elisp:(org-shifttab)][<)]] E|
+####+END
+
+- baui is an intgral part of bisos.b
+
+
+
 ####+BEGIN: blee:bxPanel:foldingSection :outLevel 1 :sep t :title "Output Facilities  (Tabular)" :anchor "" :extraInfo "Table of funcs, with tags, cond and level"
 * /[[elisp:(beginning-of-buffer)][|^]]  [[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]] [[elisp:(delete-other-windows)][|1]]/
 * [[elisp:(show-all)][(>]]  _[[elisp:(blee:menu-sel:outline:popupMenu)][±]]_  _[[elisp:(blee:menu-sel:navigation:popupMenu)][Ξ]]_       [[elisp:(outline-show-subtree+toggle)][| *Output Facilities  (Tabular):* |]]  Table of funcs, with tags, cond and level  [[elisp:(org-shifttab)][<)]] E|
